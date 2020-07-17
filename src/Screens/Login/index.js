@@ -6,7 +6,7 @@ import { styles } from "./styles";
 import { TextInput } from 'react-native-paper';
 import FastImage from 'react-native-fast-image'
 
-class Home extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,9 +44,16 @@ class Home extends Component {
           />
           <View style={styles.inlineText}>
             <Text style={styles.forgetPass}>{"Olvido su contrasena?"}</Text>
-            <Text style={styles.forgetClick}> {"Haga clic aqui"} </Text>
+            <Text
+              style={styles.forgetClick}
+              onPress={() => console.log("hiiii")}
+            >
+              {"Haga clic aqui"} </Text>
           </View>
-          <TouchableOpacity style={styles.btnBottom}>
+          <TouchableOpacity
+            style={styles.btnBottom}
+            onPress={() => this.props.navigation.navigate("Home")}
+          >
             <Text style={styles.btnText}>{"Inciar sesion"}</Text>
           </TouchableOpacity>
         </View>
@@ -58,4 +65,4 @@ class Home extends Component {
 const mapStateToProps = state => ({
   user: state.user
 });
-export default connect(mapStateToProps, { fetchHomePage })(Home);
+export default connect(mapStateToProps, { fetchHomePage })(Login);

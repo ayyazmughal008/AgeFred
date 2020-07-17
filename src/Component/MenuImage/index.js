@@ -9,14 +9,15 @@ export default class Header extends React.Component {
     render() {
         const { iconName, leftClick, title } = this.props
         return (
-            <FastImage
-                source={require('../../Screens/Login/assets/Logo.png')}
-                style={{
-                    width: widthPercentageToDP(30),
-                    height: widthPercentageToDP(25)
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-            />
+            <TouchableOpacity
+                onPress={leftClick}
+            >
+                <Icon
+                    name="menu"
+                    color="#ffff"
+                    size={25}
+                />
+            </TouchableOpacity>
         )
     }
 }
