@@ -23,10 +23,15 @@ class HomePage extends Component {
                 <Header
                     leftComponent={
                         <MenuImage
-                        leftClick = {()=> this.props.navigation.openDrawer()} 
+                            leftClick={() => this.props.navigation.openDrawer()}
+                            rightIcon="menu"
                         />
                     }
-                    centerComponent={<HeaderImage />}
+                    centerComponent={
+                        <HeaderImage
+                            isText={false}
+                        />
+                    }
                     containerStyle={{
                         backgroundColor: darkBlue,
                     }}

@@ -7,13 +7,13 @@ import FastImage from 'react-native-fast-image'
 export default class Header extends React.Component {
 
     render() {
-        const { iconName, leftClick, title } = this.props
+        const { iconName, leftClick, rightIcon } = this.props
         return (
             <TouchableOpacity
                 onPress={leftClick}
             >
                 <Icon
-                    name="menu"
+                    name= {rightIcon}
                     color="#ffff"
                     size={25}
                 />

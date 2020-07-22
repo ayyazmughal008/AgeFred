@@ -17,11 +17,12 @@ export default class Header extends React.Component {
                 justifyContent: "center",
                 alignItems: "center",
                 shadowColor: '#000000',
+                elevation: 5,
                 shadowOffset: {
                     width: 0,
                     height: 3
                 },
-                shadowRadius: 2,
+                shadowRadius: 3,
                 shadowOpacity: 0.5
             }}
                 onPress={clickHandler}
@@ -29,8 +30,8 @@ export default class Header extends React.Component {
                 <FastImage
                     source={iconName}
                     style={{
-                        width: widthPercentageToDP(6),
-                        height: widthPercentageToDP(6)
+                        width: widthPercentageToDP(8),
+                        height: widthPercentageToDP(8)
                     }}
                     resizeMode={FastImage.resizeMode.contain}
                 />
