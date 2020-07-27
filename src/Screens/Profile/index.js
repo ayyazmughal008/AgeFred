@@ -18,7 +18,7 @@ class Profile extends Component {
         };
     }
     render() {
-        const { AuthLoading } = this.props.user;
+        const { AuthLoading, login } = this.props.user;
         console.log("My loading", AuthLoading);
         return (
             <View style={styles.container}>
@@ -43,54 +43,54 @@ class Profile extends Component {
                 <View style={styles.mainContainer}>
                     <View style={styles.profileContainer}>
                         <FastImage
-                            source={require('../Home/assets/profile.png')}
+                            source={{uri : login.data.profilePicture}}
                             resizeMode={FastImage.resizeMode.cover}
                             style={styles.profileImg}
                         />
                         <View style={styles.topView}>
-                            <Text style={styles.topTitle}>{"Travis Newman"}</Text>
-                            <Text style={styles.bottomTitle}>{"Empleado Nivel 1"}</Text>
+                            <Text style={styles.topTitle}>{login.data.name}</Text>
+                            <Text style={styles.bottomTitle}>{login.data.level}</Text>
                         </View>
                     </View>
                     <View style={styles.profileBox}>
                         <View style={styles.profileTextView}>
                             <Text style={styles.boldText}>
-                                {"Nº de empleado :"}
+                                {"Nº de empleado : "}
                             </Text>
                             <Text style={styles.noBoldText}>
-                                {" lorem ipsam"}
+                                {login.data.number}
                             </Text>
                         </View>
                         <View style={styles.profileTextView}>
                             <Text style={styles.boldText}>
-                                {"Puesto de trabajo :"}
+                                {"Puesto de trabajo : "}
                             </Text>
                             <Text style={styles.noBoldText}>
-                                {" lorem ipsam"}
+                                {login.data.job}
                             </Text>
                         </View>
                         <View style={styles.profileTextView}>
                             <Text style={styles.boldText}>
-                                {"Departamento :"}
+                                {"Departamento : "}
                             </Text>
                             <Text style={styles.noBoldText}>
-                                {" lorem ipsam"}
+                                {login.data.department}
                             </Text>
                         </View>
                         <View style={styles.profileTextView}>
                             <Text style={styles.boldText}>
-                                {"Fecha de alta :"}
+                                {"Fecha de alta : "}
                             </Text>
                             <Text style={styles.noBoldText}>
-                                {" lorem ipsam"}
+                                {login.data.dischargeDate}
                             </Text>
                         </View>
                         <View style={styles.profileTextViewLast}>
                             <Text style={styles.boldText}>
-                                {"Responsable :"}
+                                {"Responsable : "}
                             </Text>
                             <Text style={styles.noBoldText}>
-                                {" lorem ipsam"}
+                                {login.data.responsable}
                             </Text>
                         </View>
                     </View>

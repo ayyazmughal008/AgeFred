@@ -26,6 +26,7 @@ class Application extends React.Component {
 
     render() {
         const navigation = this.props.navigation;
+        const {dataPart } = this.props.user
         return (
             <View style={styles.appConatiner}>
                 <View style={styles.block}>
@@ -62,125 +63,117 @@ class Application extends React.Component {
                         }}
                     />
                 </View>
-                <View style={{ zIndex: 4 }}>
-                    <DropDownPicker
-                        items={[
-                            { label: 'UK', value: 'uk', },
-                            { label: 'France', value: 'france', },
-                        ]}
-                        defaultValue={this.state.task}
-                        containerStyle={styles.dropStyle}
-                        style={{
-                            backgroundColor: '#ffff',
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                            zIndex: 4
-                        }}
-                        itemStyle={{
-                            //justifyContent: 'flex-start'
-                            borderTopWidth: 2,
-                            borderTopColor: grey,
-                            zIndex: 4
-                        }}
-                        dropDownStyle={{
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                            zIndex: 4
-                        }}
-                        onChangeItem={item => this.setState({
-                            task: item.value
-                        })}
-                        placeholder="Proyecto / Tarea"
-                        placeholderStyle={{
-                            color: darkBlue
-                        }}
-                        labelStyle={{
-                            color: darkBlue
-                        }}
-                        selectedLabelStyle={{
-                            color: darkBlue,
-                        }}
-                    />
-                </View>
-                <View style={{ zIndex: 3 }}>
-                    <DropDownPicker
-                        items={[
-                            { label: 'UK', value: 'uk', },
-                            { label: 'France', value: 'france', },
-                        ]}
-                        defaultValue={this.state.hours}
-                        containerStyle={styles.dropStyle2}
-                        style={{
-                            backgroundColor: '#ffff',
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                        }}
-                        itemStyle={{
-                            //justifyContent: 'flex-start'
-                            borderTopWidth: 2,
-                            borderTopColor: grey
-                        }}
-                        dropDownStyle={{
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                        }}
-                        onChangeItem={item => this.setState({
-                            hours: item.value
-                        })}
-                        placeholder="Tipo de horas"
-                        placeholderStyle={{
-                            color: darkBlue
-                        }}
-                        labelStyle={{
-                            color: darkBlue
-                        }}
-                        selectedLabelStyle={{
-                            color: darkBlue,
-                        }}
-                    />
-                </View>
-                <View style={{ zIndex: 2 }}>
-                    <View style={styles.inpuView}>
 
-                    </View>
+                <DropDownPicker
+                    zIndex={5000}
+                    items={dataPart.data.projects}
+                    defaultValue={this.state.task}
+                    containerStyle={styles.dropStyle}
+                    style={{
+                        backgroundColor: '#ffff',
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                        zIndex: 4
+                    }}
+                    itemStyle={{
+                        //justifyContent: 'flex-start'
+                        borderTopWidth: 2,
+                        borderTopColor: grey,
+                        zIndex: 4
+                    }}
+                    dropDownStyle={{
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                        zIndex: 4
+                    }}
+                    onChangeItem={item => this.setState({
+                        task: item.value
+                    })}
+                    placeholder="Proyecto / Tarea"
+                    placeholderStyle={{
+                        color: darkBlue
+                    }}
+                    labelStyle={{
+                        color: darkBlue
+                    }}
+                    selectedLabelStyle={{
+                        color: darkBlue,
+                    }}
+                />
+
+
+                <DropDownPicker
+                    zIndex={4000}
+                    items={dataPart.data.hours}
+                    defaultValue={this.state.hours}
+                    containerStyle={styles.dropStyle2}
+                    style={{
+                        backgroundColor: '#ffff',
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                    }}
+                    itemStyle={{
+                        //justifyContent: 'flex-start'
+                        borderTopWidth: 2,
+                        borderTopColor: grey
+                    }}
+                    dropDownStyle={{
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                    }}
+                    onChangeItem={item => this.setState({
+                        hours: item.value
+                    })}
+                    placeholder="Tipo de horas"
+                    placeholderStyle={{
+                        color: darkBlue
+                    }}
+                    labelStyle={{
+                        color: darkBlue
+                    }}
+                    selectedLabelStyle={{
+                        color: darkBlue,
+                    }}
+                />
+
+                <View style={styles.inpuView}>
+
                 </View>
-                <View style={{ zIndex: 2 }}>
-                    <DropDownPicker
-                        items={[
-                            { label: 'UK', value: 'uk', },
-                            { label: 'France', value: 'france', },
-                        ]}
-                        defaultValue={this.state.concepts}
-                        containerStyle={styles.dropStyle2}
-                        style={{
-                            backgroundColor: '#ffff',
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                        }}
-                        itemStyle={{
-                            //justifyContent: 'flex-start'
-                            borderTopWidth: 2,
-                            borderTopColor: grey
-                        }}
-                        dropDownStyle={{
-                            borderWidth: 0,
-                            borderColor: "#ffff",
-                        }}
-                        onChangeItem={item => this.setState({
-                            concepts: item.value
-                        })}
-                        placeholder="Conceptos"
-                        placeholderStyle={{
-                            color: darkBlue
-                        }}
-                        labelStyle={{
-                            color: darkBlue
-                        }}
-                        selectedLabelStyle={{
-                            color: darkBlue,
-                        }}
-                    />
-                </View>
+
+                <DropDownPicker
+                    zIndex={3000}
+                    items={dataPart.data.concepts}
+                    defaultValue={this.state.concepts}
+                    containerStyle={styles.dropStyle2}
+                    style={{
+                        backgroundColor: '#ffff',
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                    }}
+                    itemStyle={{
+                        //justifyContent: 'flex-start'
+                        borderTopWidth: 2,
+                        borderTopColor: grey
+                    }}
+                    dropDownStyle={{
+                        borderWidth: 0,
+                        borderColor: "#ffff",
+                    }}
+                    onChangeItem={item => this.setState({
+                        concepts: item.value
+                    })}
+                    placeholder="Conceptos"
+                    placeholderStyle={{
+                        color: darkBlue
+                    }}
+                    labelStyle={{
+                        color: darkBlue
+                    }}
+                    selectedLabelStyle={{
+                        color: darkBlue,
+                    }}
+                />
+
                 <View style={styles.bottomView}>
                     <Text style={styles.pluseTitle}>
                         {"PLUSES"}

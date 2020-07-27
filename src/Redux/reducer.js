@@ -1,22 +1,44 @@
 import { combineReducers } from "redux";
-import { LOAD_HOMEPAGE, AUTH_LOADING } from "./action";
+import {
+  LOGIN_DETAIL,
+  AUTH_LOADING,
+  LOG_OUT,
+  DATA_PART
+} from "./action";
 
 const initialUserState = {
-  myArray: [],
-  AuthLoading: false
+  login: "",
+  AuthLoading: false,
+  dataPart: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
+
+  if (action.type === LOG_OUT) {
+    return {
+      ...state,
+      login: '',
+      AuthLoading: false,
+      dataPart: ""
+    };
+  }
+
   if (action.type === AUTH_LOADING) {
     return {
       ...state,
       AuthLoading: action.payload
     };
   }
-  if (action.type === LOAD_HOMEPAGE) {
+  if (action.type === LOGIN_DETAIL) {
     return {
       ...state,
-      myArray: action.payload.articles
+      login: action.payload.login
+    };
+  }
+  if (action.type === DATA_PART) {
+    return {
+      ...state,
+      dataPart: action.payload.dataPart
     };
   }
   return state;

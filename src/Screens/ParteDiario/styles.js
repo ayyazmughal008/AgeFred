@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
         flexDirection:"row",
         flexWrap:"wrap",
         alignItems:"center",
-        zIndex: 5
+        //zIndex: 5
         //justifyContent:"center"
     },
     title:{
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
         width:widthPercentageToDP(90),
         height:heightPercentageToDP(6),
         marginTop:heightPercentageToDP(12),
-        zIndex : 4
+        //zIndex : 4
         //backgroundColor:"#ffff"
     },
     dropStyle2:{
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     },
     bottomView:{
         width: widthPercentageToDP(90),
-        height:heightPercentageToDP(25),
+        height:heightPercentageToDP(23),
         marginTop:heightPercentageToDP(3),
         //backgroundColor:"red"
     },

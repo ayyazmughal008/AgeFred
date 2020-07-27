@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, View, ActivityIndicator, TouchableOpacity, } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "./styles";
+import {fetchDataPart} from '../../Redux/action'
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
@@ -14,6 +15,7 @@ class HomePage extends Component {
         this.state = {
 
         };
+        this.props.fetchDataPart()
     }
     render() {
         const { AuthLoading } = this.props.user;
@@ -79,6 +81,13 @@ class HomePage extends Component {
                         />
                     </View>
                 </View>
+                {AuthLoading && 
+                <ActivityIndicator
+                    size = "large"
+                    color = "pink"
+                    style = {styles.loading}
+                />
+                }
             </View>
         );
     }
@@ -87,4 +96,4 @@ class HomePage extends Component {
 const mapStateToProps = state => ({
     user: state.user
 });
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps, {fetchDataPart})(HomePage);

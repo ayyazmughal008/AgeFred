@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, ActivityIndicator, TouchableOpacity } from "react-native";
-import { fetchHomePage } from "../../Redux/action";
+import { fetchLoginDetail } from "../../Redux/action";
 import { connect } from "react-redux";
 import { styles } from "./styles";
 import { TextInput } from 'react-native-paper';
@@ -10,12 +10,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      dni: "",
       password: ""
     };
-  }
-  componentDidMount() {
-    this.props.fetchHomePage();
   }
   render() {
     const { AuthLoading } = this.props.user;
@@ -33,7 +30,7 @@ class Login extends Component {
           <TextInput
             label="DNI"
             style={styles.input}
-            onChangeText={text => this.setState({ email: text })}
+            onChangeText={text => this.setState({ dni: text })}
             theme={{ colors: { primary: 'grey' } }}
           />
           <TextInput
@@ -52,11 +49,23 @@ class Login extends Component {
           </View>
           <TouchableOpacity
             style={styles.btnBottom}
-            onPress={() => this.props.navigation.navigate("Home")}
+            onPress={() =>
+              this.props.fetchLoginDetail(
+                this.state.dni,
+                this.state.password
+              )
+            }
           >
             <Text style={styles.btnText}>{"Inciar sesion"}</Text>
           </TouchableOpacity>
         </View>
+        {AuthLoading &&
+          <ActivityIndicator
+            size="large"
+            color="pink"
+            style={styles.loading}
+          />
+        }
       </View>
     );
   }
@@ -65,4 +74,4 @@ class Login extends Component {
 const mapStateToProps = state => ({
   user: state.user
 });
-export default connect(mapStateToProps, { fetchHomePage })(Login);
+export default connect(mapStateToProps, { fetchLoginDetail })(Login);
