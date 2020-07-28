@@ -2,13 +2,15 @@
 import React from "react";
 import {
     View,
-    ScrollView,
-    ImageBackground,
+    TextInput,
     Text,
     TouchableOpacity,
+    ActivityIndicator,
+    Alert
 } from "react-native";
 import { styles } from "./styles";
 import { connect } from "react-redux";
+import { postPartStoreData } from '../../Redux/action'
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import DatePicker from "react-native-datepicker";
 import { lightBlue, darkBlue, grey } from "../../Component/ColorCode";
@@ -21,12 +23,71 @@ class Application extends React.Component {
         endDate: "",
         task: '',
         hours: "",
-        concepts: ""
+        concepts: "",
+        noHours: "",
+        firstCheck: false,
+        secondCheck: false,
+        thirdCheck: false,
+        fourthCheck: false,
+        fifthCheck: false
     };
+
+    onCheckBoxHandler1 = () => {
+        this.setState({ firstCheck: !this.state.firstCheck })
+    }
+    onCheckBoxHandler2 = () => {
+        this.setState({ secondCheck: !this.state.secondCheck })
+    }
+    onCheckBoxHandler3 = () => {
+        this.setState({ thirdCheck: !this.state.thirdCheck })
+    }
+    onCheckBoxHandler4 = () => {
+        this.setState({ fourthCheck: !this.state.fourthCheck })
+    }
+    onCheckBoxHandler5 = () => {
+        this.setState({ fifthCheck: !this.state.fifthCheck })
+    }
+
+    handleSubmit = () => {
+        const { login } = this.props.user
+        if (this.state.endDate === "") {
+            Alert.alert("Por favor seleccione la fecha primero")
+            return
+        }
+        if (this.state.task === "") {
+            Alert.alert("Por favor seleccione una tarea de la lista")
+            return;
+        }
+        if (this.state.hours === "") {
+            Alert.alert("Por favor seleccione el tipo de hora de la lista")
+            return;
+        }
+        if (this.state.concepts === "") {
+            Alert.alert("Por favor seleccione conceptos de la lista")
+            return;
+        }
+        if (this.state.noHours === "") {
+            Alert.alert("Por favor ingrese el número de horas")
+            return;
+        }
+        this.props.postPartStoreData(
+            this.state.endDate,
+            this.state.task,
+            this.state.hours,
+            this.state.noHours,
+            this.state.concepts,
+            this.state.fifthCheck,
+            this.state.secondCheck,
+            this.state.thirdCheck,
+            this.state.fourthCheck,
+            this.state.fifthCheck,
+            login.data.id
+        )
+    }
 
     render() {
         const navigation = this.props.navigation;
-        const {dataPart } = this.props.user
+        const { dataPart, AuthLoading } = this.props.user
         return (
             <View style={styles.appConatiner}>
                 <View style={styles.block}>
@@ -137,7 +198,13 @@ class Application extends React.Component {
                 />
 
                 <View style={styles.inpuView}>
-
+                    <TextInput
+                        placeholder="Cantidad"
+                        placeholderTextColor={darkBlue}
+                        style={styles.input}
+                        keyboardType="email-address"
+                        onChangeText={text => this.setState({ noHours: text })}
+                    />
                 </View>
 
                 <DropDownPicker
@@ -179,12 +246,18 @@ class Application extends React.Component {
                         {"PLUSES"}
                     </Text>
                     <View style={styles.itemView}>
-                        <TouchableOpacity style={styles.box}>
-                            <FastImage
-                                source={require('../../images/tick.png')}
-                                resizeMode={FastImage.resizeMode.cover}
-                                style={styles.tick}
-                            />
+                        <TouchableOpacity
+                            style={styles.box}
+                            onPress={() => this.onCheckBoxHandler1()}
+                        >
+                            {this.state.firstCheck &&
+                                <FastImage
+                                    source={require('../../images/tick.png')}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                    style={styles.tick}
+                                />
+                            }
+
                         </TouchableOpacity>
                         <Text style={styles.boxTitle}>
                             {"Plus sala darwin (HSJD)"}
@@ -195,12 +268,18 @@ class Application extends React.Component {
                     </View>
                     <View style={styles.itemView}>
                         <TouchableOpacity style={styles.box}>
-                            <TouchableOpacity style={styles.box}>
-                                <FastImage
-                                    source={require('../../images/tick.png')}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                    style={styles.tick}
-                                />
+                            <TouchableOpacity
+                                style={styles.box}
+                                onPress={() => this.onCheckBoxHandler2()}
+                            >
+                                {this.state.secondCheck &&
+                                    <FastImage
+                                        source={require('../../images/tick.png')}
+                                        resizeMode={FastImage.resizeMode.cover}
+                                        style={styles.tick}
+                                    />
+                                }
+
                             </TouchableOpacity>
                         </TouchableOpacity>
                         <Text style={styles.boxTitle}>
@@ -208,42 +287,53 @@ class Application extends React.Component {
                         </Text>
                     </View>
                     <View style={styles.itemView}>
-                        <TouchableOpacity style={styles.box}>
-                            <TouchableOpacity style={styles.box}>
+                        <TouchableOpacity
+                            style={styles.box}
+                            onPress={() => this.onCheckBoxHandler3()}
+                        >
+                            {this.state.thirdCheck &&
                                 <FastImage
                                     source={require('../../images/tick.png')}
                                     resizeMode={FastImage.resizeMode.cover}
                                     style={styles.tick}
                                 />
-                            </TouchableOpacity>
+                            }
+
                         </TouchableOpacity>
                         <Text style={styles.boxTitle}>
                             {"Toxicided y peligrosidad (1/2jornada)"}
                         </Text>
                     </View>
                     <View style={styles.itemView}>
-                        <TouchableOpacity style={styles.box}>
-                            <TouchableOpacity style={styles.box}>
+                        <TouchableOpacity
+                            style={styles.box}
+                            onPress={() => this.onCheckBoxHandler4()}
+                        >
+                            {this.state.fourthCheck &&
                                 <FastImage
                                     source={require('../../images/tick.png')}
                                     resizeMode={FastImage.resizeMode.cover}
                                     style={styles.tick}
                                 />
-                            </TouchableOpacity>
+                            }
                         </TouchableOpacity>
                         <Text style={styles.boxTitle}>
                             {"Plus Fastividad Fairmont"}
                         </Text>
                     </View>
                     <View style={styles.itemView}>
-                        <TouchableOpacity style={styles.box}>
-                            <TouchableOpacity style={styles.box}>
+                        <TouchableOpacity
+                            style={styles.box}
+                            onPress={() => this.onCheckBoxHandler5()}
+                        >
+                            {this.state.fifthCheck &&
                                 <FastImage
                                     source={require('../../images/tick.png')}
                                     resizeMode={FastImage.resizeMode.cover}
                                     style={styles.tick}
                                 />
-                            </TouchableOpacity>
+                            }
+
                         </TouchableOpacity>
                         <Text style={styles.boxTitle}>
                             {"Plus Fastividad Fairmont(25,26 dic. y 1 Enero)"}
@@ -252,11 +342,19 @@ class Application extends React.Component {
                 </View>
                 <TouchableOpacity
                     style={styles.submitBtn}
+                    onPress={() => this.handleSubmit()}
                 >
                     <Text style={styles.btntext}>
                         {"Presentar para aprobacion"}
                     </Text>
                 </TouchableOpacity>
+                {AuthLoading &&
+                    <ActivityIndicator
+                        size="large"
+                        color={darkBlue}
+                        style={styles.loading}
+                    />
+                }
             </View>
         );
     }
@@ -265,4 +363,4 @@ class Application extends React.Component {
 const mapStateToProps = state => ({
     user: state.user
 });
-export default connect(mapStateToProps)(Application);
+export default connect(mapStateToProps, { postPartStoreData })(Application);

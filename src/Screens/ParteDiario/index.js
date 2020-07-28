@@ -44,8 +44,8 @@ class ParteDiario extends Component {
                 <View>
                     <FastImage
                         style={{
-                            width: widthPercentageToDP(6),
-                            height: widthPercentageToDP(6),
+                            width: widthPercentageToDP(5),
+                            height: widthPercentageToDP(5),
                         }}
                         tintColor=
                         {route.key ===

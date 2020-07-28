@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     },
     historyConatiner:{
         flex: 1,
-        backgroundColor: orangae,
+        backgroundColor: lightBlue,
     },
     block:{
         position:"absolute",
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     },
     bottomView:{
         width: widthPercentageToDP(90),
-        height:heightPercentageToDP(23),
+        height:heightPercentageToDP(25),
         marginTop:heightPercentageToDP(3),
         //backgroundColor:"red"
     },
@@ -126,4 +126,132 @@ export const styles = StyleSheet.create({
         marginTop:heightPercentageToDP(3),
         backgroundColor: "#ffff"
     },
+    input:{
+        width: widthPercentageToDP(90),
+        height:heightPercentageToDP(6),
+        textAlign:"center",
+        color: darkBlue
+    },
+    dateView:{
+        width:widthPercentageToDP(90),
+        height:heightPercentageToDP(6),
+        flexDirection:"row",
+        justifyContent:"space-around",
+        alignItems:"center",
+        marginTop:heightPercentageToDP(3)
+    },
+    selectDateView:{
+        width:widthPercentageToDP(35),
+        height:heightPercentageToDP(6),
+        backgroundColor:"#ffff",
+        justifyContent:"center",
+        alignItems:"center",
+        marginLeft:heightPercentageToDP(5)
+    },
+    selectDateView2:{
+        width:widthPercentageToDP(35),
+        height:heightPercentageToDP(6),
+        backgroundColor:"#ffff",
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    toDate:{
+        fontSize:widthPercentageToDP(3),
+        fontWeight: "bold",
+        color: darkBlue,
+    },
+    historyTitle:{
+        width:widthPercentageToDP(100),
+        height:heightPercentageToDP(5),
+        backgroundColor:"#ffff",
+        justifyContent:"flex-start",
+        marginTop:heightPercentageToDP(2),
+        flexDirection:"row",
+        flexWrap:"wrap",
+        alignItems:"center",
+        borderBottomWidth:widthPercentageToDP(0.4),
+        borderBottomColor: grey
+    },
+    historyIcon:{
+        width:widthPercentageToDP(5),
+        height:heightPercentageToDP(5),
+        marginLeft:widthPercentageToDP(3)
+    },
+    mainView:{
+        width:widthPercentageToDP(100),
+        height:heightPercentageToDP(40),
+        //backgroundColor: "red"
+    },
+    historyText:{
+        fontSize:widthPercentageToDP(3.5),
+        fontWeight: "bold",
+        color: darkBlue,
+        marginLeft:widthPercentageToDP(3)
+    },
+    historyComponent:{
+        width:widthPercentageToDP(100),
+        height:heightPercentageToDP(5),
+        backgroundColor:"#ffff",
+        justifyContent:"flex-start",
+        flexDirection:"row",
+        flexWrap:"wrap",
+        alignItems:"center",
+        borderBottomWidth:widthPercentageToDP(0.4),
+        borderBottomColor: grey
+    },
+    componet1:{
+        width:widthPercentageToDP(15),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"red"
+    },
+    componetText:{
+        fontSize:widthPercentageToDP(2.5),
+        fontWeight: "400",
+        color: darkBlue,
+        textAlign:"center"
+    },
+    componet2:{
+        width:widthPercentageToDP(23),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"green"
+    },
+    componet3:{
+        width:widthPercentageToDP(15),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"yellow"
+    },
+    componet4:{
+        width:widthPercentageToDP(10),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"orange"
+    },
+    componet5:{
+        width:widthPercentageToDP(11),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"grey"
+    },
+    componet6:{
+        width:widthPercentageToDP(17),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"pink"
+    },
+    componet7:{
+        width:widthPercentageToDP(8.5),
+        height:heightPercentageToDP(5),
+        justifyContent:"center",
+        alignItems:"center",
+        //backgroundColor:"purple"
+    }
 })
