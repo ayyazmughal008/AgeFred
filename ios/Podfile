@@ -85,6 +85,8 @@ target 'agefred' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'agefredTests' do
     inherit! :complete
     # Pods for testing

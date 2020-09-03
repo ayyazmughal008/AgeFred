@@ -3,13 +3,17 @@ import {
   LOGIN_DETAIL,
   AUTH_LOADING,
   LOG_OUT,
-  DATA_PART
+  DATA_PART,
+  DOWNLOAD,
+  BLOGS
 } from "./action";
 
 const initialUserState = {
   login: "",
   AuthLoading: false,
-  dataPart: ""
+  dataPart: "",
+  getDocuments: "",
+  getBlogs: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -39,6 +43,18 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       dataPart: action.payload.dataPart
+    };
+  }
+  if (action.type === DOWNLOAD) {
+    return {
+      ...state,
+      getDocuments: action.payload.getDocuments
+    };
+  }
+  if (action.type === BLOGS) {
+    return {
+      ...state,
+      getBlogs: action.payload.getBlogs
     };
   }
   return state;

@@ -52,12 +52,14 @@ class HomePage extends Component {
                         <Card
                             iconName={require('./assets/2.png')}
                             title="Mis gastos"
+                            clickHandler = {()=> this.props.navigation.navigate('MisGastos')}
                         />
                     </View>
                     <View style={styles.menuView}>
                         <Card
                             iconName={require('./assets/3.png')}
                             title="Documentos"
+                            clickHandler = {()=> this.props.navigation.navigate('Documents')}
                         />
                         <Card
                             iconName={require('./assets/4.png')}
@@ -68,6 +70,7 @@ class HomePage extends Component {
                         <Card
                             iconName={require('./assets/5.png')}
                             title="Blog"
+                            clickHandler = {()=> this.props.navigation.navigate('Blog')}
                         />
                         <Card
                             iconName={require('./assets/6.png')}

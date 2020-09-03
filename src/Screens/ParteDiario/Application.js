@@ -161,8 +161,6 @@ class Application extends React.Component {
                         color: darkBlue,
                     }}
                 />
-
-
                 <DropDownPicker
                     zIndex={4000}
                     items={dataPart.data.hours}
@@ -172,6 +170,7 @@ class Application extends React.Component {
                         backgroundColor: '#ffff',
                         borderWidth: 0,
                         borderColor: "#ffff",
+                        height:6
                     }}
                     itemStyle={{
                         //justifyContent: 'flex-start'

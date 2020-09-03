@@ -3,12 +3,16 @@ export const LOGIN_DETAIL = "LOAD_HOMEPAGE";
 export const AUTH_LOADING = "AUTH_LOADING";
 export const DATA_PART = "DATA_PART";
 export const LOG_OUT = "LOG_OUT";
+export const DOWNLOAD = "DOWNLOAD";
+export const BLOGS = "BLOGS";
 export const POST_PART_STORE = "POST_PART_STORE";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
   data_part = 'data-part',
-  login = "login-employ";
+  login = "login-employ",
+  blog = "blogs-get",
+  documents = "documents-get";
 
 export const logOut = () => {
   return dispatch => {
@@ -118,6 +122,62 @@ export const postPartStoreData = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert(json.message)
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getDocuments = () => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + documents, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: DOWNLOAD,
+            payload: {
+              getDocuments: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getBlogs = () => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + blog, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: BLOGS,
+            payload: {
+              getBlogs: json
+            }
+          });
         } else {
           alert(json.message)
         }

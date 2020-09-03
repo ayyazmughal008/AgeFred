@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StatusBar, StyleSheet } from 'react-nativ
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, grey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
+import NestedScrollView from 'react-native-nested-scroll-view'
 export default class Header extends React.Component {
 
     render() {
@@ -88,12 +89,11 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        width: widthPercentageToDP(100),
-        height:heightPercentageToDP(7),
         justifyContent: "flex-start",
         flexDirection: "row",
         flexWrap: "wrap",
         alignItems: "center",
+        overflow: 'hidden'
     },
     componet1: {
         width: widthPercentageToDP(15),
