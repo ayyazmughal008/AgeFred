@@ -4,6 +4,11 @@ import { darkBlue, lightBlue, orangae, grey, darkGrey } from '../../Component/Co
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
+        //alignItems: "center",
+        backgroundColor: lightBlue
+    },
+    container2: {
+        flex: 1,
         alignItems: "center",
         backgroundColor: lightBlue
     },
@@ -40,7 +45,7 @@ export const styles = StyleSheet.create({
         width: widthPercentageToDP(85),
         height: heightPercentageToDP(6),
         //marginTop: heightPercentageToDP(2),
-        //backgroundColor:"#ffff"
+        backgroundColor:"#ffff"
     },
     uploadBtn: {
         width:widthPercentageToDP(85),
@@ -51,7 +56,7 @@ export const styles = StyleSheet.create({
         borderRadius: widthPercentageToDP(0.1),
         marginTop:heightPercentageToDP(2),
         justifyContent:"center",
-        alignItems:"center"
+        //alignItems:"center"
     },
     img:{
         width:widthPercentageToDP(7),
@@ -75,5 +80,77 @@ export const styles = StyleSheet.create({
         fontSize: widthPercentageToDP(4),
         fontWeight: "bold",
         color: "#ffff",
+    },
+    selectImages:{
+        width:widthPercentageToDP(15),
+        height:widthPercentageToDP(15)
+    },
+    dateView: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(4),
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        marginTop: heightPercentageToDP(1)
+    },
+    selectDateView: {
+        width: widthPercentageToDP(35),
+        height: heightPercentageToDP(4),
+        backgroundColor: "#ffff",
+        justifyContent: "center",
+        alignItems: "center",
+        //marginLeft: heightPercentageToDP(5)
+    },
+    selectDateView2: {
+        width: widthPercentageToDP(35),
+        height: heightPercentageToDP(4),
+        backgroundColor: "#ffff",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    toDate: {
+        fontSize: widthPercentageToDP(3),
+        fontWeight: "bold",
+        color: darkBlue,
+    },
+    title:{
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(5),
+        backgroundColor:"#ffff",
+        justifyContent:"center",
+        alignItems:"center",
+        marginTop:heightPercentageToDP(3),
+        borderBottomWidth:widthPercentageToDP(0.2),
+        borderBottomColor:darkGrey
+    },
+    titleText:{
+        fontSize:widthPercentageToDP(3.2),
+        fontWeight:"500",
+        color:darkBlue
+    },
+    middleView:{
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(60),
+        backgroundColor:"#ffff"
+    },
+    sliderContainer:{
+        width:widthPercentageToDP(100),
+        height:heightPercentageToDP(40),
+        //backgroundColor:"red"
+    },
+    bottomBox:{
+        width: widthPercentageToDP(85),
+        height: heightPercentageToDP(30),
+        backgroundColor:"#ffff",
+        borderRadius:widthPercentageToDP(2),
+        marginTop:heightPercentageToDP(3)
+    },
+    bottomTop:{
+        width: widthPercentageToDP(85),
+        height: heightPercentageToDP(5),
+        backgroundColor:"#ffff",
+        justifyContent:"center",
+        borderBottomWidth:widthPercentageToDP(0.2),
+        borderBottomColor:darkGrey
     }
 })

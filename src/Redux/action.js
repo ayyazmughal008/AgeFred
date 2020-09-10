@@ -4,6 +4,7 @@ export const AUTH_LOADING = "AUTH_LOADING";
 export const DATA_PART = "DATA_PART";
 export const LOG_OUT = "LOG_OUT";
 export const DOWNLOAD = "DOWNLOAD";
+export const GET_PART = "GET_PART";
 export const BLOGS = "BLOGS";
 export const POST_PART_STORE = "POST_PART_STORE";
 
@@ -12,6 +13,7 @@ var baseUrl = "http://95.179.209.186/api/",
   data_part = 'data-part',
   login = "login-employ",
   blog = "blogs-get",
+  getPart = "parts-get",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -87,15 +89,18 @@ export const postPartStoreData = (
   hourType,
   hours,
   concept,
-  plus1,
-  plus2,
-  plus3,
-  plus4,
-  plus5,
   employId
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
+    console.log(
+      "My data",
+      date,
+      project,
+      hourType,
+      hours,
+      concept,
+      employId)
     fetch(baseUrl + part_store, {
       method: 'POST',
       headers: {
@@ -108,11 +113,6 @@ export const postPartStoreData = (
         hourType: hourType,
         hours: hours,
         concept: concept,
-        plus1: plus1,
-        plus2: plus2,
-        plus3: plus3,
-        plus4: plus4,
-        plus5: plus5,
         employId: employId
       }),
     })
@@ -122,6 +122,43 @@ export const postPartStoreData = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert(json.message)
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getAllParts = (
+  from,
+  to,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getPart, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: from,
+        to: to,
+        employId: employId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GET_PART,
+            payload: {
+              getAllPart: json
+            }
+          });
         } else {
           alert(json.message)
         }

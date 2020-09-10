@@ -1,35 +1,83 @@
-import React from 'react'
-import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux';
-import { styles } from './styles';
+import React, { Component } from "react";
+import { Text, View, ActivityIndicator, TouchableOpacity, Dimensions } from "react-native";
+import { connect } from "react-redux";
+import { styles } from "./styles";
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
-import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
-import DatePicker from "react-native-datepicker";
-import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
-import DropDownPicker from 'react-native-dropdown-picker';
+import { darkBlue, lightBlue } from '../../Component/ColorCode'
+import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
+import { TabView, TabBar, SceneMap } from "react-native-tab-view";
 import FastImage from 'react-native-fast-image'
+import Application from './Application'
+import History from './History'
 
-class MisGastos extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            toDate: "",
-            project: "",
-            comido: "",
-            importe: "",
-            endDate:""
-        };
-    }
+const initialLayout = {
+    height: 0,
+    width: Dimensions.get("window").width
+};
+
+class ParteDiario extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+
+    //     };
+    // }
+
+    _renderTabBar = props => (
+        <TabBar
+            {...props}
+            scrollEnabled={true}
+            style={{ backgroundColor: lightBlue }}
+            tabStyle={{
+                width: widthPercentageToDP(50),
+                height: heightPercentageToDP(6)
+            }}
+            indicatorStyle={{ backgroundColor: "#2857bd" }}
+            activeBackgroundColor="#000"
+            inActiveBackgroundColor="#000"
+            inactiveColor="#cccccc"
+            activeColor="#000"
+            labelStyle={{ backgroundColor: "#2857bd" }}
+            renderLabel={({ route }) => (
+                <View>
+                    <FastImage
+                        style={{
+                            width: widthPercentageToDP(5),
+                            height: widthPercentageToDP(5),
+                        }}
+                        tintColor=
+                        {route.key ===
+                            props.navigationState.routes[props.navigationState.index].key
+                            ? "#2857bd"
+                            : "#000"}
+                        resizeMode={FastImage.resizeMode.cover}
+                        source={route.image}
+                    >
+                    </FastImage>
+                </View>
+            )}
+        />
+    );
+
+    state = {
+        index: 0,
+        routes: [
+            { key: "first", image: require('../../images/application.png') },
+            { key: "second", image: require('../../images/history.png')},
+        ]
+    };
+
+    ApplicationRoute = () => <Application navigate={this.props.navigation.navigate}/>;
+    HistoryRoute = () => <History navigate={this.props.navigation.navigate}/>;
+
+
     render() {
-        const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+        const { AuthLoading } = this.props.user;
+        console.log("My loading", AuthLoading);
         return (
-            <KeyboardAvoidingView
-                style={styles.keyboardView}
-                behavior="height"
-            //keyboardVerticalOffset={keyboardVerticalOffset}
-            >
+            <View style={styles.container}>
                 <Header
                     leftComponent={
                         <MenuImage
@@ -47,210 +95,24 @@ class MisGastos extends React.Component {
                         backgroundColor: darkBlue,
                     }}
                 />
+                <TabView
+                    swipeEnabled={true}
+                    navigationState={this.state}
+                    renderScene={SceneMap({
+                        first: this.ApplicationRoute,
+                        second: this.HistoryRoute,
+                    })}
+                    renderTabBar={this._renderTabBar}
+                    onIndexChange={index => this.setState({ index })}
+                    initialLayout={initialLayout}
+                />
 
-                <View style={styles.mainView}>
-                    <ScrollView
-                        contentContainerStyle={{ flexGrow: 1, }}
-                        showsHorizontalScrollIndicator={false}
-                    >
-                        <Text style={styles.inputTitle}>
-                            {"Fecha"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <DatePicker
-                                style={styles.datePickerStyle}
-                                date={this.state.toDate}
-                                mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
-                                // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
-                                customStyles={{
-                                    datePicker: {
-                                        backgroundColor: "#ffff"
-                                    },
-                                    dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                        width: widthPercentageToDP(85),
-                                    },
-                                    placeholderText: {
-                                        color: grey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    },
-                                    dateText: {
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    }
-                                }}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                showIcon={false}
-                                onDateChange={endDate => {
-                                    this.setState({ toDate: endDate });
-                                }}
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Proyecto"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Proyecto / tarea"
-                                placeholderTextColor={grey}
-                                value={this.props.project}
-                                style={styles.input}
-                                autoCapitalize="none"
-                                secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ project: text })
-                                }
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Motivo gasto"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <DropDownPicker
-                                zIndex={5000}
-                                items={[
-                                    { label: 'UK', value: 'uk' },
-                                    { label: 'France', value: 'france' },
-                                    { label: 'England', value: 'england' },
-                                ]}
-                                defaultValue={this.state.comido}
-                                containerStyle={styles.dropStyle2}
-                                style={{
-                                    backgroundColor: '#ffff',
-                                    borderBottomWidth: 1,
-                                    borderBottomColor: grey,
-                                    borderTopWidth: 0,
-                                    borderLeftWidth: 0,
-                                    borderRightWidth: 0,
-                                }}
-                                itemStyle={{
-                                    //justifyContent: 'flex-start'
-                                    borderTopWidth: 2,
-                                    borderTopColor: grey,
-                                }}
-                                dropDownStyle={{
-                                    borderWidth: 0,
-                                    borderColor: "#ffff",
-
-                                }}
-                                onChangeItem={item => this.setState({
-                                    comido: item.value
-                                })}
-                                placeholder="Comida"
-                                placeholderStyle={{
-                                    color: darkGrey,
-                                    position: "absolute",
-                                    left: "-3%"
-                                }}
-                                labelStyle={{
-                                    color: darkGrey,
-                                }}
-                                selectedLabelStyle={{
-                                    color: darkGrey,
-                                }}
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Importe gasto"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="importe"
-                                placeholderTextColor={grey}
-                                style={styles.input}
-                                value={this.props.importe}
-                                autoCapitalize="none"
-                                secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ importe: text })
-                                }
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Fecha en la que se realizo el gasto"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <DatePicker
-                                style={styles.datePickerStyle}
-                                date={this.state.endDate}
-                                mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
-                                // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
-                                customStyles={{
-                                    datePicker: {
-                                        backgroundColor: "#ffff"
-                                    },
-                                    dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                        width: widthPercentageToDP(85),
-                                    },
-                                    placeholderText: {
-                                        color: grey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    },
-                                    dateText: {
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    }
-                                }}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                showIcon={false}
-                                onDateChange={endDate => {
-                                    this.setState({ endDate: endDate });
-                                }}
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Suba una imagen de su ticket"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TouchableOpacity style={styles.uploadBtn}>
-                                <FastImage
-                                    source={require('../../images/download.png')}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                    style={styles.img}
-                                />
-                                <Text style={styles.uploadText}>
-                                    {"Seleccionar una o varias imagenes"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ alignItems: "center" }}>
-                            <TouchableOpacity style={styles.submitBtn}>
-                                <Text style={styles.submitText}>
-                                    {"Guardar"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </View>
-
-
-            </KeyboardAvoidingView>
-        )
+            </View>
+        );
     }
 }
 
 const mapStateToProps = state => ({
-    user: state.user,
+    user: state.user
 });
-export default connect(mapStateToProps,)(MisGastos);
+export default connect(mapStateToProps)(ParteDiario);

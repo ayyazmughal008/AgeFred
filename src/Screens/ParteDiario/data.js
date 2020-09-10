@@ -5,7 +5,29 @@ export const data = [
         text3: "Normal",
         text4: "6",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhekkgjgjgjgjgjgjgjgkgkgkg"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -13,7 +35,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -21,7 +59,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -29,7 +83,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -37,7 +107,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -45,7 +131,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
     {
         text1: "21/09/2020",
@@ -53,7 +155,23 @@ export const data = [
         text3: "Normal Normal",
         text4: "8",
         text5: "Pendiente",
-        text6: "",
+        text6: [
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+            {
+                itemText:"kwjhfkjehfjhe"
+            },
+        ],
     },
-    
+
 ]

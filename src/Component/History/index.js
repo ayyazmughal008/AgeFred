@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StatusBar, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, StatusBar, StyleSheet } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
-import { darkBlue, grey } from '../ColorCode'
+import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
-import NestedScrollView from 'react-native-nested-scroll-view'
+//import NestedScrollView from 'react-native-nested-scroll-view'
+//import { ScrollView } from 'react-native-gesture-handler'
 export default class Header extends React.Component {
 
     render() {
@@ -60,11 +61,24 @@ export default class Header extends React.Component {
                 <View style={[styles.componet6, {
                     backgroundColor: bgColor
                 }]}>
-                    <Text style={styles.componetText}>
-                        {text6}
-                    </Text>
+                    <ScrollView
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {text6.map((item, index) => {
+                            return (
+                                <Text
+                                    //key={"unique" + index}
+                                    style={styles.conceptoText}
+                                >
+                                    {item}
+                                </Text>
+                            )
+                        })
+                        }
+                    </ScrollView>
                 </View>
-                <View style={[styles.componet7, {
+                {/* <View style={[styles.componet7, {
                     backgroundColor: bgColor
                 }]}>
                     <View style={styles.box}>
@@ -81,7 +95,7 @@ export default class Header extends React.Component {
                             style={styles.tick}
                         />
                     </View>
-                </View>
+                </View> */}
             </View>
         )
     }
@@ -89,6 +103,7 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: "flex-start",
         flexDirection: "row",
         flexWrap: "wrap",
@@ -101,6 +116,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
         borderRightColor: darkBlue
         //backgroundColor:"red"
     },
@@ -108,7 +125,14 @@ const styles = StyleSheet.create({
         fontSize: widthPercentageToDP(2.3),
         fontWeight: "400",
         color: darkBlue,
-        textAlign: "center"
+        textAlign: "center",
+    },
+    conceptoText: {
+        fontSize: widthPercentageToDP(2.3),
+        fontWeight: "400",
+        color: darkBlue,
+        textAlign: "center",
+        padding:widthPercentageToDP(1.5)
     },
     componet2: {
         width: widthPercentageToDP(23),
@@ -116,7 +140,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderRightColor: darkBlue
+        borderRightColor: darkBlue,
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
     },
     componet3: {
         width: widthPercentageToDP(15),
@@ -124,7 +150,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderRightColor: darkBlue
+        borderRightColor: darkBlue,
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
     },
     componet4: {
         width: widthPercentageToDP(10),
@@ -132,23 +160,29 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderRightColor: darkBlue
+        borderRightColor: darkBlue,
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
     },
     componet5: {
-        width: widthPercentageToDP(11),
+        width: widthPercentageToDP(11.5),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderRightColor: darkBlue
+        borderRightColor: darkBlue,
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
     },
     componet6: {
-        width: widthPercentageToDP(17),
+        width: widthPercentageToDP(25),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderRightColor: darkBlue
+        borderRightColor: darkBlue,
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
     },
     componet7: {
         width: widthPercentageToDP(8.5),
@@ -157,29 +191,29 @@ const styles = StyleSheet.create({
         alignItems: "center",
         //backgroundColor:"purple"
     },
-    box:{
-        width:widthPercentageToDP(4),
-        height:widthPercentageToDP(4),
-        borderWidth:widthPercentageToDP(0.5),
+    box: {
+        width: widthPercentageToDP(4),
+        height: widthPercentageToDP(4),
+        borderWidth: widthPercentageToDP(0.5),
         borderColor: grey,
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor:"#fff",
-        borderRadius:widthPercentageToDP(1),
-        marginBottom:heightPercentageToDP(1)
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        borderRadius: widthPercentageToDP(1),
+        marginBottom: heightPercentageToDP(1)
     },
-    box2:{
-        width:widthPercentageToDP(4),
-        height:widthPercentageToDP(4),
-        borderWidth:widthPercentageToDP(0.5),
+    box2: {
+        width: widthPercentageToDP(4),
+        height: widthPercentageToDP(4),
+        borderWidth: widthPercentageToDP(0.5),
         borderColor: grey,
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor:"#fff",
-        borderRadius:widthPercentageToDP(1),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        borderRadius: widthPercentageToDP(1),
     },
-    tick:{
-        width:widthPercentageToDP(2),
+    tick: {
+        width: widthPercentageToDP(2),
         height: widthPercentageToDP(2)
     },
 })

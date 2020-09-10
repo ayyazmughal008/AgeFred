@@ -7,6 +7,7 @@ import Blog from '../../Screens/Blog'
 import Documents from '../../Screens/Documents'
 import DetailPage from '../../Screens/Blog/Detail'
 import MisGastos from '../../Screens/MisGastos'
+import DetailMisgasto from '../../Screens/MisGastos/Detail'
 
 export default createStackNavigator(
   {
@@ -33,6 +34,9 @@ export default createStackNavigator(
     },
     MisGastos: {
       screen: MisGastos
+    },
+    DetailMisgasto: {
+      screen: DetailMisgasto
     },
   },
   {

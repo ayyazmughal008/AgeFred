@@ -3,11 +3,14 @@ import React from "react";
 import {
   View,
   ScrollView,
-  Platform,
+  Alert,
   Text,
   TouchableOpacity,
+  ActivityIndicator
 } from "react-native";
 import { styles } from "./styles";
+import { connect } from "react-redux";
+import { getAllParts } from '../../Redux/action'
 import DatePicker from "react-native-datepicker";
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import { lightBlue, darkBlue, grey } from "../../Component/ColorCode";
@@ -17,20 +20,38 @@ import { data } from './data'
 import MyScrollView from 'react-native-nested-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export default class History extends React.Component {
+class HistoryClass extends React.Component {
   state = {
     startDate: "",
     endDate: "",
     hours: ""
   };
 
+  handleSubmit = () => {
+    const { login } = this.props.user
+    if (this.state.startDate === "") {
+      Alert.alert("Por favor seleccione la fecha primero")
+      return
+    }
+    if (this.state.endDate === "") {
+      Alert.alert("Por favor seleccione la fecha primero")
+      return
+    }
+    this.props.getAllParts(
+      this.state.startDate,
+      this.state.endDate,
+      login.data.id
+    )
+  }
 
   render() {
     const navigation = this.props.navigation;
-
+    const { getAllPart, AuthLoading } = this.props.user
     return (
       <View style={styles.historyConatiner}>
-        <MyScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <MyScrollView
+          bounces={false}
+          contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.dateView}>
             <View style={styles.selectDateView}>
               <DatePicker
@@ -102,6 +123,18 @@ export default class History extends React.Component {
               />
             </View>
           </View>
+          <View style={styles.bottomBtnView}>
+            <TouchableOpacity
+              style={[styles.bottomBtn, {
+                marginTop: 10
+              }]}
+              onPress={() => this.handleSubmit()}>
+              <Text style={styles.bottomBtnText}>
+                {"Submit"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.historyTitle}>
             <FastImage
               source={require('../../images/history.png')}
@@ -144,59 +177,35 @@ export default class History extends React.Component {
                   {"Conceptos"}
                 </Text>
               </View>
-              <View style={styles.componet7}>
-                <Text style={styles.componetText}>
-                  {"Pluses"}
-                </Text>
-              </View>
+              {/* <View style={styles.componet7}>
+                  <Text style={styles.componetText}>
+                    {"Pluses"}
+                  </Text>
+                </View> */}
             </View>
             <View style={{ flex: 1 }}>
-              {Platform.OS === 'ios' ?
-                <ScrollView
-                  //horizontal
-                  contentContainerStyle={{ flexGrow: 1 }}
-                  showsVerticalScrollIndicator={false}
-                  //directionalLockEnabled={false}
-                  nestedScrollEnabled
-                >
-                  {data.map((item, index) => {
+              <ScrollView
+                bounces={false}
+                contentContainerStyle={{ flexGrow: 1 }}
+                showsVerticalScrollIndicator={false}
+              >
+                {!getAllPart ?
+                  <View />
+                  : getAllPart.data.map((item, index) => {
                     return (
                       <HistoryComponent
                         key={"unique" + index}
-                        text1={item.text1}
-                        text2={item.text2}
-                        text3={item.text3}
-                        text4={item.text4}
-                        text5={item.text5}
-                        text6={item.text6}
+                        text1={item.date}
+                        text2={item.project}
+                        text3={item.hourType}
+                        text4={item.hours}
+                        text5={item.status}
+                        text6={item.concept}
                         bgColor={index % 2 ? "#cccccc" : "#ffff"}
                       />
                     )
                   })}
-                </ScrollView>
-                : <MyScrollView
-                  //horizontal
-                  contentContainerStyle={{ flexGrow: 1 }}
-                  showsVerticalScrollIndicator={false}
-                  nestedScrollEnabled
-                //directionalLockEnabled={false}
-                >
-                  {data.map((item, index) => {
-                    return (
-                      <HistoryComponent
-                        key={"unique" + index}
-                        text1={item.text1}
-                        text2={item.text2}
-                        text3={item.text3}
-                        text4={item.text4}
-                        text5={item.text5}
-                        text6={item.text6}
-                        bgColor={index % 2 ? "#cccccc" : "#ffff"}
-                      />
-                    )
-                  })}
-                </MyScrollView>
-              }
+              </ScrollView>
             </View>
           </View>
 
@@ -264,9 +273,21 @@ export default class History extends React.Component {
               }}
             />
           </View>
-          <View style = {{marginTop:45}}/>
+          <View style={{ marginTop: 45 }} />
         </MyScrollView>
+        {AuthLoading &&
+          <ActivityIndicator
+            size="large"
+            color={darkBlue}
+            style={styles.loading}
+          />
+        }
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+export default connect(mapStateToProps, { getAllParts })(HistoryClass);

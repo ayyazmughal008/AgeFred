@@ -5,7 +5,8 @@ import {
   LOG_OUT,
   DATA_PART,
   DOWNLOAD,
-  BLOGS
+  BLOGS,
+  GET_PART
 } from "./action";
 
 const initialUserState = {
@@ -13,7 +14,8 @@ const initialUserState = {
   AuthLoading: false,
   dataPart: "",
   getDocuments: "",
-  getBlogs: ""
+  getBlogs: "",
+  getAllPart:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -55,6 +57,12 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       getBlogs: action.payload.getBlogs
+    };
+  }
+  if (action.type === GET_PART) {
+    return {
+      ...state,
+      getAllPart: action.payload.getAllPart
     };
   }
   return state;

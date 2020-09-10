@@ -16,7 +16,7 @@ import DatePicker from "react-native-datepicker";
 import { lightBlue, darkBlue, grey } from "../../Component/ColorCode";
 import DropDownPicker from 'react-native-dropdown-picker';
 import FastImage from 'react-native-fast-image'
-
+import SelectMultiple from 'react-native-select-multiple'
 
 class Application extends React.Component {
     state = {
@@ -29,7 +29,8 @@ class Application extends React.Component {
         secondCheck: false,
         thirdCheck: false,
         fourthCheck: false,
-        fifthCheck: false
+        fifthCheck: false,
+        selectedFruits: []
     };
 
     onCheckBoxHandler1 = () => {
@@ -62,7 +63,7 @@ class Application extends React.Component {
             Alert.alert("Por favor seleccione el tipo de hora de la lista")
             return;
         }
-        if (this.state.concepts === "") {
+        if (this.state.selectedFruits === undefined || this.state.selectedFruits.length === 0) {
             Alert.alert("Por favor seleccione conceptos de la lista")
             return;
         }
@@ -75,19 +76,24 @@ class Application extends React.Component {
             this.state.task,
             this.state.hours,
             this.state.noHours,
-            this.state.concepts,
-            this.state.fifthCheck,
-            this.state.secondCheck,
-            this.state.thirdCheck,
-            this.state.fourthCheck,
-            this.state.fifthCheck,
+            this.state.selectedFruits,
+            // this.state.fifthCheck,
+            // this.state.secondCheck,
+            // this.state.thirdCheck,
+            // this.state.fourthCheck,
+            // this.state.fifthCheck,
             login.data.id
         )
+    }
+    onSelectionsChange = (selectedFruits) => {
+        // selectedFruits is array of { label, value }
+        this.setState({ selectedFruits })
     }
 
     render() {
         const navigation = this.props.navigation;
-        const { dataPart, AuthLoading } = this.props.user
+        const { dataPart, AuthLoading, login } = this.props.user
+        //console.log(login)
         return (
             <View style={styles.appConatiner}>
                 <View style={styles.block}>
@@ -124,7 +130,6 @@ class Application extends React.Component {
                         }}
                     />
                 </View>
-
                 <DropDownPicker
                     zIndex={5000}
                     items={dataPart.data.projects}
@@ -170,7 +175,7 @@ class Application extends React.Component {
                         backgroundColor: '#ffff',
                         borderWidth: 0,
                         borderColor: "#ffff",
-                        height:6
+                        height: 6
                     }}
                     itemStyle={{
                         //justifyContent: 'flex-start'
@@ -195,7 +200,6 @@ class Application extends React.Component {
                         color: darkBlue,
                     }}
                 />
-
                 <View style={styles.inpuView}>
                     <TextInput
                         placeholder="Cantidad"
@@ -205,8 +209,16 @@ class Application extends React.Component {
                         onChangeText={text => this.setState({ noHours: text })}
                     />
                 </View>
-
-                <DropDownPicker
+                <View style = {styles.conceptosTitle}>
+                <Text style={styles.conceptosText}>{"Conceptos"}</Text>
+                </View>
+                <View style = {styles.conceptos}>
+                    <SelectMultiple
+                        items={dataPart.data.concepts}
+                        selectedItems={this.state.selectedFruits}
+                        onSelectionsChange={this.onSelectionsChange} />
+                </View>
+                {/* <DropDownPicker
                     zIndex={3000}
                     items={dataPart.data.concepts}
                     defaultValue={this.state.concepts}
@@ -238,9 +250,8 @@ class Application extends React.Component {
                     selectedLabelStyle={{
                         color: darkBlue,
                     }}
-                />
-
-                <View style={styles.bottomView}>
+                /> */}
+                {/* <View style={styles.bottomView}>
                     <Text style={styles.pluseTitle}>
                         {"PLUSES"}
                     </Text>
@@ -338,7 +349,7 @@ class Application extends React.Component {
                             {"Plus Fastividad Fairmont(25,26 dic. y 1 Enero)"}
                         </Text>
                     </View>
-                </View>
+                </View> */}
                 <TouchableOpacity
                     style={styles.submitBtn}
                     onPress={() => this.handleSubmit()}

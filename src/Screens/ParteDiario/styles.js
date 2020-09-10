@@ -119,6 +119,7 @@ export const styles = StyleSheet.create({
     submitBtn: {
         width: widthPercentageToDP(45),
         height: heightPercentageToDP(5),
+        marginTop:heightPercentageToDP(2),
         backgroundColor: orangae,
         borderRadius: widthPercentageToDP(10),
         justifyContent: "center",
@@ -250,7 +251,7 @@ export const styles = StyleSheet.create({
         //backgroundColor:"grey"
     },
     componet6: {
-        width: widthPercentageToDP(17),
+        width: widthPercentageToDP(25.5),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
@@ -315,7 +316,26 @@ export const styles = StyleSheet.create({
     hoursTitle:{
         fontSize:widthPercentageToDP(3),
         fontWeight: "300",
-        color:"#000",
+        color: darkBlue,
         textAlign:"center"
+    },
+    conceptos:{
+        width:widthPercentageToDP(90),
+        height:heightPercentageToDP(30),
+        //marginTop:heightPercentageToDP(1)
+    },
+    conceptosTitle:{
+        width:widthPercentageToDP(90),
+        height:heightPercentageToDP(5),
+        backgroundColor:"#ffff",
+        marginTop:heightPercentageToDP(2),
+        //marginBottom:heightPercentageToDP(1),
+        justifyContent:"center"
+    },
+    conceptosText:{
+        fontSize:widthPercentageToDP(3.3),
+        fontWeight: "500",
+        color:darkBlue,
+        paddingLeft:widthPercentageToDP(4)
     }
 })
