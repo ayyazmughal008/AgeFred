@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
 import { connect } from 'react-redux';
+import { getExpense, postExpenseData } from '../../Redux/action'
 import { styles } from './styles';
 import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
@@ -9,6 +10,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import FastImage from 'react-native-fast-image'
 import DocumentPicker from 'react-native-document-picker';
 import ItemList from '../../Component/ItemList'
+import { ActivityIndicator } from 'react-native-paper';
+import ImagePicker from 'react-native-image-crop-picker';
 
 class MisGastos extends React.Component {
     constructor(props) {
@@ -19,36 +22,132 @@ class MisGastos extends React.Component {
             comido: "",
             importe: "",
             endDate: "",
-            imgData: []
+            imgData: [],
+            isLoading: false
         };
+        this.props.getExpense();
     }
 
     pickDocument = async () => {
-        try {
-            const results = await DocumentPicker.pickMultiple({
-                type: [DocumentPicker.types.images],
-            });
-            this.setState({ imgData: results }, () => {
+        // try {
+        //     const results = await DocumentPicker.pickMultiple({
+        //         type: [DocumentPicker.types.images],
+        //     });
+        //     this.setState({ imgData: results }, () => {
+        //         console.log(this.state.imgData)
+        //     })
+        // } catch (err) {
+        //     if (DocumentPicker.isCancel(err)) {
+        //         console.log(err)
+        //     } else {
+        //         throw err;
+        //     }
+        // }
+        ImagePicker.openPicker({
+            multiple: true
+        }).then(images => {
+            this.setState({ imgData: images }, () => {
                 console.log(this.state.imgData)
             })
-        } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-                console.log(err)
-            } else {
-                throw err;
-            }
-        }
+        });
     }
 
     removeItem = (myValue) => {
         var { imgData } = this.state
-        arr = imgData.filter(item => item.name !== myValue)
+        var arr = imgData.filter(item => item.path !== myValue)
         this.setState({ imgData: arr }, () => {
-            console.log(arr)
+            //console.log(arr)
         })
     }
 
+    handleSubmit = () => {
+        const { login } = this.props.user;
+        let path = "file:///data/user/0/com.agefred/cache/react-native-image-crop-picker/Agefred_gagfkgfggf_kwdkwekwehf_kgdwegfgfg_bdbwbwejwe_djwegj_lqkwdwqeejge_qjhwdjhgdkjgd_qhdqwjhgdjgwdkjwgd_qkjwhdkjqwhdkjwhgd1599818936843.jpg"
+        let uriParts = path.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+        var temp_array = [];
+        this.state.imgData.map((item, index) => {
+            temp_array.push({
+                uri: item.path,
+                type: 'image/jpg',
+                name: index + Date.now() + 'image.jpg',
+            })
+        })
+        console.log(temp_array)
+        const fileData = {
+            uri: path,
+            name: `myFile.${fileType}`,
+            type: `text/${fileType}`,
+        }
+        // if (this.state.toDate === "") {
+        //     Alert.alert("Please select date")
+        //     return
+        // }
+        // if (this.state.project === "") {
+        //     Alert.alert("Please provide project")
+        //     return
+        // }
+        // if (this.state.comido === "") {
+        //     Alert.alert("Please provide Motivo")
+        //     return
+        // }
+        // if (this.state.importe === "") {
+        //     Alert.alert("Please provide Importe")
+        //     return
+        // }
+        // if (this.state.endDate === "") {
+        //     Alert.alert("Please provide endDate")
+        //     return
+        // }
+        // if (this.state.imgData === undefined || this.state.imgData.length === 0) {
+        //     Alert.alert("Please select Images")
+        //     return
+        // }
+        this.setState({ isLoading: true })
+        let body = new FormData();
+        body.append('date', this.state.toDate);
+        body.append('draft', this.state.project);
+        body.append('reason', this.state.comido);
+        body.append('amount', this.state.importe);
+        body.append('madeDate', this.state.endDate);
+        //body.append('images[]', temp_array);
+        body.append('employId', login.data.id);
+        fetch("https://95.179.209.186/api/expense-store", {
+            method: 'POST',
+            headers: {
+                //'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                this.setState({ isLoading: false })
+                if (json.status === "Success") {
+                    alert(json.message)
+                } else {
+                    alert(json.message)
+                }
+            })
+            .catch(error => {
+                this.setState({ isLoading: false })
+                console.log('uploadImage error:', error);
+            });
+
+        // this.props.postExpenseData(
+        //     this.state.toDate,
+        //     this.state.project,
+        //     this.state.comido,
+        //     this.state.importe,
+        //     this.state.endDate,
+        //     this.state.imgData,
+        //     login.data.id
+        // )
+    }
+
     render() {
+        const { getDataExpense, AuthLoading } = this.props.user
         const navigation = this.props.navigation;
         const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
         return (
@@ -116,7 +215,7 @@ class MisGastos extends React.Component {
                                 value={this.props.project}
                                 style={styles.input}
                                 autoCapitalize="none"
-                                secureTextEntry={true}
+                                //secureTextEntry={true}
                                 onChangeText={text =>
                                     this.setState({ project: text })
                                 }
@@ -125,15 +224,12 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Motivo gasto"}
                         </Text>
-                        <View style={{ alignItems: "center", zIndex:5000 }}>
+                        <View style={{ alignItems: "center", }}>
                             <DropDownPicker
-                                items={[
-                                    { label: 'UK', value: 'uk' },
-                                    { label: 'France', value: 'france' },
-                                    { label: 'England', value: 'england' },
-                                ]}
+                                items={!getDataExpense.data ? [] : getDataExpense.data}
                                 defaultValue={this.state.comido}
                                 containerStyle={styles.dropStyle2}
+                                zIndex={5000}
                                 style={{
                                     backgroundColor: '#ffff',
                                     borderBottomWidth: 1,
@@ -179,7 +275,7 @@ class MisGastos extends React.Component {
                                 style={styles.input}
                                 value={this.props.importe}
                                 autoCapitalize="none"
-                                secureTextEntry={true}
+                                //secureTextEntry={true}
                                 onChangeText={text =>
                                     this.setState({ importe: text })
                                 }
@@ -254,14 +350,14 @@ class MisGastos extends React.Component {
                                                 this.state.imgData.map((item, index) => {
                                                     return (
                                                         <ItemList
-                                                            index={"unique" + index}
-                                                            name={item.name}
-                                                            clickHandler={() => this.removeItem(item.name)}
+                                                            key={"unique" + index}
+                                                            name={"Image " + (index + 1)}
+                                                            clickHandler={() => this.removeItem(item.path)}
                                                         />
                                                     )
                                                 })
                                             }
-
+                                            <View style={{ marginTop: 40 }} />
                                         </ScrollView>
                                     </View>
                                 }
@@ -270,7 +366,7 @@ class MisGastos extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <TouchableOpacity
                                 style={styles.submitBtn}
-                            //onPress={() => this.props.navigate}
+                                onPress={() => this.handleSubmit()}
                             >
                                 <Text style={styles.submitText}>
                                     {"Guardar"}
@@ -279,6 +375,12 @@ class MisGastos extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
+                {this.state.isLoading &&
+                    <ActivityIndicator
+                        color="#000"
+                        size="small"
+                        style={styles.loading}
+                    />}
             </KeyboardAvoidingView>
         )
     }
@@ -287,4 +389,4 @@ class MisGastos extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps,)(MisGastos);
+export default connect(mapStateToProps, { getExpense, postExpenseData })(MisGastos);

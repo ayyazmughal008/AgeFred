@@ -42,10 +42,8 @@ export const styles = StyleSheet.create({
         color: darkGrey
     },
     dropStyle2: {
-        width: widthPercentageToDP(85),
+        width: widthPercentageToDP(90),
         height: heightPercentageToDP(6),
-        //marginTop: heightPercentageToDP(2),
-        backgroundColor:"#ffff"
     },
     uploadBtn: {
         width:widthPercentageToDP(85),
@@ -57,6 +55,15 @@ export const styles = StyleSheet.create({
         marginTop:heightPercentageToDP(2),
         justifyContent:"center",
         //alignItems:"center"
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     img:{
         width:widthPercentageToDP(7),

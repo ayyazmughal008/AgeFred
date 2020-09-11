@@ -6,7 +6,8 @@ import {
   DATA_PART,
   DOWNLOAD,
   BLOGS,
-  GET_PART
+  GET_PART,
+  DATA_EXPENSE
 } from "./action";
 
 const initialUserState = {
@@ -15,7 +16,8 @@ const initialUserState = {
   dataPart: "",
   getDocuments: "",
   getBlogs: "",
-  getAllPart:""
+  getAllPart:"",
+  getDataExpense:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -63,6 +65,13 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       getAllPart: action.payload.getAllPart
+    };
+  }
+  
+  if (action.type === DATA_EXPENSE) {
+    return {
+      ...state,
+      getDataExpense: action.payload.getDataExpense
     };
   }
   return state;

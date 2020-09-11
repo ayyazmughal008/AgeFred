@@ -19,6 +19,7 @@ import HistoryComponent from '../../Component/History'
 import { data } from './data'
 import MyScrollView from 'react-native-nested-scroll-view'
 import DropDownPicker from 'react-native-dropdown-picker';
+import TypeHours from '../../Component/TypeHours'
 
 class HistoryClass extends React.Component {
   state = {
@@ -224,15 +225,41 @@ class HistoryClass extends React.Component {
             </TouchableOpacity>
           </View>
           <View style={styles.lastView}>
-            <View style={styles.bottomHourView}>
-              <Text style={styles.hoursTitle}>
-                {"Total Horas"}
-              </Text>
-              <Text style={styles.hoursTitle}>
-                {"16 h"}
-              </Text>
-            </View>
-            <DropDownPicker
+            {!getAllPart.totalHours ?
+              <View />
+              : <View style={styles.bottomHourView}>
+                <Text style={[styles.hoursTitle,{
+                  fontWeight:"bold",
+                  paddingLeft:6
+                }]}>
+                  {"Total Horas"}
+                </Text>
+                <Text style={styles.hoursTitle}>
+                  {getAllPart.totalHours}
+                </Text>
+              </View>
+            }
+            {!getAllPart.multiHours ?
+              <View />
+              : <View style={styles.typeOfHoursView}>
+                <View style={styles.myText}>
+                  <Text style={styles.historyText}>
+                    {"Tipo de horas"}
+                  </Text>
+                </View>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                  {getAllPart.multiHours.map((item, index) => {
+                    return (
+                      <TypeHours
+                        name={item.name}
+                        value={item.hours}
+                      />
+                    )
+                  })}
+                </ScrollView>
+              </View>
+            }
+            {/* <DropDownPicker
               zIndex={5000}
               items={[
                 { label: 'UK', value: 'uk' },
@@ -271,7 +298,7 @@ class HistoryClass extends React.Component {
               selectedLabelStyle={{
                 color: darkBlue,
               }}
-            />
+            /> */}
           </View>
           <View style={{ marginTop: 45 }} />
         </MyScrollView>

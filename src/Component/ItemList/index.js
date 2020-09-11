@@ -11,21 +11,27 @@ export default class List extends React.Component {
         return (
             <View
                 style={{
-                    width:widthPercentageToDP(70),
-                    height:heightPercentageToDP(5),
+                    width: widthPercentageToDP(100),
+                    height: heightPercentageToDP(5),
                     flexDirection: "row",
                     flexWrap: "wrap",
-                    alignItems:"center",
+                    alignItems: "center",
                     //backgroundColor:"green"
                 }}>
-                <Text
-                    style={{
-                        fontSize: widthPercentageToDP(3),
-                        fontWeight: "bold",
-                        color: darkGrey,
-                        textAlign: "left",
-                        paddingLeft:widthPercentageToDP(2)
-                    }}>{name}</Text>
+                <View style={{
+                    width:widthPercentageToDP(60),
+                    height:heightPercentageToDP(4)
+                }}>
+                    <Text
+                        style={{
+                            fontSize: widthPercentageToDP(3),
+                            fontWeight: "bold",
+                            color: darkGrey,
+                            textAlign: "left",
+                            paddingLeft: widthPercentageToDP(2)
+                        }}>{name}
+                    </Text>
+                </View>
                 <TouchableOpacity
                     onPress={clickHandler}
                     style={{

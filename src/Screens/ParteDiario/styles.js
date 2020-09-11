@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from 'react-native'
 import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
-import { lightBlue, darkBlue, orangae, grey } from '../../Component/ColorCode'
+import { lightBlue, darkBlue, orangae, grey, darkGrey } from '../../Component/ColorCode'
 
 export const styles = StyleSheet.create({
     container: {
@@ -193,7 +193,7 @@ export const styles = StyleSheet.create({
         //backgroundColor: "red"
     },
     historyText: {
-        fontSize: widthPercentageToDP(3.5),
+        fontSize: widthPercentageToDP(3),
         fontWeight: "bold",
         color: darkBlue,
         marginLeft: widthPercentageToDP(3)
@@ -321,7 +321,7 @@ export const styles = StyleSheet.create({
     },
     conceptos:{
         width:widthPercentageToDP(90),
-        height:heightPercentageToDP(30),
+        height:heightPercentageToDP(25),
         //marginTop:heightPercentageToDP(1)
     },
     conceptosTitle:{
@@ -337,5 +337,20 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
         color:darkBlue,
         paddingLeft:widthPercentageToDP(4)
+    },
+    typeOfHoursView:{
+        width:widthPercentageToDP(90),
+        height:heightPercentageToDP(15),
+        backgroundColor:"#ffff",
+        marginTop:heightPercentageToDP(1)
+    },
+    myText:{
+        width:widthPercentageToDP(90),
+        height:heightPercentageToDP(3),
+        backgroundColor:"#ffff",
+        //marginTop:heightPercentageToDP(1),
+        justifyContent:"center" ,
+        borderBottomWidth:widthPercentageToDP(0.2),
+        borderBottomColor: darkGrey
     }
 })

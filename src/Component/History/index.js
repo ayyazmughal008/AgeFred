@@ -103,7 +103,7 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        //flex: 1,
         justifyContent: "flex-start",
         flexDirection: "row",
         flexWrap: "wrap",

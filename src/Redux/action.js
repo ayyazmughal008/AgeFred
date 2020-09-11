@@ -6,6 +6,7 @@ export const LOG_OUT = "LOG_OUT";
 export const DOWNLOAD = "DOWNLOAD";
 export const GET_PART = "GET_PART";
 export const BLOGS = "BLOGS";
+export const DATA_EXPENSE = "DATA_EXPENSE";
 export const POST_PART_STORE = "POST_PART_STORE";
 
 var baseUrl = "http://95.179.209.186/api/",
@@ -14,6 +15,8 @@ var baseUrl = "http://95.179.209.186/api/",
   login = "login-employ",
   blog = "blogs-get",
   getPart = "parts-get",
+  dataExpense = "data-expense",
+  expenseStore = "expenseStore",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -218,6 +221,84 @@ export const getBlogs = () => {
         } else {
           alert(json.message)
         }
+      });
+  };
+}
+
+export const getExpense = () => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + dataExpense, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: DATA_EXPENSE,
+            payload: {
+              getDataExpense: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const postExpenseData = (
+  date,
+  draft,
+  reason,
+  amount,
+  madeDate,
+  images,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    console.log(images)
+    const body = new FormData();
+    body.append('date', date);
+    body.append('draft', draft);
+    body.append('reason', reason);
+    body.append('amount', amount);
+    body.append('madeDate', madeDate);
+    body.append('employId', employId);
+    images.forEach((item, index) => {
+      body.append('images[]', {
+        type: 'image/jpg',
+        name: index + Date.now() + 'image.jpg',
+        uri: item.uri,
+      });
+    })
+    fetch(baseUrl + expenseStore, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+				'Content-Type': 'multipart/form-data',
+      },
+      body: body
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          alert(json.message)
+        } else {
+          alert(json.message)
+        }
+      })
+      .catch(error => {
+        dispatch({ type: AUTH_LOADING, payload: false });
+        console.log('uploadImage error:', error);
       });
   };
 }
