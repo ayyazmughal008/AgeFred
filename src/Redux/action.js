@@ -7,6 +7,7 @@ export const DOWNLOAD = "DOWNLOAD";
 export const GET_PART = "GET_PART";
 export const BLOGS = "BLOGS";
 export const DATA_EXPENSE = "DATA_EXPENSE";
+export const GET_EXPENSE = "GET_EXPENSE";
 export const POST_PART_STORE = "POST_PART_STORE";
 
 var baseUrl = "http://95.179.209.186/api/",
@@ -16,7 +17,8 @@ var baseUrl = "http://95.179.209.186/api/",
   blog = "blogs-get",
   getPart = "parts-get",
   dataExpense = "data-expense",
-  expenseStore = "expenseStore",
+  expenseStore = "expense-store",
+  getExpensese = "expenses-get",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -258,12 +260,12 @@ export const postExpenseData = (
   reason,
   amount,
   madeDate,
-  images,
+  imagesArray,
   employId
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
-    console.log(images)
+    console.log("My array => ",imagesArray)
     const body = new FormData();
     body.append('date', date);
     body.append('draft', draft);
@@ -271,18 +273,18 @@ export const postExpenseData = (
     body.append('amount', amount);
     body.append('madeDate', madeDate);
     body.append('employId', employId);
-    images.forEach((item, index) => {
-      body.append('images[]', {
-        type: 'image/jpg',
-        name: index + Date.now() + 'image.jpg',
-        uri: item.uri,
+    imagesArray.forEach((item, i) => {
+      body.append("images[]", {
+        'uri': item.uri,
+        'type': item.type,
+        'name': item.name,
       });
-    })
+    });
     fetch(baseUrl + expenseStore, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-				'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
       body: body
     })
@@ -291,7 +293,7 @@ export const postExpenseData = (
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          alert(json.message)
+          alert(json.status)
         } else {
           alert(json.message)
         }
@@ -299,6 +301,43 @@ export const postExpenseData = (
       .catch(error => {
         dispatch({ type: AUTH_LOADING, payload: false });
         console.log('uploadImage error:', error);
+      });
+  };
+}
+
+export const getAllExpense = (
+  from,
+  to,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getExpensese, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: from,
+        to: to,
+        employId: employId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GET_EXPENSE,
+            payload: {
+              getAllExpense: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
       });
   };
 }

@@ -19,6 +19,10 @@ class DetailMisgasto extends React.Component {
     }
     render() {
         const { AuthLoading } = this.props.user
+        const images = this.props.navigation.getParam('array',"kdjkj");
+        const amount = this.props.navigation.getParam('amount',"kdjkj");
+        const date = this.props.navigation.getParam('date',"kdjkj");
+        const draft = this.props.navigation.getParam('draft',"kdjkj");
         return (
             <View style={styles.container2}>
                 <Header
@@ -41,7 +45,7 @@ class DetailMisgasto extends React.Component {
                 <View style={styles.sliderContainer}>
                     <SliderBox
                         ImageComponent={FastImage}
-                        images={imgData.img}
+                        images={images}
                         sliderBoxHeight={300}
                         onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
                         dotColor="#ffff"
@@ -78,7 +82,7 @@ class DetailMisgasto extends React.Component {
                                 fontWeight: '300',
                                 color: darkGrey
                             }]}>
-                                {"Importe"}
+                                {amount}
                             </Text>
                         </View>
                     </View>
@@ -96,7 +100,7 @@ class DetailMisgasto extends React.Component {
                                 fontWeight: '300',
                                 color: darkGrey
                             }]}>
-                                {"Importe"}
+                                {date}
                             </Text>
                         </View>
                     </View>
@@ -114,7 +118,7 @@ class DetailMisgasto extends React.Component {
                                 fontWeight: '300',
                                 color: darkGrey
                             }]}>
-                                {"Importe"}
+                                {draft}
                             </Text>
                         </View>
                     </View>

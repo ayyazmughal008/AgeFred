@@ -7,7 +7,8 @@ import {
   DOWNLOAD,
   BLOGS,
   GET_PART,
-  DATA_EXPENSE
+  DATA_EXPENSE,
+  GET_EXPENSE
 } from "./action";
 
 const initialUserState = {
@@ -16,8 +17,9 @@ const initialUserState = {
   dataPart: "",
   getDocuments: "",
   getBlogs: "",
-  getAllPart:"",
-  getDataExpense:""
+  getAllPart: "",
+  getDataExpense: "",
+  getAllExpense: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -67,11 +69,18 @@ const userReducer = (state = initialUserState, action) => {
       getAllPart: action.payload.getAllPart
     };
   }
-  
+
   if (action.type === DATA_EXPENSE) {
     return {
       ...state,
       getDataExpense: action.payload.getDataExpense
+    };
+  }
+
+  if (action.type === GET_EXPENSE) {
+    return {
+      ...state,
+      getAllExpense: action.payload.getAllExpense
     };
   }
   return state;

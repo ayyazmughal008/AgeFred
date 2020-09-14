@@ -137,7 +137,7 @@ export const styles = StyleSheet.create({
     },
     middleView:{
         width: widthPercentageToDP(90),
-        height: heightPercentageToDP(60),
+        height: heightPercentageToDP(57),
         backgroundColor:"#ffff"
     },
     sliderContainer:{

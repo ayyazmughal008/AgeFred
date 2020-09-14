@@ -50,9 +50,9 @@ class HistoryClass extends React.Component {
     const { getAllPart, AuthLoading } = this.props.user
     return (
       <View style={styles.historyConatiner}>
-        <MyScrollView
+        {/* <MyScrollView
           bounces={false}
-          contentContainerStyle={{ flexGrow: 1 }}>
+          contentContainerStyle={{ flexGrow: 1 }}> */}
           <View style={styles.dateView}>
             <View style={styles.selectDateView}>
               <DatePicker
@@ -301,7 +301,7 @@ class HistoryClass extends React.Component {
             /> */}
           </View>
           <View style={{ marginTop: 45 }} />
-        </MyScrollView>
+        {/* </MyScrollView> */}
         {AuthLoading &&
           <ActivityIndicator
             size="large"

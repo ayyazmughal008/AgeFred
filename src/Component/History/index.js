@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, ScrollView, Text, StatusBar, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, Platform, StyleSheet } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
-//import NestedScrollView from 'react-native-nested-scroll-view'
+import NestedScrollView from 'react-native-nested-scroll-view'
 //import { ScrollView } from 'react-native-gesture-handler'
 export default class Header extends React.Component {
 
@@ -61,22 +61,40 @@ export default class Header extends React.Component {
                 <View style={[styles.componet6, {
                     backgroundColor: bgColor
                 }]}>
-                    <ScrollView
-                        contentContainerStyle={{ flexGrow: 1 }}
-                        showsVerticalScrollIndicator={false}
-                    >
-                        {text6.map((item, index) => {
-                            return (
-                                <Text
-                                    //key={"unique" + index}
-                                    style={styles.conceptoText}
-                                >
-                                    {item}
-                                </Text>
-                            )
-                        })
-                        }
-                    </ScrollView>
+                    {Platform.OS === 'android' ?
+                        <NestedScrollView
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            {text6.map((item, index) => {
+                                return (
+                                    <Text
+                                        key={"unique" + index}
+                                        style={styles.conceptoText}
+                                    >
+                                        {item}
+                                    </Text>
+                                )
+                            })
+                            }
+                        </NestedScrollView>
+                        : <ScrollView
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            {text6.map((item, index) => {
+                                return (
+                                    <Text
+                                        key={"unique" + index}
+                                        style={styles.conceptoText}
+                                    >
+                                        {item}
+                                    </Text>
+                                )
+                            })
+                            }
+                        </ScrollView>
+                    }
                 </View>
                 {/* <View style={[styles.componet7, {
                     backgroundColor: bgColor
@@ -116,7 +134,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
         borderRightColor: darkBlue
         //backgroundColor:"red"
@@ -132,7 +150,7 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         color: darkBlue,
         textAlign: "center",
-        padding:widthPercentageToDP(1.5)
+        padding: widthPercentageToDP(1.5)
     },
     componet2: {
         width: widthPercentageToDP(23),
@@ -141,7 +159,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkBlue,
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
     componet3: {
@@ -151,7 +169,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkBlue,
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
     componet4: {
@@ -161,7 +179,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkBlue,
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
     componet5: {
@@ -171,7 +189,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkBlue,
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
     componet6: {
@@ -181,7 +199,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkBlue,
-        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
     componet7: {
