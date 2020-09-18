@@ -11,23 +11,28 @@ export default class List extends React.Component {
         return (
             <View
                 style={{
-                    width: widthPercentageToDP(100),
-                    height: heightPercentageToDP(5),
+                    // width: widthPercentageToDP(100),
+                    // height: heightPercentageToDP(5),
                     flexDirection: "row",
                     flexWrap: "wrap",
                     alignItems: "center",
+                    justifyContent:"space-between",
+                    marginLeft:widthPercentageToDP(2),
+                    marginRight:widthPercentageToDP(2)
                     //backgroundColor:"green"
                 }}>
                 <View style={{
                     width:widthPercentageToDP(60),
-                    height:heightPercentageToDP(4)
+                    height:heightPercentageToDP(4),
+                    //backgroundColor:"red",
+                    justifyContent:"center"
                 }}>
                     <Text
                         style={{
                             fontSize: widthPercentageToDP(3),
                             fontWeight: "bold",
                             color: darkGrey,
-                            textAlign: "left",
+                            textAlign: "justify",
                             paddingLeft: widthPercentageToDP(2)
                         }}>{name}
                     </Text>
@@ -35,9 +40,8 @@ export default class List extends React.Component {
                 <TouchableOpacity
                     onPress={clickHandler}
                     style={{
-                        marginTop: 30,
-                        marginLeft: 10,
-                        //backgroundColor:"red"
+                        width:widthPercentageToDP(5),
+                        height:widthPercentageToDP(5),
                     }}
                 >
                     <Icon

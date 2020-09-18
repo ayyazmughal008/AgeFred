@@ -87,6 +87,8 @@ target 'agefred' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
+
   target 'agefredTests' do
     inherit! :complete
     # Pods for testing

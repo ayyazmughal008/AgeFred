@@ -10,8 +10,8 @@ export default class Header extends React.Component {
         return (isText ?
             <Text
                 style={{
-                    fontSize: widthPercentageToDP(5),
-                    fontWeight: "300",
+                    fontSize: widthPercentageToDP(3),
+                    fontWeight: "bold",
                     color: "#ffff",
                 }}>
                 {title}

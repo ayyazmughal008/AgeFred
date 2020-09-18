@@ -8,7 +8,9 @@ import {
   BLOGS,
   GET_PART,
   DATA_EXPENSE,
-  GET_EXPENSE
+  GET_EXPENSE,
+  DATA_HOLIDAYS,
+  GET_HOLIDAYS
 } from "./action";
 
 const initialUserState = {
@@ -19,7 +21,9 @@ const initialUserState = {
   getBlogs: "",
   getAllPart: "",
   getDataExpense: "",
-  getAllExpense: ""
+  getAllExpense: "",
+  getHolidaysData: "",
+  getAllHolidays: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -27,9 +31,16 @@ const userReducer = (state = initialUserState, action) => {
   if (action.type === LOG_OUT) {
     return {
       ...state,
-      login: '',
+      login: "",
       AuthLoading: false,
-      dataPart: ""
+      dataPart: "",
+      getDocuments: "",
+      getBlogs: "",
+      getAllPart: "",
+      getDataExpense: "",
+      getAllExpense: "",
+      getHolidaysData: "",
+      getAllHolidays: ""
     };
   }
 
@@ -81,6 +92,19 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       getAllExpense: action.payload.getAllExpense
+    };
+  }
+
+  if (action.type === DATA_HOLIDAYS) {
+    return {
+      ...state,
+      getHolidaysData: action.payload.getHolidaysData
+    };
+  }
+  if (action.type === GET_HOLIDAYS) {
+    return {
+      ...state,
+      getAllHolidays: action.payload.getAllHolidays
     };
   }
   return state;

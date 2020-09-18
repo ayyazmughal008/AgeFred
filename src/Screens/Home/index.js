@@ -75,12 +75,14 @@ class HomePage extends Component {
                         <Card
                             iconName={require('./assets/6.png')}
                             title="Solicitar vacaciones / Permisos"
+                            clickHandler = {()=> this.props.navigation.navigate('Vocation')}
                         />
                     </View>
                     <View style={styles.menuView2}>
                         <Card
                             iconName={require('./assets/7.png')}
                             title="Orden de trabajo"
+                            clickHandler = {()=> this.props.navigation.navigate('Orden')}
                         />
                     </View>
                 </View>

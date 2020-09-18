@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert, Platform } from 'react-native'
 import { connect } from 'react-redux';
 import { getExpense, postExpenseData } from '../../Redux/action'
 import { styles } from './styles';
@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image'
 import DocumentPicker from 'react-native-document-picker';
 import ItemList from '../../Component/ItemList'
 import { ActivityIndicator } from 'react-native-paper';
-import ImagePicker from 'react-native-image-crop-picker';
+// import ImagePicker from 'react-native-image-crop-picker';
 import RNFS from 'react-native-fs';
 
 class MisGastos extends React.Component {
@@ -177,7 +177,7 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Motivo gasto"}
                         </Text>
-                        <View style={{ alignItems: "center", }}>
+                        <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
                             <DropDownPicker
                                 items={!getDataExpense.data ? [] : getDataExpense.data}
                                 defaultValue={this.state.comido}

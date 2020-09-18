@@ -9,6 +9,8 @@ export const BLOGS = "BLOGS";
 export const DATA_EXPENSE = "DATA_EXPENSE";
 export const GET_EXPENSE = "GET_EXPENSE";
 export const POST_PART_STORE = "POST_PART_STORE";
+export const DATA_HOLIDAYS = "DATA_HOLIDAYS";
+export const GET_HOLIDAYS = "GET_HOLIDAYS";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -19,6 +21,9 @@ var baseUrl = "http://95.179.209.186/api/",
   dataExpense = "data-expense",
   expenseStore = "expense-store",
   getExpensese = "expenses-get",
+  dataHoliday = "data-holiday",
+  getholidays =  'holidays-get',
+  holidayStore = "holiday-store",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -26,7 +31,6 @@ export const logOut = () => {
     dispatch({ type: LOG_OUT })
   }
 }
-
 export const fetchLoginDetail = (dni, password) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -59,7 +63,6 @@ export const fetchLoginDetail = (dni, password) => {
       });
   };
 }
-
 export const fetchDataPart = () => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -87,7 +90,6 @@ export const fetchDataPart = () => {
       });
   };
 }
-
 export const postPartStoreData = (
   date,
   project,
@@ -133,7 +135,6 @@ export const postPartStoreData = (
       });
   };
 }
-
 export const getAllParts = (
   from,
   to,
@@ -170,7 +171,6 @@ export const getAllParts = (
       });
   };
 }
-
 export const getDocuments = () => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -198,7 +198,6 @@ export const getDocuments = () => {
       });
   };
 }
-
 export const getBlogs = () => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -226,7 +225,6 @@ export const getBlogs = () => {
       });
   };
 }
-
 export const getExpense = () => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -265,7 +263,7 @@ export const postExpenseData = (
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
-    console.log("My array => ",imagesArray)
+    console.log("My array => ", imagesArray)
     const body = new FormData();
     body.append('date', date);
     body.append('draft', draft);
@@ -304,7 +302,6 @@ export const postExpenseData = (
       });
   };
 }
-
 export const getAllExpense = (
   from,
   to,
@@ -333,6 +330,107 @@ export const getAllExpense = (
             type: GET_EXPENSE,
             payload: {
               getAllExpense: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getDataHolidays = () => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + dataHoliday, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: DATA_HOLIDAYS,
+            payload: {
+              getHolidaysData: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const postHolidayData = (
+  type,
+  reason,
+  to,
+  from,
+  hours,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + holidayStore, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: type,
+        reason: reason,
+        to: to,
+        from: from,
+        hours: hours,
+        employId: employId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Successfull") {
+          alert(json.status)
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getHolidaysdata = (
+  from,
+  to,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getholidays, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: from,
+        to: to,
+        employId: employId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GET_HOLIDAYS,
+            payload: {
+              getAllHolidays: json
             }
           });
         } else {

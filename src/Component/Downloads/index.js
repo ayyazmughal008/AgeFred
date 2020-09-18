@@ -41,16 +41,17 @@ export default class Header extends React.Component {
                         flexDirection: "row",
                         flexWrap: "wrap",
                         alignItems: "center",
+                        width:widthPercentageToDP(60)
                     }}>
                         <View style={{
-                            width: widthPercentageToDP(4.5),
-                            height: widthPercentageToDP(4.5),
+                            width: widthPercentageToDP(5),
+                            height: widthPercentageToDP(5),
                             justifyContent: "center",
                             alignItems: "center",
                             backgroundColor: "red"
                         }}>
                             <Text style={{
-                                fontSize: widthPercentageToDP(2),
+                                fontSize: widthPercentageToDP(2.2),
                                 fontWeight: "bold",
                                 color: "#ffff"
                             }}>

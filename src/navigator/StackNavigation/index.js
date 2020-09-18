@@ -8,6 +8,8 @@ import Documents from '../../Screens/Documents'
 import DetailPage from '../../Screens/Blog/Detail'
 import MisGastos from '../../Screens/MisGastos'
 import DetailMisgasto from '../../Screens/MisGastos/Detail'
+import Vocation from '../../Screens/Vocations'
+import Orden from '../../Screens/Orden'
 
 export default createStackNavigator(
   {
@@ -37,6 +39,12 @@ export default createStackNavigator(
     },
     DetailMisgasto: {
       screen: DetailMisgasto
+    },
+    Vocation: {
+      screen: Vocation
+    },
+    Orden: {
+      screen: Orden
     },
   },
   {
