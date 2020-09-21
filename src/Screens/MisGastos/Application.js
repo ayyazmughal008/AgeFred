@@ -177,47 +177,90 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Motivo gasto"}
                         </Text>
-                        <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
-                            <DropDownPicker
-                                items={!getDataExpense.data ? [] : getDataExpense.data}
-                                defaultValue={this.state.comido}
-                                containerStyle={styles.dropStyle2}
-                                zIndex={5000}
-                                style={{
-                                    backgroundColor: '#ffff',
-                                    borderBottomWidth: 1,
-                                    borderBottomColor: grey,
-                                    borderTopWidth: 0,
-                                    borderLeftWidth: 0,
-                                    borderRightWidth: 0,
-                                }}
-                                itemStyle={{
-                                    //justifyContent: 'flex-start'
-                                    borderTopWidth: 2,
-                                    borderTopColor: grey,
-                                }}
-                                dropDownStyle={{
-                                    borderWidth: 0,
-                                    borderColor: "#ffff",
+                        {Platform.OS === "ios" ?
+                            <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                <DropDownPicker
+                                    items={!getDataExpense.data ? [] : getDataExpense.data}
+                                    defaultValue={this.state.comido}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
 
-                                }}
-                                onChangeItem={item => this.setState({
-                                    comido: item.value
-                                })}
-                                placeholder="Comida"
-                                placeholderStyle={{
-                                    color: darkGrey,
-                                    position: "absolute",
-                                    //left: "-3%"
-                                }}
-                                labelStyle={{
-                                    color: darkGrey,
-                                }}
-                                selectedLabelStyle={{
-                                    color: darkGrey,
-                                }}
-                            />
-                        </View>
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        comido: item.value
+                                    })}
+                                    placeholder="Comida"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                            : <View style={{ alignItems: "center", }}>
+                                <DropDownPicker
+                                    items={!getDataExpense.data ? [] : getDataExpense.data}
+                                    defaultValue={this.state.comido}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        comido: item.value
+                                    })}
+                                    placeholder="Comida"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                        }
                         <Text style={styles.inputTitle}>
                             {"Importe gasto"}
                         </Text>

@@ -108,7 +108,7 @@ class Profile extends Component {
                             />
 
                             <TouchableOpacity
-                                //onPress={leftClick}
+                                onPress={()=> this.props.navigation.navigate('GDPR')}
                                 style={styles.eyeBtn}
                             >
                                 <Icon

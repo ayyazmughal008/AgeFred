@@ -10,6 +10,7 @@ import MisGastos from '../../Screens/MisGastos'
 import DetailMisgasto from '../../Screens/MisGastos/Detail'
 import Vocation from '../../Screens/Vocations'
 import Orden from '../../Screens/Orden'
+import GDPR from '../../Screens/Profile/GDPR'
 
 export default createStackNavigator(
   {
@@ -45,6 +46,9 @@ export default createStackNavigator(
     },
     Orden: {
       screen: Orden
+    },
+    GDPR: {
+      screen: GDPR
     },
   },
   {

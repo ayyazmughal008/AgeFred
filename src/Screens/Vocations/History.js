@@ -229,7 +229,7 @@ class HistoryClass extends React.Component {
             </TouchableOpacity>
           </View>
           <View style={styles.lastView}>
-            {!getAllHolidays.data2.Total_Horas ?
+            {!getAllHolidays.data2 ?
               <View />
               : <View style={styles.bottomHourView}>
                 <Text style={[styles.hoursTitle,{
@@ -243,7 +243,7 @@ class HistoryClass extends React.Component {
                 </Text>
               </View>
             }
-            {!getAllHolidays.data2.Total_Dias ?
+            {!getAllHolidays.data2 ?
               <View />
               : <View style={styles.bottomHourView}>
                 <Text style={[styles.hoursTitle,{

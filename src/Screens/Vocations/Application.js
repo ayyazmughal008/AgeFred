@@ -85,7 +85,10 @@ class History extends React.Component {
                     }}>
                         <Text style={styles.toDate}>{"Select Type"}</Text>
                     </View>
-                    <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
+                    <View style={{ 
+                        alignItems: "center", 
+                        //zIndex: Platform.OS === "ios" ? 5000 : 0 
+                        }}>
                         <DropDownPicker
                             items={[
                                 { label: 'Hours', value: 'hours' },
@@ -134,7 +137,10 @@ class History extends React.Component {
                             <View style={{ justifyContent: "center", width: "100%" }}>
                                 <Text style={styles.toDate}>{"MOTIVO"}</Text>
                             </View>
-                            <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
+                            <View style={{ 
+                                alignItems: "center", 
+                                // zIndex: Platform.OS === "ios" ? 5000 : 0 
+                                }}>
                                 <DropDownPicker
                                     items={!getHolidaysData ? [] : getHolidaysData.data}
                                     defaultValue={this.state.motivo}
@@ -265,7 +271,10 @@ class History extends React.Component {
                                 <View style={{ justifyContent: "center", width: "100%" }}>
                                     <Text style={styles.toDate}>{"MOTIVO"}</Text>
                                 </View>
-                                <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
+                                <View style={{ 
+                                    alignItems: "center", 
+                                    // zIndex: Platform.OS === "ios" ? 5000 : 0 
+                                    }}>
                                     <DropDownPicker
                                         items={!getHolidaysData ? [] : getHolidaysData.data}
                                         defaultValue={this.state.motivo}

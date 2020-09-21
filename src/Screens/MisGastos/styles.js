@@ -36,10 +36,11 @@ export const styles = StyleSheet.create({
     },
     input: {
         width: widthPercentageToDP(85),
-        height: heightPercentageToDP(5),
+        height: heightPercentageToDP(6),
         borderBottomWidth: widthPercentageToDP(0.2),
         borderBottomColor: darkGrey,
-        color: darkGrey
+        color: darkGrey,
+        //backgroundColor:"red"
     },
     dropStyle2: {
         width: widthPercentageToDP(90),

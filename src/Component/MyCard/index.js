@@ -37,9 +37,9 @@ export default class BlogCard extends React.Component {
                 />
                 <View
                     style={{
-                        width: widthPercentageToDP(55),
-                        height: heightPercentageToDP(30),
-                        //backgroundColor: "#ffff",
+                        width: "72%",
+                        height: "100%",
+                        //backgroundColor: "red",
                         padding: widthPercentageToDP(2)
                     }}>
                     <HTML
@@ -50,26 +50,31 @@ export default class BlogCard extends React.Component {
                             }
                         }}
                     />
-                        <HTML
-                            html={description}
-                            tagsStyles={{
-                                p: {
-                                    fontSize: widthPercentageToDP(2),
-                                    width: widthPercentageToDP(55),
-                                    height: heightPercentageToDP(4),
-                                    paddingRight:widthPercentageToDP(2)
-                                }
-                            }}
-                        />
-                   
+                    <HTML
+                        html={description}
+                        tagsStyles={{
+                            p: {
+                                fontSize: widthPercentageToDP(2.5),
+                                width: "100%",
+                                height: "55%",
+                               // backgroundColor: "red",
+                                textAlign: "justify",
+                                paddingRight: widthPercentageToDP(2)
+                            }
+                        }}
+                    />
+
                     <TouchableOpacity style={{
-                        width: widthPercentageToDP(60),
-                        height: heightPercentageToDP(4),
+                        width: "100%",
+                        height: "35%",
                         borderRadius: widthPercentageToDP(10),
                         marginTop: heightPercentageToDP(1.5),
                         backgroundColor: orangae,
                         justifyContent: "center",
-                        alignItems: "center"
+                        alignItems: "center",
+                        position: "absolute",
+                        bottom: "5%",
+                        left: "4%"
                     }}
                         onPress={clickHandler}
                     >
