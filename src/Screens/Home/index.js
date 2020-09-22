@@ -18,7 +18,7 @@ class HomePage extends Component {
         this.props.fetchDataPart()
     }
     render() {
-        const { AuthLoading } = this.props.user;
+        const { AuthLoading, login } = this.props.user;
         console.log("My loading", AuthLoading);
         return (
             <View style={styles.container}>
@@ -39,8 +39,8 @@ class HomePage extends Component {
                     }}
                 />
                 <View style={styles.topView}>
-                    <Text style={styles.topTitle}>{"Travis Newman"}</Text>
-                    <Text style={styles.bottomTitle}>{"Empleado Nivel 1"}</Text>
+                    <Text style={styles.topTitle}>{login.data.name}</Text>
+                    <Text style={styles.bottomTitle}>{login.data.level}</Text>
                 </View>
                 <View style={styles.middleView}>
                     <View style={styles.menuView}>
