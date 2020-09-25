@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     },
     blogImg:{
         width:widthPercentageToDP(100),
-        height:heightPercentageToDP(35)
+        height:heightPercentageToDP(45)
     },
     detailMainTextView:{
         marginLeft:widthPercentageToDP(10),

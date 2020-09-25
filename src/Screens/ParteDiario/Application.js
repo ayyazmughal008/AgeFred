@@ -131,6 +131,11 @@ class Application extends React.Component {
                     />
                 </View>
                 <DropDownPicker
+                    searchable={true}
+                    searchablePlaceholder="Search for an item"
+                    searchablePlaceholderTextColor="gray"
+                    //seachableStyle={{}}
+                    searchableError={() => <Text>Not Found</Text>}
                     zIndex={5000}
                     items={dataPart.data.projects}
                     defaultValue={this.state.task}
@@ -209,10 +214,10 @@ class Application extends React.Component {
                         onChangeText={text => this.setState({ noHours: text })}
                     />
                 </View>
-                <View style = {styles.conceptosTitle}>
-                <Text style={styles.conceptosText}>{"Conceptos"}</Text>
+                <View style={styles.conceptosTitle}>
+                    <Text style={styles.conceptosText}>{"Conceptos"}</Text>
                 </View>
-                <View style = {styles.conceptos}>
+                <View style={styles.conceptos}>
                     <SelectMultiple
                         items={dataPart.data.concepts}
                         selectedItems={this.state.selectedFruits}

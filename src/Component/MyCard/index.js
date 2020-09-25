@@ -10,7 +10,7 @@ export default class BlogCard extends React.Component {
     render() {
         const { urlImag, clickHandler, title, description } = this.props
         return (
-            <View style={{
+            <TouchableOpacity style={{
                 width: widthPercentageToDP(90),
                 height: widthPercentageToDP(30),
                 backgroundColor: "#ffff",
@@ -26,14 +26,16 @@ export default class BlogCard extends React.Component {
                 },
                 shadowRadius: 3,
                 shadowOpacity: 0.5
-            }}>
+            }}
+                onPress={clickHandler}
+            >
                 <FastImage
                     source={{ uri: urlImag }}
                     style={{
                         width: widthPercentageToDP(25),
                         height: widthPercentageToDP(30)
                     }}
-                    resizeMode={FastImage.resizeMode.stretch}
+                    resizeMode={FastImage.resizeMode.cover}
                 />
                 <View
                     style={{
@@ -56,15 +58,15 @@ export default class BlogCard extends React.Component {
                             p: {
                                 fontSize: widthPercentageToDP(2.5),
                                 width: "100%",
-                                height: "55%",
-                               // backgroundColor: "red",
+                                height: "40%",
+                                //backgroundColor: "red",
                                 textAlign: "justify",
                                 paddingRight: widthPercentageToDP(2)
                             }
                         }}
                     />
 
-                    <TouchableOpacity style={{
+                    {/* <TouchableOpacity style={{
                         width: "100%",
                         height: "35%",
                         borderRadius: widthPercentageToDP(10),
@@ -85,10 +87,10 @@ export default class BlogCard extends React.Component {
                         }}>
                             {"Ver post"}
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
-            </View>
+            </TouchableOpacity>
         )
     }
 }

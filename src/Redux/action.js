@@ -11,6 +11,7 @@ export const GET_EXPENSE = "GET_EXPENSE";
 export const POST_PART_STORE = "POST_PART_STORE";
 export const DATA_HOLIDAYS = "DATA_HOLIDAYS";
 export const GET_HOLIDAYS = "GET_HOLIDAYS";
+export const ORDER_NUMBER = "ORDER_NUMBER";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -22,8 +23,9 @@ var baseUrl = "http://95.179.209.186/api/",
   expenseStore = "expense-store",
   getExpensese = "expenses-get",
   dataHoliday = "data-holiday",
-  getholidays =  'holidays-get',
+  getholidays = 'holidays-get',
   holidayStore = "holiday-store",
+  orderNumber = "order-number",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -402,7 +404,6 @@ export const postHolidayData = (
       });
   };
 }
-
 export const getHolidaysdata = (
   from,
   to,
@@ -431,6 +432,39 @@ export const getHolidaysdata = (
             type: GET_HOLIDAYS,
             payload: {
               getAllHolidays: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getOrderNumber = (
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + orderNumber, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        employId: employId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: ORDER_NUMBER,
+            payload: {
+              getWorkOrderNumber: json
             }
           });
         } else {

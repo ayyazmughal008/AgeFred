@@ -11,6 +11,7 @@ import DetailMisgasto from '../../Screens/MisGastos/Detail'
 import Vocation from '../../Screens/Vocations'
 import Orden from '../../Screens/Orden'
 import GDPR from '../../Screens/Profile/GDPR'
+import TimeTracking from '../../Screens/TimeTracking'
 
 export default createStackNavigator(
   {
@@ -49,6 +50,9 @@ export default createStackNavigator(
     },
     GDPR: {
       screen: GDPR
+    },
+    TimeTracking: {
+      screen: TimeTracking
     },
   },
   {

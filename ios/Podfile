@@ -89,6 +89,8 @@ target 'agefred' do
 
   pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'agefredTests' do
     inherit! :complete
     # Pods for testing

@@ -160,5 +160,61 @@ export const styles = StyleSheet.create({
         justifyContent:"center",
         borderBottomWidth:widthPercentageToDP(0.2),
         borderBottomColor:darkGrey
-    }
+    },
+    // Dialog styles 
+    modalMain2: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        //backgroundColor:"red"
+    },
+    innerModal2: {
+        width: "100%",
+        height: "100%",
+        marginBottom: widthPercentageToDP(10),
+        marginLeft: widthPercentageToDP(5),
+        marginRight: widthPercentageToDP(5)
+    },
+    quesBox: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(25),
+        marginLeft: widthPercentageToDP(2),
+        alignItems: "center",
+        backgroundColor: lightBlue,
+        borderWidth: widthPercentageToDP(0.1),
+        borderColor: darkBlue,
+        borderRadius:widthPercentageToDP(2)
+        // justifyContent: "center",
+    },
+    textView: {
+        //alignItems: 'flex-start',
+        //marginTop: widthPercentageToDP(3),
+    },
+    text2: {
+        color: "#000",
+        fontSize: widthPercentageToDP(4.5),
+        //textAlign:"center",
+        width: widthPercentageToDP(78),
+        paddingLeft: widthPercentageToDP(3),
+        marginTop: widthPercentageToDP(7)
+
+    },
+    confirmBtn: {
+        width: widthPercentageToDP(20),
+        height: heightPercentageToDP(5),
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: darkBlue,
+        borderRadius:widthPercentageToDP(2)
+    },
+    confirmStyle: {
+        width: widthPercentageToDP(60),
+        height: heightPercentageToDP(10),
+    },
+    confirmText: {
+        color: "#ffff",
+        fontSize: widthPercentageToDP(3.5),
+        fontWeight:"300"
+    },
 })

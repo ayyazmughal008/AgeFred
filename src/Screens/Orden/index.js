@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert, Platform } from 'react-native'
 import { connect } from 'react-redux';
-import { getExpense, postExpenseData } from '../../Redux/action'
+import { getOrderNumber } from '../../Redux/action'
 import { styles } from './styles';
 import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
@@ -20,6 +20,7 @@ class Orden extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            ordrerNo: 0,
             toDate: "",
             project: "",
             comido: "",
@@ -28,9 +29,12 @@ class Orden extends React.Component {
             imgData: [],
             isLoading: false
         };
-        this.props.getExpense();
+        this.getWorkOrder()
     }
-
+    getWorkOrder = () => {
+        const { login } = this.props.user;
+        this.props.getOrderNumber(login.data.id)
+    }
     pickDocument = async () => {
         try {
             const results = await DocumentPicker.pickMultiple({
@@ -90,21 +94,16 @@ class Orden extends React.Component {
             return
         }
 
-        this.props.postExpenseData(
-            this.state.toDate,
-            this.state.project,
-            this.state.comido,
-            this.state.importe,
-            this.state.endDate,
-            this.state.imgData,
-            login.data.id
-        )
     }
-
+    updateOrderNo = (text) => {
+        const { getWorkOrderNumber } = this.props.user;
+        let myNo = getWorkOrderNumber.data
+        myNo = text;
+        this.setState({ ordrerNo: newArray })
+    }
     render() {
-        const { getDataExpense, AuthLoading } = this.props.user
-        const navigation = this.props.navigation;
-        const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+        const { dataPart, AuthLoading, getWorkOrderNumber } = this.props.user
+        console.log("my number =>", getWorkOrderNumber)
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -141,13 +140,12 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="N Orden de trabajo"
                                 placeholderTextColor={grey}
-                                value={this.props.project}
+                                editable={false}
+                                value={!getWorkOrderNumber ? "" : getWorkOrderNumber.data}
                                 style={styles.input}
                                 autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ project: text })
-                                }
+                            //secureTextEntry={true}
+                            //onChangeText={text => this.updateOrderNo(text)}
                             />
                         </View>
                         <Text style={styles.inputTitle}>
@@ -369,47 +367,90 @@ class Orden extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Tipo"}
                         </Text>
-                        <View style={{ alignItems: "center", zIndex: Platform.OS === "ios" ? 5000 : 0 }}>
-                            <DropDownPicker
-                                items={!getDataExpense.data ? [] : getDataExpense.data}
-                                defaultValue={this.state.comido}
-                                containerStyle={styles.dropStyle2}
-                                zIndex={5000}
-                                style={{
-                                    backgroundColor: '#ffff',
-                                    borderBottomWidth: 1,
-                                    borderBottomColor: grey,
-                                    borderTopWidth: 0,
-                                    borderLeftWidth: 0,
-                                    borderRightWidth: 0,
-                                }}
-                                itemStyle={{
-                                    //justifyContent: 'flex-start'
-                                    borderTopWidth: 2,
-                                    borderTopColor: grey,
-                                }}
-                                dropDownStyle={{
-                                    borderWidth: 0,
-                                    borderColor: "#ffff",
+                        {Platform.OS === "ios" ?
+                            <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                <DropDownPicker
+                                    items={dataPart.data.hours}
+                                    defaultValue={this.state.comido}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
 
-                                }}
-                                onChangeItem={item => this.setState({
-                                    comido: item.value
-                                })}
-                                placeholder="tipo"
-                                placeholderStyle={{
-                                    color: darkGrey,
-                                    position: "absolute",
-                                    //left: "-3%"
-                                }}
-                                labelStyle={{
-                                    color: darkGrey,
-                                }}
-                                selectedLabelStyle={{
-                                    color: darkGrey,
-                                }}
-                            />
-                        </View>
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        comido: item.value
+                                    })}
+                                    placeholder="tipo"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                            : <View style={{ alignItems: "center", }}>
+                                <DropDownPicker
+                                    items={dataPart.data.hours}
+                                    defaultValue={this.state.comido}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        comido: item.value
+                                    })}
+                                    placeholder="tipo"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                        }
                         <Text style={styles.inputTitle}>
                             {"Dieta"}
                         </Text>
@@ -480,28 +521,29 @@ class Orden extends React.Component {
                                     containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
                                     canvasStyle={{ backgroundColor: 'transparent', flex: 1 }}
                                     onStrokeEnd={data => {
+                                        console.log(data)
                                     }}
                                     // closeComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Close</Text></View>}
                                     // onClosePressed={() => {
                                     //     this.setState({ example: 0 })
                                     // }}
-                                    undoComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Undo</Text></View>}
-                                    onUndoPressed={(id) => {
-                                         Alert.alert('do something')
-                                    }}
+                                    // undoComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Undo</Text></View>}
+                                    // onUndoPressed={(id) => {
+                                    //      //Alert.alert('do something')
+                                    // }}
                                     clearComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Clear</Text></View>}
                                     onClearPressed={() => {
                                         // Alert.alert('do something')
                                     }}
-                                    eraseComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Eraser</Text></View>}
+                                    // eraseComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Eraser</Text></View>}
                                     // strokeComponent={color => (
                                     //     <View style={[{ backgroundColor: color }, styles.strokeColorButton]} />
                                     // )}
-                                    strokeSelectedComponent={(color, index, changed) => {
-                                        return (
-                                            <View style={[{ backgroundColor: color, borderWidth: 2 }, styles.strokeColorButton]} />
-                                        )
-                                    }}
+                                    // strokeSelectedComponent={(color, index, changed) => {
+                                    //     return (
+                                    //         <View style={[{ backgroundColor: color, borderWidth: 2 }, styles.strokeColorButton]} />
+                                    //     )
+                                    // }}
                                     // strokeWidthComponent={(w) => {
                                     //     return (<View style={styles.strokeWidthButton}>
                                     //         <View style={{
@@ -511,14 +553,15 @@ class Orden extends React.Component {
                                     //     </View>
                                     //     )
                                     // }}
+                                    strokeWidth={0.5}
                                     defaultStrokeIndex={0}
-                                    defaultStrokeWidth={5}
+                                    //defaultStrokeWidth={5}
                                     saveComponent={<View style={styles.functionButton}><Text style={{ color: 'white' }}>Save</Text></View>}
                                     savePreference={() => {
                                         return {
-                                            folder: "RNSketchCanvas",
+                                            folder: "AgefredSignature",
                                             filename: String(Math.ceil(Math.random() * 100000000)),
-                                            transparent: false,
+                                            transparent: true,
                                             imageType: "png"
                                         }
                                     }}
@@ -529,16 +572,19 @@ class Orden extends React.Component {
                                     onPathsChange={(pathsCount) => {
                                         console.log('pathsCount', pathsCount)
                                     }}
+                                    onStrokeStart={data => {
+                                        console.log("start =>", data)
+                                    }}
                                 />
                             </View>
                         </View>
                         <View style={{ alignItems: "center" }}>
                             <TouchableOpacity
                                 style={styles.submitBtn}
-                                onPress={() => this.handleSubmit()}
+                            //onPress={() => this.handleSubmit()}
                             >
                                 <Text style={styles.submitText}>
-                                    {"Guardar"}
+                                    {"Enviar"}
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -558,4 +604,4 @@ class Orden extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getExpense, postExpenseData })(Orden);
+export default connect(mapStateToProps, { getOrderNumber })(Orden);

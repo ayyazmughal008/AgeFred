@@ -78,11 +78,16 @@ class HomePage extends Component {
                             clickHandler = {()=> this.props.navigation.navigate('Vocation')}
                         />
                     </View>
-                    <View style={styles.menuView2}>
+                    <View style={styles.menuView}>
                         <Card
                             iconName={require('./assets/7.png')}
                             title="Orden de trabajo"
                             clickHandler = {()=> this.props.navigation.navigate('Orden')}
+                        />
+                        <Card
+                            iconName={require('./assets/6.png')}
+                            title="Geolocation"
+                            clickHandler = {()=> this.props.navigation.navigate('TimeTracking')}
                         />
                     </View>
                 </View>

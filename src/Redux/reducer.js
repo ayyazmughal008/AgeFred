@@ -10,7 +10,8 @@ import {
   DATA_EXPENSE,
   GET_EXPENSE,
   DATA_HOLIDAYS,
-  GET_HOLIDAYS
+  GET_HOLIDAYS,
+  ORDER_NUMBER
 } from "./action";
 
 const initialUserState = {
@@ -23,7 +24,8 @@ const initialUserState = {
   getDataExpense: "",
   getAllExpense: "",
   getHolidaysData: "",
-  getAllHolidays: ""
+  getAllHolidays: "",
+  getWorkOrderNumber: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -40,7 +42,8 @@ const userReducer = (state = initialUserState, action) => {
       getDataExpense: "",
       getAllExpense: "",
       getHolidaysData: "",
-      getAllHolidays: ""
+      getAllHolidays: "",
+      getWorkOrderNumber: ""
     };
   }
 
@@ -94,7 +97,6 @@ const userReducer = (state = initialUserState, action) => {
       getAllExpense: action.payload.getAllExpense
     };
   }
-
   if (action.type === DATA_HOLIDAYS) {
     return {
       ...state,
@@ -105,6 +107,12 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       getAllHolidays: action.payload.getAllHolidays
+    };
+  }
+  if (action.type === ORDER_NUMBER) {
+    return {
+      ...state,
+      getWorkOrderNumber: action.payload.getWorkOrderNumber
     };
   }
   return state;

@@ -11,8 +11,8 @@ import FastImage from 'react-native-fast-image'
 import DocumentPicker from 'react-native-document-picker';
 import ItemList from '../../Component/ItemList'
 import { ActivityIndicator } from 'react-native-paper';
-// import ImagePicker from 'react-native-image-crop-picker';
-import RNFS from 'react-native-fs';
+import ImagePicker from 'react-native-image-crop-picker';
+import Dialog from './Dialog'
 
 class MisGastos extends React.Component {
     constructor(props) {
@@ -24,9 +24,14 @@ class MisGastos extends React.Component {
             importe: "",
             endDate: "",
             imgData: [],
-            isLoading: false
+            isLoading: false,
+            dilaogStatus: false
         };
         this.props.getExpense();
+    }
+
+    toggleDiloge = () => {
+        this.setState({ dilaogStatus: !this.state.dilaogStatus })
     }
 
     pickDocument = async () => {
@@ -35,11 +40,13 @@ class MisGastos extends React.Component {
                 type: [DocumentPicker.types.images],
             });
             this.setState({ imgData: results }, () => {
-                console.log(this.state.imgData)
+                console.log(this.state.imgData),
+                    this.toggleDiloge()
             })
         } catch (err) {
             if (DocumentPicker.isCancel(err)) {
-                console.log(err)
+                console.log(err),
+                    this.toggleDiloge()
             } else {
                 throw err;
             }
@@ -99,10 +106,19 @@ class MisGastos extends React.Component {
         )
     }
 
+    openCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log(image);
+            this.toggleDiloge()
+        });
+    }
+
     render() {
         const { getDataExpense, AuthLoading } = this.props.user
-        const navigation = this.props.navigation;
-        const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -327,8 +343,7 @@ class MisGastos extends React.Component {
                             <TouchableOpacity
                                 style={styles.uploadBtn}
                                 disabled={this.state.imgData === undefined || this.state.imgData.length === 0 ? false : true}
-                                onPress={() => this.pickDocument()}
-                            >
+                                onPress={() => this.toggleDiloge()}>
                                 {this.state.imgData === undefined || this.state.imgData.length === 0 ?
                                     <View style={{ alignItems: "center", justifyContent: "center" }}>
                                         <FastImage
@@ -377,6 +392,17 @@ class MisGastos extends React.Component {
                         size="small"
                         style={styles.loading}
                     />}
+                {this.state.dilaogStatus &&
+                    <Dialog
+                        isDialogOpen={this.state.dilaogStatus}
+                        errorMessage={"Choose image from Camera or Gallery"}
+                        cameraButton={() => this.openCamera()}
+                        GalleryButton={() => {
+                            //this.toggleDiloge();
+                            this.pickDocument();
+                        }}
+                    />
+                }
             </KeyboardAvoidingView>
         )
     }
