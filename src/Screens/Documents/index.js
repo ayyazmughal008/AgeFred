@@ -67,7 +67,7 @@ class Documents extends React.Component {
         }
         config(options).fetch('GET', url).then((res) => {
             this.setState({ isDwonloading: false })
-            Alert.alert("Success Downloaded");
+            this.iosDownload(fileUrl)
             //this.setState({ isOpen: false })
             // this.props.dispatchText();
             // this.props.dispatchFuncOn();

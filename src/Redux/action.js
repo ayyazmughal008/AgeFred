@@ -26,6 +26,7 @@ var baseUrl = "http://95.179.209.186/api/",
   getholidays = 'holidays-get',
   holidayStore = "holiday-store",
   orderNumber = "order-number",
+  workStore = "work-store",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -130,6 +131,7 @@ export const postPartStoreData = (
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
+          dispatch(getAllParts(null, null, employId))
           alert(json.message)
         } else {
           alert(json.message)
@@ -261,6 +263,7 @@ export const postExpenseData = (
   amount,
   madeDate,
   imagesArray,
+  singleImage,
   employId
 ) => {
   return dispatch => {
@@ -273,13 +276,17 @@ export const postExpenseData = (
     body.append('amount', amount);
     body.append('madeDate', madeDate);
     body.append('employId', employId);
-    imagesArray.forEach((item, i) => {
-      body.append("images[]", {
-        'uri': item.uri,
-        'type': item.type,
-        'name': item.name,
+    if (imagesArray === undefined || imagesArray.length === 0) {
+      body.append('singleImage', singleImage);
+    } else {
+      imagesArray.forEach((item, i) => {
+        body.append("images[]", {
+          'uri': item.uri,
+          'type': item.type,
+          'name': item.name,
+        });
       });
-    });
+    }
     fetch(baseUrl + expenseStore, {
       method: 'POST',
       headers: {
@@ -440,7 +447,6 @@ export const getHolidaysdata = (
       });
   };
 }
-
 export const getOrderNumber = (
   employId
 ) => {
@@ -471,5 +477,67 @@ export const getOrderNumber = (
           alert(json.message)
         }
       });
+  };
+}
+
+export const postWorkStore = (
+  number,
+  startDate,
+  finishDate,
+  draft,
+  customerName,
+  customerEmail,
+  time,
+  departureTime,
+  hours,
+  hourType,
+  diet,
+  displacement,
+  observations,
+  trabajo,
+  image,
+  employId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    const body = new FormData();
+    body.append('number', number);
+    body.append('startDate', startDate);
+    body.append('finishDate', finishDate);
+    body.append('draft', draft);
+    body.append('customerName', customerName);
+    body.append('customerEmail', customerEmail);
+    body.append('time', time);
+    body.append('departureTime', departureTime);
+    body.append('hours', hours);
+    body.append('hourType', hourType);
+    body.append('diet', diet);
+    body.append('displacement', displacement);
+    body.append('observations', observations);
+    body.append('trabajo', trabajo);
+    body.append('image', image);
+    body.append('employId', employId);
+    fetch(baseUrl + workStore, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: body
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Successfull") {
+          alert(json.status)
+        } else {
+          alert(json.message)
+        }
+      })
+      .catch(err => {
+        dispatch({ type: AUTH_LOADING, payload: false });
+        console.log(err)
+      })
   };
 }

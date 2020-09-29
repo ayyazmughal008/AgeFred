@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
         borderRadius: widthPercentageToDP(10),
         backgroundColor: orangae,
         marginTop: heightPercentageToDP(2),
-        marginBottom: heightPercentageToDP(2),
+        marginBottom: heightPercentageToDP(4),
         justifyContent: "center",
         alignItems: "center"
     },

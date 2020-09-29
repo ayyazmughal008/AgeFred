@@ -199,7 +199,7 @@ class HistoryClass extends React.Component {
           </View>
           <View style={{ flex: 1 }}>
             <ScrollView
-              bounces={false}
+              //bounces={false}
               contentContainerStyle={{ flexGrow: 1 }}
               showsVerticalScrollIndicator={false}
             >

@@ -1,33 +1,42 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert, Platform } from 'react-native'
 import { connect } from 'react-redux';
-import { getOrderNumber } from '../../Redux/action'
+import { getOrderNumber, postWorkStore } from '../../Redux/action'
 import { styles } from './styles';
 import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import DropDownPicker from 'react-native-dropdown-picker';
-import FastImage from 'react-native-fast-image'
-import DocumentPicker from 'react-native-document-picker';
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
-import { SketchCanvas } from '@terrylinla/react-native-sketch-canvas';
 import { ActivityIndicator } from 'react-native-paper';
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
+import moment from 'moment'
 
 class Orden extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             ordrerNo: 0,
-            toDate: "",
-            project: "",
-            comido: "",
-            importe: "",
-            endDate: "",
-            imgData: [],
-            isLoading: false
+            startDate: "",
+            finishDate: "",
+            draft: "",
+            customerName: "",
+            customerEmail: "",
+            time: "",
+            departureTime: "",
+            hours: "",
+            hourType: "",
+            diet: "",
+            displacement: "",
+            observations: "",
+            trabajo: "",
+            image: "",
+            isLoading: false,
+            TimePickerModal: false,
+            TimePickerModal2: false,
         };
         this.getWorkOrder()
     }
@@ -35,65 +44,36 @@ class Orden extends React.Component {
         const { login } = this.props.user;
         this.props.getOrderNumber(login.data.id)
     }
-    pickDocument = async () => {
-        try {
-            const results = await DocumentPicker.pickMultiple({
-                type: [DocumentPicker.types.images],
-            });
-            this.setState({ imgData: results }, () => {
-                console.log(this.state.imgData)
-            })
-        } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-                console.log(err)
-            } else {
-                throw err;
-            }
-        }
-        // ImagePicker.openPicker({
-        //     multiple: true
-        // }).then(images => {
-        //     this.setState({ imgData: images }, () => {
-        //         console.log(this.state.imgData)
-        //     })
-        // });
-    }
-
-    removeItem = (myValue) => {
-        var { imgData } = this.state
-        var arr = imgData.filter(item => item.uri !== myValue)
-        this.setState({ imgData: arr }, () => {
-            //console.log(arr)
-        })
-    }
-
     handleSubmit = () => {
-        const { login } = this.props.user;
-        if (this.state.toDate === "") {
-            Alert.alert("Please select date")
+        const { login , getWorkOrderNumber } = this.props.user;
+        if (!this.state.image) {
+            Alert.alert("Please create signature and save")
             return
         }
-        if (this.state.project === "") {
-            Alert.alert("Please provide project")
-            return
+        let data = {
+            'uri': this.state.image,
+            'type': 'image/png',
+            'name': Date.now() + '_Agefred.png',
         }
-        if (this.state.comido === "") {
-            Alert.alert("Please provide Motivo")
-            return
-        }
-        if (this.state.importe === "") {
-            Alert.alert("Please provide Importe")
-            return
-        }
-        if (this.state.endDate === "") {
-            Alert.alert("Please provide endDate")
-            return
-        }
-        if (this.state.imgData === undefined || this.state.imgData.length === 0) {
-            Alert.alert("Please select Images")
-            return
-        }
-
+        console.log(data)
+        this.props.postWorkStore(
+            !getWorkOrderNumber ? "" : getWorkOrderNumber.data,
+            this.state.startDate,
+            this.state.finishDate,
+            this.state.draft,
+            this.state.customerName,
+            this.state.customerEmail,
+            this.state.time,
+            this.state.departureTime,
+            this.state.hours,
+            this.state.hourType,
+            this.state.diet,
+            this.state.displacement,
+            this.state.observations,
+            this.state.trabajo,
+            data,
+            login.data.id
+        )
     }
     updateOrderNo = (text) => {
         const { getWorkOrderNumber } = this.props.user;
@@ -101,9 +81,19 @@ class Orden extends React.Component {
         myNo = text;
         this.setState({ ordrerNo: newArray })
     }
+    handleTimePicker = () => {
+        this.setState({ TimePickerModal: !this.state.TimePickerModal })
+    }
+    handleTimePicker2 = () => {
+        this.setState({ TimePickerModal2: !this.state.TimePickerModal2 })
+    }
+
     render() {
-        const { dataPart, AuthLoading, getWorkOrderNumber } = this.props.user
-        console.log("my number =>", getWorkOrderNumber)
+        const { dataPart, AuthLoading, getWorkOrderNumber, login } = this.props.user
+        console.log("my number =>", login.data.id)
+        // var timestamp = 1601234432961 * 1000;
+        // console.log(new Date(timestamp).toTimeString());
+        // console.log(new Date(timestamp).toLocaleTimeString());
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -154,7 +144,7 @@ class Orden extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <DatePicker
                                 style={styles.datePickerStyle}
-                                date={this.state.toDate}
+                                date={this.state.startDate}
                                 mode="date"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
@@ -187,7 +177,7 @@ class Orden extends React.Component {
                                 cancelBtnText="Cancel"
                                 showIcon={false}
                                 onDateChange={endDate => {
-                                    this.setState({ toDate: endDate });
+                                    this.setState({ startDate: endDate });
                                 }}
                             />
                         </View>
@@ -197,7 +187,7 @@ class Orden extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <DatePicker
                                 style={styles.datePickerStyle}
-                                date={this.state.toDate}
+                                date={this.state.finishDate}
                                 mode="date"
                                 placeholder="YYYY-MM-DD"
                                 format="YYYY-MM-DD"
@@ -230,7 +220,7 @@ class Orden extends React.Component {
                                 cancelBtnText="Cancel"
                                 showIcon={false}
                                 onDateChange={endDate => {
-                                    this.setState({ toDate: endDate });
+                                    this.setState({ finishDate: endDate });
                                 }}
                             />
                         </View>
@@ -242,12 +232,12 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="Horario final"
                                 placeholderTextColor={grey}
-                                value={this.props.project}
+                                value={this.props.draft}
                                 style={styles.input}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ project: text })
+                                    this.setState({ draft: text })
                                 }
                             />
                         </View>
@@ -259,11 +249,11 @@ class Orden extends React.Component {
                                 placeholder="Nombre de clients"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.customerName}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ customerName: text })
                                 }
                             />
                         </View>
@@ -276,76 +266,55 @@ class Orden extends React.Component {
                                 placeholder="ingrese correo electronico"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.customerEmail}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ customerEmail: text })
                                 }
                             />
                         </View>
-
-
                         <Text style={styles.inputTitle}>
                             {"Hora de clients"}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <DatePicker
-                                style={styles.datePickerStyle}
-                                date={this.state.toDate}
-                                mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
-                                // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
-                                customStyles={{
-                                    datePicker: {
-                                        backgroundColor: "#ffff"
-                                    },
-                                    dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                        width: widthPercentageToDP(85),
-                                    },
-                                    placeholderText: {
-                                        color: grey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    },
-                                    dateText: {
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    }
-                                }}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                showIcon={false}
-                                onDateChange={endDate => {
-                                    this.setState({ toDate: endDate });
-                                }}
-                            />
+                        <View
+                            style={{
+                                width: "95%",
+                                height: "3%",
+                                borderBottomWidth: widthPercentageToDP(0.3),
+                                borderBottomColor: "#cccccc"
+                            }}
+                        >
+                            <TouchableOpacity
+                                onPress={() => this.handleTimePicker()}
+                            >
+                                <Text style={[styles.inputTitle, {
+                                    fontWeight: "300"
+                                }]}>
+                                    {!this.state.time ? "HH-MM" : this.state.time}
+                                </Text>
+                            </TouchableOpacity>
                         </View>
-
-
                         <Text style={styles.inputTitle}>
                             {"Hora de salida"}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Detalle del trabajo realizado"
-                                placeholderTextColor={grey}
-                                style={styles.input}
-                                value={this.props.importe}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ importe: text })
-                                }
-                            />
+                        <View
+                            style={{
+                                width: "95%",
+                                height: "3%",
+                                borderBottomWidth: widthPercentageToDP(0.3),
+                                borderBottomColor: "#cccccc"
+                            }}
+                        >
+                            <TouchableOpacity
+                                onPress={() => this.handleTimePicker2()}
+                            >
+                                <Text style={[styles.inputTitle, {
+                                    fontWeight: "300"
+                                }]}>
+                                    {!this.state.departureTime ? "HH-MM" : this.state.departureTime}
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                         <Text style={styles.inputTitle}>
                             {"No de horas"}
@@ -355,11 +324,11 @@ class Orden extends React.Component {
                                 placeholder="No de horas"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.hours}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ hours: text })
                                 }
                             />
                         </View>
@@ -371,7 +340,7 @@ class Orden extends React.Component {
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
                                 <DropDownPicker
                                     items={dataPart.data.hours}
-                                    defaultValue={this.state.comido}
+                                    defaultValue={this.state.hourType}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
                                     style={{
@@ -393,7 +362,7 @@ class Orden extends React.Component {
 
                                     }}
                                     onChangeItem={item => this.setState({
-                                        comido: item.value
+                                        hourType: item.value
                                     })}
                                     placeholder="tipo"
                                     placeholderStyle={{
@@ -412,7 +381,7 @@ class Orden extends React.Component {
                             : <View style={{ alignItems: "center", }}>
                                 <DropDownPicker
                                     items={dataPart.data.hours}
-                                    defaultValue={this.state.comido}
+                                    defaultValue={this.state.hourType}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
                                     style={{
@@ -434,7 +403,7 @@ class Orden extends React.Component {
 
                                     }}
                                     onChangeItem={item => this.setState({
-                                        comido: item.value
+                                        hourType: item.value
                                     })}
                                     placeholder="tipo"
                                     placeholderStyle={{
@@ -459,11 +428,11 @@ class Orden extends React.Component {
                                 placeholder="Anadir numeros de dieta"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.diet}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ diet: text })
                                 }
                             />
                         </View>
@@ -475,11 +444,11 @@ class Orden extends React.Component {
                                 placeholder="introducir resumen de Km."
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.displacement}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ displacement: text })
                                 }
                             />
                         </View>
@@ -491,11 +460,11 @@ class Orden extends React.Component {
                                 placeholder="Texto para introducir"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.observations}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ observations: text })
                                 }
                             />
                         </View>
@@ -507,11 +476,11 @@ class Orden extends React.Component {
                                 placeholder="Frimar"
                                 placeholderTextColor={grey}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.props.trabajo}
                                 autoCapitalize="none"
                                 //secureTextEntry={true}
                                 onChangeText={text =>
-                                    this.setState({ importe: text })
+                                    this.setState({ trabajo: text })
                                 }
                             />
                         </View>
@@ -566,8 +535,10 @@ class Orden extends React.Component {
                                         }
                                     }}
                                     onSketchSaved={(success, path) => {
-                                        Alert.alert(success ? 'Image saved!' : 'Failed to save image!', path)
-                                        console.log(path)
+                                        //Alert.alert(success ? 'Image saved!' : 'Failed to save image!', path)
+                                        this.setState({ image: 'file://' + path }, () => {
+                                            console.log(this.state.image)
+                                        })
                                     }}
                                     onPathsChange={(pathsCount) => {
                                         console.log('pathsCount', pathsCount)
@@ -581,7 +552,7 @@ class Orden extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <TouchableOpacity
                                 style={styles.submitBtn}
-                            //onPress={() => this.handleSubmit()}
+                                onPress={() => this.handleSubmit()}
                             >
                                 <Text style={styles.submitText}>
                                     {"Enviar"}
@@ -596,6 +567,46 @@ class Orden extends React.Component {
                         size="small"
                         style={styles.loading}
                     />}
+                {this.state.TimePickerModal &&
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        mode='time'
+                        value={new Date().getTime()}
+                        is24Hour={true}
+                        display="default"
+                        onConfirm={this.handleTimePicker()}
+                        onCancel={this.handleTimePicker()}
+                        onChange={(event, date) => {
+                            this.setState({
+                                time: moment(date).format('HH:mm')
+                            }, () => {
+                                console.log(this.state.time)
+                            })
+                            //console.log(moment(date).format('hh:mm:ss'))
+                            //this.setTime()
+                        }}
+                    />
+                }
+                {this.state.TimePickerModal2 &&
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        mode='time'
+                        value={new Date().getTime()}
+                        is24Hour={true}
+                        display="default"
+                        onConfirm={this.handleTimePicker2()}
+                        onCancel={this.handleTimePicker2()}
+                        onChange={(event, date) => {
+                            this.setState({
+                                departureTime: moment(date).format('HH:mm')
+                            }, () => {
+                                console.log(this.state.departureTime)
+                            })
+                            //console.log(moment(date).format('hh:mm:ss'))
+                            //this.setTime()
+                        }}
+                    />
+                }
             </KeyboardAvoidingView>
         )
     }
@@ -604,4 +615,4 @@ class Orden extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getOrderNumber })(Orden);
+export default connect(mapStateToProps, { getOrderNumber, postWorkStore })(Orden);

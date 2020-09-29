@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert, Platform } from 'react-native'
+import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, PermissionsAndroid, Alert, Platform } from 'react-native'
 import { connect } from 'react-redux';
 import { getExpense, postExpenseData } from '../../Redux/action'
 import { styles } from './styles';
@@ -24,6 +24,7 @@ class MisGastos extends React.Component {
             importe: "",
             endDate: "",
             imgData: [],
+            singleImage: "",
             isLoading: false,
             dilaogStatus: false
         };
@@ -90,11 +91,25 @@ class MisGastos extends React.Component {
             Alert.alert("Please provide endDate")
             return
         }
-        if (this.state.imgData === undefined || this.state.imgData.length === 0) {
+        if ((this.state.imgData === undefined ||
+            this.state.imgData.length === 0) &&
+            !this.state.singleImage
+        ) {
             Alert.alert("Please select Images")
             return
         }
 
+
+        let data = "";
+        if (!this.state.singleImage) {
+            data = null;
+        } else {
+            data = {
+                'uri': this.state.singleImage.path,
+                'type': this.state.singleImage.mime,
+                'name': Date.now() + '_Agefred.png',
+            }
+        }
         this.props.postExpenseData(
             this.state.toDate,
             this.state.project,
@@ -102,6 +117,7 @@ class MisGastos extends React.Component {
             this.state.importe,
             this.state.endDate,
             this.state.imgData,
+            data,
             login.data.id
         )
     }
@@ -112,9 +128,35 @@ class MisGastos extends React.Component {
             height: 400,
             cropping: true,
         }).then(image => {
-            console.log(image);
-            this.toggleDiloge()
-        });
+            this.toggleDiloge();
+            this.setState({ singleImage: image }, () => {
+                console.log(this.state.singleImage);
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            this.toggleDiloge();
+        })
+    }
+
+    requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                {
+                    'title': 'Agefred',
+                    'message': 'Agefred App needs access to your camera ' +
+                        'so you can take pictures.'
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                this.openCamera();
+            } else {
+                console.log("Camera permission denied")
+            }
+        } catch (err) {
+            console.warn(err)
+        }
     }
 
     render() {
@@ -344,33 +386,40 @@ class MisGastos extends React.Component {
                                 style={styles.uploadBtn}
                                 disabled={this.state.imgData === undefined || this.state.imgData.length === 0 ? false : true}
                                 onPress={() => this.toggleDiloge()}>
-                                {this.state.imgData === undefined || this.state.imgData.length === 0 ?
-                                    <View style={{ alignItems: "center", justifyContent: "center" }}>
-                                        <FastImage
-                                            source={require('../../images/download.png')}
-                                            resizeMode={FastImage.resizeMode.contain}
-                                            style={styles.img}
+                                {this.state.singleImage.mime === "image/jpeg" ?
+                                    <View style={{ flex: 1 }}>
+                                        <ItemList
+                                            name={"Agefred-camera-image"}
+                                            clickHandler={() => this.setState({ singleImage: "" })}
                                         />
-                                        <Text style={styles.uploadText}>
-                                            {"Seleccionar una o varias imagenes"}
-                                        </Text>
                                     </View>
-                                    : <View style={{ flex: 1 }}>
-                                        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                                            {
-                                                this.state.imgData.map((item, index) => {
-                                                    return (
-                                                        <ItemList
-                                                            key={"unique" + index}
-                                                            name={item.name}
-                                                            clickHandler={() => this.removeItem(item.uri)}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                            <View style={{ marginTop: 40 }} />
-                                        </ScrollView>
-                                    </View>
+                                    : this.state.imgData === undefined || this.state.imgData.length === 0 ?
+                                        <View style={{ alignItems: "center", justifyContent: "center" }}>
+                                            <FastImage
+                                                source={require('../../images/download.png')}
+                                                resizeMode={FastImage.resizeMode.contain}
+                                                style={styles.img}
+                                            />
+                                            <Text style={styles.uploadText}>
+                                                {"Seleccionar una o varias imagenes"}
+                                            </Text>
+                                        </View>
+                                        : <View style={{ flex: 1 }}>
+                                            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                                                {
+                                                    this.state.imgData.map((item, index) => {
+                                                        return (
+                                                            <ItemList
+                                                                key={"unique" + index}
+                                                                name={item.name}
+                                                                clickHandler={() => this.removeItem(item.uri)}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                                <View style={{ marginTop: 40 }} />
+                                            </ScrollView>
+                                        </View>
                                 }
                             </TouchableOpacity>
                         </View>
@@ -396,7 +445,10 @@ class MisGastos extends React.Component {
                     <Dialog
                         isDialogOpen={this.state.dilaogStatus}
                         errorMessage={"Choose image from Camera or Gallery"}
-                        cameraButton={() => this.openCamera()}
+                        cameraButton={() => Platform.OS === 'android' ?
+                            this.requestCameraPermission()
+                            : this.openCamera()
+                        }
                         GalleryButton={() => {
                             //this.toggleDiloge();
                             this.pickDocument();
