@@ -315,6 +315,8 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
+  - RNDateTimePicker (3.0.2):
+    - React
   - RNFastImage (8.1.5):
     - React
     - SDWebImage (~> 5.0)
@@ -407,6 +409,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNFileViewer (from `../node_modules/react-native-file-viewer`)
   - RNFS (from `../node_modules/react-native-fs`)
@@ -500,6 +503,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFileViewer:
@@ -565,6 +570,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: db711e29e5e0500d9bd21aa0c2e397efa45302b1
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
+  RNDateTimePicker: 3a1783e63fcb6e2b162b08a4321db030d23accff
   RNFastImage: 35ae972d6727c84ee3f5c6897e07f84d0a3445e9
   RNFileViewer: db62d60dd19007c54b2c959b5e675a46d59f8a43
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
@@ -580,6 +586,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: c57c83e06733226ef132b2852555a2e3d5845095
+PODFILE CHECKSUM: f265985d091e7bb959e8b51e45e908ff98b2ed9f
 
 COCOAPODS: 1.9.3

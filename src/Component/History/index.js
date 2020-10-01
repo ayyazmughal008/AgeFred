@@ -4,6 +4,7 @@ import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
 import NestedScrollView from 'react-native-nested-scroll-view'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 //import { ScrollView } from 'react-native-gesture-handler'
 export default class Header extends React.Component {
 
@@ -17,6 +18,8 @@ export default class Header extends React.Component {
             text6,
             text7,
             bgColor,
+            isTrue,
+            boxClickHandler,
             isTrue1,
             isTrue2
 
@@ -96,24 +99,21 @@ export default class Header extends React.Component {
                         </ScrollView>
                     }
                 </View>
-                {/* <View style={[styles.componet7, {
+                <View style={[styles.componet7, {
                     backgroundColor: bgColor
                 }]}>
-                    <View style={styles.box}>
-                        <FastImage
-                            source={require('../../images/tick.png')}
-                            resizeMode={FastImage.resizeMode.cover}
-                            style={styles.tick}
-                        />
-                    </View>
-                    <View style={styles.box2}>
-                        <FastImage
-                            source={require('../../images/tick.png')}
-                            resizeMode={FastImage.resizeMode.cover}
-                            style={styles.tick}
-                        />
-                    </View>
-                </View> */}
+                    <TouchableOpacity onPress = {boxClickHandler}>
+                        <View style={styles.box}>
+                            {isTrue &&
+                                <FastImage
+                                    source={require('../../images/tick.png')}
+                                    resizeMode={FastImage.resizeMode.cover}
+                                    style={styles.tick}
+                                />
+                            }
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         padding: widthPercentageToDP(1.5)
     },
     componet2: {
-        width: widthPercentageToDP(23),
+        width: widthPercentageToDP(20),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet6: {
-        width: widthPercentageToDP(25),
+        width: widthPercentageToDP(20),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet7: {
-        width: widthPercentageToDP(8.5),
+        width: widthPercentageToDP(8),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",

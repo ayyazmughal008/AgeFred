@@ -8,6 +8,7 @@ import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
 import Card from '../../Component/Card'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 class HomePage extends Component {
     constructor(props) {
@@ -85,7 +86,7 @@ class HomePage extends Component {
                             clickHandler = {()=> this.props.navigation.navigate('Orden')}
                         />
                         <Card
-                            iconName={require('./assets/6.png')}
+                            iconName={require('../../images/tracking.png')}
                             title="Geolocation"
                             clickHandler = {()=> this.props.navigation.navigate('TimeTracking')}
                         />

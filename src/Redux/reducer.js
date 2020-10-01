@@ -11,7 +11,8 @@ import {
   GET_EXPENSE,
   DATA_HOLIDAYS,
   GET_HOLIDAYS,
-  ORDER_NUMBER
+  ORDER_NUMBER,
+  API_STATUS
 } from "./action";
 
 const initialUserState = {
@@ -25,7 +26,8 @@ const initialUserState = {
   getAllExpense: "",
   getHolidaysData: "",
   getAllHolidays: "",
-  getWorkOrderNumber: ""
+  getWorkOrderNumber: "",
+  apiStatus:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -118,7 +120,18 @@ const userReducer = (state = initialUserState, action) => {
   return state;
 };
 
+const statusReducer = (state = initialUserState, action) =>{
+  if (action.type === API_STATUS) {
+    return {
+      ...state,
+      apiStatus: action.payload.apiStatus
+    };
+  }
+  return state;
+}
+
 const reducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  apiState: statusReducer
 });
 export default reducer;

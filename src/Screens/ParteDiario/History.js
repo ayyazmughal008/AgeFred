@@ -216,6 +216,7 @@ class HistoryClass extends React.Component {
                       text5={item.status}
                       text6={item.concept}
                       bgColor={index % 2 ? "#cccccc" : "#ffff"}
+                      //boxClickHandler
                     />
                   )
                 })}

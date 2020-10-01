@@ -11,6 +11,7 @@ export const GET_EXPENSE = "GET_EXPENSE";
 export const POST_PART_STORE = "POST_PART_STORE";
 export const DATA_HOLIDAYS = "DATA_HOLIDAYS";
 export const GET_HOLIDAYS = "GET_HOLIDAYS";
+export const API_STATUS = "API_STATUS";
 export const ORDER_NUMBER = "ORDER_NUMBER";
 
 var baseUrl = "http://95.179.209.186/api/",
@@ -301,6 +302,12 @@ export const postExpenseData = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert(json.status)
+          dispatch({
+            type: API_STATUS,
+            payload: {
+              apiStatus: json
+            }
+          });
         } else {
           alert(json.message)
         }
