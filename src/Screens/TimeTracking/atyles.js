@@ -5,7 +5,6 @@ import { lightBlue, darkBlue, orangae, darkGrey } from '../../Component/ColorCod
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: "center",
         backgroundColor: lightBlue
     },
     container2: {
@@ -22,14 +21,14 @@ export const styles = StyleSheet.create({
         flexDirection: "row"
     },
     BtnText: {
-        fontSize: widthPercentageToDP(6),
-        //fontFamily: "NotoSansBold",
+        fontSize: widthPercentageToDP(3.5),
         color: "#fff",
-        marginLeft: widthPercentageToDP(1.5)
+        //marginLeft: widthPercentageToDP(1.5)
     },
     endBtn: {
-        height: heightPercentageToDP(10),
-        width: widthPercentageToDP(85),
+        height: widthPercentageToDP(20),
+        width: widthPercentageToDP(20),
+        borderRadius: widthPercentageToDP(20) / 2,
         alignItems: "center",
         justifyContent: "center",
         marginTop: heightPercentageToDP(2),
@@ -37,7 +36,7 @@ export const styles = StyleSheet.create({
     },
     historyView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(44),
+        height: heightPercentageToDP(26),
         borderWidth: widthPercentageToDP(0.1),
         marginTop: heightPercentageToDP(3),
         borderColor: "#0943af"
@@ -53,7 +52,6 @@ export const styles = StyleSheet.create({
     },
     historyTitletext: {
         fontSize: widthPercentageToDP(4),
-        //fontFamily: "NotoSansBold",
         color: "#fff"
     },
     historyLabel: {
@@ -61,10 +59,6 @@ export const styles = StyleSheet.create({
         height: heightPercentageToDP(6),
         alignItems: "center",
         flexDirection: "row",
-        //backgroundColor: "yellow",
-        //justifyContent:"center",
-        //paddingLeft: widthPercentageToDP(2),
-        // paddingRight: widthPercentageToDP(1),
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: "#0943af",
         borderBottomWidth: widthPercentageToDP(0.1),
@@ -78,7 +72,6 @@ export const styles = StyleSheet.create({
     },
     historyLabelText: {
         fontSize: widthPercentageToDP(3),
-        //backgroundColor: "red",
         color: darkBlue,
         alignItems: "center"
     },
@@ -108,7 +101,6 @@ export const styles = StyleSheet.create({
         backgroundColor: "#ffff",
         justifyContent: "center",
         alignItems: "center",
-        //marginLeft: heightPercentageToDP(5)
     },
     selectDateView2: {
         width: widthPercentageToDP(35),
@@ -147,4 +139,21 @@ export const styles = StyleSheet.create({
         fontWeight:"500",
         color:darkBlue
     },
+    buttonView:{
+        flexDirection:"row",
+        flexWrap:"wrap",
+        alignItems:"center",
+        justifyContent:"space-between",
+        padding:widthPercentageToDP(2),
+        width:widthPercentageToDP(60)
+    },
+    mapView:{
+        marginTop:heightPercentageToDP(2),
+        width:widthPercentageToDP(95),
+        height:heightPercentageToDP(23),
+        borderWidth:widthPercentageToDP(0.1),
+        borderColor:darkBlue,
+        justifyContent:"center",
+        alignItems:"center"
+    }
 })

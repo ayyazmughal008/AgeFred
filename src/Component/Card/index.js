@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image'
 export default class Header extends React.Component {
 
     render() {
-        const { iconName, clickHandler, title } = this.props
+        const { iconName, clickHandler, title, tinit } = this.props
         return (
             <TouchableOpacity style={{
                 width: widthPercentageToDP(40),
@@ -31,7 +31,8 @@ export default class Header extends React.Component {
                     source={iconName}
                     style={{
                         width: widthPercentageToDP(8),
-                        height: widthPercentageToDP(8)
+                        height: widthPercentageToDP(8),
+                        tintColor: tinit
                     }}
                     resizeMode={FastImage.resizeMode.contain}
                 />

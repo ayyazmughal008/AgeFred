@@ -86,8 +86,9 @@ class HomePage extends Component {
                             clickHandler = {()=> this.props.navigation.navigate('Orden')}
                         />
                         <Card
-                            iconName={require('../../images/tracking.png')}
-                            title="Geolocation"
+                            iconName={require('../../images/clock.png')}
+                            title="Registro de jornada"
+                            tinit= {darkBlue}
                             clickHandler = {()=> this.props.navigation.navigate('TimeTracking')}
                         />
                     </View>

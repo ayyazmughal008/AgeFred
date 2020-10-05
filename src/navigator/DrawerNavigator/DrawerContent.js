@@ -100,7 +100,7 @@ class DrawerContent extends Component {
 							{"Perfil"}
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={{
+					{/* <TouchableOpacity style={{
 						width: "100%",
 						height: "5%",
 						marginTop: "2%",
@@ -167,7 +167,8 @@ class DrawerContent extends Component {
 						}}>
 							{"Ajustes"}
 						</Text>
-					</TouchableOpacity>
+					</TouchableOpacity> */}
+					
 					<TouchableOpacity
 						style={{
 							position: "absolute",

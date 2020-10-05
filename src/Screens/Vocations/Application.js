@@ -85,102 +85,214 @@ class History extends React.Component {
                     }}>
                         <Text style={styles.toDate}>{"Select Type"}</Text>
                     </View>
-                    <View style={{ 
-                        alignItems: "center", 
-                        //zIndex: Platform.OS === "ios" ? 5000 : 0 
+                    {Platform.OS === "ios" ?
+                        <View style={{
+                            alignItems: "center",
+                            zIndex: 5000
                         }}>
-                        <DropDownPicker
-                            items={[
-                                { label: 'Hours', value: 'hours' },
-                                { label: 'Days', value: 'days' },
-                            ]}
-                            defaultValue={this.state.type}
-                            containerStyle={styles.dropStyle2}
-                            zIndex={5000}
-                            style={{
-                                backgroundColor: '#ffff',
-                                borderBottomWidth: 1,
-                                borderBottomColor: grey,
-                                borderTopWidth: 0,
-                                borderLeftWidth: 0,
-                                borderRightWidth: 0,
-                            }}
-                            itemStyle={{
-                                //justifyContent: 'flex-start'
-                                borderTopWidth: 2,
-                                borderTopColor: grey,
-                            }}
-                            dropDownStyle={{
-                                borderWidth: 0,
-                                borderColor: "#ffff",
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Hours', value: 'hours' },
+                                    { label: 'Days', value: 'days' },
+                                ]}
+                                defaultValue={this.state.type}
+                                containerStyle={styles.dropStyle2}
+                                zIndex={5000}
+                                style={{
+                                    backgroundColor: '#ffff',
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: grey,
+                                    borderTopWidth: 0,
+                                    borderLeftWidth: 0,
+                                    borderRightWidth: 0,
+                                }}
+                                itemStyle={{
+                                    //justifyContent: 'flex-start'
+                                    borderTopWidth: 2,
+                                    borderTopColor: grey,
+                                }}
+                                dropDownStyle={{
+                                    borderWidth: 0,
+                                    borderColor: "#ffff",
+                                    backgroundColor: "#cccccc"
 
-                            }}
-                            onChangeItem={item => this.setState({
-                                type: item.value
-                            })}
-                            placeholder="SELECT TYPE"
-                            placeholderStyle={{
-                                color: darkGrey,
-                                position: "absolute",
-                                //left: "-3%"
-                            }}
-                            labelStyle={{
-                                color: darkGrey,
-                            }}
-                            selectedLabelStyle={{
-                                color: darkGrey,
-                            }}
-                        />
-                    </View>
+                                }}
+                                onChangeItem={item => this.setState({
+                                    type: item.value
+                                })}
+                                placeholder="SELECT TYPE"
+                                placeholderStyle={{
+                                    color: darkGrey,
+                                    position: "absolute",
+                                    fontSize: widthPercentageToDP(3.5)
+                                }}
+                                labelStyle={{
+                                    color: "#ffff",
+                                    fontSize: widthPercentageToDP(3.5),
+                                    fontWeight: "bold"
+                                }}
+                                selectedLabelStyle={{
+                                    color: darkGrey,
+                                    fontSize: widthPercentageToDP(3.5)
+                                }}
+                            />
+                        </View>
+                        :
+                        <View style={{
+                            alignItems: "center",
+                            //zIndex: 5000
+                        }}>
+                            <DropDownPicker
+                                items={[
+                                    { label: 'Hours', value: 'hours' },
+                                    { label: 'Days', value: 'days' },
+                                ]}
+                                defaultValue={this.state.type}
+                                containerStyle={styles.dropStyle2}
+                                zIndex={5000}
+                                style={{
+                                    backgroundColor: '#ffff',
+                                    borderBottomWidth: 1,
+                                    borderBottomColor: grey,
+                                    borderTopWidth: 0,
+                                    borderLeftWidth: 0,
+                                    borderRightWidth: 0,
+                                }}
+                                itemStyle={{
+                                    //justifyContent: 'flex-start'
+                                    borderTopWidth: 2,
+                                    borderTopColor: grey,
+                                }}
+                                dropDownStyle={{
+                                    borderWidth: 0,
+                                    borderColor: "#ffff",
+                                    backgroundColor: "#cccccc"
+
+                                }}
+                                onChangeItem={item => this.setState({
+                                    type: item.value
+                                })}
+                                placeholder="SELECT TYPE"
+                                placeholderStyle={{
+                                    color: darkGrey,
+                                    position: "absolute",
+                                    fontSize: widthPercentageToDP(3.5)
+                                }}
+                                labelStyle={{
+                                    color: "#ffff",
+                                    fontSize: widthPercentageToDP(3.5),
+                                    fontWeight: "bold"
+                                }}
+                                selectedLabelStyle={{
+                                    color: darkGrey,
+                                    fontSize: widthPercentageToDP(3.5)
+                                }}
+                            />
+                        </View>
+                    }
                     {this.state.type === "days" ?
                         <View style={styles.topView}>
                             <View style={{ justifyContent: "center", width: "100%" }}>
                                 <Text style={styles.toDate}>{"MOTIVO"}</Text>
                             </View>
-                            <View style={{ 
-                                alignItems: "center", 
-                                // zIndex: Platform.OS === "ios" ? 5000 : 0 
+                            {Platform.OS === "ios" ?
+                                <View style={{
+                                    alignItems: "center",
+                                    zIndex: 5000
                                 }}>
-                                <DropDownPicker
-                                    items={!getHolidaysData ? [] : getHolidaysData.data}
-                                    defaultValue={this.state.motivo}
-                                    containerStyle={styles.dropStyle2}
-                                    zIndex={5000}
-                                    style={{
-                                        backgroundColor: '#ffff',
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                    }}
-                                    itemStyle={{
-                                        //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
-                                        borderTopColor: grey,
-                                    }}
-                                    dropDownStyle={{
-                                        borderWidth: 0,
-                                        borderColor: "#ffff",
+                                    <DropDownPicker
+                                        items={!getHolidaysData ? [] : getHolidaysData.data}
+                                        defaultValue={this.state.motivo}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: "#cccccc"
 
-                                    }}
-                                    onChangeItem={item => this.setState({
-                                        motivo: item.value
-                                    })}
-                                    placeholder="VACACIONES"
-                                    placeholderStyle={{
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        //left: "-3%"
-                                    }}
-                                    labelStyle={{
-                                        color: darkGrey,
-                                    }}
-                                    selectedLabelStyle={{
-                                        color: darkGrey,
-                                    }}
-                                />
-                            </View>
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            motivo: item.value
+                                        })}
+                                        placeholder="VACACIONES"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            fontSize: widthPercentageToDP(3.5)
+                                        }}
+                                        labelStyle={{
+                                            color: "#ffff",
+                                            fontSize: widthPercentageToDP(3.5),
+                                            fontWeight: "bold"
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                            fontSize: widthPercentageToDP(3.5)
+                                        }}
+                                    />
+                                </View>
+                                : <View style={{
+                                    alignItems: "center",
+                                    //zIndex: 5000
+                                }}>
+                                    <DropDownPicker
+                                        items={!getHolidaysData ? [] : getHolidaysData.data}
+                                        defaultValue={this.state.motivo}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: "#cccccc"
+
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            motivo: item.value
+                                        })}
+                                        placeholder="VACACIONES"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            fontSize: widthPercentageToDP(3.5)
+                                        }}
+                                        labelStyle={{
+                                            color: "#ffff",
+                                            fontSize: widthPercentageToDP(3.5),
+                                            fontWeight: "bold"
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                            fontSize: widthPercentageToDP(3.5)
+                                        }}
+                                    />
+                                </View>
+                            }
                             <View style={styles.dateView}>
                                 <View>
                                     <Text style={styles.toDate}>{"DESDE"}</Text>
@@ -271,50 +383,104 @@ class History extends React.Component {
                                 <View style={{ justifyContent: "center", width: "100%" }}>
                                     <Text style={styles.toDate}>{"MOTIVO"}</Text>
                                 </View>
-                                <View style={{ 
-                                    alignItems: "center", 
-                                    // zIndex: Platform.OS === "ios" ? 5000 : 0 
+                                {Platform.OS === "ios" ?
+                                    <View style={{
+                                        alignItems: "center",
+                                        zIndex: 5000
                                     }}>
-                                    <DropDownPicker
-                                        items={!getHolidaysData ? [] : getHolidaysData.data}
-                                        defaultValue={this.state.motivo}
-                                        containerStyle={styles.dropStyle2}
-                                        zIndex={5000}
-                                        style={{
-                                            backgroundColor: '#ffff',
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: grey,
-                                            borderTopWidth: 0,
-                                            borderLeftWidth: 0,
-                                            borderRightWidth: 0,
-                                        }}
-                                        itemStyle={{
-                                            //justifyContent: 'flex-start'
-                                            borderTopWidth: 2,
-                                            borderTopColor: grey,
-                                        }}
-                                        dropDownStyle={{
-                                            borderWidth: 0,
-                                            borderColor: "#ffff",
-
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            motivo: item.value
-                                        })}
-                                        placeholder="VACACIONES"
-                                        placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            //left: "-3%"
-                                        }}
-                                        labelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                        selectedLabelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                    />
-                                </View>
+                                        <DropDownPicker
+                                            items={!getHolidaysData ? [] : getHolidaysData.data}
+                                            defaultValue={this.state.motivo}
+                                            containerStyle={styles.dropStyle2}
+                                            zIndex={5000}
+                                            style={{
+                                                backgroundColor: '#ffff',
+                                                borderBottomWidth: 1,
+                                                borderBottomColor: grey,
+                                                borderTopWidth: 0,
+                                                borderLeftWidth: 0,
+                                                borderRightWidth: 0,
+                                            }}
+                                            itemStyle={{
+                                                //justifyContent: 'flex-start'
+                                                borderTopWidth: 2,
+                                                borderTopColor: grey,
+                                            }}
+                                            dropDownStyle={{
+                                                borderWidth: 0,
+                                                borderColor: "#ffff",
+                                                backgroundColor: "#cccccc"
+    
+                                            }}
+                                            onChangeItem={item => this.setState({
+                                                motivo: item.value
+                                            })}
+                                            placeholder="VACACIONES"
+                                            placeholderStyle={{
+                                                color: darkGrey,
+                                                position: "absolute",
+                                                fontSize: widthPercentageToDP(3.5)
+                                            }}
+                                            labelStyle={{
+                                                color: "#ffff",
+                                                fontSize: widthPercentageToDP(3.5),
+                                                fontWeight: "bold"
+                                            }}
+                                            selectedLabelStyle={{
+                                                color: darkGrey,
+                                                fontSize: widthPercentageToDP(3.5)
+                                            }}
+                                        />
+                                    </View>
+                                    : <View style={{
+                                        alignItems: "center",
+                                        //zIndex: 5000
+                                    }}>
+                                        <DropDownPicker
+                                            items={!getHolidaysData ? [] : getHolidaysData.data}
+                                            defaultValue={this.state.motivo}
+                                            containerStyle={styles.dropStyle2}
+                                            zIndex={5000}
+                                            style={{
+                                                backgroundColor: '#ffff',
+                                                borderBottomWidth: 1,
+                                                borderBottomColor: grey,
+                                                borderTopWidth: 0,
+                                                borderLeftWidth: 0,
+                                                borderRightWidth: 0,
+                                            }}
+                                            itemStyle={{
+                                                //justifyContent: 'flex-start'
+                                                borderTopWidth: 2,
+                                                borderTopColor: grey,
+                                            }}
+                                            dropDownStyle={{
+                                                borderWidth: 0,
+                                                borderColor: "#ffff",
+                                                backgroundColor: "#cccccc"
+    
+                                            }}
+                                            onChangeItem={item => this.setState({
+                                                motivo: item.value
+                                            })}
+                                            placeholder="VACACIONES"
+                                            placeholderStyle={{
+                                                color: darkGrey,
+                                                position: "absolute",
+                                                fontSize: widthPercentageToDP(3.5)
+                                            }}
+                                            labelStyle={{
+                                                color: "#ffff",
+                                                fontSize: widthPercentageToDP(3.5),
+                                                fontWeight: "bold"
+                                            }}
+                                            selectedLabelStyle={{
+                                                color: darkGrey,
+                                                fontSize: widthPercentageToDP(3.5)
+                                            }}
+                                        />
+                                    </View>
+                                }
                                 <View style={{ width: "100%", justifyContent: "center" }}>
                                     <Text style={styles.toDate}>{"DESDE"}</Text>
                                     <View style={styles.selectDateView}>
@@ -355,7 +521,7 @@ class History extends React.Component {
                                 <Text style={[styles.toDate, {
                                     marginTop: 15
                                 }]}>
-                                    {"Total Time: "}{('0' + selectedHours).slice(-2) + ':' + ('0' + selectedMinutes).slice(-2)}
+                                    {"Total Hours: "}{('0' + selectedHours).slice(-2) + ':' + ('0' + selectedMinutes).slice(-2)}
                                 </Text>
                                 <TimePicker
                                     selectedHours={selectedHours}

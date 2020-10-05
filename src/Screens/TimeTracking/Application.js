@@ -25,60 +25,74 @@ class TimeTracking extends Component {
     }
     _keyExtractor = (item, index) => "MyKey" + index;
     render() {
+        {/* Start Time: {Moment(dt).format('HH:MM:SS')}
+                         Start Time: {Moment().format('YYYY.MM.DD')} 
+                        Start Time: {Moment().format('hh:mm:ss')} */}
         return (
             <View style={styles.container2}>
-                <TouchableOpacity
-                    style={[
-                        styles.endBtn,
-                        {
-                            backgroundColor:
-                                this.state.toggleState === "true" ? "#0943af" : "#6495ED"
-                        }
-                    ]}
-                    disabled={this.state.toggleState === "true" ? false : true}
-                    onPress={() => {
-                        //this.Toggle("false");
-                        //this.saveTime(Moment().format("HH:mm"));
-                        Alert.alert("Hora de inicio",
-                            "Tu tiempo ha comenzado. Al finalizar obtendrás tus Horas de trabajo totales"
-                        );
-                    }}
-                >
-                    <MaterialIcons name="timer" size={30} color="#fff" />
-                    <Text style={styles.BtnText}>Grabar entrada</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.endBtn,
-                        {
-                            backgroundColor:
-                                this.state.toggleState === "true" ? "#6495ED" : "#0943af"
-                        }
-                    ]}
-                    disabled={this.state.toggleState === "true" ? true : false}
-                //onPress={() => }
-                >
-                    <MaterialCommunityIcons name="pause" size={30} color="#fff" />
-                    <Text style={styles.BtnText}>Pausa</Text>
-                </TouchableOpacity>
-                <View
-                    style={{
-                        width: widthPercentageToDP(85),
-                        marginTop: heightPercentageToDP(3)
-                    }}
-                >
+                <View style={styles.buttonView}>
+                    <TouchableOpacity
+                        style={[
+                            styles.endBtn,
+                            {
+                                backgroundColor:
+                                    this.state.toggleState === "true" ? "#0943af" : "#6495ED"
+                            }
+                        ]}
+                        disabled={this.state.toggleState === "true" ? false : true}
+                        onPress={() => {
+                            //this.Toggle("false");
+                            //this.saveTime(Moment().format("HH:mm"));
+                            Alert.alert("Hora de inicio",
+                                "Tu tiempo ha comenzado. Al finalizar obtendrás tus Horas de trabajo totales"
+                            );
+                        }}
+                    >
+                        {/* <MaterialIcons name="timer" size={30} color="#fff" /> */}
+                        <Text style={styles.BtnText}>Grabar entrada</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            styles.endBtn,
+                            {
+                                backgroundColor:
+                                    this.state.toggleState === "true" ? "#6495ED" : "#0943af"
+                            }
+                        ]}
+                        disabled={this.state.toggleState === "true" ? true : false}
+                    //onPress={() => }
+                    >
+                        {/* <MaterialCommunityIcons name="pause" size={30} color="#fff" /> */}
+                        <Text style={styles.BtnText}>Pausa</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.buttonView}>
+                    <Text style={styles.historyLabelText}>Start Time</Text>
+                    <Text style={styles.historyLabelText}>09:10</Text>
+                </View>
+                <View style={styles.buttonView}>
+                    <Text style={styles.historyLabelText}>End Time</Text>
+                    <Text style={styles.historyLabelText}>12:20</Text>
+                </View>
+                <Text style={styles.historyLabelText}>{"Total Time: "}12:20</Text>
+                
+                {/* <View style={{
+                    width: widthPercentageToDP(85),
+                    marginTop: heightPercentageToDP(3)
+                }}>
                     <Text
                         style={{
                             fontSize: widthPercentageToDP(3),
                             color: "#0943af",
                             textAlign: "right"
-                        }}
-                    >
+                        }}>
                         Hora de Inicio: {this.state.startTime}
-                        {/* Start Time: {Moment(dt).format('HH:MM:SS')} */}
-                        {/* Start Time: {Moment().format('YYYY.MM.DD')} */}
-                        {/* Start Time: {Moment().format('hh:mm:ss')} */}
                     </Text>
+                </View> */}
+                <View style = {styles.mapView}>
+                        <Text style={[styles.historyLabelText,{
+                            fontSize: 30
+                        }]}>{"Map View"}</Text>
                 </View>
                 <View style={styles.historyView}>
                     <View style={styles.historyTitle}>
