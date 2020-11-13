@@ -3,7 +3,7 @@ import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpaci
 import { connect } from 'react-redux';
 import { getOrderNumber, postWorkStore } from '../../Redux/action'
 import { styles } from './styles';
-import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
+import { darkBlue, grey, darkGrey, lightBlue } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
@@ -359,6 +359,7 @@ class Orden extends React.Component {
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
                                     }}
                                     onChangeItem={item => this.setState({
@@ -400,6 +401,7 @@ class Orden extends React.Component {
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
                                     }}
                                     onChangeItem={item => this.setState({

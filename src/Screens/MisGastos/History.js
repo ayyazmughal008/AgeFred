@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, ActivityIndicator, Text, TouchableOpacity } from 'react-native'
+import { View, ScrollView, ActivityIndicator, Text, TouchableOpacity, FlatList } from 'react-native'
 import { connect } from 'react-redux';
 import { styles } from './styles';
 import { lightBlue, darkBlue, grey } from '../../Component/ColorCode'
@@ -13,28 +13,106 @@ class History extends React.Component {
         super(props);
         this.state = {
             startDate: "",
-            endDate: ""
+            endDate: "",
+            loading: false,
+            dataSource: [],
+            totalSelected: 0
         };
     }
 
     getDetail = () => {
         const { login } = this.props.user
-        this.props.getAllExpense(
-            this.state.startDate,
-            this.state.endDate,
-            login.data.id
-        )
+        this.setState({ loading: true })
+        fetch('http://95.179.209.186/api/expenses-get', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                from: this.state.startDate,
+                to: this.state.endDate,
+                employId: login.data.id
+            }),
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json.data)
+                if (json.status === "Success") {
+                    this.setState({
+                        loading: false,
+                        dataSource: json.data,
+                    });
+                } else {
+                    alert(json.message)
+                }
+            }).catch(error => { console.log(error) })
+    }
+
+    deleteDetail = () => {
+        const { login } = this.props.user;
+        const { dataSource } = this.state
+        let myIds = [];
+        for (var i = 0; i < dataSource.length; i++) {
+            if (dataSource[i].deleteStatus) {
+                myIds.push(dataSource[i].id)
+            }
+        }
+        this.setState({ loading: true, totalSelected: 0 })
+        fetch('http://95.179.209.186/api/expenses-delete', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ides: myIds,
+                employId: login.data.id,
+            }),
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                if (json.status === "Success") {
+                    this.setState({
+                        loading: false,
+                        dataSource: json.data,
+                    });
+                } else {
+                    this.setState({
+                        loading: false
+                    });
+                    alert(json.message)
+                }
+            }).catch(error => { console.log(error) })
+    }
+
+    updateArray = (index) => {
+        const { dataSource } = this.state
+        let temparr = [];
+        temparr = dataSource
+        if (temparr[index].deleteStatus === false) {
+            temparr[index].deleteStatus = true
+        } else {
+            temparr[index].deleteStatus = false
+        }
+        const itemNumber = temparr.filter(item => item.deleteStatus === true).length;
+        this.setState({
+            testArray: temparr,
+            totalSelected: itemNumber
+        })
     }
 
     render() {
-        const { AuthLoading, getAllExpense } = this.props.user
+        const { dataSource } = this.state
+        console.log(this.state.totalSelected)
         return (
             <View style={styles.container2}>
                 <View style={styles.dateView}>
                     <View style={styles.selectDateView}>
                         <DatePicker
                             style={[styles.datePickerStyle,
-                            { width: widthPercentageToDP(25) }
+                            { width: widthPercentageToDP(30) }
                             ]}
                             date={this.state.startDate}
                             mode="date"
@@ -70,7 +148,7 @@ class History extends React.Component {
                     <View style={styles.selectDateView2}>
                         <DatePicker
                             style={[styles.datePickerStyle,
-                            { width: widthPercentageToDP(25) }
+                            { width: widthPercentageToDP(30) }
                             ]}
                             date={this.state.endDate}
                             mode="date"
@@ -112,30 +190,49 @@ class History extends React.Component {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{"Entradas Enviadas"}</Text>
                 </View>
-                {!getAllExpense ?
+                {!dataSource ?
                     <View />
                     : <View style={styles.middleView}>
-                        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                            {getAllExpense.data.map((item, index) => {
-                                return (
-                                    <HistoryItem
-                                        key={"unique" + index}
-                                        date={item.date}
-                                        amount={item.amount}
-                                        bgColor={index % 2 ? "#cccccc" : "#ffff"}
-                                        clickHandler={() => this.props.navigate("DetailMisgasto", {
-                                            array: item.image,
-                                            amount: item.amount,
-                                            date: item.date,
-                                            draft: item.draft
-                                        })}
-                                    />
-                                )
-                            })}
-                        </ScrollView>
+                        <FlatList
+                            data={dataSource}
+                            style={styles.flatStyle}
+                            enableEmptySections={true}
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item, index }) => (
+                                <HistoryItem
+                                    key={"unique" + index}
+                                    date={item.date}
+                                    amount={item.amount}
+                                    status={item.status}
+                                    boxClickHandler={() => this.updateArray(index)}
+                                    isTrue={item.deleteStatus}
+                                    bgColor={index % 2 ? "#cccccc" : "#ffff"}
+                                    clickHandler={() => this.props.navigate("DetailMisgasto", {
+                                        array: item.image,
+                                        amount: item.amount,
+                                        date: item.date,
+                                        draft: item.draft
+                                    })}
+                                />
+                            )}
+                        />
+
                     </View>
                 }
-                {AuthLoading &&
+                {this.state.totalSelected > 0 &&
+                    <View style={styles.bottomBtnView}>
+                        <TouchableOpacity
+                            style={styles.bottomBtn}
+                            onPress={() => this.deleteDetail()}
+                        >
+                            <Text style={styles.bottomBtnText}>
+                                {"Eliminar"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+                {this.state.loading &&
                     <ActivityIndicator
                         size="large"
                         color="#000"

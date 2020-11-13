@@ -3,7 +3,7 @@ import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpaci
 import { connect } from 'react-redux';
 import { getExpense, postExpenseData } from '../../Redux/action'
 import { styles } from './styles';
-import { darkBlue, grey, darkGrey } from '../../Component/ColorCode'
+import { darkBlue, grey, darkGrey, lightBlue } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -13,12 +13,13 @@ import ItemList from '../../Component/ItemList'
 import { ActivityIndicator } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import Dialog from './Dialog'
+import moment from 'moment'
 
 class MisGastos extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toDate: "",
+            toDate: moment().format('YYYY/MM/DD'),
             project: "",
             comido: "",
             importe: "",
@@ -133,10 +134,10 @@ class MisGastos extends React.Component {
                 console.log(this.state.singleImage);
             })
         })
-        .catch(err => {
-            console.log(err);
-            this.toggleDiloge();
-        })
+            .catch(err => {
+                console.log(err);
+                this.toggleDiloge();
+            })
     }
 
     requestCameraPermission = async () => {
@@ -176,45 +177,13 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Fecha"}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <DatePicker
-                                style={styles.datePickerStyle}
-                                date={this.state.toDate}
-                                mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
-                                // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
-                                customStyles={{
-                                    datePicker: {
-                                        backgroundColor: "#ffff"
-                                    },
-                                    dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                        width: widthPercentageToDP(85),
-                                    },
-                                    placeholderText: {
-                                        color: grey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    },
-                                    dateText: {
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    }
-                                }}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                showIcon={false}
-                                onDateChange={endDate => {
-                                    this.setState({ toDate: endDate });
-                                }}
-                            />
+                        <View >
+                            <Text style={{
+                                paddingLeft: widthPercentageToDP(3),
+                                fontSize: widthPercentageToDP(3.5),
+                                color: grey,
+                                fontWeight: "400"
+                            }}>{this.state.toDate}</Text>
                         </View>
                         <Text style={styles.inputTitle}>
                             {"Proyecto"}
@@ -299,6 +268,7 @@ class MisGastos extends React.Component {
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
                                     }}
                                     onChangeItem={item => this.setState({
@@ -384,7 +354,7 @@ class MisGastos extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <TouchableOpacity
                                 style={styles.uploadBtn}
-                                disabled={this.state.imgData === undefined || this.state.imgData.length === 0 ? false : true}
+                                disabled={this.state.singleImage.mime === "image/jpeg" ? false : this.state.imgData === undefined || this.state.imgData.length === 0 ? false : true}
                                 onPress={() => this.toggleDiloge()}>
                                 {this.state.singleImage.mime === "image/jpeg" ?
                                     <View style={{ flex: 1 }}>
@@ -450,9 +420,11 @@ class MisGastos extends React.Component {
                             : this.openCamera()
                         }
                         GalleryButton={() => {
-                            //this.toggleDiloge();
                             this.pickDocument();
                         }}
+                        btnText1={"Camera"}
+                        btnText2={"Gallery"}
+                        cancelBox={() => this.toggleDiloge()}
                     />
                 }
             </KeyboardAvoidingView>

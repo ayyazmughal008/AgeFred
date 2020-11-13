@@ -65,6 +65,7 @@ class HomePage extends Component {
                         <Card
                             iconName={require('./assets/4.png')}
                             title="EPIS"
+                            clickHandler = {()=> this.props.navigation.navigate('Epis')}
                         />
                     </View>
                     <View style={styles.menuView}>

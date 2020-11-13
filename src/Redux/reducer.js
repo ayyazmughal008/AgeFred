@@ -12,7 +12,8 @@ import {
   DATA_HOLIDAYS,
   GET_HOLIDAYS,
   ORDER_NUMBER,
-  API_STATUS
+  API_STATUS,
+  GET_TOOLS
 } from "./action";
 
 const initialUserState = {
@@ -22,12 +23,14 @@ const initialUserState = {
   getDocuments: "",
   getBlogs: "",
   getAllPart: "",
+  getAllPartSelection:[],
   getDataExpense: "",
   getAllExpense: "",
   getHolidaysData: "",
   getAllHolidays: "",
   getWorkOrderNumber: "",
-  apiStatus:""
+  apiStatus: "",
+  getToolType: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -41,11 +44,13 @@ const userReducer = (state = initialUserState, action) => {
       getDocuments: "",
       getBlogs: "",
       getAllPart: "",
+      getAllPartSelection:[],
       getDataExpense: "",
       getAllExpense: "",
       getHolidaysData: "",
       getAllHolidays: "",
-      getWorkOrderNumber: ""
+      getWorkOrderNumber: "",
+      getToolType: ""
     };
   }
 
@@ -82,7 +87,8 @@ const userReducer = (state = initialUserState, action) => {
   if (action.type === GET_PART) {
     return {
       ...state,
-      getAllPart: action.payload.getAllPart
+      getAllPart: action.payload.getAllPart,
+      getAllPartSelection: action.payload.getAllPartSelection
     };
   }
 
@@ -117,10 +123,16 @@ const userReducer = (state = initialUserState, action) => {
       getWorkOrderNumber: action.payload.getWorkOrderNumber
     };
   }
+  if (action.type === GET_TOOLS) {
+    return {
+      ...state,
+      getToolType: action.payload.getToolType
+    };
+  }
   return state;
 };
 
-const statusReducer = (state = initialUserState, action) =>{
+const statusReducer = (state = initialUserState, action) => {
   if (action.type === API_STATUS) {
     return {
       ...state,

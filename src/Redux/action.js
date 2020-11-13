@@ -12,6 +12,7 @@ export const POST_PART_STORE = "POST_PART_STORE";
 export const DATA_HOLIDAYS = "DATA_HOLIDAYS";
 export const GET_HOLIDAYS = "GET_HOLIDAYS";
 export const API_STATUS = "API_STATUS";
+export const GET_TOOLS = "GET_TOOLS";
 export const ORDER_NUMBER = "ORDER_NUMBER";
 
 var baseUrl = "http://95.179.209.186/api/",
@@ -28,6 +29,8 @@ var baseUrl = "http://95.179.209.186/api/",
   holidayStore = "holiday-store",
   orderNumber = "order-number",
   workStore = "work-store",
+  getTools = "tools-get",
+  partsDelete = "parts-delete",
   documents = "documents-get";
 
 export const logOut = () => {
@@ -100,7 +103,8 @@ export const postPartStoreData = (
   hourType,
   hours,
   concept,
-  employId
+  employId,
+  list
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -132,7 +136,7 @@ export const postPartStoreData = (
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          dispatch(getAllParts(null, null, employId))
+          dispatch(getAllParts(null, null, employId, list))
           alert(json.message)
         } else {
           alert(json.message)
@@ -143,7 +147,8 @@ export const postPartStoreData = (
 export const getAllParts = (
   from,
   to,
-  employId
+  employId,
+  list
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -167,7 +172,12 @@ export const getAllParts = (
           dispatch({
             type: GET_PART,
             payload: {
-              getAllPart: json
+              getAllPart: json,
+              getAllPartSelection: json.data.map(item => {
+                item.isSelect = false;
+                item.selectedClass = list;
+                return item;
+              })
             }
           });
         } else {
@@ -410,7 +420,7 @@ export const postHolidayData = (
       .then(json => {
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
-        if (json.status === "Successfull") {
+        if (json.status === "Success") {
           alert(json.status)
         } else {
           alert(json.message)
@@ -486,7 +496,6 @@ export const getOrderNumber = (
       });
   };
 }
-
 export const postWorkStore = (
   number,
   startDate,
@@ -546,5 +555,77 @@ export const postWorkStore = (
         dispatch({ type: AUTH_LOADING, payload: false });
         console.log(err)
       })
+  };
+}
+export const getAllTools = (
+  employRoleId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getTools, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        role: employRoleId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GET_TOOLS,
+            payload: {
+              getToolType: json
+            }
+          });
+          NavigationService.navigate('Option1')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const deleteDailyPart = (
+  ides,
+  employId,
+  to,
+  from
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + partsDelete, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        employId: employId,
+        ides: ides,
+        to: to,
+        from: from
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GET_PART,
+            payload: {
+              getAllPart: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      });
   };
 }

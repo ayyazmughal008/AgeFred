@@ -50,7 +50,7 @@ class Blog extends React.Component {
                                 return (
                                     <BlogCard
                                         key={"unique" + index}
-                                        description={item.description2}
+                                        description={item.description}
                                         title={item.title}
                                         urlImag={item.imagePath}
                                         clickHandler={() =>

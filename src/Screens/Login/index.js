@@ -5,15 +5,21 @@ import { connect } from "react-redux";
 import { styles } from "./styles";
 import { TextInput } from 'react-native-paper';
 import FastImage from 'react-native-fast-image'
+import ForgetPassword from '../../Component/ForgetPassword'
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dni: "",
-      password: ""
+      password: "",
+      promptVisible: false
     };
   }
+  toggleDialog = () => {
+    this.setState({ promptVisible: !this.state.promptVisible })
+  }
+
   render() {
     const { AuthLoading } = this.props.user;
     console.log("My loading", AuthLoading);
@@ -43,7 +49,7 @@ class Login extends Component {
             <Text style={styles.forgetPass}>{"Olvido su contrasena?"}</Text>
             <Text
               style={styles.forgetClick}
-              onPress={() => console.log("hiiii")}
+              onPress={() => this.toggleDialog()}
             >
               {"Haga clic aqui"} </Text>
           </View>
@@ -66,9 +72,21 @@ class Login extends Component {
             style={styles.loading}
           />
         }
+        {this.state.promptVisible &&
+          <ForgetPassword
+            isDialogOpen={this.state.promptVisible}
+            handleMessage={text => this.setState({ text: text })}
+            cancelClick={() => this.toggleDialog()}
+          // okClick={() => {
+          //   this.add(this.state.text);
+          //   this.toggleDialog();
+          // }}
+          />
+        }
       </View>
     );
   }
+
 }
 
 const mapStateToProps = state => ({

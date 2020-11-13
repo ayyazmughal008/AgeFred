@@ -5,6 +5,7 @@ import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
 import NestedScrollView from 'react-native-nested-scroll-view'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import Icon from 'react-native-vector-icons/dist/AntDesign';
 //import { ScrollView } from 'react-native-gesture-handler'
 export default class Header extends React.Component {
 
@@ -40,13 +41,13 @@ export default class Header extends React.Component {
                         {text2}
                     </Text>
                 </View>
-                <View style={[styles.componet3, {
+                {/* <View style={[styles.componet3, {
                     backgroundColor: bgColor
                 }]}>
                     <Text style={styles.componetText}>
                         {text3}
                     </Text>
-                </View>
+                </View> */}
                 <View style={[styles.componet4, {
                     backgroundColor: bgColor
                 }]}>
@@ -61,7 +62,7 @@ export default class Header extends React.Component {
                         {text5}
                     </Text>
                 </View>
-                <View style={[styles.componet6, {
+                {/* <View style={[styles.componet6, {
                     backgroundColor: bgColor
                 }]}>
                     {Platform.OS === 'android' ?
@@ -98,23 +99,32 @@ export default class Header extends React.Component {
                             }
                         </ScrollView>
                     }
-                </View>
+                </View> */}
                 <View style={[styles.componet7, {
                     backgroundColor: bgColor
                 }]}>
-                    <TouchableOpacity onPress = {boxClickHandler}>
+                    <TouchableOpacity
+                        disabled={isTrue === 'pending' ? true : false}
+                        onPress={boxClickHandler}>
                         <View style={styles.box}>
-                            {isTrue &&
+                            {isTrue === true ?
                                 <FastImage
                                     source={require('../../images/tick.png')}
                                     resizeMode={FastImage.resizeMode.cover}
                                     style={styles.tick}
                                 />
+                                : isTrue === 'pending' ?
+                                    <Icon
+                                        name="close"
+                                        color="#000"
+                                        size={10}
+                                    />
+                                    : <View />
                             }
                         </View>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View >
         )
     }
 }
@@ -129,7 +139,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     componet1: {
-        width: widthPercentageToDP(15),
+        width: widthPercentageToDP(30),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -153,7 +163,7 @@ const styles = StyleSheet.create({
         padding: widthPercentageToDP(1.5)
     },
     componet2: {
-        width: widthPercentageToDP(20),
+        width: widthPercentageToDP(40),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -163,7 +173,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet3: {
-        width: widthPercentageToDP(15),
+        width: widthPercentageToDP(25),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",

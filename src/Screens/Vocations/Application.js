@@ -114,7 +114,7 @@ class History extends React.Component {
                                 dropDownStyle={{
                                     borderWidth: 0,
                                     borderColor: "#ffff",
-                                    backgroundColor: "#cccccc"
+                                    backgroundColor: lightBlue
 
                                 }}
                                 onChangeItem={item => this.setState({
@@ -127,7 +127,7 @@ class History extends React.Component {
                                     fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
-                                    color: "#ffff",
+                                    color: darkGrey,
                                     fontSize: widthPercentageToDP(3.5),
                                     fontWeight: "bold"
                                 }}
@@ -166,7 +166,7 @@ class History extends React.Component {
                                 dropDownStyle={{
                                     borderWidth: 0,
                                     borderColor: "#ffff",
-                                    backgroundColor: "#cccccc"
+                                    backgroundColor: lightBlue
 
                                 }}
                                 onChangeItem={item => this.setState({
@@ -179,7 +179,7 @@ class History extends React.Component {
                                     fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
-                                    color: "#ffff",
+                                    color: darkGrey,
                                     fontSize: widthPercentageToDP(3.5),
                                     fontWeight: "bold"
                                 }}
@@ -221,7 +221,7 @@ class History extends React.Component {
                                         dropDownStyle={{
                                             borderWidth: 0,
                                             borderColor: "#ffff",
-                                            backgroundColor: "#cccccc"
+                                            backgroundColor: lightBlue
 
                                         }}
                                         onChangeItem={item => this.setState({
@@ -234,7 +234,7 @@ class History extends React.Component {
                                             fontSize: widthPercentageToDP(3.5)
                                         }}
                                         labelStyle={{
-                                            color: "#ffff",
+                                            color: darkGrey,
                                             fontSize: widthPercentageToDP(3.5),
                                             fontWeight: "bold"
                                         }}
@@ -269,7 +269,7 @@ class History extends React.Component {
                                         dropDownStyle={{
                                             borderWidth: 0,
                                             borderColor: "#ffff",
-                                            backgroundColor: "#cccccc"
+                                            backgroundColor: lightBlue
 
                                         }}
                                         onChangeItem={item => this.setState({
@@ -282,7 +282,7 @@ class History extends React.Component {
                                             fontSize: widthPercentageToDP(3.5)
                                         }}
                                         labelStyle={{
-                                            color: "#ffff",
+                                            color: darkGrey,
                                             fontSize: widthPercentageToDP(3.5),
                                             fontWeight: "bold"
                                         }}
@@ -299,7 +299,7 @@ class History extends React.Component {
                                     <View style={styles.selectDateView}>
                                         <DatePicker
                                             style={[styles.datePickerStyle,
-                                            { width: widthPercentageToDP(25) }
+                                            { width: widthPercentageToDP(30) }
                                             ]}
                                             date={this.state.startDate}
                                             mode="date"
@@ -336,7 +336,7 @@ class History extends React.Component {
                                     <View style={styles.selectDateView}>
                                         <DatePicker
                                             style={[styles.datePickerStyle,
-                                            { width: widthPercentageToDP(25) }
+                                            { width: widthPercentageToDP(30) }
                                             ]}
                                             date={this.state.endDate}
                                             mode="date"
@@ -409,7 +409,7 @@ class History extends React.Component {
                                             dropDownStyle={{
                                                 borderWidth: 0,
                                                 borderColor: "#ffff",
-                                                backgroundColor: "#cccccc"
+                                                backgroundColor: lightBlue
     
                                             }}
                                             onChangeItem={item => this.setState({
@@ -422,7 +422,7 @@ class History extends React.Component {
                                                 fontSize: widthPercentageToDP(3.5)
                                             }}
                                             labelStyle={{
-                                                color: "#ffff",
+                                                color: darkGrey,
                                                 fontSize: widthPercentageToDP(3.5),
                                                 fontWeight: "bold"
                                             }}
@@ -457,7 +457,7 @@ class History extends React.Component {
                                             dropDownStyle={{
                                                 borderWidth: 0,
                                                 borderColor: "#ffff",
-                                                backgroundColor: "#cccccc"
+                                                backgroundColor: lightBlue
     
                                             }}
                                             onChangeItem={item => this.setState({
@@ -470,7 +470,7 @@ class History extends React.Component {
                                                 fontSize: widthPercentageToDP(3.5)
                                             }}
                                             labelStyle={{
-                                                color: "#ffff",
+                                                color: darkGrey,
                                                 fontSize: widthPercentageToDP(3.5),
                                                 fontWeight: "bold"
                                             }}

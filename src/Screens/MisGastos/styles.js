@@ -47,14 +47,14 @@ export const styles = StyleSheet.create({
         height: heightPercentageToDP(6),
     },
     uploadBtn: {
-        width:widthPercentageToDP(85),
-        height: heightPercentageToDP(15), 
+        width: widthPercentageToDP(85),
+        height: heightPercentageToDP(15),
         borderWidth: widthPercentageToDP(0.5),
         borderStyle: 'dashed',
         borderColor: darkGrey,
         borderRadius: widthPercentageToDP(0.1),
-        marginTop:heightPercentageToDP(2),
-        justifyContent:"center",
+        marginTop: heightPercentageToDP(2),
+        justifyContent: "center",
         //alignItems:"center"
     },
     loading: {
@@ -66,32 +66,32 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    img:{
-        width:widthPercentageToDP(7),
-        height:widthPercentageToDP(7)
+    img: {
+        width: widthPercentageToDP(7),
+        height: widthPercentageToDP(7)
     },
-    uploadText:{
+    uploadText: {
         fontSize: widthPercentageToDP(4),
         fontWeight: "300",
         color: darkGrey,
     },
-    submitBtn:{
-        width:widthPercentageToDP(55),
-        height:heightPercentageToDP(5),
-        borderRadius:widthPercentageToDP(10),
-        backgroundColor:orangae,
-        marginTop:heightPercentageToDP(2),
-        justifyContent:"center",
-        alignItems:"center"
+    submitBtn: {
+        width: widthPercentageToDP(55),
+        height: heightPercentageToDP(5),
+        borderRadius: widthPercentageToDP(10),
+        backgroundColor: orangae,
+        marginTop: heightPercentageToDP(2),
+        justifyContent: "center",
+        alignItems: "center"
     },
-    submitText:{
+    submitText: {
         fontSize: widthPercentageToDP(4),
         fontWeight: "bold",
         color: "#ffff",
     },
-    selectImages:{
-        width:widthPercentageToDP(15),
-        height:widthPercentageToDP(15)
+    selectImages: {
+        width: widthPercentageToDP(15),
+        height: widthPercentageToDP(15)
     },
     dateView: {
         width: widthPercentageToDP(90),
@@ -121,45 +121,45 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: darkBlue,
     },
-    title:{
+    title: {
         width: widthPercentageToDP(90),
         height: heightPercentageToDP(5),
-        backgroundColor:"#ffff",
-        justifyContent:"center",
-        alignItems:"center",
-        marginTop:heightPercentageToDP(3),
-        borderBottomWidth:widthPercentageToDP(0.2),
-        borderBottomColor:darkGrey
+        backgroundColor: "#ffff",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: heightPercentageToDP(3),
+        borderBottomWidth: widthPercentageToDP(0.2),
+        borderBottomColor: darkGrey
     },
-    titleText:{
-        fontSize:widthPercentageToDP(3.2),
-        fontWeight:"500",
-        color:darkBlue
+    titleText: {
+        fontSize: widthPercentageToDP(3.2),
+        fontWeight: "500",
+        color: darkBlue
     },
-    middleView:{
+    middleView: {
         width: widthPercentageToDP(90),
-        height: heightPercentageToDP(57),
-        backgroundColor:"#ffff"
+        height: heightPercentageToDP(40),
+        backgroundColor: "#ffff"
     },
-    sliderContainer:{
-        width:widthPercentageToDP(100),
-        height:heightPercentageToDP(40),
+    sliderContainer: {
+        width: widthPercentageToDP(100),
+        height: heightPercentageToDP(40),
         //backgroundColor:"red"
     },
-    bottomBox:{
+    bottomBox: {
         width: widthPercentageToDP(85),
         height: heightPercentageToDP(30),
-        backgroundColor:"#ffff",
-        borderRadius:widthPercentageToDP(2),
-        marginTop:heightPercentageToDP(3)
+        backgroundColor: "#ffff",
+        borderRadius: widthPercentageToDP(2),
+        marginTop: heightPercentageToDP(3)
     },
-    bottomTop:{
+    bottomTop: {
         width: widthPercentageToDP(85),
         height: heightPercentageToDP(5),
-        backgroundColor:"#ffff",
-        justifyContent:"center",
-        borderBottomWidth:widthPercentageToDP(0.2),
-        borderBottomColor:darkGrey
+        backgroundColor: "#ffff",
+        justifyContent: "center",
+        borderBottomWidth: widthPercentageToDP(0.2),
+        borderBottomColor: darkGrey
     },
     // Dialog styles 
     modalMain2: {
@@ -170,8 +170,7 @@ export const styles = StyleSheet.create({
         //backgroundColor:"red"
     },
     innerModal2: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
         marginBottom: widthPercentageToDP(10),
         marginLeft: widthPercentageToDP(5),
         marginRight: widthPercentageToDP(5)
@@ -184,7 +183,7 @@ export const styles = StyleSheet.create({
         backgroundColor: lightBlue,
         borderWidth: widthPercentageToDP(0.1),
         borderColor: darkBlue,
-        borderRadius:widthPercentageToDP(2)
+        borderRadius: widthPercentageToDP(2)
         // justifyContent: "center",
     },
     textView: {
@@ -206,7 +205,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: darkBlue,
-        borderRadius:widthPercentageToDP(2)
+        borderRadius: widthPercentageToDP(2)
     },
     confirmStyle: {
         width: widthPercentageToDP(60),
@@ -215,6 +214,26 @@ export const styles = StyleSheet.create({
     confirmText: {
         color: "#ffff",
         fontSize: widthPercentageToDP(3.5),
-        fontWeight:"300"
+        fontWeight: "300"
+    },
+    bottomBtnView: {
+        width: widthPercentageToDP(100),
+        height: heightPercentageToDP(6),
+        marginTop: heightPercentageToDP(1),
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    bottomBtn: {
+        width: widthPercentageToDP(45),
+        height: heightPercentageToDP(5),
+        borderRadius: widthPercentageToDP(10),
+        backgroundColor: orangae,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    bottomBtnText: {
+        fontSize: widthPercentageToDP(3),
+        fontWeight: "300",
+        color: "#ffff"
     },
 })

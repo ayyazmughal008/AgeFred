@@ -10,6 +10,10 @@ import MisGastos from '../../Screens/MisGastos'
 import DetailMisgasto from '../../Screens/MisGastos/Detail'
 import Vocation from '../../Screens/Vocations'
 import Orden from '../../Screens/Orden'
+import Epis from '../../Screens/Epis'
+import Option1 from '../../Screens/Epis/Option1'
+import Option2 from '../../Screens/Epis/Option2'
+import Option3 from '../../Screens/Epis/Option3'
 import GDPR from '../../Screens/Profile/GDPR'
 import TimeTracking from '../../Screens/TimeTracking'
 
@@ -53,6 +57,18 @@ export default createStackNavigator(
     },
     TimeTracking: {
       screen: TimeTracking
+    },
+    Epis: {
+      screen: Epis
+    },
+    Option1: {
+      screen: Option1
+    },
+    Option2: {
+      screen: Option2
+    },
+    Option3: {
+      screen: Option3
     },
   },
   {

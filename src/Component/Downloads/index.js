@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StatusBar } from 'react-native'
+import { View, TouchableOpacity, Text, Platform } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import Icon from 'react-native-vector-icons/Entypo';
 import { darkBlue } from '../ColorCode'
@@ -7,9 +7,9 @@ import FastImage from 'react-native-fast-image'
 export default class Header extends React.Component {
 
     render() {
-        const { title, clickHandler } = this.props
+        const { title, clickHandler, previewHandler } = this.props
         return (
-            <TouchableOpacity style={{
+            <View style={{
                 width: widthPercentageToDP(90),
                 height: widthPercentageToDP(10),
                 backgroundColor: "#ffff",
@@ -27,9 +27,7 @@ export default class Header extends React.Component {
                 },
                 shadowRadius: 3,
                 shadowOpacity: 0.5
-            }}
-                onPress={clickHandler}
-            >
+            }}>
                 <View style={{
                     borderRadius: widthPercentageToDP(1),
                     flexDirection: "row",
@@ -41,7 +39,7 @@ export default class Header extends React.Component {
                         flexDirection: "row",
                         flexWrap: "wrap",
                         alignItems: "center",
-                        width:widthPercentageToDP(60)
+                        width: widthPercentageToDP(60)
                     }}>
                         <View style={{
                             width: widthPercentageToDP(5),
@@ -68,16 +66,50 @@ export default class Header extends React.Component {
                             {title}
                         </Text>
                     </View>
-                    <FastImage
-                        source={require('../../images/pdf.png')}
-                        style={{
-                            width: widthPercentageToDP(4),
-                            height: widthPercentageToDP(4)
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
+                    {Platform.OS === "ios" ?
+                        <TouchableOpacity
+                            onPress={clickHandler}>
+                            <FastImage
+                                source={require('../../images/pdf.png')}
+                                style={{
+                                    width: widthPercentageToDP(4),
+                                    height: widthPercentageToDP(4)
+                                }}
+                                resizeMode={FastImage.resizeMode.cover}
+                            />
+                        </TouchableOpacity>
+                        : <View style={{
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            alignItems: "center"
+                        }}>
+                            <TouchableOpacity
+                                style ={{marginRight:widthPercentageToDP(5)}}
+                                onPress={clickHandler}>
+                                <FastImage
+                                    source={require('../../images/pdf.png')}
+                                    style={{
+                                        width: widthPercentageToDP(4),
+                                        height: widthPercentageToDP(4)
+                                    }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={previewHandler}>
+                                <FastImage
+                                    source={require('../../images/eye.png')}
+                                    style={{
+                                        width: widthPercentageToDP(4),
+                                        height: widthPercentageToDP(4)
+                                    }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </View>
-            </TouchableOpacity>
+            </View>
         )
     }
 }

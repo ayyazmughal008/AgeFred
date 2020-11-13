@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     BtnText: {
         fontSize: widthPercentageToDP(3.5),
         color: "#fff",
+        textAlign:"center"
         //marginLeft: widthPercentageToDP(1.5)
     },
     endBtn: {

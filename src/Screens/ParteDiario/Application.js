@@ -59,14 +59,14 @@ class Application extends React.Component {
             Alert.alert("Por favor seleccione una tarea de la lista")
             return;
         }
-        if (this.state.hours === "") {
-            Alert.alert("Por favor seleccione el tipo de hora de la lista")
-            return;
-        }
-        if (this.state.selectedFruits === undefined || this.state.selectedFruits.length === 0) {
-            Alert.alert("Por favor seleccione conceptos de la lista")
-            return;
-        }
+        // if (this.state.hours === "") {
+        //     Alert.alert("Por favor seleccione el tipo de hora de la lista")
+        //     return;
+        // }
+        // if (this.state.selectedFruits === undefined || this.state.selectedFruits.length === 0) {
+        //     Alert.alert("Por favor seleccione conceptos de la lista")
+        //     return;
+        // }
         if (this.state.noHours === "") {
             Alert.alert("Por favor ingrese el número de horas")
             return;
@@ -82,7 +82,8 @@ class Application extends React.Component {
             // this.state.thirdCheck,
             // this.state.fourthCheck,
             // this.state.fifthCheck,
-            login.data.id
+            login.data.id,
+            styles.list
         )
     }
     onSelectionsChange = (selectedFruits) => {
@@ -100,7 +101,9 @@ class Application extends React.Component {
                     <Text style={styles.title}>{"Elegir fecha: "}</Text>
                     <DatePicker
                         style={[styles.datePickerStyle,
-                        { width: widthPercentageToDP(25) }
+                        { 
+                            width: widthPercentageToDP(30), 
+                        }
                         ]}
                         date={this.state.endDate}
                         mode="date"
@@ -155,7 +158,8 @@ class Application extends React.Component {
                     dropDownStyle={{
                         borderWidth: 0,
                         borderColor: "#ffff",
-                        zIndex: 4
+                        zIndex: 4,
+                        backgroundColor: lightBlue
                     }}
                     onChangeItem={item => this.setState({
                         task: item.value
@@ -171,7 +175,7 @@ class Application extends React.Component {
                         color: darkBlue,
                     }}
                 />
-                <DropDownPicker
+                {/* <DropDownPicker
                     zIndex={4000}
                     items={dataPart.data.hours}
                     defaultValue={this.state.hours}
@@ -204,7 +208,16 @@ class Application extends React.Component {
                     selectedLabelStyle={{
                         color: darkBlue,
                     }}
-                />
+                /> */}
+                {/* <View style={styles.conceptosTitle}>
+                    <Text style={styles.conceptosText}>{"Conceptos"}</Text>
+                </View>
+                <View style={styles.conceptos}>
+                    <SelectMultiple
+                        items={dataPart.data.concepts}
+                        selectedItems={this.state.selectedFruits}
+                        onSelectionsChange={this.onSelectionsChange} />
+                </View> */}
                 <View style={styles.inpuView}>
                     <TextInput
                         placeholder="Cantidad"
@@ -214,15 +227,7 @@ class Application extends React.Component {
                         onChangeText={text => this.setState({ noHours: text })}
                     />
                 </View>
-                <View style={styles.conceptosTitle}>
-                    <Text style={styles.conceptosText}>{"Conceptos"}</Text>
-                </View>
-                <View style={styles.conceptos}>
-                    <SelectMultiple
-                        items={dataPart.data.concepts}
-                        selectedItems={this.state.selectedFruits}
-                        onSelectionsChange={this.onSelectionsChange} />
-                </View>
+
                 {/* <DropDownPicker
                     zIndex={3000}
                     items={dataPart.data.concepts}
