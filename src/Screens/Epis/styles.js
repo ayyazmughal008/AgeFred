@@ -24,31 +24,41 @@ export const styles = StyleSheet.create({
         marginTop:widthPercentageToDP(5)
     },
     tableView:{
-        flex:1
+        flex:1,
+        alignItems:"center"
     },
     tableRenderingView:{
-        width:heightPercentageToDP(100),
-        height:widthPercentageToDP(50)
+        width:heightPercentageToDP(95),
+        height:widthPercentageToDP(50),
+        alignItems:"center"
     },
     tableRenderingView2:{
-        width:heightPercentageToDP(100),
-        height:widthPercentageToDP(50)
+        width:heightPercentageToDP(95),
+        height:widthPercentageToDP(55)
     },
     tableRenderingView3:{
-        width:heightPercentageToDP(98),
+        width:heightPercentageToDP(95),
         height:widthPercentageToDP(60)
     },
     itemMainView:{
-        width:heightPercentageToDP(100),
+        width:heightPercentageToDP(95),
         height:widthPercentageToDP(10),
         //backgroundColor:"red",S
         flexDirection:"row",
-        flexWrap:"wrap",
         alignItems:"center",
         marginTop:widthPercentageToDP(3),
         borderBottomWidth:widthPercentageToDP(0.1),
         borderBottomColor:darkBlue,
-        marginLeft:heightPercentageToDP(2.5)
+    },
+    itemMainView2:{
+        width:'100%',
+        height:widthPercentageToDP(10),
+        flexDirection:"row",
+        alignItems:"center",
+        marginTop:widthPercentageToDP(3),
+        borderBottomWidth:widthPercentageToDP(0.1),
+        borderBottomColor:darkBlue,
+        //backgroundColor:"blue"
     },
     component:{
         height:widthPercentageToDP(10),
@@ -57,8 +67,7 @@ export const styles = StyleSheet.create({
     },
     bottomView:{
         position:"absolute",
-        bottom:"3%",
-        right:"5%"
+        bottom:"2%",
     },
     bottom1:{
         position:"absolute",

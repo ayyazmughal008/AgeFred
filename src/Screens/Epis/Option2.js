@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, PermissionsAndroid, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import { styles } from './styles'
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
@@ -7,13 +7,16 @@ import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
 import Orientation from 'react-native-orientation';
 import Table from '../../Component/EpisTable2'
+import { connect } from 'react-redux';
+import { submitEpisData2 } from '../../Redux/action'
 
-export default class Epis extends React.Component {
+class Epis2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             width: 0,
             height: 0,
+            testArray: []
         };
     }
     _onLayout = (e) => {
@@ -31,6 +34,7 @@ export default class Epis extends React.Component {
         }
     };
     componentDidMount() {
+        this.updateArray();
         Orientation.lockToLandscapeLeft()
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
@@ -38,7 +42,27 @@ export default class Epis extends React.Component {
         Orientation.unlockAllOrientations()
         Orientation.removeOrientationListener(this._onOrientationDidChange);
     }
+    updateArray = () => {
+        const { episData2 } = this.props.user;
+        let tempArr = [];
+        tempArr = episData2.data
+        this.setState({ testArray: tempArr })
+    }
+    updateMotivo = (index, value) => {
+        const { episData2 } = this.props.user;
+        const newArray = [...episData2.data];
+        newArray[index].motivoValue = value
+        this.setState({ testArray: newArray })
+    }
+    updateTala = (index, value) => {
+        const { episData2 } = this.props.user;
+        const newArray = [...episData2.data];
+        newArray[index].tala = value
+        this.setState({ testArray: newArray })
+    }
     render() {
+        const { login, AuthLoading } = this.props.user;
+        const { testArray } = this.state
         return (
             <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
                 <Header
@@ -59,48 +83,70 @@ export default class Epis extends React.Component {
                     }}
                 />
                 <View style={styles.tableView}>
-                    <View style={styles.itemMainView}>
-                        <View style={[styles.component, { width: "15%" }]}>
+                    <View style={styles.itemMainView2}>
+                        <View style={[styles.component, { width: "17%" }]}>
                             {/* <Text>Sample 1</Text> */}
                         </View>
-                        <View style={[styles.component, { width: "13%" }]}>
-                            <Text>Buen estado</Text>
-                        </View>
-                        <View style={[styles.component, { width: "13%" }]}>
-                            <Text>Mal Estado</Text>
-                        </View>
-                        <View style={[styles.component, { width: "13%" }]}>
-                            <Text>Caducidad</Text>
-                        </View>
                         <View style={[styles.component, { width: "10%" }]}>
-                            <Text>Solicito</Text>
+                            <Text>Talla</Text>
                         </View>
-                        <View style={[styles.component, { width: "15%" }]}>
+                        <View style={[styles.component, { width: "16%" }]}>
                             <Text>Motivo V</Text>
                         </View>
-                        <View style={[styles.component, { width: "18%" }]}>
-                            <Text>Foto</Text>
+                        <View style={[styles.component, { width: "48%" }]}>
+                            <Text>Status</Text>
                         </View>
                     </View>
-                    <View style={styles.tableRenderingView2}>
-                        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                            {[0, 1, 2, 3,4,5,6,7,8].map((item, index) => {
-                                return (
-                                    <Table
-                                        key={"unique" + index}
-                                        bgColor={index % 2 ? "#cccccc" : "#ffff"}
-                                        //data={data}
-                                        //imagePicker={() => this.toggleDiloge()}
-                                    />
-                                )
-                            })}
-                        </ScrollView>
-                    </View>
-                    <View style = {styles.bottomView}>
-                            <Text style = {styles.statusText}>{"Status: Accepted"}</Text>
+                    {!testArray.length ?
+                        <View />
+                        : <View style={styles.tableRenderingView2}>
+                            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                                {testArray.map((item, index) => {
+                                    return (
+                                        <Table
+                                            key={"unique" + index}
+                                            bgColor={index % 2 ? "#cccccc" : "#ffff"}
+                                            tool={item.tool}
+                                            dropdownHandler={item.motivi_v}
+                                            dropDownValue={item.motivoValue}
+                                            onChangeDropDown={text => this.updateMotivo(index, text)}
+                                            onchangeTalaText={text => this.updateTala(index, text)}
+                                            textValue={!item.tala ? "" : item.tala}
+                                            isEditAbl={item.editAble}
+                                            status={!item.status.accept_status ? "" : item.status.accept_status}
+                                            reason={!item.status.reason ? "" : item.status.reason}
+                                        />
+                                    )
+                                })}
+                            </ScrollView>
+                        </View>
+                    }
+                    <View style={styles.bottomView}>
+                        <TouchableOpacity
+                            style={styles.confirmBtn}
+                            onPress={() =>
+                                this.props.submitEpisData2(login.data.id, testArray)
+                                //console.log(testArray)
+                            }
+                        >
+                            <Text style={styles.btnText}>
+                                {"Submit"}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
+                {AuthLoading &&
+                    <ActivityIndicator
+                        style={styles.loading}
+                        size="large"
+                        color="#000"
+                    />
+                }
             </View>
         )
     }
 }
+const mapStateToProps = state => ({
+    user: state.user,
+});
+export default connect(mapStateToProps, { submitEpisData2 })(Epis2);

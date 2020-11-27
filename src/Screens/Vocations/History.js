@@ -214,7 +214,7 @@ class HistoryClass extends React.Component {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.checkBox}>
+          {/* <TouchableOpacity style={styles.checkBox}>
             <FastImage
               source={require('../../images/tick.png')}
               resizeMode={FastImage.resizeMode.contain}
@@ -227,7 +227,7 @@ class HistoryClass extends React.Component {
                 {"Eliminar"}
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View style={styles.lastView}>
             {!getAllHolidays.data2 ?
               <View />

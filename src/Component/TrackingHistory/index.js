@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, Text, Platform, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, Platform, StyleSheet } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
@@ -14,12 +14,8 @@ export default class Header extends React.Component {
             text3,
             text4,
             text5,
-            text6,
-            text7,
             bgColor,
-            isTrue1,
-            isTrue2
-
+            mapClick
         } = this.props
         return (
             <View style={styles.container}>
@@ -54,9 +50,13 @@ export default class Header extends React.Component {
                 <View style={[styles.componet5, {
                     backgroundColor: bgColor
                 }]}>
-                    <Text style={styles.componetText}>
-                        {text5}
-                    </Text>
+                    <TouchableOpacity
+                        onPress={mapClick}
+                    >
+                        <Text style={styles.componetText}>
+                            {text5}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )

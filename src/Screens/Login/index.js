@@ -42,6 +42,7 @@ class Login extends Component {
           <TextInput
             label="Contrasena"
             style={styles.input}
+            secureTextEntry={true}
             onChangeText={text => this.setState({ password: text })}
             theme={{ colors: { primary: 'grey' } }}
           />

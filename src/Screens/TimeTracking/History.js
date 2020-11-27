@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, ActivityIndicator, Text, TouchableOpacity } from 'react-native'
+import { View, FlatList, ActivityIndicator, Text, TouchableOpacity, Modal } from 'react-native'
 import { connect } from 'react-redux';
 import { styles } from './atyles';
 import { lightBlue, darkBlue, grey } from '../../Component/ColorCode'
@@ -7,29 +7,36 @@ import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import DatePicker from "react-native-datepicker";
 import HistoryComponent from "../../Component/TrackingHistory";
 import { data } from './data'
-import { getAllExpense } from '../../Redux/action'
+import { getTrackingHistory } from '../../Redux/action'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 class History extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             startDate: "",
-            endDate: ""
+            endDate: "",
+            mapModal: false,
+            lat: "",
+            long: ""
         };
     }
-
+    toggleMap = () => {
+        this.setState({ mapModal: !this.state.mapModal })
+    }
     getDetail = () => {
         const { login } = this.props.user
-        this.props.getAllExpense(
+        this.props.getTrackingHistory(
+            login.data.id,
             this.state.startDate,
             this.state.endDate,
-            login.data.id
         )
     }
 
     render() {
-        const { AuthLoading, getAllExpense } = this.props.user
+        const { AuthLoading, trackingHistory } = this.props.user
         return (
             <View style={styles.container2}>
                 <View style={styles.dateView}>
@@ -133,20 +140,73 @@ class History extends React.Component {
                             <Text style={styles.historyLabelText}>Location</Text>
                         </View>
                     </View>
-                    <FlatList
-                        data={data}
-                        keyExtractor={this._keyExtractor}
-                        renderItem={({ item, index }) => (
-                            <HistoryComponent
-                                text1={item.date}
-                                text2={item.startTime}
-                                text3={item.endTime}
-                                text4={item.totalTime}
-                                text5={item.location}
-                                bgColor={index % 2 ? "#cccccc" : "#ffff"}
-                            />
-                        )}
-                    />
+                    {!trackingHistory ?
+                        <View />
+                        : <FlatList
+                            data={trackingHistory.date}
+                            keyExtractor={this._keyExtractor}
+                            renderItem={({ item, index }) => (
+                                <HistoryComponent
+                                    text1={item.date}
+                                    text2={item.startTime}
+                                    text3={item.endTime}
+                                    mapClick={() => {
+                                        this.setState({
+                                            lat: item.latitude,
+                                            long: item.longitude
+                                        }, () => {
+                                            this.toggleMap();
+                                        })
+
+                                    }}
+                                    text4={item.totalTime}
+                                    text5={"Show" + '\n' + "Location"}
+                                    bgColor={index % 2 ? "#cccccc" : "#ffff"}
+                                />
+                            )}
+                        />
+                    }
+                    {this.state.mapModal &&
+                        <Modal
+                            animationType={"slide"}
+                            transparent={true}
+                            visible={this.state.mapModal}
+                            onRequestClose={() => { console.log("Modal has been closed.") }}
+                        >
+                            <View style={styles.modalView}>
+                                <View style={styles.map}>
+                                    <MapView
+                                        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                                        style={styles.map}
+                                        region={{
+                                            latitude: parseFloat(this.state.lat),
+                                            longitude: parseFloat(this.state.long),
+                                            latitudeDelta: 0.0043,
+                                            longitudeDelta: 0.0034
+                                        }}
+                                    >
+                                        <Marker
+                                            coordinate={{
+                                                latitude: parseFloat(this.state.lat),
+                                                longitude: parseFloat(this.state.long),
+                                            }}
+                                        />
+                                    </MapView>
+                                    <TouchableOpacity
+                                        style={styles.mapCloseBtn}
+                                        onPress={() => this.toggleMap()}
+                                    >
+                                        <EvilIcons
+                                            name="close"
+                                            color="#fff"
+                                            size={20}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
+                    }
+
                 </View>
 
                 {AuthLoading &&
@@ -164,4 +224,4 @@ class History extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getAllExpense })(History);
+export default connect(mapStateToProps, { getTrackingHistory })(History);

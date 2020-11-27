@@ -1,56 +1,66 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, Platform, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, darkGrey, grey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Dropdown } from 'react-native-material-dropdown';
 
 export default class List extends React.Component {
 
     render() {
-        const { bgColor, dropDownHandler, imagePicker, data } = this.props
+        const {
+            bgColor,
+            tool,
+            dropdownHandler,
+            dropDownValue,
+            onChangeDropDown,
+            onchangeTalaText,
+            textValue,
+            isEditAble,
+            status,
+            reason
+        } = this.props
         return (
             <View style={styles.container}>
                 <View style={styles.mainView}>
                     <View style={[styles.component, { width: "15%", backgroundColor: bgColor }]}>
-                        <Text>Sample 1</Text>
-                    </View>
-                    <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
-                        <TouchableOpacity style={styles.checkBox}>
-                            <FastImage
-                                source={require('../../images/tick.png')}
-                                style={styles.tick}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
-                        <TouchableOpacity style={styles.checkBox}>
-                            <FastImage
-                                source={require('../../images/tick.png')}
-                                style={styles.tick}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
-                        <Text>Caducidad</Text>
+                        <Text>{tool}</Text>
                     </View>
                     <View style={[styles.component, { width: "10%", backgroundColor: bgColor }]}>
-                        <TouchableOpacity style={styles.checkBox}>
-                            <FastImage
-                                source={require('../../images/tick.png')}
-                                style={styles.tick}
-                                resizeMode={FastImage.resizeMode.contain}
-                            />
-                        </TouchableOpacity>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Tala"
+                            placeholderTextColor={darkGrey}
+                            onChangeText={onchangeTalaText}
+                            value={textValue}
+                            keyboardType="numeric"
+                            textAlign={'center'}
+                            editable={isEditAble}
+                        />
                     </View>
-                    <View style={[styles.component, { width: "15%", backgroundColor: bgColor, borderRightWidth: widthPercentageToDP(0.1), }]}>
-                        <Text>Sample 1</Text>
+                    <View style={[styles.component, { width: "16%", backgroundColor: bgColor }]}>
+                        {/* {!dropDownValue ? */}
+                        <Dropdown
+                            containerStyle={styles.dropStyle2}
+                            label='Motivo'
+                            data={dropdownHandler}
+                            value={dropDownValue}
+                            onChangeText={onChangeDropDown}
+                        />
+                        {/* : <Text>{dropDownValue}</Text> */}
+                        {/* } */}
                     </View>
-                    <View style={[styles.component, { width: "18%", backgroundColor: bgColor }]}>
-                        <Text>Image</Text>
+                    <View style={[styles.component2, { width: "46%", backgroundColor: bgColor }]}>
+                        <View style={{ width: "30%", height: "100%" }}>
+                            <Text style={styles.statusTile}>{"PRL"}</Text>
+                            <Text style={styles.statusTile}>{"Aceptado"}</Text>
+                            <Text style={styles.statusTile}>{"Rechazado"}</Text>
+                        </View>
+                        <View style={{ width: "60%", height: "100%" }}>
+                            <Text style={styles.statusTile}>{"Motivo"}</Text>
+                            <Text style={styles.statusTileResult}>{status}</Text>
+                            <Text style={styles.statusTileResult}>{reason}</Text>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -60,19 +70,48 @@ export default class List extends React.Component {
 
 export const styles = StyleSheet.create({
     container: {
-        width: heightPercentageToDP(100),
-        height: widthPercentageToDP(10),
+        width: "100%",
+        height: widthPercentageToDP(20),
+        alignItems: "center"
+    },
+    input: {
+        width: "100%",
+        height: "60%",
+        color: darkBlue,
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue
     },
     mainView: {
         flexDirection: "row",
-        flexWrap: "wrap",
-        marginLeft: heightPercentageToDP(4)
         //justifyContent:"center"
     },
+    statusTile: {
+        width: '100%',
+        flex: 1,
+        fontSize: heightPercentageToDP(2),
+        fontWeight: 'bold',
+        color: darkBlue,
+        paddingLeft: widthPercentageToDP(2),
+    },
+    statusTileResult: {
+        width: '100%',
+        flex: 1,
+        fontSize: heightPercentageToDP(2),
+        fontWeight: '300',
+        color: darkBlue,
+        paddingLeft: widthPercentageToDP(2),
+    },
     component: {
-        height: widthPercentageToDP(10),
+        height: widthPercentageToDP(20),
         alignItems: "center",
         justifyContent: "center",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: darkGrey
+    },
+    component2: {
+        height: widthPercentageToDP(20),
+        alignItems: "center",
+        flexDirection: "row",
         borderRightWidth: widthPercentageToDP(0.1),
         borderRightColor: darkGrey
     },

@@ -114,7 +114,7 @@ class History extends React.Component {
                                 dropDownStyle={{
                                     borderWidth: 0,
                                     borderColor: "#ffff",
-                                    backgroundColor: lightBlue
+                                    backgroundColor: darkGrey
 
                                 }}
                                 onChangeItem={item => this.setState({
@@ -127,7 +127,7 @@ class History extends React.Component {
                                     fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
-                                    color: darkGrey,
+                                    color: "#fff",
                                     fontSize: widthPercentageToDP(3.5),
                                     fontWeight: "bold"
                                 }}
@@ -166,7 +166,7 @@ class History extends React.Component {
                                 dropDownStyle={{
                                     borderWidth: 0,
                                     borderColor: "#ffff",
-                                    backgroundColor: lightBlue
+                                    backgroundColor: darkGrey
 
                                 }}
                                 onChangeItem={item => this.setState({
@@ -179,7 +179,7 @@ class History extends React.Component {
                                     fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
-                                    color: darkGrey,
+                                    color: "#ffff",
                                     fontSize: widthPercentageToDP(3.5),
                                     fontWeight: "bold"
                                 }}
@@ -410,7 +410,7 @@ class History extends React.Component {
                                                 borderWidth: 0,
                                                 borderColor: "#ffff",
                                                 backgroundColor: lightBlue
-    
+
                                             }}
                                             onChangeItem={item => this.setState({
                                                 motivo: item.value
@@ -458,7 +458,7 @@ class History extends React.Component {
                                                 borderWidth: 0,
                                                 borderColor: "#ffff",
                                                 backgroundColor: lightBlue
-    
+
                                             }}
                                             onChangeItem={item => this.setState({
                                                 motivo: item.value
@@ -526,8 +526,24 @@ class History extends React.Component {
                                 <TimePicker
                                     selectedHours={selectedHours}
                                     selectedMinutes={selectedMinutes}
+                                    la
                                     onChange={(hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })}
                                 />
+                                <View style={{
+                                    width: widthPercentageToDP(100),
+                                    flexDirection: 'row',
+                                    alignItems: "center",
+                                    justifyContent: "space-around"
+                                }}>
+                                    <Text style={[styles.toDate, {
+                                        padding: widthPercentageToDP(3),
+                                        fontSize: widthPercentageToDP(4)
+                                    }]}>{"Hours"}</Text>
+                                    <Text style={[styles.toDate, {
+                                        padding: widthPercentageToDP(3),
+                                        fontSize: widthPercentageToDP(4)
+                                    }]}>{"Minutes"}</Text>
+                                </View>
                                 <TouchableOpacity
                                     style={styles.submitBtn}
                                     onPress={() => this.handleSubmit()}

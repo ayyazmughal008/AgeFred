@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     BtnText: {
         fontSize: widthPercentageToDP(3.5),
         color: "#fff",
-        textAlign:"center"
+        textAlign: "center"
         //marginLeft: widthPercentageToDP(1.5)
     },
     endBtn: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     },
     historyView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(26),
+        height: heightPercentageToDP(40),
         borderWidth: widthPercentageToDP(0.1),
         marginTop: heightPercentageToDP(3),
         borderColor: "#0943af"
@@ -68,8 +68,8 @@ export const styles = StyleSheet.create({
     textWrap: {
         height: heightPercentageToDP(6),
         width: '20%',
-        justifyContent:"center",
-        alignItems:"center"
+        justifyContent: "center",
+        alignItems: "center"
     },
     historyLabelText: {
         fontSize: widthPercentageToDP(3),
@@ -110,51 +110,84 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    submitBtn:{
-        width:widthPercentageToDP(55),
-        height:heightPercentageToDP(5),
-        borderRadius:widthPercentageToDP(10),
-        backgroundColor:orangae,
-        marginTop:heightPercentageToDP(2),
-        justifyContent:"center",
-        alignItems:"center"
+    submitBtn: {
+        width: widthPercentageToDP(55),
+        height: heightPercentageToDP(5),
+        borderRadius: widthPercentageToDP(10),
+        backgroundColor: orangae,
+        marginTop: heightPercentageToDP(2),
+        justifyContent: "center",
+        alignItems: "center"
     },
-    submitText:{
+    submitText: {
         fontSize: widthPercentageToDP(4),
         fontWeight: "bold",
         color: "#ffff",
     },
-    title:{
+    title: {
         width: widthPercentageToDP(100),
         height: heightPercentageToDP(5),
-        backgroundColor:"#ffff",
-        justifyContent:"center",
+        backgroundColor: "#ffff",
+        justifyContent: "center",
         //alignItems:"center",
-        paddingLeft:widthPercentageToDP(2),
-        marginTop:heightPercentageToDP(3),
-        borderBottomWidth:widthPercentageToDP(0.2),
-        borderBottomColor:darkGrey
+        paddingLeft: widthPercentageToDP(2),
+        marginTop: heightPercentageToDP(3),
+        borderBottomWidth: widthPercentageToDP(0.2),
+        borderBottomColor: darkGrey
     },
-    titleText:{
-        fontSize:widthPercentageToDP(3.2),
-        fontWeight:"500",
-        color:darkBlue
+    titleText: {
+        fontSize: widthPercentageToDP(3.2),
+        fontWeight: "500",
+        color: darkBlue
     },
-    buttonView:{
-        flexDirection:"row",
-        flexWrap:"wrap",
-        alignItems:"center",
-        justifyContent:"space-between",
-        padding:widthPercentageToDP(2),
-        width:widthPercentageToDP(60)
+    buttonView: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: widthPercentageToDP(2),
+        width: widthPercentageToDP(60)
     },
-    mapView:{
-        marginTop:heightPercentageToDP(2),
-        width:widthPercentageToDP(95),
-        height:heightPercentageToDP(23),
-        borderWidth:widthPercentageToDP(0.1),
-        borderColor:darkBlue,
-        justifyContent:"center",
-        alignItems:"center"
+    mapView: {
+        marginTop: heightPercentageToDP(2),
+        width: widthPercentageToDP(95),
+        height: heightPercentageToDP(23),
+        borderWidth: widthPercentageToDP(0.1),
+        borderColor: darkBlue,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    input: {
+        width: widthPercentageToDP(12),
+        height: heightPercentageToDP(4.5),
+        color: "#000",
+        fontSize: widthPercentageToDP(3),
+        fontWeight: "normal",
+        backgroundColor: "#ffff",
+        borderWidth: widthPercentageToDP(0.1),
+        borderColor: darkGrey
+    },
+    modalView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: "center",
+        flexDirection: "column"
+    },
+    map: {
+        width: widthPercentageToDP(80),
+        height: heightPercentageToDP(70),
+        alignItems: "center",
+        justifyContent:"center"
+    },
+    mapCloseBtn: {
+        position: "absolute",
+        left: "0%",
+        top: "-2%",
+        width: widthPercentageToDP(5),
+        height: widthPercentageToDP(5),
+        borderRadius: widthPercentageToDP(5) / 2,
+        backgroundColor: "#000",
+        justifyContent: "center",
+        alignItems: "center"
     }
 })

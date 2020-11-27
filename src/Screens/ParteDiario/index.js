@@ -65,12 +65,12 @@ class ParteDiario extends Component {
         index: 0,
         routes: [
             { key: "first", image: require('../../images/application.png') },
-            { key: "second", image: require('../../images/history.png')},
+            { key: "second", image: require('../../images/history.png') },
         ]
     };
 
-    ApplicationRoute = () => <Application navigate={this.props.navigation.navigate}/>;
-    HistoryRoute = () => <History navigate={this.props.navigation.navigate}/>;
+    ApplicationRoute = () => <Application navigate={this.props.navigation.navigate} />;
+    HistoryRoute = () => <History navigate={this.props.navigation.navigate} />;
 
 
     render() {

@@ -12,7 +12,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
 import Dialog from '../MisGastos/Dialog'
 import { connect } from 'react-redux';
-import { getAllTools } from '../../Redux/action'
+import { getAllTools, submitEpisData1 } from '../../Redux/action'
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
@@ -26,6 +26,8 @@ class Epis extends React.Component {
             testArray: [],
             dilaogStatus: false,
             index: 0,
+            loading: false,
+            isBtnEnable: true
         };
     }
     toggleDiloge = () => {
@@ -57,7 +59,7 @@ class Epis extends React.Component {
         }).then(image => {
             this.toggleDiloge();
             this.updateCameraFoto(index, image)
-            console.log(image)
+            //console.log(image)
         })
             .catch(err => {
                 console.log(err);
@@ -110,7 +112,14 @@ class Epis extends React.Component {
         const { getToolType } = this.props.user;
         let temparr = [];
         temparr = getToolType.data
-        this.setState({ testArray: temparr })
+        this.setState({ testArray: temparr }, () => {
+            const { testArray } = this.state
+            for (var i = 0; i < testArray.length; i++) {
+                if (testArray[i].editAble) {
+                    this.setState({ isBtnEnable: false })
+                }
+            }
+        })
     }
     updateCheckBox = (index, whichCheck, value) => {
         const { getToolType } = this.props.user;
@@ -143,7 +152,9 @@ class Epis extends React.Component {
         });
         newArray[index].image = temFotoArray
         newArray[index].isUpload = true
-        this.setState({ testArray: newArray })
+        this.setState({ testArray: newArray }, () => {
+            this.uploadImages(index)
+        })
     }
     updateCameraFoto = (index, value) => {
         const { getToolType } = this.props.user;
@@ -156,12 +167,62 @@ class Epis extends React.Component {
         })
         newArray[index].image = temFotoArray
         newArray[index].isUpload = true
-        this.setState({ testArray: newArray })
+        this.setState({ testArray: newArray }, () => {
+            this.uploadImages(index)
+        })
     }
-
+    uploadImages = (index) => {
+        const { testArray } = this.state;
+        this.setState({ loading: true })
+        const body = new FormData();
+        body.append('toolId', testArray[index].toolId)
+        testArray[index].image.forEach((item, index) => {
+            body.append("images[]", {
+                'uri': item.uri,
+                'type': item.type,
+                'name': item.name,
+            });
+        })
+        fetch('http://95.179.209.186/api/images', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.status === "Success") {
+                    console.log("khell shoro howa aub (-_-)")
+                    let temArr = [...testArray];
+                    let temFotoArray = [];
+                    json.images.forEach((item, index) => {
+                        temFotoArray.push(item)
+                    })
+                    temArr[index].image = temFotoArray;
+                    this.setState({ testArray: temArr, loading: false }, () => {
+                        console.log("khel khatam ===>(-_-)", this.state.testArray)
+                    })
+                }
+            })
+            .catch(error => this.setState({ loading: false }))
+    }
+    submitData = () => {
+        const { testArray } = this.state;
+        const { login } = this.props.user
+        this.props.submitEpisData1(
+            login.data.id,
+            testArray,
+            login.data.employRoleId
+        )
+    }
     render() {
         const { AuthLoading, getToolType } = this.props.user
-        console.log("my array =>", this.state.testArray)
+        // console.log("my array =>", this.state.testArray.length ?
+        //     this.state.testArray[0].image : "no image"
+        // )
+        //console.log("my array =>", this.state.testArray)
         return (
             <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
                 <Header
@@ -174,7 +235,7 @@ class Epis extends React.Component {
                     centerComponent={
                         <HeaderImage
                             isText={true}
-                            title="Estado / Control EPI’s"
+                            title="ESTADO / CONTROL EPI’S"
                         />
                     }
                     containerStyle={{
@@ -206,7 +267,7 @@ class Epis extends React.Component {
                         </View>
                     </View>
                     <View style={styles.tableRenderingView}>
-                        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                        <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
                             {!this.state.testArray ?
                                 <View />
                                 : this.state.testArray.map((item, index) => {
@@ -229,20 +290,23 @@ class Epis extends React.Component {
                                             checkBoxClick2={() => this.updateCheckBox(index, "2", item.checkBox2 ? false : true)}
                                             checkBoxClick3={() => this.updateCheckBox(index, "3", item.checkBox3 ? false : true)}
                                             isUpload={item.isUpload}
+                                            isEnable={item.editAble}
                                         />
                                     )
                                 })}
                         </ScrollView>
                     </View>
-                    <View style={styles.bottom1}>
-                        <TouchableOpacity
-                            style={styles.confirmBtn}
-                        //onPress = {}
-                        >
-                            <Text style={styles.btnText}>{"Save"}</Text>
-                        </TouchableOpacity>
+                    {!this.state.isBtnEnable &&
+                        <View style={styles.bottom1}>
+                            <TouchableOpacity
+                                style={styles.confirmBtn}
+                                onPress={() => { this.submitData() }}
+                            >
+                                <Text style={styles.btnText}>{"Save"}</Text>
+                            </TouchableOpacity>
 
-                    </View>
+                        </View>
+                    }
                 </View>
                 {this.state.dilaogStatus &&
                     <Dialog
@@ -267,6 +331,13 @@ class Epis extends React.Component {
                         color="#000"
                     />
                 }
+                {this.state.loading &&
+                    <ActivityIndicator
+                        style={styles.loading}
+                        size="large"
+                        color="#000"
+                    />
+                }
             </View>
         )
     }
@@ -275,4 +346,4 @@ class Epis extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getAllTools })(Epis);
+export default connect(mapStateToProps, { getAllTools, submitEpisData1 })(Epis);

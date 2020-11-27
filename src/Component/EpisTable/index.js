@@ -23,8 +23,8 @@ export default class List extends React.Component {
             onChangeDropDown,
             type,
             isUpload,
-            date
-
+            date,
+            isEnable
         } = this.props
         return (
             <View style={styles.container}>
@@ -35,6 +35,7 @@ export default class List extends React.Component {
                     <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
                         <TouchableOpacity
                             style={styles.checkBox}
+                            disabled={isEnable ? false : true}
                             onPress={checkBoxClick1}
                         >
                             {isCheckBox1 &&
@@ -50,6 +51,7 @@ export default class List extends React.Component {
                         <TouchableOpacity
                             style={styles.checkBox}
                             onPress={checkBoxClick2}
+                            disabled={isEnable ? false : true}
                         >
                             {isCheckBox2 &&
                                 <FastImage
@@ -67,6 +69,7 @@ export default class List extends React.Component {
                         <TouchableOpacity
                             style={styles.checkBox}
                             onPress={checkBoxClick3}
+                            disabled={isEnable ? false : true}
                         >
                             {isCheckBox3 &&
                                 <FastImage
@@ -78,19 +81,27 @@ export default class List extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={[styles.component, { width: "15%", backgroundColor: bgColor, borderRightWidth: widthPercentageToDP(0.2) }]}>
-                        <Dropdown
-                            containerStyle={styles.dropStyle2}
-                            label='Favorite Fruit'
-                            data={dropdownHandler}
-                            value={dropDownValue}
-                            onChangeText={onChangeDropDown}
-                        />
+                        {isEnable ?
+                            <Dropdown
+                                containerStyle={styles.dropStyle2}
+                                label='Motivo'
+                                data={dropdownHandler}
+                                value={dropDownValue}
+                                onChangeText={onChangeDropDown}
+                            />
+                            : <Text>{dropDownValue}</Text>
+                        }
                     </View>
                     <View style={[styles.component, { width: "18%", backgroundColor: bgColor }]}>
                         <TouchableOpacity
                             style={styles.upload}
                             onPress={imagePicker}
-                            disabled={isUpload ? true : false}
+                            disabled={
+                                isEnable ?
+                                    isUpload ?
+                                        true :
+                                        false
+                                    : true}
                         >
                             <FastImage
                                 source={isUpload ? require('../../images/tick.png')
@@ -109,14 +120,14 @@ export default class List extends React.Component {
 
 export const styles = StyleSheet.create({
     container: {
-        width: heightPercentageToDP(100),
+        width: heightPercentageToDP(95),
         height: widthPercentageToDP(10),
+        alignItems: "center"
     },
     mainView: {
         flexDirection: "row",
-        flexWrap: "wrap",
         //alignItems: "center",
-        marginLeft: heightPercentageToDP(4)
+        // marginLeft: heightPercentageToDP(4)
         //justifyContent:"center"
     },
     component: {

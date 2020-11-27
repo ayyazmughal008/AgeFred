@@ -14,7 +14,7 @@ class DrawerContent extends Component {
 
 	render() {
 		let { props } = this;
-		const {login} = this.props.user;
+		const { login } = this.props.user;
 		return (
 			<View style={{
 				flex: 1,
@@ -45,7 +45,7 @@ class DrawerContent extends Component {
 						/>
 					</FastImage>
 					<FastImage
-						source={{uri : login.data.profilePicture}}
+						source={{ uri: login.data.profilePicture }}
 						resizeMode={FastImage.resizeMode.cover}
 						style={{
 							width: widthPercentageToDP(30),
@@ -90,7 +90,10 @@ class DrawerContent extends Component {
 							borderBottomWidth: widthPercentageToDP(0.2),
 							borderBottomColor: darkBlue
 						}}
-						onPress={() => this.props.navigation.navigate("Profile")}
+						onPress={() => {
+							this.props.navigation.closeDrawer();
+							this.props.navigation.navigate("Profile")
+						}}
 					>
 						<Text style={{
 							fontSize: widthPercentageToDP(5),
@@ -168,7 +171,7 @@ class DrawerContent extends Component {
 							{"Ajustes"}
 						</Text>
 					</TouchableOpacity> */}
-					
+
 					<TouchableOpacity
 						style={{
 							position: "absolute",

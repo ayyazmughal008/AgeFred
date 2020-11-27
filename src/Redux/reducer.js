@@ -13,7 +13,15 @@ import {
   GET_HOLIDAYS,
   ORDER_NUMBER,
   API_STATUS,
-  GET_TOOLS
+  GET_TOOLS,
+  START_TIME,
+  STOP_TIME,
+  TIMER_STATUS,
+  TIME_TRACKING,
+  TRACKING_HISTORY,
+  GDPR,
+  EPIS_HISTORY,
+  EPIS2_DATA
 } from "./action";
 
 const initialUserState = {
@@ -23,14 +31,22 @@ const initialUserState = {
   getDocuments: "",
   getBlogs: "",
   getAllPart: "",
-  getAllPartSelection:[],
+  getAllPartSelection: [],
   getDataExpense: "",
   getAllExpense: "",
   getHolidaysData: "",
   getAllHolidays: "",
   getWorkOrderNumber: "",
   apiStatus: "",
-  getToolType: ""
+  getToolType: "",
+  startTimer: "",
+  stopTimer: "",
+  timerStatus: true,
+  timeTracking: "",
+  trackingHistory: "",
+  getGdpr: "",
+  episHistory: "",
+  episData2:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -44,16 +60,41 @@ const userReducer = (state = initialUserState, action) => {
       getDocuments: "",
       getBlogs: "",
       getAllPart: "",
-      getAllPartSelection:[],
+      getAllPartSelection: [],
       getDataExpense: "",
       getAllExpense: "",
       getHolidaysData: "",
       getAllHolidays: "",
       getWorkOrderNumber: "",
-      getToolType: ""
+      getToolType: "",
+      startTimer: "",
+      stopTimer: "",
+      timerStatus: true,
+      timeTracking: "",
+      trackingHistory: "",
+      getGdpr: "",
+      episHistory: "",
+      episData2:""
     };
   }
-
+  if (action.type === TIMER_STATUS) {
+    return {
+      ...state,
+      timerStatus: action.payload
+    };
+  }
+  if (action.type === START_TIME) {
+    return {
+      ...state,
+      startTimer: action.payload
+    };
+  }
+  if (action.type === STOP_TIME) {
+    return {
+      ...state,
+      stopTimer: action.payload
+    };
+  }
   if (action.type === AUTH_LOADING) {
     return {
       ...state,
@@ -91,14 +132,12 @@ const userReducer = (state = initialUserState, action) => {
       getAllPartSelection: action.payload.getAllPartSelection
     };
   }
-
   if (action.type === DATA_EXPENSE) {
     return {
       ...state,
       getDataExpense: action.payload.getDataExpense
     };
   }
-
   if (action.type === GET_EXPENSE) {
     return {
       ...state,
@@ -127,6 +166,36 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       getToolType: action.payload.getToolType
+    };
+  }
+  if (action.type === TIME_TRACKING) {
+    return {
+      ...state,
+      timeTracking: action.payload.timeTracking
+    };
+  }
+  if (action.type === TRACKING_HISTORY) {
+    return {
+      ...state,
+      trackingHistory: action.payload.trackingHistory
+    };
+  }
+  if (action.type === GDPR) {
+    return {
+      ...state,
+      getGdpr: action.payload.getGdpr
+    };
+  }
+  if (action.type === EPIS_HISTORY) {
+    return {
+      ...state,
+      episHistory: action.payload.episHistory
+    };
+  } 
+  if (action.type === EPIS2_DATA) {
+    return {
+      ...state,
+      episData2: action.payload.episData2
     };
   }
   return state;

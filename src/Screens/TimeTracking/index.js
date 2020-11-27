@@ -88,7 +88,7 @@ class ParteDiario extends Component {
                     centerComponent={
                         <HeaderImage
                             isText={true}
-                            title="GEOLOCATION"
+                            title="REGISTRO DE JORNADA"
                         />
                     }
                     containerStyle={{

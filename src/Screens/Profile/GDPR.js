@@ -7,20 +7,23 @@ import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
 import FastImage from 'react-native-fast-image'
-import HTML from 'react-native-render-html';
-import {widthPercentageToDP} from '../../Component/MakeMeResponsive'
+import Pdf from 'react-native-pdf';
+import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isChecked: false
         };
     }
+    toggleCheck = () => {
+        this.setState({ isChecked: !this.state.isChecked })
+    }
     render() {
-        const { AuthLoading, login } = this.props.user;
-        console.log("My loading", AuthLoading);
+        const { AuthLoading, getGdpr } = this.props.user;
+        console.log(getGdpr.gdpr)
         return (
             <View style={styles.container2}>
                 <Header
@@ -41,32 +44,46 @@ class Profile extends Component {
                     }}
                 />
                 <View style={styles.mainView}>
-                    <HTML
-                        html='<p>this is just text this is just text this is just text this is just text</p>'
-                        tagsStyles={{
-                            p: {
-                                fontSize: widthPercentageToDP(4),
-                                textAlign:"justify",
-                                padding:widthPercentageToDP(1)
-                            }
+                    <Pdf
+                        source={{ uri: getGdpr.gdpr }}
+                        onLoadComplete={(numberOfPages, filePath) => {
+                            console.log(`number of pages: ${numberOfPages}`);
+                        }}
+                        onPageChanged={(page, numberOfPages) => {
+                            console.log(`current page: ${page}`);
+                        }}
+                        onError={(error) => {
+                            console.log(error);
+                        }}
+                        onPressLink={(uri) => {
+                            console.log(`Link presse: ${uri}`)
+                        }}
+                        style={{
+                            flex: 1,
                         }}
                     />
                 </View>
-                <TouchableOpacity style={styles.checkBox}>
-                    <FastImage
-                        source={require('../../images/tick.png')}
-                        resizeMode={FastImage.resizeMode.contain}
-                        style={styles.tick2}
-                    />
+                {/* <TouchableOpacity
+                    onPress={() => this.toggleCheck()}
+                    disabled={this.state.isChecked ? true : false}
+                    style={styles.checkBox}>
+                    {this.state.isChecked &&
+                        <FastImage
+                            source={require('../../images/tick.png')}
+                            resizeMode={FastImage.resizeMode.contain}
+                            style={styles.tick2}
+                        />
+                    }
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.submitBtn}
-                    onPress={() => this.handleSubmit()}
+                    onPress={() => { }}
+                    disabled={this.state.isChecked ? true : false}
                 >
                     <Text style={styles.btntext}>
                         {"Proximo"}
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }

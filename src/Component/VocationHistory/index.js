@@ -63,13 +63,13 @@ export default class Header extends React.Component {
                 <View style={[styles.componet6, {
                     backgroundColor: bgColor
                 }]}>
-                    <View style={styles.box}>
+                    {/* <View style={styles.box}>
                         <FastImage
                             source={require('../../images/tick.png')}
                             resizeMode={FastImage.resizeMode.cover}
                             style={styles.tick}
                         />
-                    </View>
+                    </View> */}
                 </View>
                 {/* <View style={[styles.componet7, {
                     backgroundColor: bgColor

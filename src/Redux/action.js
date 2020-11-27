@@ -14,6 +14,14 @@ export const GET_HOLIDAYS = "GET_HOLIDAYS";
 export const API_STATUS = "API_STATUS";
 export const GET_TOOLS = "GET_TOOLS";
 export const ORDER_NUMBER = "ORDER_NUMBER";
+export const START_TIME = "START_TIME";
+export const STOP_TIME = "STOP_TIME";
+export const TIMER_STATUS = "TIMER_STATUS";
+export const TIME_TRACKING = "TIME_TRACKING";
+export const TRACKING_HISTORY = "TRACKING_HISTORY";
+export const GDPR = "GDPR";
+export const EPIS_HISTORY = "EPIS_HISTORY";
+export const EPIS2_DATA = "EPIS2_DATA";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -21,7 +29,18 @@ var baseUrl = "http://95.179.209.186/api/",
   login = "login-employ",
   blog = "blogs-get",
   getPart = "parts-get",
+  getTime = "times-get",
+  timesEnd = "times-end",
+  timesStart = "times-start",
+  timesSubmit = "times-submit",
   dataExpense = "data-expense",
+  timesHistory = "times-history",
+  gdprGet = "gdpr-get",
+  epiHistory = "epi-history",
+  gdprSubmit = "gdpr-submit",
+  toolsGet2 = "tools-get2",
+  epi2Submit = "epi2-submit",
+  epi1Submit = "epi1-submit",
   expenseStore = "expense-store",
   getExpensese = "expenses-get",
   dataHoliday = "data-holiday",
@@ -33,6 +52,21 @@ var baseUrl = "http://95.179.209.186/api/",
   partsDelete = "parts-delete",
   documents = "documents-get";
 
+export const timeStatus = (value) => {
+  return dispatch => {
+    dispatch({ type: TIMER_STATUS, payload: value })
+  }
+}
+export const stopTime = (time) => {
+  return dispatch => {
+    dispatch({ type: STOP_TIME, payload: time })
+  }
+}
+export const startTime = (time) => {
+  return dispatch => {
+    dispatch({ type: START_TIME, payload: time })
+  }
+}
 export const logOut = () => {
   return dispatch => {
     dispatch({ type: LOG_OUT })
@@ -63,14 +97,14 @@ export const fetchLoginDetail = (dni, password) => {
               login: json
             }
           });
-          NavigationService.navigate('Home')
+          dispatch(getGDPRDocument(json.data.id))
         } else {
           alert(json.message)
         }
       });
   };
 }
-export const fetchDataPart = () => {
+export const fetchDataPart = (id) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
     fetch(baseUrl + data_part, {
@@ -91,6 +125,8 @@ export const fetchDataPart = () => {
               dataPart: json
             }
           });
+          dispatch(getAllTime(id));
+          dispatch(getGDPRDocument(id))
         } else {
           alert(json.message)
         }
@@ -558,7 +594,8 @@ export const postWorkStore = (
   };
 }
 export const getAllTools = (
-  employRoleId
+  employRoleId,
+  id
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -569,7 +606,8 @@ export const getAllTools = (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        role: employRoleId
+        employRoleId: employRoleId,
+        id: id
       }),
     })
       .then(res => res.json())
@@ -590,7 +628,6 @@ export const getAllTools = (
       });
   };
 }
-
 export const deleteDailyPart = (
   ides,
   employId,
@@ -623,6 +660,428 @@ export const deleteDailyPart = (
               getAllPart: json
             }
           });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getAllTime = (
+  employId,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getTime, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: TIME_TRACKING,
+            payload: {
+              timeTracking: json,
+            }
+          })
+          if (!json.time) {
+            dispatch(timeStatus(true))
+            console.log("first condition")
+          } else if (!json.time.endTime) {
+            dispatch(timeStatus(false))
+            console.log("second condition")
+          } else {
+            dispatch(timeStatus(true))
+            console.log("third condition")
+          }
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const startTimeTracking = (
+  lat,
+  long,
+  employId,
+) => {
+  console.log(
+    "=========>",
+    lat,
+    long,
+    employId)
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + timesStart, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+        lat: lat,
+        lng: long
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        //console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: TIME_TRACKING,
+            payload: {
+              timeTracking: json,
+            }
+          })
+          if (!json.time) {
+            dispatch(timeStatus(true))
+            console.log("first condition")
+          } else if (!json.time.endTime) {
+            dispatch(timeStatus(false))
+            console.log("second condition")
+          } else {
+            dispatch(timeStatus(true))
+            console.log("third condition")
+          }
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const endTimeTracking = (
+  employId,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + timesEnd, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: TIME_TRACKING,
+            payload: {
+              timeTracking: json,
+            }
+          })
+          if (!json.time) {
+            dispatch(timeStatus(true))
+            console.log("first condition")
+          } else if (!json.time.endTime) {
+            dispatch(timeStatus(false))
+            console.log("second condition")
+          } else {
+            dispatch(timeStatus(true))
+            console.log("third condition")
+          }
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const submitTimeTracking = (
+  start,
+  end,
+  lat,
+  long,
+  employId,
+) => {
+  console.log(
+    start,
+    end,
+    lat,
+    long,
+    employId
+  )
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + timesSubmit, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        start: start,
+        end: end,
+        id: employId,
+        lat: lat,
+        lng: long
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        //console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: TIME_TRACKING,
+            payload: {
+              timeTracking: json,
+            }
+          })
+          if (!json.time) {
+            dispatch(timeStatus(true))
+            console.log("first condition")
+          } else if (!json.time.endTime) {
+            dispatch(timeStatus(false))
+            console.log("second condition")
+          } else {
+            dispatch(timeStatus(true))
+            console.log("third condition")
+          }
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getTrackingHistory = (
+  id,
+  from,
+  to
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + timesHistory, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        from: from,
+        to: to
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: TRACKING_HISTORY,
+            payload: {
+              trackingHistory: json,
+            }
+          })
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getGDPRDocument = (
+  employId,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + gdprGet, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GDPR,
+            payload: {
+              getGdpr: json,
+            }
+          })
+          NavigationService.navigate('Home')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const submitGDPRDocument = (
+  employId,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + gdprSubmit, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: GDPR,
+            payload: {
+              getGdpr: json,
+            }
+          })
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getEpisHistory = (
+  employId,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + epiHistory, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: EPIS_HISTORY,
+            payload: {
+              episHistory: json,
+            }
+          })
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getEpisData2 = (
+  employId,
+  id
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + toolsGet2, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        employRoleId: employId,
+        id: id
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        //console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: EPIS2_DATA,
+            payload: {
+              episData2: json,
+            }
+          })
+          NavigationService.navigate('Option2')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const submitEpisData2 = (
+  employId,
+  data
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + epi2Submit, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+        data: data
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          alert("Data submit successfully")
+          NavigationService.navigate('Epis')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const submitEpisData1 = (
+  employId,
+  data,
+  roleId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + epi1Submit, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: employId,
+        data: data,
+        employRoleId: roleId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          alert("Data submit successfully")
+          NavigationService.navigate('Epis')
         } else {
           alert(json.message)
         }

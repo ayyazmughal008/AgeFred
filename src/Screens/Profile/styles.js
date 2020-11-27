@@ -116,9 +116,10 @@ export const styles = StyleSheet.create({
         marginLeft:widthPercentageToDP(1),
     },
     mainView:{
+        marginTop:heightPercentageToDP(2),
         width:widthPercentageToDP(90),
-        height:heightPercentageToDP(70),
-        backgroundColor:"#ffff"
+        height:heightPercentageToDP(80),
+        //backgroundColor:"#ffff"
     },
     submitBtn: {
         width: widthPercentageToDP(70),
