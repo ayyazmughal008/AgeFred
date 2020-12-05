@@ -21,7 +21,8 @@ import {
   TRACKING_HISTORY,
   GDPR,
   EPIS_HISTORY,
-  EPIS2_DATA
+  EPIS2_DATA,
+  PROJECT_DETAIL
 } from "./action";
 
 const initialUserState = {
@@ -46,7 +47,8 @@ const initialUserState = {
   trackingHistory: "",
   getGdpr: "",
   episHistory: "",
-  episData2:""
+  episData2:"",
+  projectDetail:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -74,7 +76,8 @@ const userReducer = (state = initialUserState, action) => {
       trackingHistory: "",
       getGdpr: "",
       episHistory: "",
-      episData2:""
+      episData2:"",
+      projectDetail:""
     };
   }
   if (action.type === TIMER_STATUS) {
@@ -196,6 +199,12 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       episData2: action.payload.episData2
+    };
+  }
+  if (action.type === PROJECT_DETAIL) {
+    return {
+      ...state,
+      projectDetail: action.payload.projectDetail
     };
   }
   return state;

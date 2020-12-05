@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, TextInput, StyleSheet, Platform } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, darkGrey, grey } from '../ColorCode'
-import FastImage from 'react-native-fast-image'
+import NestedScrollView from 'react-native-nested-scroll-view'
 import { Dropdown } from 'react-native-material-dropdown';
 
 export default class List extends React.Component {
@@ -33,7 +33,7 @@ export default class List extends React.Component {
                             placeholderTextColor={darkGrey}
                             onChangeText={onchangeTalaText}
                             value={textValue}
-                            keyboardType="numeric"
+                            keyboardType='email-address'
                             textAlign={'center'}
                             editable={isEditAble}
                         />
@@ -53,13 +53,26 @@ export default class List extends React.Component {
                     <View style={[styles.component2, { width: "46%", backgroundColor: bgColor }]}>
                         <View style={{ width: "30%", height: "100%" }}>
                             <Text style={styles.statusTile}>{"PRL"}</Text>
-                            <Text style={styles.statusTile}>{"Aceptado"}</Text>
-                            <Text style={styles.statusTile}>{"Rechazado"}</Text>
+                            <Text style={styles.statusTile}>{status}</Text>
+                            {/* <Text style={styles.statusTile}>{"Rechazado"}</Text> */}
                         </View>
                         <View style={{ width: "60%", height: "100%" }}>
                             <Text style={styles.statusTile}>{"Motivo"}</Text>
-                            <Text style={styles.statusTileResult}>{status}</Text>
-                            <Text style={styles.statusTileResult}>{reason}</Text>
+                            {/* <Text style={styles.statusTileResult}>{status}</Text> */}
+                            {Platform.OS === 'android' ?
+                                <NestedScrollView
+                                    contentContainerStyle={{ flexGrow: 1 }}
+                                    showsVerticalScrollIndicator={false}
+                                >
+                                    <Text style={styles.statusTileResult}>{reason}</Text>
+                                </NestedScrollView>
+                                : <ScrollView
+                                    contentContainerStyle={{ flexGrow: 1 }}
+                                    showsVerticalScrollIndicator={false}
+                                >
+                                    <Text style={styles.statusTileResult}>{reason}</Text>
+                                </ScrollView>
+                            }
                         </View>
                     </View>
                 </View>

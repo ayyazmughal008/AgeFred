@@ -116,8 +116,8 @@ class History extends React.Component {
                             ]}
                             date={this.state.startDate}
                             mode="date"
-                            placeholder="YYYY-MM-DD"
-                            format="YYYY-MM-DD"
+                            placeholder="DD-MM-YYYY"
+                            format="DD-MM-YYYY"
                             // minDate="2019-11-04"
                             // maxDate="2099-01-01"
                             customStyles={{
@@ -152,8 +152,8 @@ class History extends React.Component {
                             ]}
                             date={this.state.endDate}
                             mode="date"
-                            placeholder="YYYY-MM-DD"
-                            format="YYYY-MM-DD"
+                            placeholder="DD-MM-YYYY"
+                            format="DD-MM-YYYY"
                             // minDate="2019-11-04"
                             // maxDate="2099-01-01"
                             customStyles={{

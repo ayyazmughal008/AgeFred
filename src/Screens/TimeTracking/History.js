@@ -43,7 +43,7 @@ class History extends React.Component {
                     <View style={styles.selectDateView}>
                         <DatePicker
                             style={[styles.datePickerStyle,
-                            { width: widthPercentageToDP(25) }
+                            { width: widthPercentageToDP(30) }
                             ]}
                             date={this.state.startDate}
                             mode="date"
@@ -79,7 +79,7 @@ class History extends React.Component {
                     <View style={styles.selectDateView2}>
                         <DatePicker
                             style={[styles.datePickerStyle,
-                            { width: widthPercentageToDP(25) }
+                            { width: widthPercentageToDP(30) }
                             ]}
                             date={this.state.endDate}
                             mode="date"

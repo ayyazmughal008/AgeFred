@@ -47,31 +47,29 @@ class HomePage extends Component {
                                 backgroundColor: darkBlue,
                             }}
                         />
-                        {
-                            <View style={styles.mainView}>
-                                <Pdf
-                                    source={{ uri: getGdpr.gdpr }}
-                                    onLoadComplete={(numberOfPages, filePath) => {
-                                        console.log(`number of pages: ${numberOfPages}`);
-                                    }}
-                                    onPageChanged={(page, numberOfPages) => {
-                                        console.log(`current page: ${page}`);
-                                    }}
-                                    onError={(error) => {
-                                        console.log(error);
-                                    }}
-                                    onPressLink={(uri) => {
-                                        console.log(`Link presse: ${uri}`)
-                                    }}
-                                    style={{
-                                        flex: 1,
-                                    }}
-                                />
-                            </View>
-                        }
+                        <View style={styles.mainView}>
+                            <Pdf
+                                source={{ uri: getGdpr.gdpr }}
+                                onLoadComplete={(numberOfPages, filePath) => {
+                                    console.log(`number of pages: ${numberOfPages}`);
+                                }}
+                                onPageChanged={(page, numberOfPages) => {
+                                    console.log(`current page: ${page}`);
+                                }}
+                                onError={(error) => {
+                                    console.log(error);
+                                }}
+                                onPressLink={(uri) => {
+                                    console.log(`Link presse: ${uri}`)
+                                }}
+                                style={{
+                                    flex: 1,
+                                }}
+                            />
+                        </View>
                         <TouchableOpacity
                             onPress={() => this.toggleCheck()}
-                            disabled={this.state.isChecked ? true : false}
+                            //disabled={this.state.isChecked ? true : false}
                             style={styles.checkBox}>
                             {this.state.isChecked &&
                                 <FastImage
@@ -82,8 +80,10 @@ class HomePage extends Component {
                             }
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={styles.submitBtn}
-                            onPress={() => { this.props.submitGDPRDocument(login.data.id) }}
+                            style={[styles.submitBtn, {
+                                opacity: this.state.isChecked ? 1 : 0.7
+                            }]}
+                            onPress={() => { this.props.submitGDPRDocument(login.data.id, getGdpr.docId) }}
                             disabled={this.state.isChecked ? false : true}
                         >
                             <Text style={styles.btntext}>

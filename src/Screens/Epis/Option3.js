@@ -71,52 +71,58 @@ class EpisHistory extends React.Component {
                 <View style={styles.tableView}>
                     <View style={styles.itemMainView}>
                         <View style={[styles.component, {
-                            width: "16%",
+                            width: "15%",
                             //backgroundColor: "red"
                         }]}>
-                            {/* <Text>Sample 1</Text> */}
+                            <Text style = {styles.titleText}>{"EPI"}</Text>
                         </View>
                         <View style={[styles.component, {
-                            width: "11%",
+                            width: "12%",
                             //backgroundColor: "yellow"
                         }]}>
-                            <Text>F. Entrega</Text>
+                            <Text style = {styles.titleText}>F. Entrega</Text>
                         </View>
                         <View style={[styles.component, {
                             width: "11%",
                             //backgroundColor: "green"
                         }]}>
-                            <Text>F.Caducidad</Text>
+                            <Text style = {styles.titleText}>F.Caducidad</Text>
                         </View>
                         <View style={[styles.component, {
-                            width: "9%",
+                            width: "10%",
                             //backgroundColor: "orange"
                         }]}>
-                            <Text>Nº Pedido</Text>
+                            <Text style = {styles.titleText}>Nº Pedido</Text>
                         </View>
                         <View style={[styles.component, {
-                            width: "13%",
+                            width: "8%",
                             // backgroundColor: "pink"
                         }]}>
-                            <Text>Nº Serie</Text>
+                            <Text style = {styles.titleText}>Nº Serie</Text>
                         </View>
                         <View style={[styles.component, {
-                            width: "12.5%",
+                            width: "8%",
                             // backgroundColor: "blue"
                         }]}>
-                            <Text>Talla</Text>
+                            <Text style = {styles.titleText}>Talla</Text>
                         </View>
                         <View style={[styles.component, {
-                            width: "12%",
+                            width: "6%",
                             //backgroundColor: "grey"
                         }]}>
-                            <Text>Certificado Medico</Text>
+                            <Text style = {styles.titleText}>C.Medico</Text>
                         </View>
                         <View style={[styles.component, {
                             width: "14%",
                             // backgroundColor: "#fc5000"
                         }]}>
-                            <Text>Revisión</Text>
+                            <Text style = {styles.titleText}>Revisión</Text>
+                        </View>
+                        <View style={[styles.component, {
+                            width: "16%",
+                            // backgroundColor: "#fc5000"
+                        }]}>
+                            <Text style = {styles.titleText}>Fotografía</Text>
                         </View>
                     </View>
                     {!episHistory ?

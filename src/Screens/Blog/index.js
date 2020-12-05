@@ -32,7 +32,7 @@ class Blog extends React.Component {
                     centerComponent={
                         <HeaderImage
                             isText={true}
-                            title="BLOG"
+                            title="NOTICIAS"
                         />
                     }
                     containerStyle={{

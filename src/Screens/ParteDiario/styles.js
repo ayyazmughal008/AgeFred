@@ -210,7 +210,7 @@ export const styles = StyleSheet.create({
         borderBottomColor: grey
     },
     componet1: {
-        width: widthPercentageToDP(30),
+        width: widthPercentageToDP(18),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
@@ -223,21 +223,21 @@ export const styles = StyleSheet.create({
         textAlign: "center"
     },
     componet2: {
-        width: widthPercentageToDP(40),
+        width: widthPercentageToDP(20),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
         //backgroundColor:"green"
     },
     componet3: {
-        width: widthPercentageToDP(25),
+        width: widthPercentageToDP(30),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
         //backgroundColor:"yellow"
     },
     componet4: {
-        width: widthPercentageToDP(10),
+        width: widthPercentageToDP(12),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",

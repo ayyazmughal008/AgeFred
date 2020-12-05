@@ -322,6 +322,7 @@ class Epis extends React.Component {
                         }}
                         btnText1={"Camera"}
                         btnText2={"Gallery"}
+                        cancelBox={() => this.toggleDiloge()}
                     />
                 }
                 {AuthLoading &&

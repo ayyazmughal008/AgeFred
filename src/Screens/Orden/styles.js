@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     },
     input: {
         width: widthPercentageToDP(85),
-        height: heightPercentageToDP(5),
+        height: heightPercentageToDP(5.5),
         borderBottomWidth: widthPercentageToDP(0.2),
         borderBottomColor: darkGrey,
         color: darkGrey
@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
         borderRadius: widthPercentageToDP(10),
         backgroundColor: orangae,
         marginTop: heightPercentageToDP(2),
-        marginBottom: heightPercentageToDP(4),
+        marginBottom: heightPercentageToDP(6),
         justifyContent: "center",
         alignItems: "center"
     },

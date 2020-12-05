@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
         alignItems: "center"
     },
     input: {
-        width: widthPercentageToDP(12),
+        width: widthPercentageToDP(8),
         height: heightPercentageToDP(4.5),
         color: "#000",
         fontSize: widthPercentageToDP(3),

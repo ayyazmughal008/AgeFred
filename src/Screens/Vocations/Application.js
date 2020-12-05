@@ -77,13 +77,14 @@ class History extends React.Component {
     render() {
         const { AuthLoading, getHolidaysData, login } = this.props.user;
         const { selectedHours, selectedMinutes } = this.state;
+        console.log(selectedMinutes)
         return (
             <View style={styles.container2}>
                 <View style={styles.topView}>
                     <View style={{
                         justifyContent: "center", width: "100%"
                     }}>
-                        <Text style={styles.toDate}>{"Select Type"}</Text>
+                        <Text style={styles.toDate}>{"Seleccionar tipo"}</Text>
                     </View>
                     {Platform.OS === "ios" ?
                         <View style={{
@@ -120,7 +121,7 @@ class History extends React.Component {
                                 onChangeItem={item => this.setState({
                                     type: item.value
                                 })}
-                                placeholder="SELECT TYPE"
+                                placeholder="SELECCIONAR TIPO"
                                 placeholderStyle={{
                                     color: darkGrey,
                                     position: "absolute",
@@ -172,7 +173,7 @@ class History extends React.Component {
                                 onChangeItem={item => this.setState({
                                     type: item.value
                                 })}
-                                placeholder="SELECT TYPE"
+                                placeholder="SELECCIONAR TIPO"
                                 placeholderStyle={{
                                     color: darkGrey,
                                     position: "absolute",
@@ -526,10 +527,11 @@ class History extends React.Component {
                                 <TimePicker
                                     selectedHours={selectedHours}
                                     selectedMinutes={selectedMinutes}
-                                    la
+                                    hoursUnit = " Hours"
+                                    minutesUnit = " Minutes"
                                     onChange={(hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })}
                                 />
-                                <View style={{
+                                {/* <View style={{
                                     width: widthPercentageToDP(100),
                                     flexDirection: 'row',
                                     alignItems: "center",
@@ -543,13 +545,13 @@ class History extends React.Component {
                                         padding: widthPercentageToDP(3),
                                         fontSize: widthPercentageToDP(4)
                                     }]}>{"Minutes"}</Text>
-                                </View>
+                                </View> */}
                                 <TouchableOpacity
                                     style={styles.submitBtn}
                                     onPress={() => this.handleSubmit()}
                                 >
                                     <Text style={styles.submitText}>
-                                        {"ENVIAR PETICIÒN"}
+                                        {"ENVIAR PETICIÓN"}
                                     </Text>
                                 </TouchableOpacity>
                             </View>

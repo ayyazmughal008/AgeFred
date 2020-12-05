@@ -22,6 +22,7 @@ export const TRACKING_HISTORY = "TRACKING_HISTORY";
 export const GDPR = "GDPR";
 export const EPIS_HISTORY = "EPIS_HISTORY";
 export const EPIS2_DATA = "EPIS2_DATA";
+export const PROJECT_DETAIL = "PROJECT_DETAIL";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -49,6 +50,7 @@ var baseUrl = "http://95.179.209.186/api/",
   orderNumber = "order-number",
   workStore = "work-store",
   getTools = "tools-get",
+  projectAuto = "project-auto",
   partsDelete = "parts-delete",
   documents = "documents-get";
 
@@ -313,6 +315,16 @@ export const postExpenseData = (
   singleImage,
   employId
 ) => {
+  console.log("My Data ====>",
+    date,
+    draft,
+    reason,
+    amount,
+    madeDate,
+    imagesArray,
+    singleImage,
+    employId
+  )
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
     console.log("My array => ", imagesArray)
@@ -324,7 +336,11 @@ export const postExpenseData = (
     body.append('madeDate', madeDate);
     body.append('employId', employId);
     if (imagesArray === undefined || imagesArray.length === 0) {
-      body.append('singleImage', singleImage);
+      if (singleImage) {
+        body.append('singleImage', singleImage);
+      } else {
+        body.append('singleImage', null);
+      }
     } else {
       imagesArray.forEach((item, i) => {
         body.append("images[]", {
@@ -344,7 +360,6 @@ export const postExpenseData = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert(json.status)
@@ -355,6 +370,7 @@ export const postExpenseData = (
             }
           });
         } else {
+          console.log(json)
           alert(json.message)
         }
       })
@@ -534,19 +550,23 @@ export const getOrderNumber = (
 }
 export const postWorkStore = (
   number,
-  startDate,
-  finishDate,
   draft,
   customerName,
   customerEmail,
+  customerAddress,
+  customerVat,
+  customerPhone,
+  reportDate,
   time,
   departureTime,
+  workDetails,
   hours,
   hourType,
   diet,
   displacement,
+  workers,
   observations,
-  trabajo,
+  job,
   image,
   employId
 ) => {
@@ -554,19 +574,25 @@ export const postWorkStore = (
     dispatch({ type: AUTH_LOADING, payload: true });
     const body = new FormData();
     body.append('number', number);
-    body.append('startDate', startDate);
-    body.append('finishDate', finishDate);
+    //new field//
     body.append('draft', draft);
     body.append('customerName', customerName);
+    body.append('customerAddress', customerAddress);
+    body.append('customerVat', customerVat);
+    body.append('customerPhone', customerPhone);
     body.append('customerEmail', customerEmail);
+    body.append('reportDate', reportDate);
     body.append('time', time);
     body.append('departureTime', departureTime);
+    body.append('workDetails', workDetails);
     body.append('hours', hours);
     body.append('hourType', hourType);
     body.append('diet', diet);
     body.append('displacement', displacement);
+    body.append('workers', workers);
     body.append('observations', observations);
-    body.append('trabajo', trabajo);
+    body.append('job', job);
+    //new field//
     body.append('image', image);
     body.append('employId', employId);
     fetch(baseUrl + workStore, {
@@ -581,8 +607,9 @@ export const postWorkStore = (
       .then(json => {
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
-        if (json.status === "Successfull") {
+        if (json.status === "Success") {
           alert(json.status)
+          NavigationService.navigate('Home')
         } else {
           alert(json.message)
         }
@@ -929,6 +956,7 @@ export const getGDPRDocument = (
 }
 export const submitGDPRDocument = (
   employId,
+  docId
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -940,6 +968,8 @@ export const submitGDPRDocument = (
       },
       body: JSON.stringify({
         id: employId,
+        docId: docId,
+        answer: "accept"
       }),
     })
       .then(res => res.json())
@@ -1082,6 +1112,38 @@ export const submitEpisData1 = (
         if (json.status === "Success") {
           alert("Data submit successfully")
           NavigationService.navigate('Epis')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getAutoProjectDetail = (
+  name
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + projectAuto, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: PROJECT_DETAIL,
+            payload: {
+              projectDetail: json,
+            }
+          })
         } else {
           alert(json.message)
         }

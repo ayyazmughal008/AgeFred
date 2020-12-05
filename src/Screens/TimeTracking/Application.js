@@ -36,8 +36,10 @@ class TimeTracking extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startTime: "00:00",
-            endTime: "00:00",
+            startTime: "00",
+            startTime2: "00",
+            endTime: "00",
+            endTime2: "00",
             location: "",
             loading: false,
             isEdit: false,
@@ -92,7 +94,7 @@ class TimeTracking extends Component {
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
                     title: 'Agefred',
-                    message: 'Agefred App access to your location ',
+                    message: 'Agefred App need to access to your location ',
                     buttonNegative: 'Cancel',
                     buttonPositive: 'OK',
                 }
@@ -105,7 +107,6 @@ class TimeTracking extends Component {
                 )
             } else {
                 console.log("location permission denied")
-                alert("You can't use geolocation services in your app");
             }
         } catch (err) {
             console.warn(err)
@@ -114,10 +115,43 @@ class TimeTracking extends Component {
     onchangeStartTime = (text) => {
         this.setState({ startTime: text })
     }
+    onchangeStartTime2 = (text) => {
+        this.setState({ startTime2: text })
+    }
     onchangeEndTime = (text) => {
         this.setState({ endTime: text })
     }
-
+    onchangeEndTime2 = (text) => {
+        this.setState({ endTime2: text })
+    }
+    handleUpdateData = async () => {
+        const { login } = this.props.user;
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    title: 'Agefred',
+                    message: 'Agefred App need to access to your location ',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                this.props.submitTimeTracking(
+                    this.state.startTime + ":" + this.state.startTime2,
+                    this.state.endTime + ":" + this.state.endTime2,
+                    this.state.location.coords.latitude,
+                    this.state.location.coords.longitude,
+                    login.data.id
+                );
+                this.toggleEdit();
+            } else {
+                console.log("location permission denied")
+            }
+        } catch (err) {
+            console.warn(err)
+        }
+    }
 
     _keyExtractor = (item, index) => "MyKey" + index;
     render() {
@@ -162,15 +196,27 @@ class TimeTracking extends Component {
                         <Text style={styles.historyLabelText}>Start Time</Text>
                         {timerStatus ?
                             this.state.isEdit ?
-                                <TextInput
-                                    onChangeText={this.onchangeStartTime}
-                                    keyboardType="numeric"
-                                    value={this.state.startTime}
-                                    maxLength={5}
-                                    editable={this.state.isEdit}
-                                    textAlign={'center'}
-                                    style={styles.input}
-                                />
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <TextInput
+                                        onChangeText={this.onchangeStartTime}
+                                        keyboardType="numeric"
+                                        value={this.state.startTime}
+                                        maxLength={2}
+                                        editable={this.state.isEdit}
+                                        textAlign={'center'}
+                                        style={styles.input}
+                                    />
+                                    <Text>{" : "}</Text>
+                                    <TextInput
+                                        onChangeText={this.onchangeStartTime2}
+                                        keyboardType="numeric"
+                                        value={this.state.startTime2}
+                                        maxLength={2}
+                                        editable={this.state.isEdit}
+                                        textAlign={'center'}
+                                        style={styles.input}
+                                    />
+                                </View>
                                 : <Text style={styles.historyLabelText}>{!timeTracking.time ? "" : timeTracking.time.startTime}</Text>
                             : <Text style={styles.historyLabelText}>{!timeTracking.time ? "" : timeTracking.time.startTime}</Text>
                         }
@@ -179,15 +225,27 @@ class TimeTracking extends Component {
                         <Text style={styles.historyLabelText}>End Time</Text>
                         {timerStatus ?
                             this.state.isEdit ?
-                                <TextInput
-                                    onChangeText={this.onchangeEndTime}
-                                    keyboardType="numeric"
-                                    value={this.state.endTime}
-                                    maxLength={5}
-                                    editable={this.state.isEdit}
-                                    textAlign={'center'}
-                                    style={styles.input}
-                                />
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <TextInput
+                                        onChangeText={this.onchangeEndTime}
+                                        keyboardType="numeric"
+                                        value={this.state.endTime}
+                                        maxLength={2}
+                                        editable={this.state.isEdit}
+                                        textAlign={'center'}
+                                        style={styles.input}
+                                    />
+                                    <Text>{" : "}</Text>
+                                    <TextInput
+                                        onChangeText={this.onchangeEndTime2}
+                                        keyboardType="numeric"
+                                        value={this.state.endTime2}
+                                        maxLength={2}
+                                        editable={this.state.isEdit}
+                                        textAlign={'center'}
+                                        style={styles.input}
+                                    />
+                                </View>
                                 : <Text style={styles.historyLabelText}>{
                                     !timeTracking.time ? "" :
                                         !timeTracking.time.endTime ? "" :
@@ -222,14 +280,7 @@ class TimeTracking extends Component {
                 { this.state.isEdit &&
                     <TouchableOpacity
                         onPress={() => {
-                            this.toggleEdit();
-                            this.props.submitTimeTracking(
-                                this.state.startTime,
-                                this.state.endTime,
-                                this.state.location.coords.latitude,
-                                this.state.location.coords.longitude,
-                                login.data.id
-                            );
+                            this.handleUpdateData();
                         }}
                         style={{
                             width: widthPercentageToDP(30),

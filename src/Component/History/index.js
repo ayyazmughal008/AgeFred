@@ -41,13 +41,44 @@ export default class Header extends React.Component {
                         {text2}
                     </Text>
                 </View>
-                {/* <View style={[styles.componet3, {
+                <View style={[styles.componet3, {
                     backgroundColor: bgColor
                 }]}>
-                    <Text style={styles.componetText}>
-                        {text3}
-                    </Text>
-                </View> */}
+                    {Platform.OS === 'android' ?
+                        <NestedScrollView
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            {text3.map((item, index) => {
+                                return (
+                                    <Text
+                                        key={"unique" + index}
+                                        style={styles.conceptoText}
+                                    >
+                                        {item}
+                                    </Text>
+                                )
+                            })
+                            }
+                        </NestedScrollView>
+                        : <ScrollView
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            {text3.map((item, index) => {
+                                return (
+                                    <Text
+                                        key={"unique" + index}
+                                        style={styles.conceptoText}
+                                    >
+                                        {item}
+                                    </Text>
+                                )
+                            })
+                            }
+                        </ScrollView>
+                    }
+                </View>
                 <View style={[styles.componet4, {
                     backgroundColor: bgColor
                 }]}>
@@ -139,7 +170,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     componet1: {
-        width: widthPercentageToDP(30),
+        width: widthPercentageToDP(18),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -160,10 +191,10 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         color: darkBlue,
         textAlign: "center",
-        padding: widthPercentageToDP(1.5)
+        padding: widthPercentageToDP(1)
     },
     componet2: {
-        width: widthPercentageToDP(40),
+        width: widthPercentageToDP(20),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -173,7 +204,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet3: {
-        width: widthPercentageToDP(25),
+        width: widthPercentageToDP(30),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -183,7 +214,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet4: {
-        width: widthPercentageToDP(10),
+        width: widthPercentageToDP(12),
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",

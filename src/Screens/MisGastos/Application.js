@@ -19,7 +19,7 @@ class MisGastos extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            toDate: moment().format('YYYY/MM/DD'),
+            toDate: moment().format('DD-MM-YYYY'),
             project: "",
             comido: "",
             importe: "",
@@ -92,13 +92,13 @@ class MisGastos extends React.Component {
             Alert.alert("Please provide endDate")
             return
         }
-        if ((this.state.imgData === undefined ||
-            this.state.imgData.length === 0) &&
-            !this.state.singleImage
-        ) {
-            Alert.alert("Please select Images")
-            return
-        }
+        // if ((this.state.imgData === undefined ||
+        //     this.state.imgData.length === 0) &&
+        //     !this.state.singleImage
+        // ) {
+        //     Alert.alert("Please select Images")
+        //     return
+        // }
 
 
         let data = "";
@@ -161,7 +161,7 @@ class MisGastos extends React.Component {
     }
 
     render() {
-        const { getDataExpense, AuthLoading } = this.props.user
+        const { getDataExpense, AuthLoading, dataPart } = this.props.user
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -188,21 +188,97 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Proyecto"}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Proyecto / tarea"
-                                placeholderTextColor={grey}
-                                value={this.props.project}
-                                style={styles.input}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ project: text })
-                                }
-                            />
-                        </View>
+                        {Platform.OS === "ios" ?
+                            <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                <DropDownPicker
+                                    searchable={true}
+                                    searchablePlaceholder="Search for Proyecto"
+                                    searchablePlaceholderTextColor="gray"
+                                    //seachableStyle={{}}
+                                    searchableError={() => <Text>Not Found</Text>}
+                                    items={dataPart.data.projects}
+                                    defaultValue={this.state.project}
+                                    containerStyle={styles.dropStyle2}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        zIndex: 4
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                        zIndex: 4
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        zIndex: 4,
+                                        backgroundColor: lightBlue
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        project: item.value
+                                    })}
+                                    placeholder="Proyecto / Tarea"
+                                    placeholderStyle={{
+                                        color: darkGrey
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                            : <View style={{ alignItems: "center" }}>
+                                <DropDownPicker
+                                    searchable={true}
+                                    searchablePlaceholder="Search for Proyecto"
+                                    searchablePlaceholderTextColor="gray"
+                                    //seachableStyle={{}}
+                                    searchableError={() => <Text>Not Found</Text>}
+                                    zIndex={5000}
+                                    items={dataPart.data.projects}
+                                    defaultValue={this.state.project}
+                                    containerStyle={styles.dropStyle2}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        project: item.value
+                                    })}
+                                    placeholder="Proyecto / Tarea"
+                                    placeholderStyle={{
+                                        color: darkGrey
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                        }
                         <Text style={styles.inputTitle}>
-                            {"Motivo gasto"}
+                            {"Motivo de gasto"}
                         </Text>
                         {Platform.OS === "ios" ?
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
@@ -210,6 +286,7 @@ class MisGastos extends React.Component {
                                     items={!getDataExpense.data ? [] : getDataExpense.data}
                                     defaultValue={this.state.comido}
                                     containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
                                     zIndex={5000}
                                     style={{
                                         backgroundColor: '#ffff',
@@ -290,7 +367,7 @@ class MisGastos extends React.Component {
                             </View>
                         }
                         <Text style={styles.inputTitle}>
-                            {"Importe gasto"}
+                            {"Importe de gasto / Kilometraje"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
@@ -313,8 +390,8 @@ class MisGastos extends React.Component {
                                 style={styles.datePickerStyle}
                                 date={this.state.endDate}
                                 mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
+                                placeholder="DD-MM-YYYY"
+                                format="DD-MM-YYYY"
                                 // minDate="2019-11-04"
                                 // maxDate="2099-01-01"
                                 customStyles={{

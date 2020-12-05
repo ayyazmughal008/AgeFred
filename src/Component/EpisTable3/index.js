@@ -35,13 +35,13 @@ export default class List extends React.Component {
                     <View style={[styles.component, { width: "10%", backgroundColor: bgColor }]}>
                         <Text style={styles.text}>{orderNo}</Text>
                     </View>
-                    <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
+                    <View style={[styles.component, { width: "8%", backgroundColor: bgColor }]}>
                         <Text style={styles.text}>{serialNo}</Text>
                     </View>
-                    <View style={[styles.component, { width: "13%", backgroundColor: bgColor }]}>
+                    <View style={[styles.component, { width: "8%", backgroundColor: bgColor }]}>
                         <Text style={styles.text}>{size}</Text>
                     </View>
-                    <View style={[styles.component, { width: "12%", backgroundColor: bgColor }]}>
+                    <View style={[styles.component, { width: "6%", backgroundColor: bgColor }]}>
                         <TouchableOpacity style={styles.checkBox}>
                             {medical === "on" &&
                                 <FastImage
@@ -55,6 +55,9 @@ export default class List extends React.Component {
                     <View style={[styles.component, { width: "14%", backgroundColor: bgColor }]}>
                         <Text style={styles.text}>{revision}</Text>
                     </View>
+                    <View style={[styles.component, { width: "16%", backgroundColor: bgColor }]}>
+                        <Text style={styles.text}>{"Photo"}</Text>
+                    </View>
                 </View>
             </View>
         )
@@ -65,7 +68,7 @@ export const styles = StyleSheet.create({
     container: {
         width: heightPercentageToDP(95),
         height: widthPercentageToDP(10),
-        alignItems:"center"
+        alignItems: "center"
     },
     mainView: {
         flexDirection: "row",

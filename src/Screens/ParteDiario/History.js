@@ -18,6 +18,7 @@ import { lightBlue, darkBlue, grey } from "../../Component/ColorCode";
 import FastImage from 'react-native-fast-image'
 import HistoryComponent from '../../Component/History'
 import TypeHours from '../../Component/TypeHours'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 class HistoryClass extends React.Component {
   constructor(props) {
@@ -132,7 +133,7 @@ class HistoryClass extends React.Component {
 
   render() {
     const { dataSource } = this.state
-    console.log(this.state.totalSelected)
+    console.log(dataSource)
     return (
       <View style={styles.historyConatiner}>
         {/* <MyScrollView
@@ -146,8 +147,8 @@ class HistoryClass extends React.Component {
               ]}
               date={this.state.startDate}
               mode="date"
-              placeholder="YYYY-MM-DD"
-              format="YYYY-MM-DD"
+              placeholder="DD-MM-YYYY"
+              format="DD-MM-YYYY"
               // minDate="2019-11-04"
               // maxDate="2099-01-01"
               customStyles={{
@@ -182,8 +183,8 @@ class HistoryClass extends React.Component {
               ]}
               date={this.state.endDate}
               mode="date"
-              placeholder="YYYY-MM-DD"
-              format="YYYY-MM-DD"
+              placeholder="DD-MM-YYYY"
+              format="DD-MM-YYYY"
               // minDate="2019-11-04"
               // maxDate="2099-01-01"
               customStyles={{
@@ -243,14 +244,14 @@ class HistoryClass extends React.Component {
                 {"Proyectos"}
               </Text>
             </View>
-            {/* <View style={styles.componet3}>
+            <View style={styles.componet3}>
               <Text style={styles.componetText}>
-                {"Tipo de horas"}
+                {"Concepto"}
               </Text>
-            </View> */}
+            </View>
             <View style={styles.componet4}>
               <Text style={styles.componetText}>
-                {"Horas"}
+                {"Cantidad"}
               </Text>
             </View>
             <View style={styles.componet5}>
@@ -264,9 +265,11 @@ class HistoryClass extends React.Component {
               </Text>
             </View> */}
             <View style={styles.componet7}>
-              <Text style={styles.componetText}>
-                {"Status"}
-              </Text>
+              <EvilIcons
+                size = {25}
+                color = {darkBlue}
+                name = "trash"
+              />
             </View>
             {/* <View style={styles.componet7}>
                   <Text style={styles.componetText}>
@@ -288,7 +291,7 @@ class HistoryClass extends React.Component {
                     key={"unique" + index}
                     text1={item.date}
                     text2={item.project}
-                    text3={item.hourType}
+                    text3={item.concept}
                     text4={item.hours}
                     text5={item.status}
                     isTrue={item.deleteStatus}

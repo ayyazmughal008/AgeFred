@@ -103,5 +103,10 @@ export const styles = StyleSheet.create({
         bottom: 0,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    titleText:{
+        fontSize:widthPercentageToDP(2.5),
+        color: darkBlue,
+        fontWeight:"bold"
     }
 })

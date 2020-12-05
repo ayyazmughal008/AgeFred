@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, Image, Alert, Platform } from 'react-native'
 import { connect } from 'react-redux';
-import { getOrderNumber, postWorkStore } from '../../Redux/action'
+import { getOrderNumber, postWorkStore, getAutoProjectDetail } from '../../Redux/action'
 import { styles } from './styles';
 import { darkBlue, grey, darkGrey, lightBlue } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
@@ -20,19 +20,23 @@ class Orden extends React.Component {
         super(props);
         this.state = {
             ordrerNo: 0,
-            startDate: "",
-            finishDate: "",
             draft: "",
             customerName: "",
             customerEmail: "",
+            customerAddress: "",
+            customerVat: "",
+            customerPhone: "",
+            reportDate: "",
             time: "",
             departureTime: "",
+            workDetails: "",
             hours: "",
             hourType: "",
             diet: "",
             displacement: "",
+            workers: "",
             observations: "",
-            trabajo: "",
+            job: "",
             image: "",
             isLoading: false,
             TimePickerModal: false,
@@ -45,7 +49,7 @@ class Orden extends React.Component {
         this.props.getOrderNumber(login.data.id)
     }
     handleSubmit = () => {
-        const { login , getWorkOrderNumber } = this.props.user;
+        const { login, getWorkOrderNumber, projectDetail } = this.props.user;
         if (!this.state.image) {
             Alert.alert("Please create signature and save")
             return
@@ -55,22 +59,31 @@ class Orden extends React.Component {
             'type': 'image/png',
             'name': Date.now() + '_Agefred.png',
         }
+
         console.log(data)
+        if (!this.state.draft) {
+            alert("please choose project first")
+            return;
+        }
         this.props.postWorkStore(
             !getWorkOrderNumber ? "" : getWorkOrderNumber.data,
-            this.state.startDate,
-            this.state.finishDate,
             this.state.draft,
-            this.state.customerName,
-            this.state.customerEmail,
+            projectDetail.data.clientName,
+            projectDetail.data.clientEmail,
+            projectDetail.data.clientAddress,
+            projectDetail.data.customerVat,
+            projectDetail.data.customerPhone,
+            this.state.reportDate,
             this.state.time,
             this.state.departureTime,
+            this.state.workDetails,
             this.state.hours,
             this.state.hourType,
             this.state.diet,
             this.state.displacement,
+            this.state.workers,
             this.state.observations,
-            this.state.trabajo,
+            this.state.job,
             data,
             login.data.id
         )
@@ -89,7 +102,7 @@ class Orden extends React.Component {
     }
 
     render() {
-        const { dataPart, AuthLoading, getWorkOrderNumber, login } = this.props.user
+        const { dataPart, AuthLoading, getWorkOrderNumber, login, projectDetail } = this.props.user
         console.log("my number =>", login.data.id)
         // var timestamp = 1601234432961 * 1000;
         // console.log(new Date(timestamp).toTimeString());
@@ -139,50 +152,192 @@ class Orden extends React.Component {
                             />
                         </View>
                         <Text style={styles.inputTitle}>
-                            {"Fecha de inicio"}
+                            {"Proyecto – tarea "}
                         </Text>
                         <View style={{ alignItems: "center" }}>
-                            <DatePicker
-                                style={styles.datePickerStyle}
-                                date={this.state.startDate}
-                                mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
-                                // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
-                                customStyles={{
-                                    datePicker: {
-                                        backgroundColor: "#ffff"
-                                    },
-                                    dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
-                                        width: widthPercentageToDP(85),
-                                    },
-                                    placeholderText: {
-                                        color: grey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    },
-                                    dateText: {
-                                        color: darkGrey,
-                                        position: "absolute",
-                                        left: "2%"
-                                    }
-                                }}
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                showIcon={false}
-                                onDateChange={endDate => {
-                                    this.setState({ startDate: endDate });
-                                }}
-                            />
+                            {Platform.OS === "ios" ?
+                                <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                    <DropDownPicker
+                                        items={dataPart.data.projects}
+                                        defaultValue={this.state.draft}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: lightBlue
+
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            draft: item.value
+                                        })}
+                                        placeholder="proyecto"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            //left: "-3%"
+                                        }}
+                                        labelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                    />
+                                </View>
+                                : <View style={{ alignItems: "center", }}>
+                                    <DropDownPicker
+                                        items={dataPart.data.projects}
+                                        defaultValue={this.state.draft}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: lightBlue
+
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            draft: item.value
+                                        }, () => {
+                                            this.props.getAutoProjectDetail(this.state.draft)
+                                        })}
+                                        placeholder="proyecto"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            //left: "-3%"
+                                        }}
+                                        labelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                    />
+                                </View>
+                            }
                         </View>
                         <Text style={styles.inputTitle}>
-                            {"Fecha de finalizacion"}
+                            {"Nombre de clients"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Nombre de clients"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={!projectDetail ? "" : projectDetail.data.clientName}
+                                autoCapitalize="none"
+                                editable={false}
+                            //secureTextEntry={true}
+                            // onChangeText={text =>
+                            //     this.setState({ customerName: text })
+                            // }
+                            />
+                        </View>
+                        {/* new field */}
+                        <Text style={styles.inputTitle}>
+                            {"Dirección del cliente"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Nombre de clients"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={!projectDetail ? "" : projectDetail.data.clientAddress}
+                                autoCapitalize="none"
+                                editable={false}
+                            //secureTextEntry={true}
+                            // onChangeText={text =>
+                            //     this.setState({ customerAddress: text })
+                            // }
+                            />
+                        </View>
+                        {/* new field */}
+                        <Text style={styles.inputTitle}>
+                            {"CIF del cliente"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Nombre de clients"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={this.props.customerVat}
+                                autoCapitalize="none"
+                                value={!projectDetail ? "" : projectDetail.data.customerVat}
+                                editable={false}
+                            //secureTextEntry={true}
+                            // onChangeText={text =>
+                            //     this.setState({ customerVat: text })
+                            // }
+                            />
+                        </View>
+                        {/* new Field */}
+                        <Text style={styles.inputTitle}>
+                            {"Teléfono del cliente"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Nombre de clients"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={!projectDetail ? "" : projectDetail.data.customerPhone}
+                                autoCapitalize="none"
+                                editable={false}
+                            //secureTextEntry={true}
+                            // onChangeText={text =>
+                            //     this.setState({ customerPhone: text })
+                            // }
+                            />
+                        </View>
+                        {/* new Field */}
+                        <Text style={styles.inputTitle}>
+                            {"Email del clients"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="ingrese correo electronico"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={!projectDetail ? "" : projectDetail.data.clientEmail}
+                                autoCapitalize="none"
+                                editable={false}
+                            //secureTextEntry={true}
+                            // onChangeText={text =>
+                            //     this.setState({ customerEmail: text })
+                            // }
+                            />
+                        </View>
+                        {/* new field */}
+
+                        <Text style={styles.inputTitle}>
+                            {"Fecha del parte de trabajo"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <DatePicker
@@ -220,62 +375,13 @@ class Orden extends React.Component {
                                 cancelBtnText="Cancel"
                                 showIcon={false}
                                 onDateChange={endDate => {
-                                    this.setState({ finishDate: endDate });
+                                    this.setState({ reportDate: endDate });
                                 }}
                             />
                         </View>
 
                         <Text style={styles.inputTitle}>
-                            {"Draft"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Horario final"
-                                placeholderTextColor={grey}
-                                value={this.props.draft}
-                                style={styles.input}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ draft: text })
-                                }
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Nombre de clients"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Nombre de clients"
-                                placeholderTextColor={grey}
-                                style={styles.input}
-                                value={this.props.customerName}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ customerName: text })
-                                }
-                            />
-                        </View>
-
-                        <Text style={styles.inputTitle}>
-                            {"Email del clients"}
-                        </Text>
-                        <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="ingrese correo electronico"
-                                placeholderTextColor={grey}
-                                style={styles.input}
-                                value={this.props.customerEmail}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ customerEmail: text })
-                                }
-                            />
-                        </View>
-                        <Text style={styles.inputTitle}>
-                            {"Hora de clients"}
+                            {"Hora de entrada"}
                         </Text>
                         <View
                             style={{
@@ -316,8 +422,26 @@ class Orden extends React.Component {
                                 </Text>
                             </TouchableOpacity>
                         </View>
+                        {/* new field */}
                         <Text style={styles.inputTitle}>
-                            {"No de horas"}
+                            {"Detalle del trabajo realizado"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="ingrese correo electronico"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={this.props.workDetails}
+                                autoCapitalize="none"
+                                //secureTextEntry={true}
+                                onChangeText={text =>
+                                    this.setState({ workDetails: text })
+                                }
+                            />
+                        </View>
+                        {/* end */}
+                        <Text style={styles.inputTitle}>
+                            {"Nº de horas realizadas"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
@@ -334,7 +458,7 @@ class Orden extends React.Component {
                         </View>
 
                         <Text style={styles.inputTitle}>
-                            {"Tipo"}
+                            {"Tipo de hora"}
                         </Text>
                         {Platform.OS === "ios" ?
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
@@ -455,6 +579,22 @@ class Orden extends React.Component {
                             />
                         </View>
                         <Text style={styles.inputTitle}>
+                            {"Trabajadores"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Frimar"
+                                placeholderTextColor={grey}
+                                style={styles.input}
+                                value={this.props.workers}
+                                autoCapitalize="none"
+                                //secureTextEntry={true}
+                                onChangeText={text =>
+                                    this.setState({ workers: text })
+                                }
+                            />
+                        </View>
+                        <Text style={styles.inputTitle}>
                             {"Observaciones"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
@@ -470,22 +610,99 @@ class Orden extends React.Component {
                                 }
                             />
                         </View>
+                        {/* new field */}
                         <Text style={styles.inputTitle}>
-                            {"Tarbajo finalizado / en accesorio"}
+                            {"Trabajo"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
-                            <TextInput
-                                placeholder="Frimar"
-                                placeholderTextColor={grey}
-                                style={styles.input}
-                                value={this.props.trabajo}
-                                autoCapitalize="none"
-                                //secureTextEntry={true}
-                                onChangeText={text =>
-                                    this.setState({ trabajo: text })
-                                }
-                            />
+                            {Platform.OS === "ios" ?
+                                <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                    <DropDownPicker
+                                        items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
+                                        defaultValue={this.state.hourType}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: lightBlue
+
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            job: item.value
+                                        })}
+                                        placeholder="trabajo"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            //left: "-3%"
+                                        }}
+                                        labelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                    />
+                                </View>
+                                : <View style={{ alignItems: "center", }}>
+                                    <DropDownPicker
+                                        items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
+                                        defaultValue={this.state.hourType}
+                                        containerStyle={styles.dropStyle2}
+                                        zIndex={5000}
+                                        style={{
+                                            backgroundColor: '#ffff',
+                                            borderBottomWidth: 1,
+                                            borderBottomColor: grey,
+                                            borderTopWidth: 0,
+                                            borderLeftWidth: 0,
+                                            borderRightWidth: 0,
+                                        }}
+                                        itemStyle={{
+                                            //justifyContent: 'flex-start'
+                                            borderTopWidth: 2,
+                                            borderTopColor: grey,
+                                        }}
+                                        dropDownStyle={{
+                                            borderWidth: 0,
+                                            borderColor: "#ffff",
+                                            backgroundColor: lightBlue
+
+                                        }}
+                                        onChangeItem={item => this.setState({
+                                            job: item.value
+                                        })}
+                                        placeholder="trabajo"
+                                        placeholderStyle={{
+                                            color: darkGrey,
+                                            position: "absolute",
+                                            //left: "-3%"
+                                        }}
+                                        labelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                        selectedLabelStyle={{
+                                            color: darkGrey,
+                                        }}
+                                    />
+                                </View>
+                            }
                         </View>
+                        {/* end */}
                         <View style={styles.drawmainView}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <RNSketchCanvas
@@ -617,4 +834,8 @@ class Orden extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getOrderNumber, postWorkStore })(Orden);
+export default connect(mapStateToProps, {
+    getOrderNumber,
+    postWorkStore,
+    getAutoProjectDetail
+})(Orden);
