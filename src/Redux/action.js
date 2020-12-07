@@ -47,6 +47,7 @@ var baseUrl = "http://95.179.209.186/api/",
   dataHoliday = "data-holiday",
   getholidays = 'holidays-get',
   holidayStore = "holiday-store",
+  user = "user ",
   orderNumber = "order-number",
   workStore = "work-store",
   getTools = "tools-get",
@@ -99,7 +100,8 @@ export const fetchLoginDetail = (dni, password) => {
               login: json
             }
           });
-          dispatch(getGDPRDocument(json.data.id))
+          // dispatch(getGDPRDocument(json.data.id))
+          NavigationService.navigate('Home')
         } else {
           alert(json.message)
         }
@@ -560,6 +562,7 @@ export const postWorkStore = (
   time,
   departureTime,
   workDetails,
+  materials,
   hours,
   hourType,
   diet,
@@ -585,6 +588,7 @@ export const postWorkStore = (
     body.append('time', time);
     body.append('departureTime', departureTime);
     body.append('workDetails', workDetails);
+    body.append('materials', materials);
     body.append('hours', hours);
     body.append('hourType', hourType);
     body.append('diet', diet);
@@ -622,7 +626,8 @@ export const postWorkStore = (
 }
 export const getAllTools = (
   employRoleId,
-  id
+  id,
+  isHome
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -648,7 +653,9 @@ export const getAllTools = (
               getToolType: json
             }
           });
-          NavigationService.navigate('Option1')
+          NavigationService.navigate('Option1', {
+            isHome: isHome
+          })
         } else {
           alert(json.message)
         }
@@ -947,7 +954,7 @@ export const getGDPRDocument = (
               getGdpr: json,
             }
           })
-          NavigationService.navigate('Home')
+          // NavigationService.navigate('Home')
         } else {
           alert(json.message)
         }
@@ -1111,7 +1118,8 @@ export const submitEpisData1 = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert("Data submit successfully")
-          NavigationService.navigate('Epis')
+          dispatch(getAllUsers(employId))
+          // NavigationService.navigate('Home')
         } else {
           alert(json.message)
         }
@@ -1144,6 +1152,47 @@ export const getAutoProjectDetail = (
               projectDetail: json,
             }
           })
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const getAllUsers = (
+  id,
+  isHome
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + user, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: LOGIN_DETAIL,
+            payload: {
+              login: json
+            }
+          });
+          if (json.condition !== false) {
+            if (isHome === "yes") {
+              dispatch(fetchDataPart(id))
+            } else {
+              dispatch(fetchDataPart(id))
+              NavigationService.navigate('Home')
+            }
+          }
         } else {
           alert(json.message)
         }

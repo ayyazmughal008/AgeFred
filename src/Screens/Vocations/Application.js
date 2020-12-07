@@ -93,8 +93,8 @@ class History extends React.Component {
                         }}>
                             <DropDownPicker
                                 items={[
-                                    { label: 'Hours', value: 'hours' },
-                                    { label: 'Days', value: 'days' },
+                                    { label: 'Horas', value: 'hours' },
+                                    { label: 'Días', value: 'days' },
                                 ]}
                                 defaultValue={this.state.type}
                                 containerStyle={styles.dropStyle2}
@@ -145,8 +145,8 @@ class History extends React.Component {
                         }}>
                             <DropDownPicker
                                 items={[
-                                    { label: 'Hours', value: 'hours' },
-                                    { label: 'Days', value: 'days' },
+                                    { label: 'Horas', value: 'hours' },
+                                    { label: 'Días', value: 'days' },
                                 ]}
                                 defaultValue={this.state.type}
                                 containerStyle={styles.dropStyle2}
@@ -522,12 +522,12 @@ class History extends React.Component {
                                 <Text style={[styles.toDate, {
                                     marginTop: 15
                                 }]}>
-                                    {"Total Hours: "}{('0' + selectedHours).slice(-2) + ':' + ('0' + selectedMinutes).slice(-2)}
+                                    {"Horas totales: "}{('0' + selectedHours).slice(-2) + ':' + ('0' + selectedMinutes).slice(-2)}
                                 </Text>
                                 <TimePicker
                                     selectedHours={selectedHours}
                                     selectedMinutes={selectedMinutes}
-                                    hoursUnit = " Hours"
+                                    hoursUnit = " Horas"
                                     minutesUnit = " Minutes"
                                     onChange={(hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })}
                                 />

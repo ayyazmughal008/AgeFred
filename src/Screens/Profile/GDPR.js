@@ -45,7 +45,7 @@ class Profile extends Component {
                 />
                 <View style={styles.mainView}>
                     <Pdf
-                        source={{ uri: getGdpr.gdpr }}
+                        source={{ uri: getGdpr.gdpr2 }}
                         onLoadComplete={(numberOfPages, filePath) => {
                             console.log(`number of pages: ${numberOfPages}`);
                         }}

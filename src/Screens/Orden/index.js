@@ -6,7 +6,7 @@ import { styles } from './styles';
 import { darkBlue, grey, darkGrey, lightBlue } from '../../Component/ColorCode'
 import DatePicker from "react-native-datepicker";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
+import { widthPercentageToDP, heightPercentageToDP } from '../../Component/MakeMeResponsive'
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNSketchCanvas from '@terrylinla/react-native-sketch-canvas';
 import { ActivityIndicator } from 'react-native-paper';
@@ -30,7 +30,9 @@ class Orden extends React.Component {
             time: "",
             departureTime: "",
             workDetails: "",
+            materials: "",
             hours: "",
+            hourTypo: "",
             hourType: "",
             diet: "",
             displacement: "",
@@ -77,8 +79,9 @@ class Orden extends React.Component {
             this.state.time,
             this.state.departureTime,
             this.state.workDetails,
+            this.state.materials,
             this.state.hours,
-            this.state.hourType,
+            this.state.hourTypo,
             this.state.diet,
             this.state.displacement,
             this.state.workers,
@@ -106,7 +109,7 @@ class Orden extends React.Component {
         console.log("my number =>", login.data.id)
         // var timestamp = 1601234432961 * 1000;
         // console.log(new Date(timestamp).toTimeString());
-        // console.log(new Date(timestamp).toLocaleTimeString());
+        console.log("===>>>>>", dataPart.data.projects);
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -123,7 +126,7 @@ class Orden extends React.Component {
                     centerComponent={
                         <HeaderImage
                             isText={true}
-                            title="ORDEN DE TRABAJO"
+                            title="PARTE DE TRABAJO"
                         />
                     }
                     containerStyle={{
@@ -184,7 +187,7 @@ class Orden extends React.Component {
                                         onChangeItem={item => this.setState({
                                             draft: item.value
                                         })}
-                                        placeholder="proyecto"
+                                        placeholder="Proyecto – Tarea"
                                         placeholderStyle={{
                                             color: darkGrey,
                                             position: "absolute",
@@ -228,7 +231,7 @@ class Orden extends React.Component {
                                         }, () => {
                                             this.props.getAutoProjectDetail(this.state.draft)
                                         })}
-                                        placeholder="proyecto"
+                                        placeholder="Proyecto – Tarea"
                                         placeholderStyle={{
                                             color: darkGrey,
                                             position: "absolute",
@@ -245,7 +248,7 @@ class Orden extends React.Component {
                             }
                         </View>
                         <Text style={styles.inputTitle}>
-                            {"Nombre de clients"}
+                            {"Nombre del cliente"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
@@ -267,7 +270,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Nombre de clients"
+                                placeholder="Dirección del cliente"
                                 placeholderTextColor={grey}
                                 style={styles.input}
                                 value={!projectDetail ? "" : projectDetail.data.clientAddress}
@@ -285,7 +288,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Nombre de clients"
+                                placeholder="CIF del cliente"
                                 placeholderTextColor={grey}
                                 style={styles.input}
                                 value={this.props.customerVat}
@@ -304,7 +307,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Nombre de clients"
+                                placeholder="Teléfono del cliente"
                                 placeholderTextColor={grey}
                                 style={styles.input}
                                 value={!projectDetail ? "" : projectDetail.data.customerPhone}
@@ -318,11 +321,11 @@ class Orden extends React.Component {
                         </View>
                         {/* new Field */}
                         <Text style={styles.inputTitle}>
-                            {"Email del clients"}
+                            {"Email del cliente"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="ingrese correo electronico"
+                                placeholder="Email del cliente"
                                 placeholderTextColor={grey}
                                 style={styles.input}
                                 value={!projectDetail ? "" : projectDetail.data.clientEmail}
@@ -342,10 +345,10 @@ class Orden extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <DatePicker
                                 style={styles.datePickerStyle}
-                                date={this.state.finishDate}
+                                date={this.state.reportDate}
                                 mode="date"
-                                placeholder="YYYY-MM-DD"
-                                format="YYYY-MM-DD"
+                                placeholder="DD-MM-YYYY"
+                                format="DD-MM-YYYY"
                                 // minDate="2019-11-04"
                                 // maxDate="2099-01-01"
                                 customStyles={{
@@ -428,7 +431,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="ingrese correo electronico"
+                                placeholder="Detalle del trabajo realizado"
                                 placeholderTextColor={grey}
                                 style={styles.input}
                                 value={this.props.workDetails}
@@ -436,6 +439,26 @@ class Orden extends React.Component {
                                 //secureTextEntry={true}
                                 onChangeText={text =>
                                     this.setState({ workDetails: text })
+                                }
+                            />
+                        </View>
+                        {/* new field */}
+                        <Text style={styles.inputTitle}>
+                            {"Materiales"}
+                        </Text>
+                        <View style={{ alignItems: "center" }}>
+                            <TextInput
+                                placeholder="Materiales"
+                                placeholderTextColor={grey}
+                                style={[styles.input, {
+                                    height: heightPercentageToDP(10)
+                                }]}
+                                value={this.props.materials}
+                                autoCapitalize="none"
+                                multiline={true}
+                                //secureTextEntry={true}
+                                onChangeText={text =>
+                                    this.setState({ materials: text })
                                 }
                             />
                         </View>
@@ -464,9 +487,8 @@ class Orden extends React.Component {
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
                                 <DropDownPicker
                                     items={dataPart.data.hours}
-                                    defaultValue={this.state.hourType}
+                                    defaultValue={this.state.hourTypo}
                                     containerStyle={styles.dropStyle2}
-                                    zIndex={5000}
                                     style={{
                                         backgroundColor: '#ffff',
                                         borderBottomWidth: 1,
@@ -487,7 +509,7 @@ class Orden extends React.Component {
 
                                     }}
                                     onChangeItem={item => this.setState({
-                                        hourType: item.value
+                                        hourTypo: item.value
                                     })}
                                     placeholder="tipo"
                                     placeholderStyle={{
@@ -506,7 +528,7 @@ class Orden extends React.Component {
                             : <View style={{ alignItems: "center", }}>
                                 <DropDownPicker
                                     items={dataPart.data.hours}
-                                    defaultValue={this.state.hourType}
+                                    defaultValue={this.state.hourTypo}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
                                     style={{
@@ -529,7 +551,7 @@ class Orden extends React.Component {
 
                                     }}
                                     onChangeItem={item => this.setState({
-                                        hourType: item.value
+                                        hourTypo: item.value
                                     })}
                                     placeholder="tipo"
                                     placeholderStyle={{

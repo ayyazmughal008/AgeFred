@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { getAllTools, submitEpisData1 } from '../../Redux/action'
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { StackActions, NavigationActions } from "react-navigation";
 
 
 class Epis extends React.Component {
@@ -219,16 +220,22 @@ class Epis extends React.Component {
     }
     render() {
         const { AuthLoading, getToolType } = this.props.user
-        // console.log("my array =>", this.state.testArray.length ?
-        //     this.state.testArray[0].image : "no image"
-        // )
-        //console.log("my array =>", this.state.testArray)
+        const isHome = this.props.navigation.getParam('isHome', "no")
         return (
             <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
                 <Header
                     leftComponent={
                         <MenuImage
-                            leftClick={() => this.props.navigation.goBack()}
+                            leftClick={() => {
+                                isHome === "yes" ?
+                                    this.props.navigation.dispatch(
+                                        StackActions.reset({
+                                            index: 0,
+                                            actions: [NavigationActions.navigate({ routeName: "Home" })]
+                                        })
+                                    )
+                                    : this.props.navigation.goBack()
+                            }}
                             rightIcon="chevron-thin-left"
                         />
                     }

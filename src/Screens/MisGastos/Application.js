@@ -309,7 +309,7 @@ class MisGastos extends React.Component {
                                     onChangeItem={item => this.setState({
                                         comido: item.value
                                     })}
-                                    placeholder="Comida"
+                                    placeholder="Motivo de gasto"
                                     placeholderStyle={{
                                         color: darkGrey,
                                         position: "absolute",
@@ -351,7 +351,7 @@ class MisGastos extends React.Component {
                                     onChangeItem={item => this.setState({
                                         comido: item.value
                                     })}
-                                    placeholder="Comida"
+                                    placeholder="Motivo de gasto"
                                     placeholderStyle={{
                                         color: darkGrey,
                                         position: "absolute",

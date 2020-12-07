@@ -47,8 +47,8 @@ class History extends React.Component {
                             ]}
                             date={this.state.startDate}
                             mode="date"
-                            placeholder="YYYY-MM-DD"
-                            format="YYYY-MM-DD"
+                            placeholder="DD-MM-YYYY"
+                            format="DD-MM-YYYY"
                             // minDate="2019-11-04"
                             // maxDate="2099-01-01"
                             customStyles={{
@@ -74,7 +74,7 @@ class History extends React.Component {
                         />
                     </View>
                     <Text style={styles.toDate}>
-                        {"To"}
+                        {"a"}
                     </Text>
                     <View style={styles.selectDateView2}>
                         <DatePicker
@@ -83,8 +83,8 @@ class History extends React.Component {
                             ]}
                             date={this.state.endDate}
                             mode="date"
-                            placeholder="YYYY-MM-DD"
-                            format="YYYY-MM-DD"
+                            placeholder="DD-MM-YYYY"
+                            format="DD-MM-YYYY"
                             // minDate="2019-11-04"
                             // maxDate="2099-01-01"
                             customStyles={{
@@ -115,7 +115,7 @@ class History extends React.Component {
                     onPress={() => this.getDetail()}
                 >
                     <Text style={styles.submitText}>
-                        {"Submit"}
+                        {"Enviar"}
                     </Text>
                 </TouchableOpacity>
                 <View style={styles.historyView}>
@@ -137,7 +137,7 @@ class History extends React.Component {
                             <Text style={styles.historyLabelText}>Tiempo Total</Text>
                         </View>
                         <View style={styles.textWrap}>
-                            <Text style={styles.historyLabelText}>Location</Text>
+                            <Text style={styles.historyLabelText}>Ubicación</Text>
                         </View>
                     </View>
                     {!trackingHistory ?
@@ -160,7 +160,7 @@ class History extends React.Component {
 
                                     }}
                                     text4={item.totalTime}
-                                    text5={"Show" + '\n' + "Location"}
+                                    text5={"Mostrar" + '\n' + "ubicación"}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}
                                 />
                             )}

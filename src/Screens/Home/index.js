@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Text, View, ActivityIndicator, TouchableOpacity, Modal } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "./styles";
-import { fetchDataPart, submitGDPRDocument, logOut } from '../../Redux/action'
+import { fetchDataPart, submitGDPRDocument, logOut, getAllTools, getAllUsers } from '../../Redux/action'
 import { Header } from 'react-native-elements'
 import Pdf from 'react-native-pdf';
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
 import Card from '../../Component/Card'
+import Orientation from 'react-native-orientation';
 import FastImage from 'react-native-fast-image'
+import { NavigationEvents } from 'react-navigation';
 
 class HomePage extends Component {
     constructor(props) {
@@ -21,17 +23,74 @@ class HomePage extends Component {
     }
     getData = () => {
         const { login } = this.props.user;
-        this.props.fetchDataPart(login.data.id);
-        //this.props.logOut()
+        if (login) {
+            if (login.condition === false) {
+                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes")
+            } else {
+                Orientation.lockToPortrait();
+                Orientation.addOrientationListener(this._onOrientationDidChange);
+                this.props.getAllUsers(login.data.id, "yes")
+            }
+            // if (login.condition !== false) {
+            //     this.props.getAllUsers(login.data.id, "yes")
+            //     //this.props.fetchDataPart(login.data.id);
+            // } else {
+            //     this.props.getAllUsers(login.data.id, "yes")
+            // }
+        }
     }
     toggleCheck = () => {
         this.setState({ isChecked: !this.state.isChecked })
     }
+    _onLayout = (e) => {
+        console.log(e.nativeEvent.layout.height)
+        let width = e.nativeEvent.layout.width
+        let height = e.nativeEvent.layout.height
+        this.setState({
+            height: height,
+            width: width
+        })
+    }
+    _onOrientationDidChange = (orientation) => {
+        if (orientation == 'LANDSCAPE') {
+            Orientation.lockToPortrait()
+        }
+    };
+    componentDidMount() {
+        const { login } = this.props.user;
+        if (login) {
+            if (login.condition === false) {
+                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes")
+            } else {
+                Orientation.lockToPortrait();
+                Orientation.addOrientationListener(this._onOrientationDidChange);
+                this.props.getAllUsers(login.data.id, "yes")
+            }
+        }
+    }
+    componentWillUnmount() {
+        Orientation.unlockAllOrientations()
+        Orientation.removeOrientationListener(this._onOrientationDidChange);
+    }
+
     render() {
         const { AuthLoading, login, getGdpr } = this.props.user;
         console.log("My loading", AuthLoading);
         if (!getGdpr) {
-            return null;
+            return (
+                <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
+                    <Header
+                        centerComponent={
+                            <HeaderImage
+                                isText={false}
+                            />
+                        }
+                        containerStyle={{
+                            backgroundColor: darkBlue,
+                        }}
+                    />
+                </View>
+            )
         } else {
             if (getGdpr.user.gdpr === null) {
                 return (
@@ -101,7 +160,8 @@ class HomePage extends Component {
                 )
             } else {
                 return (
-                    <View style={styles.container}>
+                    <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
+                        <NavigationEvents onDidFocus={() => this.getData()} />
                         <Header
                             leftComponent={
                                 <MenuImage
@@ -150,7 +210,7 @@ class HomePage extends Component {
                             <View style={styles.menuView}>
                                 <Card
                                     iconName={require('./assets/5.png')}
-                                    title="Blog"
+                                    title="Noticias"
                                     clickHandler={() => this.props.navigation.navigate('Blog')}
                                 />
                                 <Card
@@ -162,7 +222,7 @@ class HomePage extends Component {
                             <View style={styles.menuView}>
                                 <Card
                                     iconName={require('./assets/7.png')}
-                                    title="Orden de trabajo"
+                                    title="Parte de trabajo"
                                     clickHandler={() => this.props.navigation.navigate('Orden')}
                                 />
                                 <Card
@@ -193,5 +253,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
     fetchDataPart,
     submitGDPRDocument,
-    logOut
+    logOut,
+    getAllTools,
+    getAllUsers
 })(HomePage);

@@ -89,7 +89,7 @@ class HistoryClass extends React.Component {
               />
             </View>
             <Text style={styles.toDate}>
-              {"To"}
+              {"a"}
             </Text>
             <View style={styles.selectDateView}>
               <DatePicker
@@ -133,7 +133,7 @@ class HistoryClass extends React.Component {
               }]}
               onPress={() => this.handleSubmit()}>
               <Text style={styles.bottomBtnText}>
-                {"Submit"}
+                {"Enviar"}
               </Text>
             </TouchableOpacity>
           </View>

@@ -8,6 +8,7 @@ import DatePicker from "react-native-datepicker";
 import HistoryItem from '../../Component/MisgastoHistory'
 import { data } from './data'
 import { getAllExpense } from '../../Redux/action'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 class History extends React.Component {
     constructor(props) {
         super(props);
@@ -143,7 +144,7 @@ class History extends React.Component {
                         />
                     </View>
                     <Text style={styles.toDate}>
-                        {"To"}
+                        {"a"}
                     </Text>
                     <View style={styles.selectDateView2}>
                         <DatePicker
@@ -184,11 +185,49 @@ class History extends React.Component {
                     onPress={() => this.getDetail()}
                 >
                     <Text style={styles.submitText}>
-                        {"Submit"}
+                        {"Enviar"}
                     </Text>
                 </TouchableOpacity>
-                <View style={styles.title}>
-                    <Text style={styles.titleText}>{"Entradas Enviadas"}</Text>
+                <View style={styles.historyComponent}>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(23),
+                    }]}>
+                        <Text style={styles.componetText}>
+                            {"Fecha"}
+                        </Text>
+                    </View>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(23),
+                    }]}>
+                        <Text style={styles.componetText}>
+                            {"Gasto"}
+                        </Text>
+                    </View>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(24.1),
+                    }]}>
+                        <Text style={styles.componetText}>
+                            {"Estado"}
+                        </Text>
+                    </View>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(10),
+                    }]}>
+                        <EvilIcons
+                            size={25}
+                            color={darkBlue}
+                            name="eye"
+                        />
+                    </View>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(10),
+                    }]}>
+                        <EvilIcons
+                            size={25}
+                            color={darkBlue}
+                            name="trash"
+                        />
+                    </View>
                 </View>
                 {!dataSource ?
                     <View />

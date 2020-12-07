@@ -23,6 +23,29 @@ export const styles = StyleSheet.create({
         backgroundColor: "#ffff",
         flex: 1,
     },
+    historyComponent: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(5),
+        backgroundColor: "#ffff",
+        justifyContent: "flex-start",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        borderBottomWidth: widthPercentageToDP(0.4),
+        borderBottomColor: grey
+    },
+    componet1: {
+        height: heightPercentageToDP(5),
+        justifyContent: "center",
+        alignItems: "center",
+        //backgroundColor:"red"
+    },
+    componetText: {
+        fontSize: widthPercentageToDP(2.5),
+        fontWeight: "400",
+        color: darkBlue,
+        textAlign: "center"
+    },
     inputTitle: {
         fontSize: widthPercentageToDP(4),
         fontWeight: "bold",

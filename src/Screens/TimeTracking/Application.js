@@ -75,11 +75,29 @@ class TimeTracking extends Component {
                 Geolocation.getCurrentPosition(info => this.setState({
                     location: info,
                     loading: false
-                }));
+                }), error => {
+                    this.setState({ loading: false }, () => {
+                        alert("Please enable your location, it's required for this section and reopen the application", error)
+                    }),
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 3000
+                    } //removed this
+                });
                 Geolocation.watchPosition(info => this.setState({
                     location: info,
                     loading: false
-                }));
+                }), error => {
+                    this.setState({ loading: false }, () => {
+                        alert("Please enable your location, it's required for this section and reopen the application", error)
+                    }),
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 3000
+                    } //removed this
+                });
             } else {
                 console.log("location permission denied")
             }
@@ -193,58 +211,75 @@ class TimeTracking extends Component {
                 </View>
                 <View style={{ width: widthPercentageToDP(100), alignItems: "center" }}>
                     <View style={styles.buttonView}>
-                        <Text style={styles.historyLabelText}>Start Time</Text>
+                        <Text style={styles.historyLabelText}>Hora de inicio</Text>
                         {timerStatus ?
                             this.state.isEdit ?
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <TextInput
-                                        onChangeText={this.onchangeStartTime}
-                                        keyboardType="numeric"
-                                        value={this.state.startTime}
-                                        maxLength={2}
-                                        editable={this.state.isEdit}
-                                        textAlign={'center'}
-                                        style={styles.input}
-                                    />
-                                    <Text>{" : "}</Text>
-                                    <TextInput
-                                        onChangeText={this.onchangeStartTime2}
-                                        keyboardType="numeric"
-                                        value={this.state.startTime2}
-                                        maxLength={2}
-                                        editable={this.state.isEdit}
-                                        textAlign={'center'}
-                                        style={styles.input}
-                                    />
+                                <View style={{ alignItems: "center" }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <TextInput
+                                            onChangeText={this.onchangeStartTime}
+                                            keyboardType="numeric"
+                                            value={this.state.startTime}
+                                            maxLength={2}
+                                            editable={this.state.isEdit}
+                                            textAlign={'center'}
+                                            style={styles.input}
+                                        />
+                                        <Text>{" : "}</Text>
+                                        <TextInput
+                                            onChangeText={this.onchangeStartTime2}
+                                            keyboardType="numeric"
+                                            value={this.state.startTime2}
+                                            maxLength={2}
+                                            editable={this.state.isEdit}
+                                            textAlign={'center'}
+                                            style={styles.input}
+                                        />
+                                    </View>
+                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                                        <Text style={styles.historyLabelText}>{"hora"}</Text>
+                                        <Text style={[styles.historyLabelText, {
+                                            marginLeft: 15
+                                        }]}>{"min"}</Text>
+                                    </View>
+
                                 </View>
                                 : <Text style={styles.historyLabelText}>{!timeTracking.time ? "" : timeTracking.time.startTime}</Text>
                             : <Text style={styles.historyLabelText}>{!timeTracking.time ? "" : timeTracking.time.startTime}</Text>
                         }
                     </View>
                     <View style={styles.buttonView}>
-                        <Text style={styles.historyLabelText}>End Time</Text>
+                        <Text style={styles.historyLabelText}>Hora de finalizacion</Text>
                         {timerStatus ?
                             this.state.isEdit ?
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <TextInput
-                                        onChangeText={this.onchangeEndTime}
-                                        keyboardType="numeric"
-                                        value={this.state.endTime}
-                                        maxLength={2}
-                                        editable={this.state.isEdit}
-                                        textAlign={'center'}
-                                        style={styles.input}
-                                    />
-                                    <Text>{" : "}</Text>
-                                    <TextInput
-                                        onChangeText={this.onchangeEndTime2}
-                                        keyboardType="numeric"
-                                        value={this.state.endTime2}
-                                        maxLength={2}
-                                        editable={this.state.isEdit}
-                                        textAlign={'center'}
-                                        style={styles.input}
-                                    />
+                                <View style={{ alignItems: "center" }}>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <TextInput
+                                            onChangeText={this.onchangeEndTime}
+                                            keyboardType="numeric"
+                                            value={this.state.endTime}
+                                            maxLength={2}
+                                            editable={this.state.isEdit}
+                                            textAlign={'center'}
+                                            style={styles.input}
+                                        />
+                                        <Text>{" : "}</Text>
+                                        <TextInput
+                                            onChangeText={this.onchangeEndTime2}
+                                            keyboardType="numeric"
+                                            value={this.state.endTime2}
+                                            maxLength={2}
+                                            editable={this.state.isEdit}
+                                            textAlign={'center'}
+                                            style={styles.input}
+                                        />
+                                    </View>
+                                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+                                        <Text style={styles.historyLabelText}>{"hora"}</Text>
+                                        <Text style={[styles.historyLabelText, {
+                                            marginLeft: 15
+                                        }]}>{"min"}</Text>
+                                    </View>
                                 </View>
                                 : <Text style={styles.historyLabelText}>{
                                     !timeTracking.time ? "" :
@@ -293,13 +328,13 @@ class TimeTracking extends Component {
                         <Text style={[styles.historyLabelText, {
                             color: "#ffff",
                             fontSize: widthPercentageToDP(4)
-                        }]}> {"Update"}
+                        }]}> {"Actualizar"}
                         </Text>
                     </TouchableOpacity>
                 }
                 <Text style={[styles.historyLabelText, {
                     marginTop: heightPercentageToDP(1)
-                }]}>{"Total Time: "}{!timeTracking.time ? "" :
+                }]}>{"Tiempo total: "}{!timeTracking.time ? "" :
                     !timeTracking.time.totalTime ? ""
                         : timeTracking.time.totalTime
                     }</Text>
@@ -323,7 +358,7 @@ class TimeTracking extends Component {
                             <Text style={styles.historyLabelText}>Tiempo Total</Text>
                         </View>
                         <View style={styles.textWrap}>
-                            <Text style={styles.historyLabelText}>Location</Text>
+                            <Text style={styles.historyLabelText}>Ubicación</Text>
                         </View>
                     </View>
                     {!timeTracking.times.length ?
@@ -346,7 +381,7 @@ class TimeTracking extends Component {
                                         })
 
                                     }}
-                                    text5={"Show" + '\n' + "Location"}
+                                    text5={"Mostrar" + '\n' + "ubicación"}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}
                                 />
                             )}

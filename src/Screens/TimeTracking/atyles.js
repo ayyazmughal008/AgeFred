@@ -158,8 +158,8 @@ export const styles = StyleSheet.create({
         alignItems: "center"
     },
     input: {
-        width: widthPercentageToDP(8),
-        height: heightPercentageToDP(4.5),
+        width: widthPercentageToDP(9),
+        height: heightPercentageToDP(5),
         color: "#000",
         fontSize: widthPercentageToDP(3),
         fontWeight: "normal",
