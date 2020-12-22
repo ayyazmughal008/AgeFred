@@ -157,96 +157,95 @@ class Orden extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Proyecto – tarea "}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            {Platform.OS === "ios" ?
-                                <View style={{ alignItems: "center", zIndex: 5000 }}>
-                                    <DropDownPicker
-                                        items={dataPart.data.projects}
-                                        defaultValue={this.state.draft}
-                                        containerStyle={styles.dropStyle2}
-                                        zIndex={5000}
-                                        style={{
-                                            backgroundColor: '#ffff',
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: grey,
-                                            borderTopWidth: 0,
-                                            borderLeftWidth: 0,
-                                            borderRightWidth: 0,
-                                        }}
-                                        itemStyle={{
-                                            //justifyContent: 'flex-start'
-                                            borderTopWidth: 2,
-                                            borderTopColor: grey,
-                                        }}
-                                        dropDownStyle={{
-                                            borderWidth: 0,
-                                            borderColor: "#ffff",
-                                            backgroundColor: lightBlue
+                        {Platform.OS === "ios" ?
+                            <View style={{ alignItems: "center", zIndex: 3000 }}>
+                                <DropDownPicker
+                                    items={dataPart.data.projects}
+                                    defaultValue={this.state.draft}
+                                    containerStyle={styles.dropStyle2}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            draft: item.value
-                                        })}
-                                        placeholder="Proyecto – Tarea"
-                                        placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            //left: "-3%"
-                                        }}
-                                        labelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                        selectedLabelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                    />
-                                </View>
-                                : <View style={{ alignItems: "center", }}>
-                                    <DropDownPicker
-                                        items={dataPart.data.projects}
-                                        defaultValue={this.state.draft}
-                                        containerStyle={styles.dropStyle2}
-                                        zIndex={5000}
-                                        style={{
-                                            backgroundColor: '#ffff',
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: grey,
-                                            borderTopWidth: 0,
-                                            borderLeftWidth: 0,
-                                            borderRightWidth: 0,
-                                        }}
-                                        itemStyle={{
-                                            //justifyContent: 'flex-start'
-                                            borderTopWidth: 2,
-                                            borderTopColor: grey,
-                                        }}
-                                        dropDownStyle={{
-                                            borderWidth: 0,
-                                            borderColor: "#ffff",
-                                            backgroundColor: lightBlue
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        draft: item.value
+                                    }, () => {
+                                        this.props.getAutoProjectDetail(this.state.draft)
+                                    })}
+                                    placeholder="Proyecto – Tarea"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                            : <View style={{ alignItems: "center", }}>
+                                <DropDownPicker
+                                    items={dataPart.data.projects}
+                                    defaultValue={this.state.draft}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            draft: item.value
-                                        }, () => {
-                                            this.props.getAutoProjectDetail(this.state.draft)
-                                        })}
-                                        placeholder="Proyecto – Tarea"
-                                        placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            //left: "-3%"
-                                        }}
-                                        labelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                        selectedLabelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                    />
-                                </View>
-                            }
-                        </View>
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        draft: item.value
+                                    }, () => {
+                                        this.props.getAutoProjectDetail(this.state.draft)
+                                    })}
+                                    placeholder="Proyecto – Tarea"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                        }
                         <Text style={styles.inputTitle}>
                             {"Nombre del cliente"}
                         </Text>
@@ -636,94 +635,92 @@ class Orden extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Trabajo"}
                         </Text>
-                        <View style={{ alignItems: "center" }}>
-                            {Platform.OS === "ios" ?
-                                <View style={{ alignItems: "center", zIndex: 5000 }}>
-                                    <DropDownPicker
-                                        items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
-                                        defaultValue={this.state.hourType}
-                                        containerStyle={styles.dropStyle2}
-                                        zIndex={5000}
-                                        style={{
-                                            backgroundColor: '#ffff',
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: grey,
-                                            borderTopWidth: 0,
-                                            borderLeftWidth: 0,
-                                            borderRightWidth: 0,
-                                        }}
-                                        itemStyle={{
-                                            //justifyContent: 'flex-start'
-                                            borderTopWidth: 2,
-                                            borderTopColor: grey,
-                                        }}
-                                        dropDownStyle={{
-                                            borderWidth: 0,
-                                            borderColor: "#ffff",
-                                            backgroundColor: lightBlue
+                        {Platform.OS === "ios" ?
+                            <View style={{ alignItems: "center", zIndex: 5000 }}>
+                                <DropDownPicker
+                                    items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
+                                    defaultValue={this.state.hourType}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            job: item.value
-                                        })}
-                                        placeholder="trabajo"
-                                        placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            //left: "-3%"
-                                        }}
-                                        labelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                        selectedLabelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                    />
-                                </View>
-                                : <View style={{ alignItems: "center", }}>
-                                    <DropDownPicker
-                                        items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
-                                        defaultValue={this.state.hourType}
-                                        containerStyle={styles.dropStyle2}
-                                        zIndex={5000}
-                                        style={{
-                                            backgroundColor: '#ffff',
-                                            borderBottomWidth: 1,
-                                            borderBottomColor: grey,
-                                            borderTopWidth: 0,
-                                            borderLeftWidth: 0,
-                                            borderRightWidth: 0,
-                                        }}
-                                        itemStyle={{
-                                            //justifyContent: 'flex-start'
-                                            borderTopWidth: 2,
-                                            borderTopColor: grey,
-                                        }}
-                                        dropDownStyle={{
-                                            borderWidth: 0,
-                                            borderColor: "#ffff",
-                                            backgroundColor: lightBlue
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        job: item.value
+                                    })}
+                                    placeholder="trabajo"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                            : <View style={{ alignItems: "center", }}>
+                                <DropDownPicker
+                                    items={[{ 'label': "finalizado", 'value': "finalizado" }, { 'label': "en curso", 'value': "en curso" }]}
+                                    defaultValue={this.state.hourType}
+                                    containerStyle={styles.dropStyle2}
+                                    zIndex={5000}
+                                    style={{
+                                        backgroundColor: '#ffff',
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
+                                    }}
+                                    itemStyle={{
+                                        //justifyContent: 'flex-start'
+                                        borderTopWidth: 2,
+                                        borderTopColor: grey,
+                                    }}
+                                    dropDownStyle={{
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
-                                        }}
-                                        onChangeItem={item => this.setState({
-                                            job: item.value
-                                        })}
-                                        placeholder="trabajo"
-                                        placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            //left: "-3%"
-                                        }}
-                                        labelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                        selectedLabelStyle={{
-                                            color: darkGrey,
-                                        }}
-                                    />
-                                </View>
-                            }
-                        </View>
+                                    }}
+                                    onChangeItem={item => this.setState({
+                                        job: item.value
+                                    })}
+                                    placeholder="trabajo"
+                                    placeholderStyle={{
+                                        color: darkGrey,
+                                        position: "absolute",
+                                        //left: "-3%"
+                                    }}
+                                    labelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                    selectedLabelStyle={{
+                                        color: darkGrey,
+                                    }}
+                                />
+                            </View>
+                        }
                         {/* end */}
                         <View style={styles.drawmainView}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>

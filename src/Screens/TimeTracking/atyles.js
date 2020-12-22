@@ -171,13 +171,20 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: "center",
-        flexDirection: "column"
+        //flexDirection: "column"
     },
     map: {
-        width: widthPercentageToDP(80),
+        width: widthPercentageToDP(90),
         height: heightPercentageToDP(70),
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent: "center"
+    },
+    map2: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
     },
     mapCloseBtn: {
         position: "absolute",

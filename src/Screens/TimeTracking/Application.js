@@ -7,7 +7,8 @@ import {
     FlatList,
     PermissionsAndroid,
     ActivityIndicator,
-    TextInput
+    TextInput,
+    Platform
 } from 'react-native'
 import { connect } from "react-redux";
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -60,74 +61,114 @@ class TimeTracking extends Component {
         this.setState({ isEdit: !this.state.isEdit })
     }
     async componentDidMount() {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        if (Platform.OS === 'ios') {
+            Geolocation.requestAuthorization();
+            this.setState({ loading: true })
+            Geolocation.getCurrentPosition(info => this.setState({
+                location: info,
+                loading: false
+            }), error => {
+                this.setState({ loading: false }, () => {
+                    alert("Please enable your location, it's required for this section and reopen the application", error)
+                }),
                 {
-                    title: 'Agefred',
-                    message: 'Agefred App access to your location ',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 3000
+                } //removed this
+            });
+            Geolocation.watchPosition(info => this.setState({
+                location: info,
+                loading: false
+            }), error => {
+                this.setState({ loading: false }, () => {
+                    alert("Please enable your location, it's required for this section and reopen the application", error)
+                }),
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 3000
+                } //removed this
+            });
+        } else {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                        title: 'Agefred',
+                        message: 'Agefred App access to your location ',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
+                )
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    this.setState({ loading: true })
+                    Geolocation.getCurrentPosition(info => this.setState({
+                        location: info,
+                        loading: false
+                    }), error => {
+                        this.setState({ loading: false }, () => {
+                            alert("Please enable your location, it's required for this section and reopen the application", error)
+                        }),
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 3000
+                        } //removed this
+                    });
+                    Geolocation.watchPosition(info => this.setState({
+                        location: info,
+                        loading: false
+                    }), error => {
+                        this.setState({ loading: false }, () => {
+                            alert("Please enable your location, it's required for this section and reopen the application", error)
+                        }),
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 3000
+                        } //removed this
+                    });
+                } else {
+                    console.log("location permission denied")
                 }
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                this.setState({ loading: true })
-                Geolocation.getCurrentPosition(info => this.setState({
-                    location: info,
-                    loading: false
-                }), error => {
-                    this.setState({ loading: false }, () => {
-                        alert("Please enable your location, it's required for this section and reopen the application", error)
-                    }),
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 3000
-                    } //removed this
-                });
-                Geolocation.watchPosition(info => this.setState({
-                    location: info,
-                    loading: false
-                }), error => {
-                    this.setState({ loading: false }, () => {
-                        alert("Please enable your location, it's required for this section and reopen the application", error)
-                    }),
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 3000
-                    } //removed this
-                });
-            } else {
-                console.log("location permission denied")
+            } catch (err) {
+                console.warn(err)
             }
-        } catch (err) {
-            console.warn(err)
         }
     }
     checkPermission = async () => {
         const { login } = this.props.user
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                {
-                    title: 'Agefred',
-                    message: 'Agefred App need to access to your location ',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
-                }
+        if (Platform.OS === 'ios') {
+            Geolocation.requestAuthorization();
+            this.props.startTimeTracking(
+                this.state.location.coords.latitude,
+                this.state.location.coords.longitude,
+                login.data.id
             )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                this.props.startTimeTracking(
-                    this.state.location.coords.latitude,
-                    this.state.location.coords.longitude,
-                    login.data.id
+        } else {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                        title: 'Agefred',
+                        message: 'Agefred App need to access to your location ',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
                 )
-            } else {
-                console.log("location permission denied")
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    this.props.startTimeTracking(
+                        this.state.location.coords.latitude,
+                        this.state.location.coords.longitude,
+                        login.data.id
+                    )
+                } else {
+                    console.log("location permission denied")
+                }
+            } catch (err) {
+                console.warn(err)
             }
-        } catch (err) {
-            console.warn(err)
         }
     }
     onchangeStartTime = (text) => {
@@ -144,30 +185,42 @@ class TimeTracking extends Component {
     }
     handleUpdateData = async () => {
         const { login } = this.props.user;
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                {
-                    title: 'Agefred',
-                    message: 'Agefred App need to access to your location ',
-                    buttonNegative: 'Cancel',
-                    buttonPositive: 'OK',
+        if (Platform.OS === 'ios') {
+            Geolocation.requestAuthorization();
+            this.props.submitTimeTracking(
+                this.state.startTime + ":" + this.state.startTime2,
+                this.state.endTime + ":" + this.state.endTime2,
+                this.state.location.coords.latitude,
+                this.state.location.coords.longitude,
+                login.data.id
+            );
+            this.toggleEdit();
+        } else {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    {
+                        title: 'Agefred',
+                        message: 'Agefred App need to access to your location ',
+                        buttonNegative: 'Cancel',
+                        buttonPositive: 'OK',
+                    }
+                )
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    this.props.submitTimeTracking(
+                        this.state.startTime + ":" + this.state.startTime2,
+                        this.state.endTime + ":" + this.state.endTime2,
+                        this.state.location.coords.latitude,
+                        this.state.location.coords.longitude,
+                        login.data.id
+                    );
+                    this.toggleEdit();
+                } else {
+                    console.log("location permission denied")
                 }
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                this.props.submitTimeTracking(
-                    this.state.startTime + ":" + this.state.startTime2,
-                    this.state.endTime + ":" + this.state.endTime2,
-                    this.state.location.coords.latitude,
-                    this.state.location.coords.longitude,
-                    login.data.id
-                );
-                this.toggleEdit();
-            } else {
-                console.log("location permission denied")
+            } catch (err) {
+                console.warn(err)
             }
-        } catch (err) {
-            console.warn(err)
         }
     }
 
@@ -425,7 +478,7 @@ class TimeTracking extends Component {
                             <View style={styles.map}>
                                 <MapView
                                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                                    style={styles.map}
+                                    style={styles.map2}
                                     region={{
                                         latitude: parseFloat(this.state.lat),
                                         longitude: parseFloat(this.state.long),
