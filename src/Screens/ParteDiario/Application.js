@@ -15,24 +15,31 @@ import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import DatePicker from "react-native-datepicker";
 import { lightBlue, darkBlue, grey } from "../../Component/ColorCode";
 import DropDownPicker from 'react-native-dropdown-picker';
+import Toast from 'react-native-simple-toast'
 import FastImage from 'react-native-fast-image'
 import SelectMultiple from 'react-native-select-multiple'
+import validate from 'validator'
 
 class Application extends React.Component {
-    state = {
-        endDate: "",
-        task: '',
-        hours: "",
-        concepts: "",
-        noHours: "",
-        firstCheck: false,
-        secondCheck: false,
-        thirdCheck: false,
-        fourthCheck: false,
-        fifthCheck: false,
-        selectedFruits: []
-    };
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            endDate: "",
+            task: '',
+            hours: "",
+            concepts: "",
+            noHours: "",
+            firstCheck: false,
+            secondCheck: false,
+            thirdCheck: false,
+            fourthCheck: false,
+            fifthCheck: false,
+            selectedFruits: "",
+            isFirst: false,
+            isSecond: false
+        };
+        this.controller;
+    }
     onCheckBoxHandler1 = () => {
         this.setState({ firstCheck: !this.state.firstCheck })
     }
@@ -63,20 +70,26 @@ class Application extends React.Component {
         //     Alert.alert("Por favor seleccione el tipo de hora de la lista")
         //     return;
         // }
-        if (this.state.selectedFruits === undefined || this.state.selectedFruits.length === 0) {
-            Alert.alert("Por favor seleccione conceptos de la lista")
-            return;
-        }
-        if (this.state.noHours === "") {
+        if (!validate.isNumeric(this.state.noHours)) {
             Alert.alert("Por favor ingrese el número de horas")
             return;
         }
+        if (validate.isEmpty(this.state.selectedFruits)) {
+            Alert.alert("Por favor seleccione conceptos de la lista")
+            return;
+        }
+        const myConceptos = [];
+        myConceptos.push({
+            label: this.state.selectedFruits,
+            value: this.state.selectedFruits
+        })
+        console.log(myConceptos)
         this.props.postPartStoreData(
             this.state.endDate,
             this.state.task,
             this.state.hours,
             this.state.noHours,
-            this.state.selectedFruits,
+            myConceptos,
             // this.state.fifthCheck,
             // this.state.secondCheck,
             // this.state.thirdCheck,
@@ -133,48 +146,56 @@ class Application extends React.Component {
                         }}
                     />
                 </View>
-                <DropDownPicker
-                    searchable={true}
-                    searchablePlaceholder="Search for Proyecto"
-                    searchablePlaceholderTextColor="gray"
-                    //seachableStyle={{}}
-                    searchableError={() => <Text>Not Found</Text>}
-                    zIndex={5000}
-                    items={dataPart.data.projects}
-                    defaultValue={this.state.task}
-                    containerStyle={styles.dropStyle}
-                    style={{
-                        backgroundColor: '#ffff',
-                        borderWidth: 0,
-                        borderColor: "#ffff",
-                        zIndex: 4
-                    }}
-                    itemStyle={{
-                        //justifyContent: 'flex-start'
-                        borderTopWidth: 2,
-                        borderTopColor: grey,
-                        zIndex: 4
-                    }}
-                    dropDownStyle={{
-                        borderWidth: 0,
-                        borderColor: "#ffff",
-                        zIndex: 4,
-                        backgroundColor: lightBlue
-                    }}
-                    onChangeItem={item => this.setState({
-                        task: item.value
-                    })}
-                    placeholder="Proyecto / Tarea"
-                    placeholderStyle={{
-                        color: darkBlue
-                    }}
-                    labelStyle={{
-                        color: darkBlue
-                    }}
-                    selectedLabelStyle={{
-                        color: darkBlue,
-                    }}
-                />
+                {this.state.isSecond ?
+                    <View />
+                    : <DropDownPicker
+                        searchable={true}
+                        searchablePlaceholder="Search for Proyecto"
+                        searchablePlaceholderTextColor="gray"
+                        onOpen={() => this.setState({
+                            isFirst: true,
+                        })}
+                        onClose={() => this.setState({
+                            isFirst: false,
+                        })}
+                        searchableError={() => <Text>Not Found</Text>}
+                        zIndex={5000}
+                        items={dataPart.data.projects}
+                        defaultValue={this.state.task}
+                        containerStyle={styles.dropStyle}
+                        style={{
+                            backgroundColor: '#ffff',
+                            borderWidth: 0,
+                            borderColor: "#ffff",
+                            zIndex: 4
+                        }}
+                        itemStyle={{
+                            //justifyContent: 'flex-start'
+                            borderTopWidth: 2,
+                            borderTopColor: grey,
+                            zIndex: 4
+                        }}
+                        dropDownStyle={{
+                            borderWidth: 0,
+                            borderColor: "#ffff",
+                            zIndex: 4,
+                            backgroundColor: lightBlue
+                        }}
+                        onChangeItem={item => this.setState({
+                            task: item.value
+                        })}
+                        placeholder="Proyecto / Tarea"
+                        placeholderStyle={{
+                            color: darkBlue
+                        }}
+                        labelStyle={{
+                            color: darkBlue
+                        }}
+                        selectedLabelStyle={{
+                            color: darkBlue,
+                        }}
+                    />
+                }
                 {/* <DropDownPicker
                     zIndex={4000}
                     items={dataPart.data.hours}
@@ -221,47 +242,55 @@ class Application extends React.Component {
                 <View style={styles.conceptosTitle}>
                     <Text style={styles.conceptosText}>{"Conceptos"}</Text>
                 </View>
-                <View style={styles.conceptos}>
+                {/* <View style={styles.conceptos}>
                     <SelectMultiple
                         items={dataPart.data.concepts}
                         selectedItems={this.state.selectedFruits}
                         onSelectionsChange={this.onSelectionsChange} />
-                </View>
+                </View> */}
 
-
-                {/* <DropDownPicker
-                    zIndex={3000}
-                    items={dataPart.data.concepts}
-                    defaultValue={this.state.concepts}
-                    containerStyle={styles.dropStyle2}
-                    style={{
-                        backgroundColor: '#ffff',
-                        borderWidth: 0,
-                        borderColor: "#ffff",
-                    }}
-                    itemStyle={{
-                        //justifyContent: 'flex-start'
-                        borderTopWidth: 2,
-                        borderTopColor: grey
-                    }}
-                    dropDownStyle={{
-                        borderWidth: 0,
-                        borderColor: "#ffff",
-                    }}
-                    onChangeItem={item => this.setState({
-                        concepts: item.value
-                    })}
-                    placeholder="Conceptos"
-                    placeholderStyle={{
-                        color: darkBlue
-                    }}
-                    labelStyle={{
-                        color: darkBlue
-                    }}
-                    selectedLabelStyle={{
-                        color: darkBlue,
-                    }}
-                /> */}
+                {this.state.isFirst ?
+                    <View />
+                    : <DropDownPicker
+                        zIndex={3000}
+                        items={dataPart.data.concepts}
+                        defaultValue={this.state.concepts}
+                        containerStyle={styles.dropStyle2}
+                        onOpen={() => this.setState({
+                            isSecond: true,
+                        })}
+                        onClose={() => this.setState({
+                            isSecond: false,
+                        })}
+                        style={{
+                            backgroundColor: '#ffff',
+                            borderWidth: 0,
+                            borderColor: "#ffff",
+                        }}
+                        itemStyle={{
+                            //justifyContent: 'flex-start'
+                            borderTopWidth: 2,
+                            borderTopColor: grey
+                        }}
+                        dropDownStyle={{
+                            borderWidth: 0,
+                            borderColor: "#ffff",
+                        }}
+                        onChangeItem={item => this.setState({
+                            selectedFruits: item.value
+                        })}
+                        placeholder="Conceptos"
+                        placeholderStyle={{
+                            color: darkBlue
+                        }}
+                        labelStyle={{
+                            color: darkBlue
+                        }}
+                        selectedLabelStyle={{
+                            color: darkBlue,
+                        }}
+                    />
+                }
                 {/* <View style={styles.bottomView}>
                     <Text style={styles.pluseTitle}>
                         {"PLUSES"}

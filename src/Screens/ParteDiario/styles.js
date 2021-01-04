@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     dropStyle2: {
         width: widthPercentageToDP(90),
         height: heightPercentageToDP(6),
-        marginTop: heightPercentageToDP(3),
+        //marginTop: heightPercentageToDP(3),
         //backgroundColor:"#ffff"
     },
     dropStyle3: {
@@ -336,7 +336,7 @@ export const styles = StyleSheet.create({
         fontSize: widthPercentageToDP(3.3),
         fontWeight: "500",
         color: darkBlue,
-        paddingLeft: widthPercentageToDP(4)
+        paddingLeft: widthPercentageToDP(3.5)
     },
     typeOfHoursView: {
         width: widthPercentageToDP(90),

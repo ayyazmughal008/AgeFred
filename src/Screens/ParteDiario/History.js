@@ -133,7 +133,7 @@ class HistoryClass extends React.Component {
 
   render() {
     const { dataSource } = this.state
-    console.log(dataSource)
+    //console.log(dataSource)
     return (
       <View style={styles.historyConatiner}>
         {/* <MyScrollView

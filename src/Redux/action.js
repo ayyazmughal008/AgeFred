@@ -1,4 +1,5 @@
 import NavigationService from '../navigator/navigationService'
+import Toast from 'react-native-simple-toast';
 export const LOGIN_DETAIL = "LOAD_HOMEPAGE";
 export const AUTH_LOADING = "AUTH_LOADING";
 export const DATA_PART = "DATA_PART";
@@ -173,15 +174,20 @@ export const postPartStoreData = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        // console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch(getAllParts(null, null, employId, list))
-          alert(json.message)
+          Toast.show(json.status, Toast.LONG, [
+            'UIAlertController',
+          ]);
         } else {
-          alert(json.message)
+          console.log(json)
         }
-      });
+      }).
+      catch(err => {
+        console.log(err)
+      })
   };
 }
 export const getAllParts = (
