@@ -176,7 +176,6 @@ class History extends React.Component {
                                 placeholder="SELECCIONAR TIPO"
                                 placeholderStyle={{
                                     color: darkGrey,
-                                    position: "absolute",
                                     fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
@@ -279,7 +278,6 @@ class History extends React.Component {
                                         placeholder="VACACIONES"
                                         placeholderStyle={{
                                             color: darkGrey,
-                                            position: "absolute",
                                             fontSize: widthPercentageToDP(3.5)
                                         }}
                                         labelStyle={{
@@ -375,7 +373,7 @@ class History extends React.Component {
                                 onPress={() => this.handleSubmit()}
                             >
                                 <Text style={styles.submitText}>
-                                    {"ENVIAR PETICIÒN"}
+                                    {"ENVIAR PETICIÓN"}
                                 </Text>
                             </TouchableOpacity>
                         </View>
@@ -467,7 +465,6 @@ class History extends React.Component {
                                             placeholder="VACACIONES"
                                             placeholderStyle={{
                                                 color: darkGrey,
-                                                position: "absolute",
                                                 fontSize: widthPercentageToDP(3.5)
                                             }}
                                             labelStyle={{

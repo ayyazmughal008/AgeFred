@@ -15,20 +15,26 @@ export default class Header extends React.Component {
             clickHandler,
             boxClickHandler,
             isTrue,
-            status
+            status,
+            type
         } = this.props
         return (
             <View style={[styles.container, {
                 backgroundColor: bgColor
             }]}>
-                <View style={styles.componet1}>
+                <View style={styles.componet3}>
                     <Text style={styles.textStyle}>
                         {date}
                     </Text>
                 </View>
-                <View style={styles.componet1}>
+                <View style={styles.componet2}>
                     <Text style={styles.textStyle}>
                         {amount}
+                    </Text>
+                </View>
+                <View style={styles.componet3}>
+                    <Text style={styles.textStyle}>
+                        {type}
                     </Text>
                 </View>
                 <View style={styles.componet1}>
@@ -36,7 +42,7 @@ export default class Header extends React.Component {
                         {status}
                     </Text>
                 </View>
-                <View style={styles.componet2}>
+                <View style={styles.componet4}>
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={clickHandler}
@@ -52,6 +58,7 @@ export default class Header extends React.Component {
                 {status === 'pending' &&
                     <TouchableOpacity
                         onPress={boxClickHandler}
+                        style={styles.componet4}
                         disabled={isTrue === 'pending' ? true
                             : false}
                     >
@@ -103,7 +110,7 @@ const styles = StyleSheet.create({
         height: widthPercentageToDP(4),
     },
     componet1: {
-        width: widthPercentageToDP(23),
+        width: widthPercentageToDP(24.1),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
@@ -111,6 +118,22 @@ const styles = StyleSheet.create({
     },
     componet2: {
         width: widthPercentageToDP(15),
+        height: heightPercentageToDP(5),
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column-reverse",
+        //backgroundColor:"yellow"
+    },
+    componet3: {
+        width: widthPercentageToDP(20),
+        height: heightPercentageToDP(5),
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column-reverse",
+        //backgroundColor:"yellow"
+    },
+    componet4: {
+        width: widthPercentageToDP(10),
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",

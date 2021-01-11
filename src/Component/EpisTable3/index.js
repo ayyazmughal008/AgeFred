@@ -18,7 +18,8 @@ export default class List extends React.Component {
             serialNo,
             size,
             medical,
-            revision
+            revision,
+            imgPred
         } = this.props
         return (
             <View style={styles.container}>
@@ -56,7 +57,7 @@ export default class List extends React.Component {
                         <Text style={styles.text}>{revision}</Text>
                     </View>
                     <View style={[styles.component, { width: "16%", backgroundColor: bgColor }]}>
-                        <Text style={styles.text}>{"Photo"}</Text>
+                        <Text style={styles.text} onPress={imgPred}>{"Photo"}</Text>
                     </View>
                 </View>
             </View>

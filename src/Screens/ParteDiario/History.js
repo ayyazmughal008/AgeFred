@@ -217,7 +217,7 @@ class HistoryClass extends React.Component {
             }]}
             onPress={() => this.handleSubmit()}>
             <Text style={styles.bottomBtnText}>
-              {"Enviar"}
+              {"Filtrar"}
             </Text>
           </TouchableOpacity>
         </View>

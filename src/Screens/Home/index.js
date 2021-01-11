@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, ActivityIndicator, TouchableOpacity, Modal } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "./styles";
-import { fetchDataPart, submitGDPRDocument, logOut, getAllTools, getAllUsers } from '../../Redux/action'
+import { fetchDataPart, submitGDPRDocument, logOut, getAllTools, getAllUsers, clearCache } from '../../Redux/action'
 import { Header } from 'react-native-elements'
 import Pdf from 'react-native-pdf';
 import HeaderImage from '../../Component/Header'
@@ -25,11 +25,13 @@ class HomePage extends Component {
         const { login } = this.props.user;
         if (login) {
             if (login.condition === false) {
-                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes")
+                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes");
+                this.props.clearCache();
             } else {
                 Orientation.lockToPortrait();
                 Orientation.addOrientationListener(this._onOrientationDidChange);
-                this.props.getAllUsers(login.data.id, "yes")
+                this.props.getAllUsers(login.data.id, "yes");
+                this.props.clearCache();
             }
             // if (login.condition !== false) {
             //     this.props.getAllUsers(login.data.id, "yes")
@@ -60,11 +62,13 @@ class HomePage extends Component {
         const { login } = this.props.user;
         if (login) {
             if (login.condition === false) {
-                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes")
+                this.props.getAllTools(login.data.employRoleId, login.data.id, "yes");
+                this.props.clearCache();
             } else {
                 Orientation.lockToPortrait();
                 Orientation.addOrientationListener(this._onOrientationDidChange);
-                this.props.getAllUsers(login.data.id, "yes")
+                this.props.getAllUsers(login.data.id, "yes");
+                this.props.clearCache();
             }
         }
     }
@@ -255,5 +259,6 @@ export default connect(mapStateToProps, {
     submitGDPRDocument,
     logOut,
     getAllTools,
-    getAllUsers
+    getAllUsers,
+    clearCache
 })(HomePage);

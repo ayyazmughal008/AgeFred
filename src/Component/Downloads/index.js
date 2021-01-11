@@ -42,14 +42,14 @@ export default class Header extends React.Component {
                         width: widthPercentageToDP(60)
                     }}>
                         <View style={{
-                            width: widthPercentageToDP(5),
-                            height: widthPercentageToDP(5),
+                            width: widthPercentageToDP(7),
+                            height: widthPercentageToDP(7),
                             justifyContent: "center",
                             alignItems: "center",
                             backgroundColor: "red"
                         }}>
                             <Text style={{
-                                fontSize: widthPercentageToDP(2.2),
+                                fontSize: widthPercentageToDP(3),
                                 fontWeight: "bold",
                                 color: "#ffff"
                             }}>
@@ -58,7 +58,7 @@ export default class Header extends React.Component {
                         </View>
 
                         <Text style={{
-                            fontSize: widthPercentageToDP(3),
+                            fontSize: widthPercentageToDP(4),
                             fontWeight: "300",
                             color: darkBlue,
                             marginLeft: widthPercentageToDP(2)
@@ -72,8 +72,8 @@ export default class Header extends React.Component {
                             <FastImage
                                 source={require('../../images/pdf.png')}
                                 style={{
-                                    width: widthPercentageToDP(4),
-                                    height: widthPercentageToDP(4)
+                                    width: widthPercentageToDP(6),
+                                    height: widthPercentageToDP(6)
                                 }}
                                 resizeMode={FastImage.resizeMode.cover}
                             />
@@ -89,8 +89,8 @@ export default class Header extends React.Component {
                                 <FastImage
                                     source={require('../../images/pdf.png')}
                                     style={{
-                                        width: widthPercentageToDP(4),
-                                        height: widthPercentageToDP(4)
+                                        width: widthPercentageToDP(6),
+                                        height: widthPercentageToDP(6)
                                     }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />
@@ -100,8 +100,8 @@ export default class Header extends React.Component {
                                 <FastImage
                                     source={require('../../images/eye.png')}
                                     style={{
-                                        width: widthPercentageToDP(4),
-                                        height: widthPercentageToDP(4)
+                                        width: widthPercentageToDP(6),
+                                        height: widthPercentageToDP(6)
                                     }}
                                     resizeMode={FastImage.resizeMode.contain}
                                 />

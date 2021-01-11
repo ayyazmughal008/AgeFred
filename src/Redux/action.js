@@ -24,6 +24,7 @@ export const GDPR = "GDPR";
 export const EPIS_HISTORY = "EPIS_HISTORY";
 export const EPIS2_DATA = "EPIS2_DATA";
 export const PROJECT_DETAIL = "PROJECT_DETAIL";
+export const CLEAR_CACHE = "CLEAR_CACHE";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -49,12 +50,14 @@ var baseUrl = "http://95.179.209.186/api/",
   getholidays = 'holidays-get',
   holidayStore = "holiday-store",
   user = "user",
+  changePassword = "changePassword",
   orderNumber = "order-number",
   workStore = "work-store",
   getTools = "tools-get",
   projectAuto = "project-auto",
   partsDelete = "parts-delete",
   documents = "documents-get";
+
 
 export const timeStatus = (value) => {
   return dispatch => {
@@ -74,6 +77,11 @@ export const startTime = (time) => {
 export const logOut = () => {
   return dispatch => {
     dispatch({ type: LOG_OUT })
+  }
+}
+export const clearCache = () => {
+  return dispatch => {
+    dispatch({ type: CLEAR_CACHE })
   }
 }
 export const fetchLoginDetail = (dni, password) => {
@@ -102,7 +110,7 @@ export const fetchLoginDetail = (dni, password) => {
             }
           });
           // dispatch(getGDPRDocument(json.data.id))
-          NavigationService.navigate('Home')
+          //NavigationService.navigate('ChangePassword')
         } else {
           alert(json.message)
         }
@@ -182,7 +190,7 @@ export const postPartStoreData = (
             'UIAlertController',
           ]);
         } else {
-          console.log(json)
+          alert(json.message)
         }
       }).
       catch(err => {
@@ -1199,6 +1207,44 @@ export const getAllUsers = (
               NavigationService.navigate('Home')
             }
           }
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const changeUserPass = (
+  id,
+  newPass,
+  confirm
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + changePassword, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+        new: newPass,
+        confirm: confirm
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: LOGIN_DETAIL,
+            payload: {
+              login: json
+            }
+          });
+          NavigationService.navigate('Home')
         } else {
           alert(json.message)
         }

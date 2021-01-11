@@ -3,88 +3,88 @@ import { widthPercentageToDP, heightPercentageToDP } from '../../Component/MakeM
 import { lightBlue, darkBlue } from '../../Component/ColorCode'
 
 export const styles = StyleSheet.create({
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
         backgroundColor: lightBlue,
-        alignItems:"center",
+        alignItems: "center",
     },
-    container2:{
-        flex:1,
+    container2: {
+        flex: 1,
         backgroundColor: lightBlue,
         //alignItems:"center",
     },
-    menuView:{
-        width:widthPercentageToDP(85),
-        flexDirection:"row",
-        flexWrap:"wrap",
+    menuView: {
+        width: widthPercentageToDP(85),
+        flexDirection: "row",
+        flexWrap: "wrap",
         //alignItems:"center",
-        justifyContent:"space-around",
+        justifyContent: "space-around",
         //alignSelf:"center",
-        marginLeft:widthPercentageToDP(4.5),
-        marginTop:widthPercentageToDP(5)
+        marginLeft: widthPercentageToDP(4.5),
+        marginTop: widthPercentageToDP(5)
     },
-    tableView:{
-        flex:1,
-        alignItems:"center"
+    tableView: {
+        flex: 1,
+        alignItems: "center"
     },
-    tableRenderingView:{
-        width:heightPercentageToDP(95),
-        height:widthPercentageToDP(50),
-        alignItems:"center"
+    tableRenderingView: {
+        width: heightPercentageToDP(95),
+        height: widthPercentageToDP(50),
+        alignItems: "center"
     },
-    tableRenderingView2:{
-        width:heightPercentageToDP(95),
-        height:widthPercentageToDP(55)
+    tableRenderingView2: {
+        width: heightPercentageToDP(95),
+        height: widthPercentageToDP(55)
     },
-    tableRenderingView3:{
-        width:heightPercentageToDP(95),
-        height:widthPercentageToDP(60)
+    tableRenderingView3: {
+        width: heightPercentageToDP(95),
+        height: widthPercentageToDP(60)
     },
-    itemMainView:{
-        width:heightPercentageToDP(95),
-        height:widthPercentageToDP(10),
+    itemMainView: {
+        width: heightPercentageToDP(95),
+        height: widthPercentageToDP(10),
         //backgroundColor:"red",S
-        flexDirection:"row",
-        alignItems:"center",
-        marginTop:widthPercentageToDP(3),
-        borderBottomWidth:widthPercentageToDP(0.1),
-        borderBottomColor:darkBlue,
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: widthPercentageToDP(3),
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue,
     },
-    itemMainView2:{
-        width:'100%',
-        height:widthPercentageToDP(10),
-        flexDirection:"row",
-        alignItems:"center",
-        marginTop:widthPercentageToDP(3),
-        borderBottomWidth:widthPercentageToDP(0.1),
-        borderBottomColor:darkBlue,
+    itemMainView2: {
+        width: '100%',
+        height: widthPercentageToDP(10),
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: widthPercentageToDP(3),
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue,
         //backgroundColor:"blue"
     },
-    component:{
-        height:widthPercentageToDP(10),
-        alignItems:"center",
-        justifyContent:"center"
+    component: {
+        height: widthPercentageToDP(10),
+        alignItems: "center",
+        justifyContent: "center"
     },
-    bottomView:{
-        position:"absolute",
-        bottom:"2%",
+    bottomView: {
+        position: "absolute",
+        bottom: "2%",
     },
-    bottom1:{
-        position:"absolute",
-        bottom:"2%",
-        width:"100%",
-        alignItems:"center",
-        justifyContent:"center",
-        marginLeft:heightPercentageToDP(2.5)
+    bottom1: {
+        position: "absolute",
+        bottom: "2%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: heightPercentageToDP(2.5)
     },
-    statusText:{
-        fontSize:heightPercentageToDP(4),
-        fontWeight:"500",
+    statusText: {
+        fontSize: heightPercentageToDP(4),
+        fontWeight: "500",
         color: darkBlue
     },
-    btnText:{
-        fontSize:heightPercentageToDP(2),
-        fontWeight:"500",
+    btnText: {
+        fontSize: heightPercentageToDP(2),
+        fontWeight: "500",
         color: "#ffff"
     },
     confirmBtn: {
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: darkBlue,
-        borderRadius:widthPercentageToDP(2)
+        borderRadius: widthPercentageToDP(2)
     },
     loading: {
         position: 'absolute',
@@ -104,9 +104,25 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    titleText:{
-        fontSize:widthPercentageToDP(2.5),
+    titleText: {
+        fontSize: widthPercentageToDP(2.5),
         color: darkBlue,
-        fontWeight:"bold"
-    }
+        fontWeight: "bold"
+    },
+    modalMain: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    crossBtn: {
+        width: widthPercentageToDP(10),
+        height: widthPercentageToDP(10),
+        borderRadius: widthPercentageToDP(10) / 2,
+        backgroundColor: "#ffff",
+        marginLeft: widthPercentageToDP(5),
+        marginTop: widthPercentageToDP(5),
+        alignItems: "center",
+        justifyContent: "center"
+    },
 })

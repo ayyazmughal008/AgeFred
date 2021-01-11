@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import NAVIGATOR, { navigationService } from "./src/navigator";
 import MainNavigator from "./src/RootNavigator";
+import PassNavigator from "./src/PassNavigator";
 import { connect } from 'react-redux';
 
 class MainApp extends React.Component {
@@ -15,13 +16,18 @@ class MainApp extends React.Component {
                             navigationService.setTopLevelNavigator(navigatorRef);
                         }}
                     />
-
-                    : <NAVIGATOR
-                        //uriPrefix={prefix}
-                        ref={navigatorRef => {
-                            navigationService.setTopLevelNavigator(navigatorRef);
-                        }}
-                    />
+                    : login.data.pwd === "yes" ?
+                        <NAVIGATOR
+                            //uriPrefix={prefix}
+                            ref={navigatorRef => {
+                                navigationService.setTopLevelNavigator(navigatorRef);
+                            }}
+                        />
+                        : <PassNavigator
+                            ref={navigatorRef => {
+                                navigationService.setTopLevelNavigator(navigatorRef);
+                            }}
+                        />
                 }
             </View>
         );

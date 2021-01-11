@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator , TransitionPresets} from 'react-navigation-stack';
 import Login from '../../Screens/Login'
 import Home from '../DrawerNavigator'
 import Profile from '../../Screens/Profile'
@@ -16,6 +16,7 @@ import Option2 from '../../Screens/Epis/Option2'
 import Option3 from '../../Screens/Epis/Option3'
 import GDPR from '../../Screens/Profile/GDPR'
 import TimeTracking from '../../Screens/TimeTracking'
+import ChangePassword from '../../Screens/ChangePassword'
 
 export default createStackNavigator(
   {
@@ -70,9 +71,13 @@ export default createStackNavigator(
     Option3: {
       screen: Option3
     },
+    ChangePassword: {
+      screen: ChangePassword
+    },
   },
   {
     initialRouteName: 'Home',
-    headerMode: 'none'
+    headerMode: 'none',
+    ...TransitionPresets.ModalTransition
   }
 );

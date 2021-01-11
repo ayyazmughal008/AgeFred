@@ -27,7 +27,8 @@ class MisGastos extends React.Component {
             imgData: [],
             singleImage: "",
             isLoading: false,
-            dilaogStatus: false
+            dilaogStatus: false,
+            myDate: new Date()
         };
         this.props.getExpense();
     }
@@ -92,13 +93,15 @@ class MisGastos extends React.Component {
             Alert.alert("Please provide endDate")
             return
         }
-        // if ((this.state.imgData === undefined ||
-        //     this.state.imgData.length === 0) &&
-        //     !this.state.singleImage
-        // ) {
-        //     Alert.alert("Please select Images")
-        //     return
-        // }
+        if (this.state.comido === "Kilometraje" || this.state.comido === "Comida - Dieta") {
+            if ((this.state.imgData === undefined ||
+                this.state.imgData.length === 0) &&
+                !this.state.singleImage
+            ) {
+                Alert.alert("Please select Images")
+                return
+            }
+        }
 
 
         let data = "";
@@ -162,6 +165,9 @@ class MisGastos extends React.Component {
 
     render() {
         const { getDataExpense, AuthLoading, dataPart } = this.props.user
+        const { myDate } = this.state
+        let date = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
+        console.log(date)
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -179,10 +185,10 @@ class MisGastos extends React.Component {
                         </Text>
                         <View >
                             <Text style={{
-                                paddingLeft: widthPercentageToDP(3),
+                                paddingLeft: widthPercentageToDP(4),
                                 fontSize: widthPercentageToDP(3.5),
-                                color: grey,
-                                fontWeight: "400"
+                                color: darkBlue,
+                                fontWeight: "500"
                             }}>{this.state.toDate}</Text>
                         </View>
                         <Text style={styles.inputTitle}>
@@ -192,7 +198,7 @@ class MisGastos extends React.Component {
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
                                 <DropDownPicker
                                     searchable={true}
-                                    searchablePlaceholder="Search for Proyecto"
+                                    searchablePlaceholder="Proyecto de búsqueda"
                                     searchablePlaceholderTextColor="gray"
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
@@ -222,20 +228,20 @@ class MisGastos extends React.Component {
                                     })}
                                     placeholder="Proyecto / Tarea"
                                     placeholderStyle={{
-                                        color: darkGrey
+                                        color: darkBlue
                                     }}
                                     labelStyle={{
-                                        color: darkGrey
+                                        color: darkBlue
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
                             : <View style={{ alignItems: "center" }}>
                                 <DropDownPicker
                                     searchable={true}
-                                    searchablePlaceholder="Search for Proyecto"
+                                    searchablePlaceholder="Proyecto de búsqueda"
                                     searchablePlaceholderTextColor="gray"
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
@@ -266,13 +272,13 @@ class MisGastos extends React.Component {
                                     })}
                                     placeholder="Proyecto / Tarea"
                                     placeholderStyle={{
-                                        color: darkGrey
+                                        color: darkBlue
                                     }}
                                     labelStyle={{
-                                        color: darkGrey
+                                        color: darkBlue
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
@@ -311,15 +317,15 @@ class MisGastos extends React.Component {
                                     })}
                                     placeholder="Motivo de gasto"
                                     placeholderStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                         position: "absolute",
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
@@ -353,15 +359,14 @@ class MisGastos extends React.Component {
                                     })}
                                     placeholder="Motivo de gasto"
                                     placeholderStyle={{
-                                        color: darkGrey,
-                                        position: "absolute",
+                                        color: darkBlue,
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkGrey,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
@@ -372,11 +377,11 @@ class MisGastos extends React.Component {
                         <View style={{ alignItems: "center" }}>
                             <TextInput
                                 placeholder="importe"
-                                placeholderTextColor={grey}
+                                placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.importe}
                                 autoCapitalize="none"
-                                //secureTextEntry={true}
+                                keyboardType="numeric"
                                 onChangeText={text =>
                                     this.setState({ importe: text })
                                 }
@@ -393,7 +398,7 @@ class MisGastos extends React.Component {
                                 placeholder="DD-MM-YYYY"
                                 format="DD-MM-YYYY"
                                 // minDate="2019-11-04"
-                                // maxDate="2099-01-01"
+                                maxDate={date}
                                 customStyles={{
                                     datePicker: {
                                         backgroundColor: "#ffff"
@@ -407,12 +412,12 @@ class MisGastos extends React.Component {
                                         width: widthPercentageToDP(85),
                                     },
                                     placeholderText: {
-                                        color: grey,
+                                        color: darkBlue,
                                         position: "absolute",
                                         left: "2%"
                                     },
                                     dateText: {
-                                        color: darkGrey,
+                                        color: darkBlue,
                                         position: "absolute",
                                         left: "2%"
                                     }

@@ -22,7 +22,8 @@ import {
   GDPR,
   EPIS_HISTORY,
   EPIS2_DATA,
-  PROJECT_DETAIL
+  PROJECT_DETAIL,
+  CLEAR_CACHE
 } from "./action";
 
 const initialUserState = {
@@ -47,8 +48,8 @@ const initialUserState = {
   trackingHistory: "",
   getGdpr: "",
   episHistory: "",
-  episData2:"",
-  projectDetail:""
+  episData2: "",
+  projectDetail: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -76,9 +77,15 @@ const userReducer = (state = initialUserState, action) => {
       trackingHistory: "",
       getGdpr: "",
       episHistory: "",
-      episData2:"",
-      projectDetail:""
+      episData2: "",
+      projectDetail: ""
     };
+  }
+  if (action.type === CLEAR_CACHE) {
+    return {
+      ...state,
+      projectDetail: ""
+    }
   }
   if (action.type === TIMER_STATUS) {
     return {
@@ -194,7 +201,7 @@ const userReducer = (state = initialUserState, action) => {
       ...state,
       episHistory: action.payload.episHistory
     };
-  } 
+  }
   if (action.type === EPIS2_DATA) {
     return {
       ...state,

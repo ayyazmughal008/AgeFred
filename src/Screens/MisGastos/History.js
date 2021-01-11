@@ -185,22 +185,32 @@ class History extends React.Component {
                     onPress={() => this.getDetail()}
                 >
                     <Text style={styles.submitText}>
-                        {"Enviar"}
+                        {"Filtrar"}
                     </Text>
                 </TouchableOpacity>
                 <View style={styles.historyComponent}>
                     <View style={[styles.componet1, {
-                        width: widthPercentageToDP(23),
+                        width: widthPercentageToDP(20),
+                        
                     }]}>
                         <Text style={styles.componetText}>
                             {"Fecha"}
                         </Text>
                     </View>
                     <View style={[styles.componet1, {
-                        width: widthPercentageToDP(23),
+                        width: widthPercentageToDP(15),
+                        //backgroundColor:"red"
                     }]}>
                         <Text style={styles.componetText}>
                             {"Gasto"}
+                        </Text>
+                    </View>
+                    <View style={[styles.componet1, {
+                        width: widthPercentageToDP(20),
+                        //backgroundColor:"red"
+                    }]}>
+                        <Text style={styles.componetText}>
+                            {"M. de Gasto"}
                         </Text>
                     </View>
                     <View style={[styles.componet1, {
@@ -244,6 +254,7 @@ class History extends React.Component {
                                     date={item.date}
                                     amount={item.amount}
                                     status={item.status}
+                                    type = {item.reason}
                                     boxClickHandler={() => this.updateArray(index)}
                                     isTrue={item.deleteStatus}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}

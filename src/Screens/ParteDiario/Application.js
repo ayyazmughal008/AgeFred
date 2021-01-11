@@ -235,6 +235,7 @@ class Application extends React.Component {
                         placeholder="Cantidad"
                         placeholderTextColor={darkBlue}
                         style={styles.input}
+                        maxLength = {2}
                         keyboardType="email-address"
                         onChangeText={text => this.setState({ noHours: text })}
                     />

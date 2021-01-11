@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     historyComponent: {
-        width: widthPercentageToDP(90),
+        width: widthPercentageToDP(100),
         height: heightPercentageToDP(5),
         backgroundColor: "#ffff",
         justifyContent: "flex-start",
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
         height: heightPercentageToDP(6),
         borderBottomWidth: widthPercentageToDP(0.2),
         borderBottomColor: darkGrey,
-        color: darkGrey,
+        color: darkBlue,
         //backgroundColor:"red"
     },
     dropStyle2: {
@@ -160,7 +160,7 @@ export const styles = StyleSheet.create({
         color: darkBlue
     },
     middleView: {
-        width: widthPercentageToDP(90),
+        width: widthPercentageToDP(100),
         height: heightPercentageToDP(40),
         backgroundColor: "#ffff"
     },
