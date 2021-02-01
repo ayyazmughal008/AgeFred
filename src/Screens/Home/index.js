@@ -130,18 +130,27 @@ class HomePage extends Component {
                                 }}
                             />
                         </View>
-                        <TouchableOpacity
-                            onPress={() => this.toggleCheck()}
-                            //disabled={this.state.isChecked ? true : false}
-                            style={styles.checkBox}>
-                            {this.state.isChecked &&
-                                <FastImage
-                                    source={require('../../images/tick.png')}
-                                    resizeMode={FastImage.resizeMode.contain}
-                                    style={styles.tick2}
-                                />
-                            }
-                        </TouchableOpacity>
+                        <View style={{
+                            position: "absolute",
+                            bottom: "10%",
+                            left: "4%",
+                            flexDirection: "row",
+                            alignItems: "center"
+                        }}>
+                            <TouchableOpacity
+                                onPress={() => this.toggleCheck()}
+                                //disabled={this.state.isChecked ? true : false}
+                                style={styles.checkBox}>
+                                {this.state.isChecked &&
+                                    <FastImage
+                                        source={require('../../images/tick.png')}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                        style={styles.tick2}
+                                    />
+                                }
+                            </TouchableOpacity>
+                            <Text style={[styles.btntext, { color: darkBlue, marginLeft: 10 }]}>{"Marcar como leído"}</Text>
+                        </View>
                         <TouchableOpacity
                             style={[styles.submitBtn, {
                                 opacity: this.state.isChecked ? 1 : 0.7
@@ -150,7 +159,7 @@ class HomePage extends Component {
                             disabled={this.state.isChecked ? false : true}
                         >
                             <Text style={styles.btntext}>
-                                {"Proximo"}
+                                {"Confirmar"}
                             </Text>
                         </TouchableOpacity>
                         {AuthLoading &&
@@ -213,8 +222,9 @@ class HomePage extends Component {
                             </View>
                             <View style={styles.menuView}>
                                 <Card
-                                    iconName={require('./assets/5.png')}
+                                    iconName={require('../../images/icon-news-28.jpg')}
                                     title="Noticias"
+                                    tinit={darkBlue}
                                     clickHandler={() => this.props.navigation.navigate('Blog')}
                                 />
                                 <Card

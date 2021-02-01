@@ -63,7 +63,7 @@ class Login extends Component {
 
                     <View style={styles.mainView}>
                         <TextInput
-                            label="Contrasena"
+                            label="Por favor introduzca su nueva contraseña"
                             style={styles.input}
                             secureTextEntry={true}
                             onChangeText={this.onChange}
@@ -74,7 +74,7 @@ class Login extends Component {
                             minLength={8}
                         />
                         <TextInput
-                            label="Confirmar contraseña"
+                            label="Repita su nueva contraseña"
                             style={styles.input}
                             secureTextEntry={true}
                             onChangeText={this.onChangeConfirm}

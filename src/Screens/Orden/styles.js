@@ -24,9 +24,9 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     inputTitle: {
-        fontSize: widthPercentageToDP(4),
-        fontWeight: "bold",
-        color: darkGrey,
+        fontSize: widthPercentageToDP(3.5),
+        fontWeight: "300",
+        color: darkBlue,
         paddingLeft: widthPercentageToDP(4),
         paddingTop: widthPercentageToDP(2),
         textAlign: "left"
@@ -38,7 +38,8 @@ export const styles = StyleSheet.create({
         width: widthPercentageToDP(85),
         height: heightPercentageToDP(5.5),
         borderBottomWidth: widthPercentageToDP(0.2),
-        borderBottomColor: darkGrey,
+        fontSize:widthPercentageToDP(3),
+        borderBottomColor: darkBlue,
         color: darkBlue
     },
     dropStyle2: {

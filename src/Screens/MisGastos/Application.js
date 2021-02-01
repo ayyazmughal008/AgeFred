@@ -74,23 +74,23 @@ class MisGastos extends React.Component {
     handleSubmit = () => {
         const { login } = this.props.user;
         if (this.state.toDate === "") {
-            Alert.alert("Please select date")
+            Alert.alert("Seleccione la fecha")
             return
         }
         if (this.state.project === "") {
-            Alert.alert("Please provide project")
+            Alert.alert("Por favor, indique proyecto")
             return
         }
         if (this.state.comido === "") {
-            Alert.alert("Please provide Motivo")
+            Alert.alert("Por favor indique Motivo")
             return
         }
         if (this.state.importe === "") {
-            Alert.alert("Please provide Importe")
+            Alert.alert("Por favor indique Importe")
             return
         }
         if (this.state.endDate === "") {
-            Alert.alert("Please provide endDate")
+            Alert.alert("Por favor indique la fecha que se realizo el gasto")
             return
         }
         if (this.state.comido === "Kilometraje" || this.state.comido === "Comida - Dieta") {
@@ -98,7 +98,7 @@ class MisGastos extends React.Component {
                 this.state.imgData.length === 0) &&
                 !this.state.singleImage
             ) {
-                Alert.alert("Please select Images")
+                Alert.alert("Seleccione Imágenes")
                 return
             }
         }
@@ -183,12 +183,14 @@ class MisGastos extends React.Component {
                         <Text style={styles.inputTitle}>
                             {"Fecha"}
                         </Text>
-                        <View >
+                        <View style={{ borderBottomWidth: widthPercentageToDP(0.1), borderBottomColor: darkBlue, width: "98%", alignSelf: "center" }}>
                             <Text style={{
-                                paddingLeft: widthPercentageToDP(4),
-                                fontSize: widthPercentageToDP(3.5),
+                                paddingLeft: widthPercentageToDP(3),
+                                fontSize: widthPercentageToDP(3),
                                 color: darkBlue,
-                                fontWeight: "500"
+                                fontWeight: "300",
+                                marginTop: 5,
+                                marginBottom: 5
                             }}>{this.state.toDate}</Text>
                         </View>
                         <Text style={styles.inputTitle}>
@@ -198,7 +200,7 @@ class MisGastos extends React.Component {
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
                                 <DropDownPicker
                                     searchable={true}
-                                    searchablePlaceholder="Proyecto de búsqueda"
+                                    searchablePlaceholder="Buscar proyecto"
                                     searchablePlaceholderTextColor="gray"
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
@@ -241,7 +243,7 @@ class MisGastos extends React.Component {
                             : <View style={{ alignItems: "center" }}>
                                 <DropDownPicker
                                     searchable={true}
-                                    searchablePlaceholder="Proyecto de búsqueda"
+                                    searchablePlaceholder="Buscar proyecto"
                                     searchablePlaceholderTextColor="gray"
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
@@ -272,13 +274,16 @@ class MisGastos extends React.Component {
                                     })}
                                     placeholder="Proyecto / Tarea"
                                     placeholderStyle={{
-                                        color: darkBlue
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     labelStyle={{
-                                        color: darkBlue
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>
@@ -360,13 +365,16 @@ class MisGastos extends React.Component {
                                     placeholder="Motivo de gasto"
                                     placeholderStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>
@@ -376,7 +384,7 @@ class MisGastos extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="importe"
+                                placeholder="Indicar importe"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.importe}
@@ -404,8 +412,8 @@ class MisGastos extends React.Component {
                                         backgroundColor: "#ffff"
                                     },
                                     dateInput: {
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
+                                        borderBottomWidth: widthPercentageToDP(0.1),
+                                        borderBottomColor: darkBlue,
                                         borderTopWidth: 0,
                                         borderLeftWidth: 0,
                                         borderRightWidth: 0,
@@ -413,6 +421,7 @@ class MisGastos extends React.Component {
                                     },
                                     placeholderText: {
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3.5),
                                         position: "absolute",
                                         left: "2%"
                                     },

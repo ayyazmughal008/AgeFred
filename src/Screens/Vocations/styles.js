@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
     },
     toDate: {
         fontSize: widthPercentageToDP(3),
-        fontWeight: "bold",
+        //fontWeight: "bold",
         color: darkBlue,
         //backgroundColor:"red",
         marginTop:heightPercentageToDP(1),

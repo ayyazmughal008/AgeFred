@@ -25,6 +25,7 @@ export const EPIS_HISTORY = "EPIS_HISTORY";
 export const EPIS2_DATA = "EPIS2_DATA";
 export const PROJECT_DETAIL = "PROJECT_DETAIL";
 export const CLEAR_CACHE = "CLEAR_CACHE";
+export const COUNTER = "COUNTER";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -50,6 +51,7 @@ var baseUrl = "http://95.179.209.186/api/",
   getholidays = 'holidays-get',
   holidayStore = "holiday-store",
   user = "user",
+  mobGetInterval = "mobGetInterval",
   changePassword = "changePassword",
   orderNumber = "order-number",
   workStore = "work-store",
@@ -186,7 +188,7 @@ export const postPartStoreData = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch(getAllParts(null, null, employId, list))
-          Toast.show(json.status, Toast.LONG, [
+          Toast.show(json.message, Toast.LONG, [
             'UIAlertController',
           ]);
         } else {
@@ -378,7 +380,9 @@ export const postExpenseData = (
       .then(json => {
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          alert(json.status)
+          Toast.show(json.message, Toast.LONG, [
+            'UIAlertController',
+          ]);
           dispatch({
             type: API_STATUS,
             payload: {
@@ -489,7 +493,9 @@ export const postHolidayData = (
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          alert(json.status)
+          Toast.show(json.message, Toast.LONG, [
+            'UIAlertController',
+          ]);
         } else {
           alert(json.message)
         }
@@ -626,7 +632,9 @@ export const postWorkStore = (
         console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          alert(json.status)
+          Toast.show(json.message, Toast.LONG, [
+            'UIAlertController',
+          ]);
           NavigationService.navigate('Home')
         } else {
           alert(json.message)
@@ -796,6 +804,7 @@ export const startTimeTracking = (
             console.log("first condition")
           } else if (!json.time.endTime) {
             dispatch(timeStatus(false))
+            dispatch(getTimeCounter(json.time.id))
             console.log("second condition")
           } else {
             dispatch(timeStatus(true))
@@ -841,6 +850,7 @@ export const endTimeTracking = (
             console.log("second condition")
           } else {
             dispatch(timeStatus(true))
+            dispatch(getTimeCounter(json.time.id))
             console.log("third condition")
           }
         } else {
@@ -1245,6 +1255,39 @@ export const changeUserPass = (
             }
           });
           NavigationService.navigate('Home')
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+
+export const getTimeCounter = (
+  id,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + mobGetInterval, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: COUNTER,
+            payload: {
+              counter: json
+            }
+          });
         } else {
           alert(json.message)
         }

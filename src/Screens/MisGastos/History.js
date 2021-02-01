@@ -9,6 +9,7 @@ import HistoryItem from '../../Component/MisgastoHistory'
 import { data } from './data'
 import { getAllExpense } from '../../Redux/action'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import FastImage from 'react-native-fast-image'
 class History extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +20,7 @@ class History extends React.Component {
             dataSource: [],
             totalSelected: 0
         };
+        this.getDetail();
     }
 
     getDetail = () => {
@@ -188,10 +190,20 @@ class History extends React.Component {
                         {"Filtrar"}
                     </Text>
                 </TouchableOpacity>
+                <View style={styles.historyTitle}>
+                    <FastImage
+                        source={require('../../images/history.png')}
+                        style={styles.historyIcon}
+                        resizeMode={FastImage.resizeMode.contain}
+                    />
+                    <Text style={styles.historyText}>
+                        {"Historial"}
+                    </Text>
+                </View>
                 <View style={styles.historyComponent}>
                     <View style={[styles.componet1, {
                         width: widthPercentageToDP(20),
-                        
+
                     }]}>
                         <Text style={styles.componetText}>
                             {"Fecha"}
@@ -202,7 +214,7 @@ class History extends React.Component {
                         //backgroundColor:"red"
                     }]}>
                         <Text style={styles.componetText}>
-                            {"Gasto"}
+                            {"Importe"}
                         </Text>
                     </View>
                     <View style={[styles.componet1, {
@@ -241,7 +253,7 @@ class History extends React.Component {
                 </View>
                 {!dataSource ?
                     <View />
-                    : <View style={styles.middleView}>
+                    : <View style={styles.middleView2}>
                         <FlatList
                             data={dataSource}
                             style={styles.flatStyle}
@@ -254,7 +266,7 @@ class History extends React.Component {
                                     date={item.date}
                                     amount={item.amount}
                                     status={item.status}
-                                    type = {item.reason}
+                                    type={item.reason}
                                     boxClickHandler={() => this.updateArray(index)}
                                     isTrue={item.deleteStatus}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}

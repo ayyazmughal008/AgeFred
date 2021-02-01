@@ -16,8 +16,9 @@ class History extends React.Component {
             endDate: "",
             motivo: "",
             type: "",
-            selectedHours: "00",
+            selectedHours: "01",
             selectedMinutes: "00",
+            myDate: new Date()
         };
         this.props.getDataHolidays();
     }
@@ -26,15 +27,15 @@ class History extends React.Component {
         const { login } = this.props.user;
         if (this.state.type === 'days') {
             if (this.state.startDate === "") {
-                Alert.alert("Please select start date")
+                Alert.alert("Seleccione la fecha de inicio")
                 return
             }
             if (this.state.motivo === "") {
-                Alert.alert("Please select motivo")
+                Alert.alert("Por favor seleccione motivo")
                 return
             }
             if (this.state.endDate === "") {
-                Alert.alert("Please provide end date")
+                Alert.alert("Indique la fecha de finalización")
                 return
             }
 
@@ -49,7 +50,7 @@ class History extends React.Component {
 
         } else if (this.state.type === 'hours') {
             if (this.state.startDate === "") {
-                Alert.alert("Please select date")
+                Alert.alert("Seleccione la fecha")
                 return
             }
             // if (this.state.selectedHours === "00") {
@@ -57,7 +58,7 @@ class History extends React.Component {
             //     return
             // }
             if (this.state.motivo === "") {
-                Alert.alert("Please select motivo")
+                Alert.alert("Por favor seleccione motivo")
                 return
             }
             this.props.postHolidayData(
@@ -77,7 +78,9 @@ class History extends React.Component {
     render() {
         const { AuthLoading, getHolidaysData, login } = this.props.user;
         const { selectedHours, selectedMinutes } = this.state;
-        console.log(selectedMinutes)
+        const { myDate } = this.state
+        let date = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
+        //console.log(selectedMinutes)
         return (
             <View style={styles.container2}>
                 <View style={styles.topView}>
@@ -121,20 +124,20 @@ class History extends React.Component {
                                 onChangeItem={item => this.setState({
                                     type: item.value
                                 })}
-                                placeholder="SELECCIONAR TIPO"
+                                placeholder="Seleccionar tipo"
                                 placeholderStyle={{
-                                    color: darkGrey,
-                                    position: "absolute",
-                                    fontSize: widthPercentageToDP(3.5)
+                                    color: darkBlue,
+                                    //position: "absolute",
+                                    //fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
                                     color: "#fff",
-                                    fontSize: widthPercentageToDP(3.5),
-                                    fontWeight: "bold"
+                                    //fontSize: widthPercentageToDP(3.5),
+                                    //fontWeight: "bold"
                                 }}
                                 selectedLabelStyle={{
-                                    color: darkGrey,
-                                    fontSize: widthPercentageToDP(3.5)
+                                    color: darkBlue,
+                                    //fontSize: widthPercentageToDP(3.5)
                                 }}
                             />
                         </View>
@@ -173,19 +176,19 @@ class History extends React.Component {
                                 onChangeItem={item => this.setState({
                                     type: item.value
                                 })}
-                                placeholder="SELECCIONAR TIPO"
+                                placeholder="Seleccionar tipo"
                                 placeholderStyle={{
-                                    color: darkGrey,
-                                    fontSize: widthPercentageToDP(3.5)
+                                    color: darkBlue,
+                                    //fontSize: widthPercentageToDP(3.5)
                                 }}
                                 labelStyle={{
                                     color: "#ffff",
-                                    fontSize: widthPercentageToDP(3.5),
-                                    fontWeight: "bold"
+                                    //fontSize: widthPercentageToDP(3.5),
+                                    //fontWeight: "bold"
                                 }}
                                 selectedLabelStyle={{
-                                    color: darkGrey,
-                                    fontSize: widthPercentageToDP(3.5)
+                                    color: darkBlue,
+                                    //fontSize: widthPercentageToDP(3.5)
                                 }}
                             />
                         </View>
@@ -193,7 +196,7 @@ class History extends React.Component {
                     {this.state.type === "days" ?
                         <View style={styles.topView}>
                             <View style={{ justifyContent: "center", width: "100%" }}>
-                                <Text style={styles.toDate}>{"MOTIVO"}</Text>
+                                <Text style={styles.toDate}>{"Motivo"}</Text>
                             </View>
                             {Platform.OS === "ios" ?
                                 <View style={{
@@ -229,18 +232,18 @@ class History extends React.Component {
                                         })}
                                         placeholder="VACACIONES"
                                         placeholderStyle={{
-                                            color: darkGrey,
-                                            position: "absolute",
-                                            fontSize: widthPercentageToDP(3.5)
+                                            color: darkBlue,
+                                            //position: "absolute",
+                                            //fontSize: widthPercentageToDP(3.5)
                                         }}
                                         labelStyle={{
-                                            color: darkGrey,
-                                            fontSize: widthPercentageToDP(3.5),
-                                            fontWeight: "bold"
+                                            color: darkBlue,
+                                            //fontSize: widthPercentageToDP(3.5),
+                                            //fontWeight: "bold"
                                         }}
                                         selectedLabelStyle={{
-                                            color: darkGrey,
-                                            fontSize: widthPercentageToDP(3.5)
+                                            color: darkBlue,
+                                            //fontSize: widthPercentageToDP(3.5)
                                         }}
                                     />
                                 </View>
@@ -275,26 +278,26 @@ class History extends React.Component {
                                         onChangeItem={item => this.setState({
                                             motivo: item.value
                                         })}
-                                        placeholder="VACACIONES"
+                                        placeholder="Vacaciones"
                                         placeholderStyle={{
-                                            color: darkGrey,
-                                            fontSize: widthPercentageToDP(3.5)
+                                            color: darkBlue,
+                                            //fontSize: widthPercentageToDP(3.5)
                                         }}
                                         labelStyle={{
-                                            color: darkGrey,
-                                            fontSize: widthPercentageToDP(3.5),
-                                            fontWeight: "bold"
+                                            color: darkBlue,
+                                            //fontSize: widthPercentageToDP(3.5),
+                                            //fontWeight: "bold"
                                         }}
                                         selectedLabelStyle={{
-                                            color: darkGrey,
-                                            fontSize: widthPercentageToDP(3.5)
+                                            color: darkBlue,
+                                            //fontSize: widthPercentageToDP(3.5)
                                         }}
                                     />
                                 </View>
                             }
                             <View style={styles.dateView}>
                                 <View>
-                                    <Text style={styles.toDate}>{"DESDE"}</Text>
+                                    <Text style={styles.toDate}>{"Desde"}</Text>
                                     <View style={styles.selectDateView}>
                                         <DatePicker
                                             style={[styles.datePickerStyle,
@@ -302,9 +305,9 @@ class History extends React.Component {
                                             ]}
                                             date={this.state.startDate}
                                             mode="date"
-                                            placeholder="YYYY-MM-DD"
-                                            format="YYYY-MM-DD"
-                                            // minDate="2019-11-04"
+                                            placeholder="DD-MM-YYYY"
+                                            format="DD-MM-YYYY"
+                                            minDate={myDate}
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
@@ -331,7 +334,7 @@ class History extends React.Component {
                                     </View>
                                 </View>
                                 <View>
-                                    <Text style={styles.toDate}>{"HASTA"}</Text>
+                                    <Text style={styles.toDate}>{"Hasta"}</Text>
                                     <View style={styles.selectDateView}>
                                         <DatePicker
                                             style={[styles.datePickerStyle,
@@ -339,9 +342,9 @@ class History extends React.Component {
                                             ]}
                                             date={this.state.endDate}
                                             mode="date"
-                                            placeholder="YYYY-MM-DD"
-                                            format="YYYY-MM-DD"
-                                            // minDate="2019-11-04"
+                                            placeholder="DD-MM-YYYY"
+                                            format="DD-MM-YYYY"
+                                            minDate={myDate}
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
@@ -380,7 +383,7 @@ class History extends React.Component {
                         : this.state.type === "hours" ?
                             <View style={styles.topView}>
                                 <View style={{ justifyContent: "center", width: "100%" }}>
-                                    <Text style={styles.toDate}>{"MOTIVO"}</Text>
+                                    <Text style={styles.toDate}>{"Motivo"}</Text>
                                 </View>
                                 {Platform.OS === "ios" ?
                                     <View style={{
@@ -414,20 +417,20 @@ class History extends React.Component {
                                             onChangeItem={item => this.setState({
                                                 motivo: item.value
                                             })}
-                                            placeholder="VACACIONES"
+                                            placeholder="Motivo"
                                             placeholderStyle={{
-                                                color: darkGrey,
-                                                position: "absolute",
-                                                fontSize: widthPercentageToDP(3.5)
+                                                color: darkBlue,
+                                                //position: "absolute",
+                                                //fontSize: widthPercentageToDP(3.5)
                                             }}
                                             labelStyle={{
-                                                color: darkGrey,
-                                                fontSize: widthPercentageToDP(3.5),
-                                                fontWeight: "bold"
+                                                color: darkBlue,
+                                                //fontSize: widthPercentageToDP(3.5),
+                                                //fontWeight: "bold"
                                             }}
                                             selectedLabelStyle={{
-                                                color: darkGrey,
-                                                fontSize: widthPercentageToDP(3.5)
+                                                color: darkBlue,
+                                                //fontSize: widthPercentageToDP(3.5)
                                             }}
                                         />
                                     </View>
@@ -462,25 +465,25 @@ class History extends React.Component {
                                             onChangeItem={item => this.setState({
                                                 motivo: item.value
                                             })}
-                                            placeholder="VACACIONES"
+                                            placeholder="Motivo"
                                             placeholderStyle={{
-                                                color: darkGrey,
-                                                fontSize: widthPercentageToDP(3.5)
+                                                color: darkBlue,
+                                                // fontSize: widthPercentageToDP(3.5)
                                             }}
                                             labelStyle={{
-                                                color: darkGrey,
-                                                fontSize: widthPercentageToDP(3.5),
-                                                fontWeight: "bold"
+                                                color: darkBlue,
+                                                //fontSize: widthPercentageToDP(3.5),
+                                                //fontWeight: "bold"
                                             }}
                                             selectedLabelStyle={{
-                                                color: darkGrey,
-                                                fontSize: widthPercentageToDP(3.5)
+                                                color: darkBlue,
+                                                //fontSize: widthPercentageToDP(3.5)
                                             }}
                                         />
                                     </View>
                                 }
                                 <View style={{ width: "100%", justifyContent: "center" }}>
-                                    <Text style={styles.toDate}>{"DESDE"}</Text>
+                                    <Text style={styles.toDate}>{"Desde"}</Text>
                                     <View style={styles.selectDateView}>
                                         <DatePicker
                                             style={[styles.datePickerStyle,
@@ -488,9 +491,9 @@ class History extends React.Component {
                                             ]}
                                             date={this.state.startDate}
                                             mode="date"
-                                            placeholder="YYYY-MM-DD"
-                                            format="YYYY-MM-DD"
-                                            // minDate="2019-11-04"
+                                            placeholder="DD-MM-YYYY"
+                                            format="DD-MM-YYYY"
+                                            minDate={myDate}
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
@@ -524,8 +527,8 @@ class History extends React.Component {
                                 <TimePicker
                                     selectedHours={selectedHours}
                                     selectedMinutes={selectedMinutes}
-                                    hoursUnit = " Horas"
-                                    minutesUnit = " Minutes"
+                                    hoursUnit=" Horas"
+                                    minutesUnit=" Minutes"
                                     onChange={(hours, minutes) => this.setState({ selectedHours: hours, selectedMinutes: minutes })}
                                 />
                                 {/* <View style={{

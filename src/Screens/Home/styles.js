@@ -76,9 +76,6 @@ export const styles = StyleSheet.create({
         borderColor: darkGrey,
         justifyContent:"center",
         alignContent:"center",
-        position:"absolute",
-        bottom:"10%",
-        left:"4%"
     },
     tick2:{
         width:widthPercentageToDP(3.5),

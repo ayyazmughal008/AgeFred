@@ -22,7 +22,7 @@ class Login extends Component {
 
   render() {
     const { AuthLoading } = this.props.user;
-    console.log("My loading", AuthLoading);
+    //console.log("My loading", AuthLoading);
     return (
       <View
         style={styles.container}
@@ -40,19 +40,19 @@ class Login extends Component {
             theme={{ colors: { primary: 'grey' } }}
           />
           <TextInput
-            label="Contrasena"
+            label="Contraseña"
             style={styles.input}
             secureTextEntry={true}
             onChangeText={text => this.setState({ password: text })}
             theme={{ colors: { primary: 'grey' } }}
           />
           <View style={styles.inlineText}>
-            <Text style={styles.forgetPass}>{"Olvido su contrasena?"}</Text>
+            <Text style={styles.forgetPass}>{"Olvidó su contraseña? "}</Text>
             <Text
               style={styles.forgetClick}
               onPress={() => this.toggleDialog()}
             >
-              {"Haga clic aqui"} </Text>
+              {"Haga clic aquí."} </Text>
           </View>
           <TouchableOpacity
             style={styles.btnBottom}
@@ -63,7 +63,7 @@ class Login extends Component {
               )
             }
           >
-            <Text style={styles.btnText}>{"Inciar sesion"}</Text>
+            <Text style={styles.btnText}>{"Iniciar sesión"}</Text>
           </TouchableOpacity>
         </View>
         {AuthLoading &&

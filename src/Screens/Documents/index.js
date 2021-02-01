@@ -141,6 +141,8 @@ class Documents extends React.Component {
                                     <PDFDownload
                                         key={"unique" + index}
                                         title={item.name}
+                                        name={item.fileTypeName}
+                                        date = {item.date}
                                         clickHandler={() => Platform.OS === "ios" ?
                                             this.iosDownload(item.path)
                                             : this.requestPermission(item.path)

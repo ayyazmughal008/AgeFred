@@ -229,7 +229,7 @@ class HistoryClass extends React.Component {
             resizeMode={FastImage.resizeMode.contain}
           />
           <Text style={styles.historyText}>
-            {"Historia"}
+            {"Historial"}
           </Text>
         </View>
         <View style={styles.mainView}>
@@ -241,7 +241,7 @@ class HistoryClass extends React.Component {
             </View>
             <View style={styles.componet2}>
               <Text style={styles.componetText}>
-                {"Proyectos"}
+                {"Proyecto"}
               </Text>
             </View>
             <View style={styles.componet3}>
@@ -266,9 +266,9 @@ class HistoryClass extends React.Component {
             </View> */}
             <View style={styles.componet7}>
               <EvilIcons
-                size = {25}
-                color = {darkBlue}
-                name = "trash"
+                size={25}
+                color={darkBlue}
+                name="trash"
               />
             </View>
             {/* <View style={styles.componet7}>

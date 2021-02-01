@@ -52,10 +52,6 @@ class Orden extends React.Component {
     }
     handleSubmit = () => {
         const { login, getWorkOrderNumber, projectDetail } = this.props.user;
-        if (!this.state.image) {
-            Alert.alert("Please create signature and save")
-            return
-        }
         let data = {
             'uri': this.state.image,
             'type': 'image/png',
@@ -64,8 +60,12 @@ class Orden extends React.Component {
 
         console.log(data)
         if (!this.state.draft) {
-            alert("please choose project first")
+            alert("por favor elija el proyecto primero")
             return;
+        }
+        if (!this.state.image) {
+            Alert.alert("Crea una firma y guarda")
+            return
         }
         this.props.postWorkStore(
             !getWorkOrderNumber ? "" : getWorkOrderNumber.data,
@@ -148,7 +148,7 @@ class Orden extends React.Component {
                                 placeholderTextColor={darkBlue}
                                 editable={false}
                                 value={!getWorkOrderNumber ? "" : getWorkOrderNumber.data}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300" }]}
                                 autoCapitalize="none"
                             //secureTextEntry={true}
                             //onChangeText={text => this.updateOrderNo(text)}
@@ -173,7 +173,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -217,7 +217,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -233,14 +233,17 @@ class Orden extends React.Component {
                                     })}
                                     placeholder="Proyecto – Tarea"
                                     placeholderStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>
@@ -252,7 +255,7 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="Nombre de clients"
                                 placeholderTextColor={darkBlue}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300", backgroundColor: !projectDetail ? "" : lightBlue }]}
                                 value={!projectDetail ? "" : projectDetail.data.clientName}
                                 autoCapitalize="none"
                                 editable={false}
@@ -270,7 +273,7 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="Dirección del cliente"
                                 placeholderTextColor={darkBlue}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300", backgroundColor: !projectDetail ? "" : lightBlue }]}
                                 value={!projectDetail ? "" : projectDetail.data.clientAddress}
                                 autoCapitalize="none"
                                 editable={false}
@@ -288,7 +291,7 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="CIF del cliente"
                                 placeholderTextColor={darkBlue}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300", backgroundColor: !projectDetail ? "" : lightBlue }]}
                                 value={this.props.customerVat}
                                 autoCapitalize="none"
                                 value={!projectDetail ? "" : projectDetail.data.customerVat}
@@ -307,7 +310,7 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="Teléfono del cliente"
                                 placeholderTextColor={darkBlue}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300", backgroundColor: !projectDetail ? "" : lightBlue }]}
                                 value={!projectDetail ? "" : projectDetail.data.customerPhone}
                                 autoCapitalize="none"
                                 editable={false}
@@ -325,7 +328,7 @@ class Orden extends React.Component {
                             <TextInput
                                 placeholder="Email del cliente"
                                 placeholderTextColor={darkBlue}
-                                style={[styles.input,{fontWeight:"bold"}]}
+                                style={[styles.input, { fontWeight: "300", backgroundColor: !projectDetail ? "" : lightBlue }]}
                                 value={!projectDetail ? "" : projectDetail.data.clientEmail}
                                 autoCapitalize="none"
                                 editable={false}
@@ -363,6 +366,7 @@ class Orden extends React.Component {
                                     },
                                     placeholderText: {
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3),
                                         position: "absolute",
                                         left: "2%"
                                     },
@@ -387,9 +391,10 @@ class Orden extends React.Component {
                         <View
                             style={{
                                 width: "95%",
-                                height: "3%",
-                                borderBottomWidth: widthPercentageToDP(0.3),
-                                borderBottomColor: "#cccccc"
+                                height: "2%",
+                                borderBottomWidth: widthPercentageToDP(0.2),
+                                borderBottomColor: darkBlue,
+                                alignSelf: "center"
                             }}
                         >
                             <TouchableOpacity
@@ -397,7 +402,8 @@ class Orden extends React.Component {
                             >
                                 <Text style={[styles.inputTitle, {
                                     fontWeight: "300",
-                                    color: darkBlue
+                                    color: darkBlue,
+                                    paddingLeft: 6
                                 }]}>
                                     {!this.state.time ? "HH-MM" : this.state.time}
                                 </Text>
@@ -409,9 +415,10 @@ class Orden extends React.Component {
                         <View
                             style={{
                                 width: "95%",
-                                height: "3%",
-                                borderBottomWidth: widthPercentageToDP(0.3),
-                                borderBottomColor: "#cccccc"
+                                height: "2%",
+                                borderBottomWidth: widthPercentageToDP(0.2),
+                                borderBottomColor: darkBlue,
+                                alignSelf: "center"
                             }}
                         >
                             <TouchableOpacity
@@ -419,7 +426,8 @@ class Orden extends React.Component {
                             >
                                 <Text style={[styles.inputTitle, {
                                     fontWeight: "300",
-                                    color: darkBlue
+                                    color: darkBlue,
+                                    paddingLeft: 6
                                 }]}>
                                     {!this.state.departureTime ? "HH-MM" : this.state.departureTime}
                                 </Text>
@@ -448,7 +456,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Materiales"
+                                placeholder="Introducir materiales utilizados”"
                                 placeholderTextColor={darkBlue}
                                 style={[styles.input, {
                                     height: heightPercentageToDP(10)
@@ -468,7 +476,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Introducir No de horas"
+                                placeholder="Introducir número de horas"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.hours}
@@ -499,7 +507,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -511,17 +519,17 @@ class Orden extends React.Component {
                                     onChangeItem={item => this.setState({
                                         hourTypo: item.value
                                     })}
-                                    placeholder="tipo"
+                                    placeholder="Tipo"
                                     placeholderStyle={{
-                                        color: darkdarkBlue,
-                                        position: "absolute",
+                                        color: darkBlue,
+                                        //position: "absolute",
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
@@ -541,7 +549,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -553,16 +561,19 @@ class Orden extends React.Component {
                                     onChangeItem={item => this.setState({
                                         hourTypo: item.value
                                     })}
-                                    placeholder="tipo"
+                                    placeholder="Tipo"
                                     placeholderStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>
@@ -572,7 +583,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Anadir numeros de dieta"
+                                placeholder="Introducir importe dieta"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.diet}
@@ -588,7 +599,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="introducir resumen de Km."
+                                placeholder="Introducir numero de km realizados"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.displacement}
@@ -620,7 +631,7 @@ class Orden extends React.Component {
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Introducir observaciones."
+                                placeholder="Introducir observaciones"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.observations}
@@ -633,7 +644,7 @@ class Orden extends React.Component {
                         </View>
                         {/* new field */}
                         <Text style={styles.inputTitle}>
-                            {"Trabajo"}
+                            {"Estado trabajo"}
                         </Text>
                         {Platform.OS === "ios" ?
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
@@ -652,7 +663,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -664,17 +675,17 @@ class Orden extends React.Component {
                                     onChangeItem={item => this.setState({
                                         job: item.value
                                     })}
-                                    placeholder="trabajo"
+                                    placeholder="Seleccionar estado"
                                     placeholderStyle={{
-                                        color: darkdarkBlue,
-                                        position: "absolute",
+                                        color: darkBlue,
+                                        //position: "absolute",
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
                                     }}
                                 />
                             </View>
@@ -694,7 +705,7 @@ class Orden extends React.Component {
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
-                                        borderTopWidth: 2,
+                                        borderTopWidth: 1,
                                         borderTopColor: darkBlue,
                                     }}
                                     dropDownStyle={{
@@ -706,16 +717,19 @@ class Orden extends React.Component {
                                     onChangeItem={item => this.setState({
                                         job: item.value
                                     })}
-                                    placeholder="trabajo"
+                                    placeholder="Seleccionar estado"
                                     placeholderStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
-                                        color: darkdarkBlue,
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>

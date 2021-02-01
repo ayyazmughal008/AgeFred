@@ -3,7 +3,7 @@ import { View, FlatList, ActivityIndicator, Text, TouchableOpacity, Modal } from
 import { connect } from 'react-redux';
 import { styles } from './atyles';
 import { lightBlue, darkBlue, grey } from '../../Component/ColorCode'
-import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
+import { widthPercentageToDP, heightPercentageToDP } from '../../Component/MakeMeResponsive'
 import DatePicker from "react-native-datepicker";
 import HistoryComponent from "../../Component/TrackingHistory";
 import { data } from './data'
@@ -22,6 +22,7 @@ class History extends React.Component {
             lat: "",
             long: ""
         };
+        this.getMyDetail();
     }
     toggleMap = () => {
         this.setState({ mapModal: !this.state.mapModal })
@@ -32,6 +33,14 @@ class History extends React.Component {
             login.data.id,
             this.state.startDate,
             this.state.endDate,
+        )
+    }
+    getMyDetail = () => {
+        const { login } = this.props.user
+        this.props.getTrackingHistory(
+            login.data.id,
+            null,
+            null,
         )
     }
 
@@ -118,9 +127,12 @@ class History extends React.Component {
                         {"Enviar"}
                     </Text>
                 </TouchableOpacity>
-                <View style={styles.historyView}>
+                <View style={[styles.historyView, {
+                    height: heightPercentageToDP(60),
+                    //backgroundColor:"red"
+                }]}>
                     <View style={styles.historyTitle}>
-                        <Text style={styles.historyTitletext}>Hoy Historia</Text>
+                        <Text style={styles.historyTitletext}>{"Historial"}</Text>
                         <MaterialIcons name="history" size={30} color="#fff" />
                     </View>
                     <View style={styles.historyLabel}>

@@ -32,8 +32,8 @@ export default class Header extends React.Component {
                     style={{
                         width: widthPercentageToDP(8),
                         height: widthPercentageToDP(8),
-                        tintColor: tinit
                     }}
+                    tintColor={tinit}
                     resizeMode={FastImage.resizeMode.contain}
                 />
                 <Text
@@ -41,8 +41,8 @@ export default class Header extends React.Component {
                         fontSize: widthPercentageToDP(3),
                         fontWeight: "bold",
                         color: darkBlue,
-                        marginTop:heightPercentageToDP(0.5),
-                        textAlign:"center"
+                        marginTop: heightPercentageToDP(0.5),
+                        textAlign: "center"
                     }}>
                     {title}
                 </Text>

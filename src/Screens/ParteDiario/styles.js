@@ -189,7 +189,7 @@ export const styles = StyleSheet.create({
     },
     mainView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(25),
+        height: heightPercentageToDP(50),
         //backgroundColor: "red"
     },
     historyText: {

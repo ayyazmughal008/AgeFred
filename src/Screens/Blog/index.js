@@ -53,6 +53,7 @@ class Blog extends React.Component {
                                         description={item.description}
                                         title={item.title}
                                         urlImag={item.imagePath}
+                                        date={item.date}
                                         clickHandler={() =>
                                             this.props.navigation.navigate('DetailPage', {
                                                 img: item.imagePath,

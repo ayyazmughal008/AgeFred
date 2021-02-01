@@ -32,7 +32,8 @@ export const styles = StyleSheet.create({
         flexWrap: "wrap",
         alignItems: "center",
         borderBottomWidth: widthPercentageToDP(0.4),
-        borderBottomColor: grey
+        borderBottomColor: grey,
+        //marginTop:heightPercentageToDP(1.5)
     },
     componet1: {
         height: heightPercentageToDP(5),
@@ -47,9 +48,9 @@ export const styles = StyleSheet.create({
         textAlign: "center"
     },
     inputTitle: {
-        fontSize: widthPercentageToDP(4),
-        fontWeight: "bold",
-        color: darkGrey,
+        fontSize: widthPercentageToDP(3.5),
+        fontWeight: "300",
+        color: darkBlue,
         paddingLeft: widthPercentageToDP(4),
         paddingTop: widthPercentageToDP(2),
         textAlign: "left"
@@ -60,9 +61,10 @@ export const styles = StyleSheet.create({
     input: {
         width: widthPercentageToDP(85),
         height: heightPercentageToDP(6),
-        borderBottomWidth: widthPercentageToDP(0.2),
-        borderBottomColor: darkGrey,
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue,
         color: darkBlue,
+        fontSize:widthPercentageToDP(3.5)
         //backgroundColor:"red"
     },
     dropStyle2: {
@@ -164,6 +166,11 @@ export const styles = StyleSheet.create({
         height: heightPercentageToDP(40),
         backgroundColor: "#ffff"
     },
+    middleView2: {
+        width: widthPercentageToDP(100),
+        height: heightPercentageToDP(50),
+        backgroundColor: "#ffff",
+    },
     sliderContainer: {
         width: widthPercentageToDP(100),
         height: heightPercentageToDP(40),
@@ -258,5 +265,44 @@ export const styles = StyleSheet.create({
         fontSize: widthPercentageToDP(3),
         fontWeight: "300",
         color: "#ffff"
+    },
+    modalMain: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    crossBtn: {
+        width: widthPercentageToDP(10),
+        height: widthPercentageToDP(10),
+        borderRadius: widthPercentageToDP(10) / 2,
+        backgroundColor: "#ffff",
+        marginLeft: widthPercentageToDP(5),
+        marginTop: widthPercentageToDP(5),
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    historyTitle: {
+        width: widthPercentageToDP(100),
+        height: heightPercentageToDP(5),
+        backgroundColor: "#ffff",
+        justifyContent: "flex-start",
+        marginTop: heightPercentageToDP(2),
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        borderBottomWidth: widthPercentageToDP(0.4),
+        borderBottomColor: grey
+    },
+    historyIcon: {
+        width: widthPercentageToDP(5),
+        height: heightPercentageToDP(5),
+        marginLeft: widthPercentageToDP(3)
+    },
+    historyText: {
+        fontSize: widthPercentageToDP(3),
+        fontWeight: "bold",
+        color: darkBlue,
+        marginLeft: widthPercentageToDP(3)
     },
 })

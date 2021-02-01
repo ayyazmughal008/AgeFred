@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, ActivityIndicator, Text } from 'react-native'
+import { View, ScrollView, ActivityIndicator, Text, TouchableOpacity, TouchableWithoutFeedback, Modal, Dimensions } from 'react-native'
 import { connect } from 'react-redux';
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
@@ -9,12 +9,15 @@ import { darkBlue, darkGrey, grey } from '../../Component/ColorCode'
 import { imgData } from './imgData'
 import { SliderBox } from "react-native-image-slider-box";
 import FastImage from 'react-native-fast-image'
+import ImageZoom from 'react-native-image-pan-zoom';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 class DetailMisgasto extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            currentIndex: 0,
+            isOpen: false,
         };
     }
     render() {
@@ -48,7 +51,8 @@ class DetailMisgasto extends React.Component {
                             ImageComponent={FastImage}
                             images={images}
                             sliderBoxHeight={300}
-                            onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
+                            onCurrentImagePressed={index => this.setState({ currentIndex: index, isOpen: true })}
+                            //currentImageEmitter={index => console.log(index)}
                             dotColor="#ffff"
                             inactiveDotColor="#90A4AE"
                             dotStyle={{
@@ -125,6 +129,58 @@ class DetailMisgasto extends React.Component {
                         </View>
                     </View>
                 </View>
+                {this.state.isOpen &&
+                    <Modal
+                        transparent={true}
+                        visible={this.state.isOpen}
+                        animationType="slide"
+                        supportedOrientations={['portrait', 'landscape']}
+                        onRequestClose={() => {
+                            console.log('alert close')
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={styles.modalMain}
+                            activeOpacity={1}
+                        //onPressOut={() => this.setState({ isOpen: false })}
+                        >
+                            <View style={styles.innerModal}>
+                                <TouchableWithoutFeedback>
+                                    <View>
+                                        <TouchableOpacity
+                                            style={styles.crossBtn}
+                                            onPress={() => this.setState({ isOpen: false })}
+                                        >
+                                            <Icon
+                                                name="close"
+                                                color={darkBlue}
+                                                size={25}
+                                            />
+                                        </TouchableOpacity>
+                                        <ImageZoom
+                                            cropWidth={Dimensions.get('window').width - 50}
+                                            cropHeight={Dimensions.get('window').height - 50}
+                                            imageWidth={Dimensions.get('window').width - 20}
+                                            imageHeight={Dimensions.get('window').height - 20}>
+                                            <FastImage
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%"
+                                                }}
+                                                source={{
+                                                    uri: images[this.state.currentIndex],
+                                                    priority: FastImage.priority.normal
+                                                }}
+                                                resizeMode={FastImage.resizeMode.contain}
+
+                                            />
+                                        </ImageZoom>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </View>
+                        </TouchableOpacity>
+                    </Modal>
+                }
             </View>
         )
     }

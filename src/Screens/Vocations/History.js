@@ -22,11 +22,24 @@ import HistoryComponent from '../../Component/VocationHistory'
 import TypeHours from '../../Component/TypeHours'
 
 class HistoryClass extends React.Component {
-  state = {
-    startDate: "",
-    endDate: "",
-    hours: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: "",
+      endDate: "",
+      hours: ""
+    }
+    this.getData();
+  }
+
+  getData = () => {
+    const { login } = this.props.user
+    this.props.getHolidaysdata(
+      null,
+      null,
+      login.data.id
+    )
+  }
 
   handleSubmit = () => {
     const { login } = this.props.user
@@ -47,13 +60,13 @@ class HistoryClass extends React.Component {
 
   render() {
     const navigation = this.props.navigation;
-    const { getAllPart,getAllHolidays, AuthLoading } = this.props.user
+    const { getAllPart, getAllHolidays, AuthLoading } = this.props.user
     return (
       <View style={styles.historyConatiner}>
         {/* <MyScrollView
           bounces={false}
           contentContainerStyle={{ flexGrow: 1 }}> */}
-        <View style = {{alignItems:"center"}}>
+        <View style={{ alignItems: "center" }}>
           <View style={styles.dateView}>
             <View style={styles.selectDateView}>
               <DatePicker
@@ -62,8 +75,8 @@ class HistoryClass extends React.Component {
                 ]}
                 date={this.state.startDate}
                 mode="date"
-                placeholder="YYYY-MM-DD"
-                format="YYYY-MM-DD"
+                placeholder="DD-MM-YYYY"
+                format="DD-MM-YYYY"
                 // minDate="2019-11-04"
                 // maxDate="2099-01-01"
                 customStyles={{
@@ -98,8 +111,8 @@ class HistoryClass extends React.Component {
                 ]}
                 date={this.state.endDate}
                 mode="date"
-                placeholder="YYYY-MM-DD"
-                format="YYYY-MM-DD"
+                placeholder="DD-MM-YYYY"
+                format="DD-MM-YYYY"
                 // minDate="2019-11-04"
                 // maxDate="2099-01-01"
                 customStyles={{
@@ -125,96 +138,96 @@ class HistoryClass extends React.Component {
               />
             </View>
           </View>
-          </View>
-          <View style={styles.bottomBtnView}>
-            <TouchableOpacity
-              style={[styles.bottomBtn, {
-                marginTop: 10
-              }]}
-              onPress={() => this.handleSubmit()}>
-              <Text style={styles.bottomBtnText}>
-                {"Filtrar"}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.historyTitle}>
-            <FastImage
-              source={require('../../images/history.png')}
-              style={styles.historyIcon}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <Text style={styles.historyText}>
-              {"Historia"}
+        </View>
+        <View style={styles.bottomBtnView}>
+          <TouchableOpacity
+            style={[styles.bottomBtn, {
+              marginTop: 10
+            }]}
+            onPress={() => this.handleSubmit()}>
+            <Text style={styles.bottomBtnText}>
+              {"Filtrar"}
             </Text>
-          </View>
-          <View style={styles.mainView}>
-            <View style={styles.historyComponent}>
-              <View style={styles.componet1}>
-                <Text style={styles.componetText}>
-                  {"Fecha"}
-                </Text>
-              </View>
-              <View style={styles.componet2}>
-                <Text style={styles.componetText}>
-                  {"Motivo"}
-                </Text>
-              </View>
-              <View style={styles.componet3}>
-                <Text style={styles.componetText}>
-                  {"Dias"}
-                </Text>
-              </View>
-              <View style={styles.componet4}>
-                <Text style={styles.componetText}>
-                  {"Horas"}
-                </Text>
-              </View>
-              <View style={styles.componet5}>
-                <Text style={styles.componetText}>
-                  {"Estado"}
-                </Text>
-              </View>
-              <View style={styles.componet6}>
-                {/* <Text style={styles.componetText}>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.historyTitle}>
+          <FastImage
+            source={require('../../images/history.png')}
+            style={styles.historyIcon}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <Text style={styles.historyText}>
+            {"Historial"}
+          </Text>
+        </View>
+        <View style={styles.mainView}>
+          <View style={styles.historyComponent}>
+            <View style={styles.componet1}>
+              <Text style={styles.componetText}>
+                {"Fecha"}
+              </Text>
+            </View>
+            <View style={styles.componet2}>
+              <Text style={styles.componetText}>
+                {"Motivo"}
+              </Text>
+            </View>
+            <View style={styles.componet3}>
+              <Text style={styles.componetText}>
+                {"Días"}
+              </Text>
+            </View>
+            <View style={styles.componet4}>
+              <Text style={styles.componetText}>
+                {"Horas"}
+              </Text>
+            </View>
+            <View style={styles.componet5}>
+              <Text style={styles.componetText}>
+                {"Estado"}
+              </Text>
+            </View>
+            <View style={styles.componet6}>
+              {/* <Text style={styles.componetText}>
                   {"Conceptos"}
                 </Text> */}
-              </View>
-              {/* <View style={styles.componet7}>
+            </View>
+            {/* <View style={styles.componet7}>
                   <Text style={styles.componetText}>
                     {"Pluses"}
                   </Text>
                 </View> */}
-            </View>
-            <View style={{ flex: 1 }}>
-              <ScrollView
-                bounces={false}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}
-              >
-                {!getAllHolidays ?
-                  <View />
-                  : getAllHolidays.data.map((item, index) => {
-                    return (
-                      <HistoryComponent
-                        key={"unique" + index}
-                        type={item.type}
-                        text1={item.from}
-                        date2 = {item.to}
-                        text2={item.reason}
-                        text3={item.days}
-                        text4={item.hours}
-                        text5={item.status}
-                        text6={item.concept}
-                        bgColor={index % 2 ? "#cccccc" : "#ffff"}
-                      />
-                    )
-                  })}
-              </ScrollView>
-            </View>
           </View>
+          <View style={{ flex: 1 }}>
+            <ScrollView
+              bounces={false}
+              contentContainerStyle={{ flexGrow: 1 }}
+              showsVerticalScrollIndicator={false}
+            >
+              {!getAllHolidays ?
+                <View />
+                : getAllHolidays.data.map((item, index) => {
+                  return (
+                    <HistoryComponent
+                      key={"unique" + index}
+                      type={item.type}
+                      text1={item.from}
+                      date2={item.to}
+                      text2={item.reason}
+                      text3={item.days}
+                      text4={item.hours}
+                      text5={item.status}
+                      text6={item.concept}
+                      bgColor={index % 2 ? "#cccccc" : "#ffff"}
+                    />
+                  )
+                })}
+            </ScrollView>
+          </View>
+        </View>
 
-          {/* <TouchableOpacity style={styles.checkBox}>
+        {/* <TouchableOpacity style={styles.checkBox}>
             <FastImage
               source={require('../../images/tick.png')}
               resizeMode={FastImage.resizeMode.contain}
@@ -228,37 +241,37 @@ class HistoryClass extends React.Component {
               </Text>
             </TouchableOpacity>
           </View> */}
-          <View style={styles.lastView}>
-            {!getAllHolidays.data2 ?
-              <View />
-              : <View style={styles.bottomHourView}>
-                <Text style={[styles.hoursTitle,{
-                  fontWeight:"bold",
-                  paddingLeft:6
-                }]}>
-                  {"Total Horas"}
-                </Text>
-                <Text style={styles.hoursTitle}>
-                  {getAllHolidays.data2.Total_Horas}
-                </Text>
-              </View>
-            }
-            {!getAllHolidays.data2 ?
-              <View />
-              : <View style={styles.bottomHourView}>
-                <Text style={[styles.hoursTitle,{
-                  fontWeight:"bold",
-                  paddingLeft:6
-                }]}>
-                  {"Total Dias"}
-                </Text>
-                <Text style={styles.hoursTitle}>
-                  {getAllHolidays.data2.Total_Dias}
-                </Text>
-              </View>
-            }
-          </View>
-          <View style={{ marginTop: 45 }} />
+        <View style={styles.lastView}>
+          {!getAllHolidays.data2 ?
+            <View />
+            : <View style={styles.bottomHourView}>
+              <Text style={[styles.hoursTitle, {
+                fontWeight: "bold",
+                paddingLeft: 6
+              }]}>
+                {"Total Horas"}
+              </Text>
+              <Text style={styles.hoursTitle}>
+                {getAllHolidays.data2.Total_Horas}
+              </Text>
+            </View>
+          }
+          {!getAllHolidays.data2 ?
+            <View />
+            : <View style={styles.bottomHourView}>
+              <Text style={[styles.hoursTitle, {
+                fontWeight: "bold",
+                paddingLeft: 6
+              }]}>
+                {"Total Días"}
+              </Text>
+              <Text style={styles.hoursTitle}>
+                {getAllHolidays.data2.Total_Dias}
+              </Text>
+            </View>
+          }
+        </View>
+        <View style={{ marginTop: 45 }} />
         {/* </MyScrollView> */}
         {AuthLoading &&
           <ActivityIndicator

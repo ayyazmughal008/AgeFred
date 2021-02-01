@@ -8,7 +8,7 @@ import HTML from 'react-native-render-html';
 export default class BlogCard extends React.Component {
 
     render() {
-        const { urlImag, clickHandler, title, description } = this.props
+        const { urlImag, clickHandler, title, description, date } = this.props
         return (
             <TouchableOpacity style={{
                 width: widthPercentageToDP(90),
@@ -89,7 +89,16 @@ export default class BlogCard extends React.Component {
                         </Text>
                     </TouchableOpacity> */}
                 </View>
-
+                <Text style={{
+                    fontSize: widthPercentageToDP(3.5),
+                    fontWeight: "300",
+                    color: darkBlue,
+                    position: "absolute",
+                    bottom: "1%",
+                    right: "3%"
+                }}>
+                    {date}
+                </Text>
             </TouchableOpacity>
         )
     }

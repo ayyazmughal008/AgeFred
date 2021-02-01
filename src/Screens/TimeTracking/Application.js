@@ -16,7 +16,8 @@ import {
     timeStatus,
     startTimeTracking,
     endTimeTracking,
-    submitTimeTracking
+    submitTimeTracking,
+    getTimeCounter
 } from '../../Redux/action'
 import { styles } from "./atyles";
 import {
@@ -31,6 +32,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import HistoryComponent from "../../Component/TrackingHistory";
 import Modal1 from '../../Component/Modal'
 import { darkBlue, darkGrey } from "../../Component/ColorCode";
+import { colors } from "react-native-elements";
+import { color } from "react-native-reanimated";
 
 
 class TimeTracking extends Component {
@@ -47,7 +50,8 @@ class TimeTracking extends Component {
             promptVisible: false,
             mapModal: false,
             lat: "",
-            long: ""
+            long: "",
+            timer: null
         };
     }
 
@@ -92,6 +96,8 @@ class TimeTracking extends Component {
             });
         } else {
             try {
+                //this.updateTimer()
+                this.timer = setInterval(() => this.display_c(), 60000)
                 const granted = await PermissionsAndroid.request(
                     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                     {
@@ -224,10 +230,31 @@ class TimeTracking extends Component {
         }
     }
 
+    display_c = () => {
+        const { timeTracking, timerStatus } = this.props.user;
+        if (!timerStatus)
+            this.props.getTimeCounter(timeTracking.time.id)
+    }
+
+    // display_ct = () => {
+    //     var x = new Date();
+    //     // time part //
+
+    //     var hour = x.getHours();
+    //     var minute = x.getMinutes();
+    //     var second = x.getSeconds();
+    //     if (hour < 10) { hour = '0' + hour; }
+    //     if (minute < 10) { minute = '0' + minute; }
+    //     if (second < 10) { second = '0' + second; }
+    //     var x3 = hour + ':' + minute + ':' + second
+    //     this.setState({ timer: x3 })
+    //     this.display_c()
+    // }
+
     _keyExtractor = (item, index) => "MyKey" + index;
     render() {
-        const { timeTracking, timerStatus, AuthLoading, login } = this.props.user;
-        //console.log(this.state.location)
+        const { timeTracking, timerStatus, AuthLoading, login, counter } = this.props.user;
+        console.log(timerStatus)
         return (
             <View style={styles.container2}>
                 <View style={styles.buttonView}>
@@ -244,7 +271,7 @@ class TimeTracking extends Component {
                             this.checkPermission()
                         }}
                     >
-                        <Text style={styles.BtnText}>Start</Text>
+                        <Text style={styles.BtnText}>{"Empezar"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[
@@ -259,7 +286,7 @@ class TimeTracking extends Component {
                             this.toggleDialog()
                         }}
                     >
-                        <Text style={styles.BtnText}>Stop</Text>
+                        <Text style={styles.BtnText}>{"Finalizar"}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ width: widthPercentageToDP(100), alignItems: "center" }}>
@@ -390,11 +417,24 @@ class TimeTracking extends Component {
                 }]}>{"Tiempo total: "}{!timeTracking.time ? "" :
                     !timeTracking.time.totalTime ? ""
                         : timeTracking.time.totalTime
-                    }</Text>
+                    }
+                </Text>
+
+                {!timerStatus &&
+                    <Text style={{
+                        fontSize: widthPercentageToDP(3.5),
+                        color: darkBlue,
+                        fontWeight: "300",
+                        alignSelf: "flex-end",
+                        marginRight: widthPercentageToDP(3)
+                    }}>
+                        {!counter ? "" : !counter.data ? "" : counter.data}
+                    </Text>
+                }
 
                 <View style={styles.historyView}>
                     <View style={styles.historyTitle}>
-                        <Text style={styles.historyTitletext}>Hoy Historia</Text>
+                        <Text style={styles.historyTitletext}>{"Historial de hoy"}</Text>
                         <MaterialIcons name="history" size={30} color="#fff" />
                     </View>
                     <View style={styles.historyLabel}>
@@ -464,7 +504,7 @@ class TimeTracking extends Component {
                             this.toggleDialog();
                             this.props.endTimeTracking(login.data.id)
                         }}
-                        title="Do you really want to finish your work?"
+                        title="¿De verdad quieres terminar tu trabajo?"
                     />
                 }
                 {this.state.mapModal &&
@@ -519,5 +559,6 @@ export default connect(mapStateToProps, {
     startTimeTracking,
     timeStatus,
     endTimeTracking,
-    submitTimeTracking
+    submitTimeTracking,
+    getTimeCounter
 })(TimeTracking);

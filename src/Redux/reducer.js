@@ -23,7 +23,8 @@ import {
   EPIS_HISTORY,
   EPIS2_DATA,
   PROJECT_DETAIL,
-  CLEAR_CACHE
+  CLEAR_CACHE,
+  COUNTER
 } from "./action";
 
 const initialUserState = {
@@ -49,7 +50,8 @@ const initialUserState = {
   getGdpr: "",
   episHistory: "",
   episData2: "",
-  projectDetail: ""
+  projectDetail: "",
+  counter:""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -78,7 +80,8 @@ const userReducer = (state = initialUserState, action) => {
       getGdpr: "",
       episHistory: "",
       episData2: "",
-      projectDetail: ""
+      projectDetail: "",
+      counter:""
     };
   }
   if (action.type === CLEAR_CACHE) {
@@ -212,6 +215,12 @@ const userReducer = (state = initialUserState, action) => {
     return {
       ...state,
       projectDetail: action.payload.projectDetail
+    };
+  }
+  if (action.type === COUNTER) {
+    return {
+      ...state,
+      counter: action.payload.counter
     };
   }
   return state;

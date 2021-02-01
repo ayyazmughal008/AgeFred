@@ -15,6 +15,7 @@ class DrawerContent extends Component {
 	render() {
 		let { props } = this;
 		const { login } = this.props.user;
+		//console.log(login)
 		return (
 			<View style={{
 				flex: 1,

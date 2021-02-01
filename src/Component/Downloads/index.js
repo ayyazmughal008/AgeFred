@@ -7,11 +7,11 @@ import FastImage from 'react-native-fast-image'
 export default class Header extends React.Component {
 
     render() {
-        const { title, clickHandler, previewHandler } = this.props
+        const { title, clickHandler, previewHandler, name, date } = this.props
         return (
             <View style={{
                 width: widthPercentageToDP(90),
-                height: widthPercentageToDP(10),
+                height: widthPercentageToDP(14),
                 backgroundColor: "#ffff",
                 borderRadius: widthPercentageToDP(1),
                 marginTop: heightPercentageToDP(2),
@@ -46,25 +46,38 @@ export default class Header extends React.Component {
                             height: widthPercentageToDP(7),
                             justifyContent: "center",
                             alignItems: "center",
-                            backgroundColor: "red"
+                            backgroundColor: name === "PDF" ? "red" :
+                            name === "DOC" ? darkBlue : "orange"
                         }}>
                             <Text style={{
                                 fontSize: widthPercentageToDP(3),
                                 fontWeight: "bold",
                                 color: "#ffff"
                             }}>
-                                {"PDF"}
+                                {name}
                             </Text>
                         </View>
+                        <View>
 
-                        <Text style={{
-                            fontSize: widthPercentageToDP(4),
-                            fontWeight: "300",
-                            color: darkBlue,
-                            marginLeft: widthPercentageToDP(2)
-                        }}>
-                            {title}
-                        </Text>
+
+                            <Text style={{
+                                fontSize: widthPercentageToDP(4),
+                                fontWeight: "300",
+                                color: darkBlue,
+                                marginLeft: widthPercentageToDP(2)
+                            }}>
+                                {title}
+                            </Text>
+                            <Text style={{
+                                fontSize: widthPercentageToDP(4),
+                                fontWeight: "300",
+                                color: darkBlue,
+                                paddingTop: 3,
+                                marginLeft: widthPercentageToDP(2)
+                            }}>
+                                {date}
+                            </Text>
+                        </View>
                     </View>
                     {Platform.OS === "ios" ?
                         <TouchableOpacity
@@ -84,7 +97,7 @@ export default class Header extends React.Component {
                             alignItems: "center"
                         }}>
                             <TouchableOpacity
-                                style ={{marginRight:widthPercentageToDP(5)}}
+                                style={{ marginRight: widthPercentageToDP(5) }}
                                 onPress={clickHandler}>
                                 <FastImage
                                     source={require('../../images/pdf.png')}

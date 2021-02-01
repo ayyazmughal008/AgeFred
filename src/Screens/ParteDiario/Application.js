@@ -36,7 +36,8 @@ class Application extends React.Component {
             fifthCheck: false,
             selectedFruits: "",
             isFirst: false,
-            isSecond: false
+            isSecond: false,
+            myDate: new Date()
         };
         this.controller;
     }
@@ -106,7 +107,10 @@ class Application extends React.Component {
 
     render() {
         const navigation = this.props.navigation;
+        const { myDate } = this.state
         const { dataPart, AuthLoading, login } = this.props.user
+        let date = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
+        //console.log(date)
         //console.log(login)
         return (
             <View style={styles.appConatiner}>
@@ -123,7 +127,7 @@ class Application extends React.Component {
                         placeholder="DD-MM-YYYY"
                         format="DD-MM-YYYY"
                         // minDate="2019-11-04"
-                        // maxDate="2099-01-01"
+                        maxDate={date}
                         customStyles={{
                             datePicker: {
                                 backgroundColor: lightBlue
@@ -150,7 +154,7 @@ class Application extends React.Component {
                     <View />
                     : <DropDownPicker
                         searchable={true}
-                        searchablePlaceholder="Search for Proyecto"
+                        searchablePlaceholder="Buscar proyecto"
                         searchablePlaceholderTextColor="gray"
                         onOpen={() => this.setState({
                             isFirst: true,
@@ -235,14 +239,14 @@ class Application extends React.Component {
                         placeholder="Cantidad"
                         placeholderTextColor={darkBlue}
                         style={styles.input}
-                        maxLength = {2}
+                        maxLength={2}
                         keyboardType="email-address"
                         onChangeText={text => this.setState({ noHours: text })}
                     />
                 </View>
-                <View style={styles.conceptosTitle}>
+                {/* <View style={styles.conceptosTitle}>
                     <Text style={styles.conceptosText}>{"Conceptos"}</Text>
-                </View>
+                </View> */}
                 {/* <View style={styles.conceptos}>
                     <SelectMultiple
                         items={dataPart.data.concepts}
@@ -256,7 +260,9 @@ class Application extends React.Component {
                         zIndex={3000}
                         items={dataPart.data.concepts}
                         defaultValue={this.state.concepts}
-                        containerStyle={styles.dropStyle2}
+                        containerStyle={[styles.dropStyle2,{
+                            marginTop:30
+                        }]}
                         onOpen={() => this.setState({
                             isSecond: true,
                         })}
@@ -396,7 +402,7 @@ class Application extends React.Component {
                     onPress={() => this.handleSubmit()}
                 >
                     <Text style={styles.btntext}>
-                        {"Presentar para aprobacion"}
+                        {"Presentar para aprobación"}
                     </Text>
                 </TouchableOpacity>
                 {AuthLoading &&
