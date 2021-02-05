@@ -79,7 +79,7 @@ class HomePage extends Component {
 
     render() {
         const { AuthLoading, login, getGdpr } = this.props.user;
-        console.log("My loading", AuthLoading);
+        //console.log("My loading", AuthLoading);
         if (!getGdpr) {
             return (
                 <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>

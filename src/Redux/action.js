@@ -102,7 +102,7 @@ export const fetchLoginDetail = (dni, password) => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -131,7 +131,7 @@ export const fetchDataPart = (id) => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -184,7 +184,7 @@ export const postPartStoreData = (
     })
       .then(res => res.json())
       .then(json => {
-        // console.log(json)
+        // //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch(getAllParts(null, null, employId, list))
@@ -196,7 +196,7 @@ export const postPartStoreData = (
         }
       }).
       catch(err => {
-        console.log(err)
+        //console.log(err)
       })
   };
 }
@@ -222,7 +222,7 @@ export const getAllParts = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -254,7 +254,7 @@ export const getDocuments = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -281,7 +281,7 @@ export const getBlogs = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -308,7 +308,7 @@ export const getExpense = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -345,7 +345,7 @@ export const postExpenseData = (
   )
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
-    console.log("My array => ", imagesArray)
+    //console.log("My array => ", imagesArray)
     const body = new FormData();
     body.append('date', date);
     body.append('draft', draft);
@@ -390,13 +390,13 @@ export const postExpenseData = (
             }
           });
         } else {
-          console.log(json)
+          //console.log(json)
           alert(json.message)
         }
       })
       .catch(error => {
         dispatch({ type: AUTH_LOADING, payload: false });
-        console.log('uploadImage error:', error);
+        //console.log('uploadImage error:', error);
       });
   };
 }
@@ -421,7 +421,7 @@ export const getAllExpense = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -448,7 +448,7 @@ export const getDataHolidays = () => {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -490,7 +490,7 @@ export const postHolidayData = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           Toast.show(json.message, Toast.LONG, [
@@ -523,7 +523,7 @@ export const getHolidaysdata = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -555,7 +555,7 @@ export const getOrderNumber = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -629,7 +629,7 @@ export const postWorkStore = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           Toast.show(json.message, Toast.LONG, [
@@ -642,7 +642,7 @@ export const postWorkStore = (
       })
       .catch(err => {
         dispatch({ type: AUTH_LOADING, payload: false });
-        console.log(err)
+        //console.log(err)
       })
   };
 }
@@ -666,7 +666,7 @@ export const getAllTools = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -707,7 +707,7 @@ export const deleteDailyPart = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -739,7 +739,7 @@ export const getAllTime = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -750,13 +750,13 @@ export const getAllTime = (
           })
           if (!json.time) {
             dispatch(timeStatus(true))
-            console.log("first condition")
+            //console.log("first condition")
           } else if (!json.time.endTime) {
             dispatch(timeStatus(false))
-            console.log("second condition")
+            //console.log("second condition")
           } else {
             dispatch(timeStatus(true))
-            console.log("third condition")
+            //console.log("third condition")
           }
         } else {
           alert(json.message)
@@ -790,7 +790,7 @@ export const startTimeTracking = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        ////console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -801,14 +801,14 @@ export const startTimeTracking = (
           })
           if (!json.time) {
             dispatch(timeStatus(true))
-            console.log("first condition")
+            //console.log("first condition")
           } else if (!json.time.endTime) {
             dispatch(timeStatus(false))
             dispatch(getTimeCounter(json.time.id))
-            console.log("second condition")
+            //console.log("second condition")
           } else {
             dispatch(timeStatus(true))
-            console.log("third condition")
+            //console.log("third condition")
           }
         } else {
           alert(json.message)
@@ -833,7 +833,7 @@ export const endTimeTracking = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -844,14 +844,14 @@ export const endTimeTracking = (
           })
           if (!json.time) {
             dispatch(timeStatus(true))
-            console.log("first condition")
+            //console.log("first condition")
           } else if (!json.time.endTime) {
             dispatch(timeStatus(false))
-            console.log("second condition")
+            //console.log("second condition")
           } else {
             dispatch(timeStatus(true))
             dispatch(getTimeCounter(json.time.id))
-            console.log("third condition")
+            //console.log("third condition")
           }
         } else {
           alert(json.message)
@@ -891,7 +891,7 @@ export const submitTimeTracking = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        ////console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -902,13 +902,13 @@ export const submitTimeTracking = (
           })
           if (!json.time) {
             dispatch(timeStatus(true))
-            console.log("first condition")
+            //console.log("first condition")
           } else if (!json.time.endTime) {
             dispatch(timeStatus(false))
-            console.log("second condition")
+            //console.log("second condition")
           } else {
             dispatch(timeStatus(true))
-            console.log("third condition")
+            //console.log("third condition")
           }
         } else {
           alert(json.message)
@@ -937,7 +937,7 @@ export const getTrackingHistory = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -969,7 +969,7 @@ export const getGDPRDocument = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1005,7 +1005,7 @@ export const submitGDPRDocument = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1037,7 +1037,7 @@ export const getEpisHistory = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1071,7 +1071,7 @@ export const getEpisData2 = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        ////console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1106,7 +1106,7 @@ export const submitEpisData2 = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert("Data submit successfully")
@@ -1138,7 +1138,7 @@ export const submitEpisData1 = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           alert("Data submit successfully")
@@ -1167,7 +1167,7 @@ export const getAutoProjectDetail = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1200,7 +1200,7 @@ export const getAllUsers = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1245,7 +1245,7 @@ export const changeUserPass = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1279,7 +1279,7 @@ export const getTimeCounter = (
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({

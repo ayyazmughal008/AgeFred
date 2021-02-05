@@ -811,53 +811,53 @@ class Orden extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </ScrollView>
+                    {AuthLoading &&
+                        <ActivityIndicator
+                            color="#000"
+                            size="small"
+                            style={styles.loading}
+                        />}
+                    {this.state.TimePickerModal &&
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            mode='time'
+                            value={new Date().getTime()}
+                            is24Hour={true}
+                            display="default"
+                            onConfirm={this.handleTimePicker()}
+                            onCancel={this.handleTimePicker()}
+                            onChange={(event, date) => {
+                                this.setState({
+                                    time: moment(date).format('HH:mm')
+                                }, () => {
+                                    console.log(this.state.time)
+                                })
+                                //console.log(moment(date).format('hh:mm:ss'))
+                                //this.setTime()
+                            }}
+                        />
+                    }
+                    {this.state.TimePickerModal2 &&
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            mode='time'
+                            value={new Date().getTime()}
+                            is24Hour={true}
+                            display="default"
+                            onConfirm={this.handleTimePicker2()}
+                            onCancel={this.handleTimePicker2()}
+                            onChange={(event, date) => {
+                                this.setState({
+                                    departureTime: moment(date).format('HH:mm')
+                                }, () => {
+                                    console.log(this.state.departureTime)
+                                })
+                                //console.log(moment(date).format('hh:mm:ss'))
+                                //this.setTime()
+                            }}
+                        />
+                    }
                 </View>
-                {AuthLoading &&
-                    <ActivityIndicator
-                        color="#000"
-                        size="small"
-                        style={styles.loading}
-                    />}
-                {this.state.TimePickerModal &&
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        mode='time'
-                        value={new Date().getTime()}
-                        is24Hour={true}
-                        display="default"
-                        onConfirm={this.handleTimePicker()}
-                        onCancel={this.handleTimePicker()}
-                        onChange={(event, date) => {
-                            this.setState({
-                                time: moment(date).format('HH:mm')
-                            }, () => {
-                                console.log(this.state.time)
-                            })
-                            //console.log(moment(date).format('hh:mm:ss'))
-                            //this.setTime()
-                        }}
-                    />
-                }
-                {this.state.TimePickerModal2 &&
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        mode='time'
-                        value={new Date().getTime()}
-                        is24Hour={true}
-                        display="default"
-                        onConfirm={this.handleTimePicker2()}
-                        onCancel={this.handleTimePicker2()}
-                        onChange={(event, date) => {
-                            this.setState({
-                                departureTime: moment(date).format('HH:mm')
-                            }, () => {
-                                console.log(this.state.departureTime)
-                            })
-                            //console.log(moment(date).format('hh:mm:ss'))
-                            //this.setTime()
-                        }}
-                    />
-                }
             </KeyboardAvoidingView>
         )
     }

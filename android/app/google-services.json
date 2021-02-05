@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "837720958172",
+    "project_id": "agefred-2f6ab",
+    "storage_bucket": "agefred-2f6ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837720958172:android:94dd98bed22be9b51e8019",
+        "android_client_info": {
+          "package_name": "com.agefred"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837720958172-adv6ie3kojsfsjnhucgs4svq210edmj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcXu-zX8aJgUvbdLAF9a6OxmSxOdMIox0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837720958172-adv6ie3kojsfsjnhucgs4svq210edmj1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
