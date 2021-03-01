@@ -13,8 +13,8 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@mipmap/icon"
-      android:roundIcon="@mipmap/icon"
+      android:icon="@mipmap/ic_launcher"
+      android:roundIcon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <!-- Change the value to true to enable pop-up for in foreground on receiving remote notifications (for prevent duplicating while showing local notifications set this to false) -->
@@ -58,6 +58,9 @@
           android:name="com.google.android.geo.API_KEY"
           android:value="AIzaSyDSdO2jorR5rhK6tF-XM6T9R-TQ1Y4xKV0"/>
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <meta-data 
+          android:name="com.google.firebase.messaging.default_notification_icon" 
+          android:resource="@mipmap/ic_launcher" />
     </application>
 
 </manifest>

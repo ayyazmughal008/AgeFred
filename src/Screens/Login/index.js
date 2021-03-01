@@ -21,8 +21,8 @@ class Login extends Component {
   }
 
   render() {
-    const { AuthLoading } = this.props.user;
-    //console.log("My loading", AuthLoading);
+    const { AuthLoading , fcmToken } = this.props.user;
+    //console.log("My Token is ===>", fcmToken);
     return (
       <View
         style={styles.container}
@@ -59,7 +59,8 @@ class Login extends Component {
             onPress={() =>
               this.props.fetchLoginDetail(
                 this.state.dni,
-                this.state.password
+                this.state.password,
+                fcmToken
               )
             }
           >

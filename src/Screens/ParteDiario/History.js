@@ -29,6 +29,7 @@ class HistoryClass extends React.Component {
       hours: "",
       loading: false,
       dataSource: [],
+      multiHours: "",
       totalSelected: 0
     };
     this.getMonthlyHistory(null, null);
@@ -36,6 +37,7 @@ class HistoryClass extends React.Component {
 
   getMonthlyHistory = (from, to) => {
     const { login } = this.props.user;
+    console.log(from,to)
     this.setState({ loading: true })
     fetch('http://95.179.209.186/api/parts-get', {
       method: 'POST',
@@ -51,11 +53,12 @@ class HistoryClass extends React.Component {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json.data)
+        console.log(json)
         if (json.status === "Success") {
           this.setState({
             loading: false,
             dataSource: json.data,
+            multiHours: json
           });
         } else {
           alert(json.message)
@@ -132,7 +135,7 @@ class HistoryClass extends React.Component {
   }
 
   render() {
-    const { dataSource } = this.state
+    const { dataSource , multiHours } = this.state
     //console.log(dataSource)
     return (
       <View style={styles.historyConatiner}>
@@ -325,7 +328,7 @@ class HistoryClass extends React.Component {
           </View>
         }
         <View style={styles.lastView}>
-          {!dataSource.totalHours ?
+          {!multiHours.totalHours ?
             <View />
             : <View style={styles.bottomHourView}>
               <Text style={[styles.hoursTitle, {
@@ -335,20 +338,20 @@ class HistoryClass extends React.Component {
                 {"Total Horas"}
               </Text>
               <Text style={styles.hoursTitle}>
-                {dataSource.totalHours}
+                {multiHours.totalHours}
               </Text>
             </View>
           }
-          {!dataSource.multiHours ?
+          {!multiHours.multiHours ?
             <View />
             : <View style={styles.typeOfHoursView}>
               <View style={styles.myText}>
                 <Text style={styles.historyText}>
-                  {"Tipo de horas"}
+                  {"Concepto"}
                 </Text>
               </View>
               <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                {dataSource.multiHours.map((item, index) => {
+                {multiHours.multiHours.map((item, index) => {
                   return (
                     <TypeHours
                       name={item.name}

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ScrollView, PermissionsAndroid, Alert, ActivityIndicator, Platform, Modal, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux';
 import { Header } from 'react-native-elements'
-import { getDocuments } from '../../Redux/action'
+import { getDocuments, postDownloadStatus } from '../../Redux/action'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { styles } from './styles';
@@ -27,6 +27,9 @@ class Documents extends React.Component {
         };
         this.props.getDocuments()
     }
+
+    // ios main download status ka kam krna hai...!
+
     toggleModal = () => {
         this.setState({ isDialogOpen: !this.state.isDialogOpen })
     }
@@ -54,7 +57,8 @@ class Documents extends React.Component {
                 console.log(error)
             });
     }
-    download(fileUrl) {
+    download(fileUrl, id) {
+        const { login } = this.props.user;
         this.setState({ isUpdate: true })
         var date = new Date();
         var url = fileUrl;
@@ -73,7 +77,9 @@ class Documents extends React.Component {
             }
         }
         config(options).fetch('GET', url).then((res) => {
+            //console.log("my download response ==>", res)
             this.setState({ isUpdate: false })
+            this.props.postDownloadStatus(login.data.id, id)
             //this.setState({ isOpen: false })
             // this.props.dispatchText();
             // this.props.dispatchFuncOn();
@@ -82,7 +88,7 @@ class Documents extends React.Component {
     extention(filename) {
         return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
     }
-    requestPermission = async (url) => {
+    requestPermission = async (url, id) => {
         try {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -98,7 +104,7 @@ class Documents extends React.Component {
                 },
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                this.download(url)
+                this.download(url, id)
             } else {
                 console.log('Camera permission denied');
             }
@@ -142,10 +148,10 @@ class Documents extends React.Component {
                                         key={"unique" + index}
                                         title={item.name}
                                         name={item.fileTypeName}
-                                        date = {item.date}
+                                        date={item.date}
                                         clickHandler={() => Platform.OS === "ios" ?
-                                            this.iosDownload(item.path)
-                                            : this.requestPermission(item.path)
+                                            this.iosDownload(item.path, item.id)
+                                            : this.requestPermission(item.path, item.id)
                                         }
                                         previewHandler={() =>
                                             // this.setState({
@@ -205,4 +211,4 @@ class Documents extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getDocuments })(Documents);
+export default connect(mapStateToProps, { getDocuments, postDownloadStatus })(Documents);

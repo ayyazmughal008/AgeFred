@@ -26,6 +26,7 @@ export const EPIS2_DATA = "EPIS2_DATA";
 export const PROJECT_DETAIL = "PROJECT_DETAIL";
 export const CLEAR_CACHE = "CLEAR_CACHE";
 export const COUNTER = "COUNTER";
+export const FCM_TOKKEN = "COUNTER";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -51,6 +52,8 @@ var baseUrl = "http://95.179.209.186/api/",
   getholidays = 'holidays-get',
   holidayStore = "holiday-store",
   user = "user",
+  logout = "logout",
+  userDownloaded = "userDownloaded",
   mobGetInterval = "mobGetInterval",
   changePassword = "changePassword",
   orderNumber = "order-number",
@@ -60,7 +63,11 @@ var baseUrl = "http://95.179.209.186/api/",
   partsDelete = "parts-delete",
   documents = "documents-get";
 
-
+export const getFcmToken = (value) => {
+  return dispatch => {
+    dispatch({ type: FCM_TOKKEN, payload: value })
+  }
+}
 export const timeStatus = (value) => {
   return dispatch => {
     dispatch({ type: TIMER_STATUS, payload: value })
@@ -86,7 +93,7 @@ export const clearCache = () => {
     dispatch({ type: CLEAR_CACHE })
   }
 }
-export const fetchLoginDetail = (dni, password) => {
+export const fetchLoginDetail = (dni, password, fcm) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
     fetch(baseUrl + login, {
@@ -98,6 +105,7 @@ export const fetchLoginDetail = (dni, password) => {
       body: JSON.stringify({
         dni: dni,
         password: password,
+        fcm: fcm
       }),
     })
       .then(res => res.json())
@@ -1223,7 +1231,6 @@ export const getAllUsers = (
       });
   };
 }
-
 export const changeUserPass = (
   id,
   newPass,
@@ -1261,7 +1268,6 @@ export const changeUserPass = (
       });
   };
 }
-
 export const getTimeCounter = (
   id,
 ) => {
@@ -1288,6 +1294,62 @@ export const getTimeCounter = (
               counter: json
             }
           });
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const postDownloadStatus = (
+  userId,
+  documentId
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + userDownloaded, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: userId,
+        documentId: documentId
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+
+        } else {
+          alert(json.message)
+        }
+      });
+  };
+}
+export const logoutNotify = (
+  id
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + logout, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+
         } else {
           alert(json.message)
         }

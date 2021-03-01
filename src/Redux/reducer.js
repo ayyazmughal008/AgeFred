@@ -24,7 +24,8 @@ import {
   EPIS2_DATA,
   PROJECT_DETAIL,
   CLEAR_CACHE,
-  COUNTER
+  COUNTER,
+  FCM_TOKKEN
 } from "./action";
 
 const initialUserState = {
@@ -51,7 +52,8 @@ const initialUserState = {
   episHistory: "",
   episData2: "",
   projectDetail: "",
-  counter:""
+  counter: "",
+  fcmToken: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -81,8 +83,14 @@ const userReducer = (state = initialUserState, action) => {
       episHistory: "",
       episData2: "",
       projectDetail: "",
-      counter:""
+      counter: ""
     };
+  }
+  if (action.type === FCM_TOKKEN) {
+    return {
+      ...state,
+      fcmToken: action.payload
+    }
   }
   if (action.type === CLEAR_CACHE) {
     return {

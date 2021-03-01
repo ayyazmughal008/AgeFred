@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerItems } from 'react-navigation-drawer';
-import { logOut } from '../../Redux/action'
+import { logOut, logoutNotify } from '../../Redux/action'
 import { widthPercentageToDP, heightPercentageToDP } from '../../Component/MakeMeResponsive'
 import { darkBlue, orangae } from '../../Component/ColorCode'
 import FastImage from 'react-native-fast-image'
 import { connect } from "react-redux";
+import Package from '../../../package.json'
 
 class DrawerContent extends Component {
 	state = {
@@ -81,6 +82,7 @@ class DrawerContent extends Component {
 							{login.data.level}
 						</Text>
 					</View>
+
 					<TouchableOpacity
 						style={{
 							width: "100%",
@@ -176,7 +178,7 @@ class DrawerContent extends Component {
 					<TouchableOpacity
 						style={{
 							position: "absolute",
-							bottom: "2%",
+							bottom: "4%",
 							width: "100%",
 							height: "5%",
 							alignContent: "center",
@@ -184,7 +186,8 @@ class DrawerContent extends Component {
 							//backgroundColor:"red"
 						}}
 						onPress={() => {
-							this.props.logOut(),
+							this.props.logoutNotify(login.data.id),
+								this.props.logOut(),
 								this.props.navigation.navigate('Login')
 						}}
 					>
@@ -198,6 +201,18 @@ class DrawerContent extends Component {
 							{"Logout"}
 						</Text>
 					</TouchableOpacity>
+					<Text
+						style={{
+							fontSize: widthPercentageToDP(3.5),
+							color: darkBlue,
+							fontWeight: "300",
+							position: "absolute",
+							bottom: "1.5%",
+							alignSelf: "center"
+						}}
+					>
+						{"app version: "}{Package.version}
+					</Text>
 					<DrawerItems {...props} />
 					{/* <View style={{ height: '30%' }}></View> */}
 				</ScrollView>
@@ -210,4 +225,4 @@ class DrawerContent extends Component {
 const mapStateToProps = state => ({
 	user: state.user
 });
-export default connect(mapStateToProps, { logOut })(DrawerContent);
+export default connect(mapStateToProps, { logOut, logoutNotify })(DrawerContent);

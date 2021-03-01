@@ -79,7 +79,7 @@ class HomePage extends Component {
 
     render() {
         const { AuthLoading, login, getGdpr } = this.props.user;
-        //console.log("My loading", AuthLoading);
+        //console.log("My loading", login);
         if (!getGdpr) {
             return (
                 <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
@@ -234,11 +234,11 @@ class HomePage extends Component {
                                 />
                             </View>
                             <View style={styles.menuView}>
-                                <Card
+                                {/* <Card
                                     iconName={require('./assets/7.png')}
                                     title="Parte de trabajo"
                                     clickHandler={() => this.props.navigation.navigate('Orden')}
-                                />
+                                /> */}
                                 <Card
                                     iconName={require('../../images/clock.png')}
                                     title="Registro de jornada"

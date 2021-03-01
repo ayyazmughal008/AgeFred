@@ -194,7 +194,7 @@ class MisGastos extends React.Component {
                             }}>{this.state.toDate}</Text>
                         </View>
                         <Text style={styles.inputTitle}>
-                            {"Proyecto"}
+                            {"Proyecto – Tarea"}
                         </Text>
                         {Platform.OS === "ios" ?
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
@@ -380,11 +380,11 @@ class MisGastos extends React.Component {
                             </View>
                         }
                         <Text style={styles.inputTitle}>
-                            {"Importe de gasto / Kilometraje"}
+                            {"Importe gasto (incluye IVA)"}
                         </Text>
                         <View style={{ alignItems: "center" }}>
                             <TextInput
-                                placeholder="Indicar importe"
+                                placeholder="Importe gasto"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
                                 value={this.props.importe}
