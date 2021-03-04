@@ -33,12 +33,12 @@ export const styles = StyleSheet.create({
         alignItems:"center"
     },
     forgetPass: {
-        fontSize: widthPercentageToDP(4),
+        fontSize: widthPercentageToDP(3),
         color: "grey",
         fontWeight: "300"
     },
     forgetClick: {
-        fontSize: widthPercentageToDP(4),
+        fontSize: widthPercentageToDP(3),
         color: darkBlue,
         fontWeight: "300"
     },

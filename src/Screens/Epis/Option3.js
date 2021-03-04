@@ -5,7 +5,8 @@ import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 import Table from '../../Component/EpisTable3'
 import { connect } from 'react-redux';
 import { getEpisHistory } from '../../Redux/action'
@@ -39,6 +40,25 @@ class EpisHistory extends React.Component {
             width: width
         })
     }
+    UNSAFE_componentWillMount() {
+        //The getOrientation method is async. It happens sometimes that
+        //you need the orientation at the moment the js starts running on device.
+        //getInitialOrientation returns directly because its a constant set at the
+        //beginning of the js code.
+        var initial = Orientation.getInitialOrientation();
+        if (initial === 'PORTRAIT') {
+            Orientation.lockToLandscapeLeft()
+            console.log("land")
+            //do stuff
+        } else {
+            console.log("portrate")
+        }
+    }
+    test = () => {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait();
+        Orientation.removeOrientationListener(this._onOrientationDidChange);
+    }
     _onOrientationDidChange = (orientation) => {
         if (orientation == 'PORTRAIT') {
             Orientation.lockToLandscapeLeft();
@@ -49,7 +69,6 @@ class EpisHistory extends React.Component {
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
     componentWillUnmount() {
-        Orientation.unlockAllOrientations()
         Orientation.removeOrientationListener(this._onOrientationDidChange);
     }
     updateImage = (img) => {
@@ -65,7 +84,10 @@ class EpisHistory extends React.Component {
                 <Header
                     leftComponent={
                         <MenuImage
-                            leftClick={() => this.props.navigation.goBack()}
+                            leftClick={() => {
+                                this.test();
+                                this.props.navigation.goBack()
+                            }}
                             rightIcon="chevron-thin-left"
                         />
                     }

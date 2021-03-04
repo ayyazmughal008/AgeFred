@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import PushNotification from 'react-native-push-notification'
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import messaging from '@react-native-firebase/messaging'
 import NavigationService from '../navigator/navigationService';
 const RemotePushController = (props) => {
@@ -11,6 +12,7 @@ const RemotePushController = (props) => {
             },
             // (required) Called when a remote or local notification is opened or received
             onNotification: function (notification) {
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
                 // let naviType = "";
                 // naviType = notification.data.type;
                 // console.log(naviType)

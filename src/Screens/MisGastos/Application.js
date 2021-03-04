@@ -197,46 +197,50 @@ class MisGastos extends React.Component {
                             {"Proyecto – Tarea"}
                         </Text>
                         {Platform.OS === "ios" ?
-                            <View style={{ alignItems: "center", zIndex: 5000 }}>
+                            <View style={{ alignItems: "center", zIndex: 8000 }}>
                                 <DropDownPicker
                                     searchable={true}
                                     searchablePlaceholder="Buscar proyecto"
                                     searchablePlaceholderTextColor="gray"
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
+                                    zIndex={8000}
                                     items={dataPart.data.projects}
                                     defaultValue={this.state.project}
                                     containerStyle={styles.dropStyle2}
                                     style={{
                                         backgroundColor: '#ffff',
-                                        borderWidth: 0,
-                                        borderColor: "#ffff",
-                                        zIndex: 4
+                                        borderBottomWidth: 1,
+                                        borderBottomColor: grey,
+                                        borderTopWidth: 0,
+                                        borderLeftWidth: 0,
+                                        borderRightWidth: 0,
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
                                         borderTopWidth: 2,
                                         borderTopColor: grey,
-                                        zIndex: 4
                                     }}
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
-                                        zIndex: 4,
-                                        backgroundColor: lightBlue
+
                                     }}
                                     onChangeItem={item => this.setState({
                                         project: item.value
                                     })}
                                     placeholder="Proyecto / Tarea"
                                     placeholderStyle={{
-                                        color: darkBlue
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     labelStyle={{
-                                        color: darkBlue
+                                        color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>
@@ -298,7 +302,6 @@ class MisGastos extends React.Component {
                                     defaultValue={this.state.comido}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
-                                    zIndex={5000}
                                     style={{
                                         backgroundColor: '#ffff',
                                         borderBottomWidth: 1,
@@ -315,6 +318,7 @@ class MisGastos extends React.Component {
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
+                                        backgroundColor: lightBlue
 
                                     }}
                                     onChangeItem={item => this.setState({
@@ -323,14 +327,16 @@ class MisGastos extends React.Component {
                                     placeholder="Motivo de gasto"
                                     placeholderStyle={{
                                         color: darkBlue,
-                                        position: "absolute",
+                                        fontSize: widthPercentageToDP(3)
                                         //left: "-3%"
                                     }}
                                     labelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                     selectedLabelStyle={{
                                         color: darkBlue,
+                                        fontSize: widthPercentageToDP(3)
                                     }}
                                 />
                             </View>

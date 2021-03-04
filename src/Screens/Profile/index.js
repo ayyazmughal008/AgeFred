@@ -42,11 +42,18 @@ class Profile extends Component {
 
                 <View style={styles.mainContainer}>
                     <View style={styles.profileContainer}>
-                        <FastImage
-                            source={{uri : login.data.profilePicture}}
-                            resizeMode={FastImage.resizeMode.cover}
-                            style={styles.profileImg}
-                        />
+                        {!login.data.profilePicture ?
+                            <FastImage
+                                source={ require('../../images/profile_img.png')}
+                                resizeMode={FastImage.resizeMode.cover}
+                                style={styles.profileImg}
+                            />
+                            : <FastImage
+                                source={{ uri: login.data.profilePicture }}
+                                resizeMode={FastImage.resizeMode.cover}
+                                style={styles.profileImg}
+                            />
+                        }
                         <View style={styles.topView}>
                             <Text style={styles.topTitle}>{login.data.name}</Text>
                             <Text style={styles.bottomTitle}>{login.data.level}</Text>
@@ -101,19 +108,19 @@ class Profile extends Component {
                                 {"GDPR :"}
                             </Text>
                             <FastImage
-                                source = {require('../../images/tick.png')}
-                                style = {styles.tick}
-                                resizeMode = {FastImage.resizeMode.cover}
-                                tintColor = "green"
+                                source={require('../../images/tick.png')}
+                                style={styles.tick}
+                                resizeMode={FastImage.resizeMode.cover}
+                                tintColor="green"
                             />
 
                             <TouchableOpacity
-                                onPress={()=> this.props.navigation.navigate('GDPR')}
+                                onPress={() => this.props.navigation.navigate('GDPR')}
                                 style={styles.eyeBtn}
                             >
                                 <Icon
                                     name="eye"
-                                    color= {darkBlue}
+                                    color={darkBlue}
                                     size={20}
                                 />
                             </TouchableOpacity>
@@ -123,10 +130,10 @@ class Profile extends Component {
                                 {"Contrato :"}
                             </Text>
                             <FastImage
-                                source = {require('../../images/tick.png')}
-                                style = {styles.tick}
-                                resizeMode = {FastImage.resizeMode.cover}
-                                tintColor = "green"
+                                source={require('../../images/tick.png')}
+                                style={styles.tick}
+                                resizeMode={FastImage.resizeMode.cover}
+                                tintColor="green"
                             />
                             <TouchableOpacity
                                 //onPress={leftClick}
@@ -134,7 +141,7 @@ class Profile extends Component {
                             >
                                 <Icon
                                     name="eye"
-                                    color= {darkBlue}
+                                    color={darkBlue}
                                     size={20}
                                 />
                             </TouchableOpacity>

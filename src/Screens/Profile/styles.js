@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     profileContainer:{
         width:widthPercentageToDP(100),
         alignItems:"center",
-        height:heightPercentageToDP(22),
+        height:heightPercentageToDP(30),
         marginTop:heightPercentageToDP(2),
         //backgroundColor:"green"
     },
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     },
     profileBox: {
         width:widthPercentageToDP(90),
-        height:heightPercentageToDP(30),
+        height:heightPercentageToDP(35),
         backgroundColor:"#ffff",
         borderRadius: widthPercentageToDP(1),
         marginTop:heightPercentageToDP(2),
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     },
     profileTextView:{
         width:widthPercentageToDP(85),
-        height:heightPercentageToDP(6),
+        height:heightPercentageToDP(7),
         borderBottomWidth: widthPercentageToDP(0.3),
         borderBottomColor: darkBlue,
         flexDirection:"row",
@@ -76,10 +76,11 @@ export const styles = StyleSheet.create({
     },
     profileTextViewLast:{
         width:widthPercentageToDP(85),
-        height:heightPercentageToDP(6),
+        height:heightPercentageToDP(7),
         flexDirection:"row",
         flexWrap : "wrap",
         alignItems:"center",
+        //backgroundColor : "red"
     },
     boldText:{
         fontSize: widthPercentageToDP(3.5),
@@ -94,7 +95,7 @@ export const styles = StyleSheet.create({
     },
     bottomView:{
         width:widthPercentageToDP(90),
-        height:heightPercentageToDP(12),
+        height:heightPercentageToDP(15),
         backgroundColor:"#ffff",
         borderRadius: widthPercentageToDP(1),
         marginTop:heightPercentageToDP(2),

@@ -234,16 +234,16 @@ class History extends React.Component {
                                         placeholderStyle={{
                                             color: darkBlue,
                                             //position: "absolute",
-                                            //fontSize: widthPercentageToDP(3.5)
+                                            fontSize: widthPercentageToDP(3)
                                         }}
                                         labelStyle={{
                                             color: darkBlue,
-                                            //fontSize: widthPercentageToDP(3.5),
+                                            fontSize: widthPercentageToDP(3),
                                             //fontWeight: "bold"
                                         }}
                                         selectedLabelStyle={{
                                             color: darkBlue,
-                                            //fontSize: widthPercentageToDP(3.5)
+                                            fontSize: widthPercentageToDP(3)
                                         }}
                                     />
                                 </View>

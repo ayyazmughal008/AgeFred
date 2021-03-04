@@ -6,7 +6,8 @@ import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 import { connect } from 'react-redux';
 import { getAllTools, getEpisData2 } from '../../Redux/action'
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
@@ -29,6 +30,25 @@ class Epis extends React.Component {
             width: width
         })
     }
+    test = () => {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait()
+        Orientation.removeOrientationListener(this._onOrientationDidChange);
+    }
+    UNSAFE_componentWillMount() {
+        //The getOrientation method is async. It happens sometimes that
+        //you need the orientation at the moment the js starts running on device.
+        //getInitialOrientation returns directly because its a constant set at the
+        //beginning of the js code.
+        var initial = Orientation.getInitialOrientation();
+        if (initial === 'LANDSCAPE') {
+            Orientation.lockToPortrait()
+            console.log("hii")
+            //do stuff
+        }else{
+            console.log("hii 2")
+        }
+    }
     _onOrientationDidChange = (orientation) => {
         if (orientation == 'LANDSCAPE') {
             Orientation.lockToPortrait();
@@ -39,7 +59,6 @@ class Epis extends React.Component {
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
     componentWillUnmount() {
-        Orientation.unlockAllOrientations()
         Orientation.removeOrientationListener(this._onOrientationDidChange);
     }
 
@@ -69,12 +88,18 @@ class Epis extends React.Component {
                     <Card
                         iconName={require('../Home/assets/4.png')}
                         title="Estado / Control EPI’s"
-                        clickHandler={() => this.props.getAllTools(login.data.employRoleId, login.data.id)}
+                        clickHandler={() => {
+                            this.test();
+                            this.props.getAllTools(login.data.employRoleId, login.data.id)
+                        }}
                     />
                     <Card
                         iconName={require('../Home/assets/4.png')}
                         title="Nuevas Solicitudes"
-                        clickHandler={() => this.props.getEpisData2(login.data.employRoleId, login.data.id)}
+                        clickHandler={() => {
+                            this.test();
+                            this.props.getEpisData2(login.data.employRoleId, login.data.id)
+                        }}
                     />
 
                 </View>
@@ -86,7 +111,10 @@ class Epis extends React.Component {
                     <Card
                         iconName={require('../Home/assets/4.png')}
                         title="Histórico de entregados"
-                        clickHandler={() => this.props.navigation.navigate('Option3')}
+                        clickHandler={() => {
+                            this.test()
+                            this.props.navigation.navigate('Option3')
+                        }}
                     />
                 </View>
                 {AuthLoading &&

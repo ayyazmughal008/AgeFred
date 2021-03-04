@@ -6,7 +6,8 @@ import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
 import { darkBlue } from '../../Component/ColorCode'
-import Orientation from 'react-native-orientation';
+// import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 import Table from '../../Component/EpisTable'
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
@@ -30,6 +31,11 @@ class Epis extends React.Component {
             loading: false,
             isBtnEnable: true
         };
+    }
+    test = () => {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait();
+        Orientation.removeOrientationListener(this._onOrientationDidChange);
     }
     toggleDiloge = () => {
         this.setState({ dilaogStatus: !this.state.dilaogStatus })
@@ -95,6 +101,20 @@ class Epis extends React.Component {
             width: width
         })
     }
+    UNSAFE_componentWillMount() {
+        //The getOrientation method is async. It happens sometimes that
+        //you need the orientation at the moment the js starts running on device.
+        //getInitialOrientation returns directly because its a constant set at the
+        //beginning of the js code.
+        var initial = Orientation.getInitialOrientation();
+        if (initial === 'PORTRAIT') {
+            Orientation.lockToLandscapeLeft()
+            console.log("land")
+            //do stuff
+        } else {
+            console.log("portrate")
+        }
+    }
     _onOrientationDidChange = (orientation) => {
         if (orientation == 'PORTRAIT') {
             Orientation.lockToLandscapeLeft();
@@ -106,7 +126,6 @@ class Epis extends React.Component {
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
     componentWillUnmount() {
-        Orientation.unlockAllOrientations()
         Orientation.removeOrientationListener(this._onOrientationDidChange);
     }
     updateArray = () => {
@@ -228,13 +247,17 @@ class Epis extends React.Component {
                         <MenuImage
                             leftClick={() => {
                                 isHome === "yes" ?
-                                    this.props.navigation.dispatch(
-                                        StackActions.reset({
-                                            index: 0,
-                                            actions: [NavigationActions.navigate({ routeName: "Home" })]
-                                        })
+                                    (this.test(),
+                                        this.props.navigation.dispatch(
+                                            StackActions.reset({
+                                                index: 0,
+                                                actions: [NavigationActions.navigate({ routeName: "Home" })]
+                                            })
+                                        ))
+                                    : (
+                                        this.test(),
+                                        this.props.navigation.goBack()
                                     )
-                                    : this.props.navigation.goBack()
                             }}
                             rightIcon="chevron-thin-left"
                         />
@@ -307,7 +330,10 @@ class Epis extends React.Component {
                         <View style={styles.bottom1}>
                             <TouchableOpacity
                                 style={styles.confirmBtn}
-                                onPress={() => { this.submitData() }}
+                                onPress={() => { 
+                                    this.test()
+                                    this.submitData() 
+                                }}
                             >
                                 <Text style={styles.btnText}>{"Save"}</Text>
                             </TouchableOpacity>

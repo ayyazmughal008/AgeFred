@@ -46,24 +46,38 @@ class DrawerContent extends Component {
 							resizeMode={FastImage.resizeMode.contain}
 						/>
 					</FastImage>
-					<FastImage
-						source={{ uri: login.data.profilePicture }}
-						resizeMode={FastImage.resizeMode.cover}
-						style={{
-							width: widthPercentageToDP(30),
-							height: widthPercentageToDP(30),
-							borderRadius: widthPercentageToDP(30) / 2,
-							position: "absolute",
-							top: "17%",
-							left: "29%"
-						}}
-					/>
+					{!login.data.profilePicture ?
+						<FastImage
+							source={require('../../images/profile_img.png')}
+							resizeMode={FastImage.resizeMode.cover}
+							style={{
+								width: widthPercentageToDP(30),
+								height: widthPercentageToDP(30),
+								borderRadius: widthPercentageToDP(30) / 2,
+								position: "absolute",
+								top: "17%",
+								left: "29%"
+							}}
+						/>
+						: <FastImage
+							source={{ uri: login.data.profilePicture }}
+							resizeMode={FastImage.resizeMode.cover}
+							style={{
+								width: widthPercentageToDP(30),
+								height: widthPercentageToDP(30),
+								borderRadius: widthPercentageToDP(30) / 2,
+								position: "absolute",
+								top: "17%",
+								left: "29%"
+							}}
+						/>
+					}
 					<View style={{
 						width: "100%",
 						height: "5%",
 						justifyContent: "center",
 						alignItems: "center",
-						marginTop: "22%",
+						marginTop: "25%",
 						//backgroundColor:"red"
 					}}>
 						<Text
