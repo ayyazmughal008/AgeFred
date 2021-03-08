@@ -37,7 +37,7 @@ class HistoryClass extends React.Component {
 
   getMonthlyHistory = (from, to) => {
     const { login } = this.props.user;
-    console.log(from,to)
+    console.log(from, to)
     this.setState({ loading: true })
     fetch('http://95.179.209.186/api/parts-get', {
       method: 'POST',
@@ -135,7 +135,7 @@ class HistoryClass extends React.Component {
   }
 
   render() {
-    const { dataSource , multiHours } = this.state
+    const { dataSource, multiHours } = this.state
     //console.log(dataSource)
     return (
       <View style={styles.historyConatiner}>
@@ -156,7 +156,8 @@ class HistoryClass extends React.Component {
               // maxDate="2099-01-01"
               customStyles={{
                 datePicker: {
-                  backgroundColor: lightBlue
+                  backgroundColor: "#98AFC7",
+                  justifyContent: 'center'
                 },
                 dateInput: {
                   borderWidth: 0
@@ -192,7 +193,8 @@ class HistoryClass extends React.Component {
               // maxDate="2099-01-01"
               customStyles={{
                 datePicker: {
-                  backgroundColor: lightBlue
+                  backgroundColor: "#98AFC7",
+                  justifyContent: 'center'
                 },
                 dateInput: {
                   borderWidth: 0

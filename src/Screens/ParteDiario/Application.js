@@ -130,7 +130,8 @@ class Application extends React.Component {
                         maxDate={date}
                         customStyles={{
                             datePicker: {
-                                backgroundColor: lightBlue
+                                backgroundColor: "#98AFC7",
+                                justifyContent: 'center'
                             },
                             dateInput: {
                                 borderWidth: 0

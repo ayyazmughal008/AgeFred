@@ -263,7 +263,7 @@ class TimeTracking extends Component {
                             styles.endBtn,
                             {
                                 backgroundColor:
-                                    timerStatus === true ? "#0943af" : "#6495ED"
+                                    timerStatus === true ? "#32CD32" : "#FF0000"
                             }
                         ]}
                         disabled={timerStatus === true ? false : true}
@@ -278,7 +278,7 @@ class TimeTracking extends Component {
                             styles.endBtn,
                             {
                                 backgroundColor:
-                                    timerStatus === true ? "#6495ED" : "#0943af"
+                                    timerStatus === true ? "#FF0000" : "#32CD32"
                             }
                         ]}
                         disabled={timerStatus === true ? true : false}

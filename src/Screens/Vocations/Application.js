@@ -311,7 +311,8 @@ class History extends React.Component {
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
-                                                    backgroundColor: lightBlue
+                                                    backgroundColor: "#98AFC7",
+                                                    justifyContent: 'center'
                                                 },
                                                 dateInput: {
                                                     borderWidth: 0
@@ -348,7 +349,8 @@ class History extends React.Component {
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
-                                                    backgroundColor: lightBlue
+                                                    backgroundColor: "#98AFC7",
+                                                    justifyContent: 'center'
                                                 },
                                                 dateInput: {
                                                     borderWidth: 0
@@ -497,7 +499,8 @@ class History extends React.Component {
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
-                                                    backgroundColor: lightBlue
+                                                    backgroundColor: "#98AFC7",
+                                                    justifyContent: 'center'
                                                 },
                                                 dateInput: {
                                                     borderWidth: 0

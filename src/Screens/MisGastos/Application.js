@@ -415,7 +415,8 @@ class MisGastos extends React.Component {
                                 maxDate={date}
                                 customStyles={{
                                     datePicker: {
-                                        backgroundColor: "#ffff"
+                                        backgroundColor: "#98AFC7",
+                                        justifyContent: 'center'
                                     },
                                     dateInput: {
                                         borderBottomWidth: widthPercentageToDP(0.1),
