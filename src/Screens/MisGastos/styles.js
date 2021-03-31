@@ -168,7 +168,7 @@ export const styles = StyleSheet.create({
     },
     middleView2: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(50),
+        height: heightPercentageToDP(30),
         backgroundColor: "#ffff",
     },
     sliderContainer: {
@@ -304,5 +304,69 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: darkBlue,
         marginLeft: widthPercentageToDP(3)
+    },
+    lastView: {
+        width: widthPercentageToDP(100),
+        alignItems: "center",
+        marginTop: heightPercentageToDP(0.5)
+    },
+    bottomHourView: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(4),
+        backgroundColor: "#ffff",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingLeft: widthPercentageToDP(1),
+        paddingRight: widthPercentageToDP(1)
+    },
+    hoursTitle: {
+        fontSize: widthPercentageToDP(3),
+        fontWeight: "300",
+        color: darkBlue,
+        textAlign: "center"
+    },
+    conceptos: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(25),
+        //marginTop:heightPercentageToDP(1)
+    },
+    conceptosTitle: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(5),
+        backgroundColor: "#ffff",
+        marginTop: heightPercentageToDP(2),
+        //marginBottom:heightPercentageToDP(1),
+        justifyContent: "center"
+    },
+    conceptosText: {
+        fontSize: widthPercentageToDP(3.3),
+        fontWeight: "500",
+        color: darkBlue,
+        paddingLeft: widthPercentageToDP(3.5)
+    },
+    typeOfHoursView: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(15),
+        backgroundColor: "#ffff",
+        marginTop: heightPercentageToDP(1)
+    },
+    myText: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(3),
+        backgroundColor: "#ffff",
+        //marginTop:heightPercentageToDP(1),
+        justifyContent: "center",
+        borderBottomWidth: widthPercentageToDP(0.2),
+        borderBottomColor: darkGrey
+    },
+    list: {
+        //paddingVertical: 5,
+        //margin: 3,
+        flexDirection: "row",
+        backgroundColor: "#ffff",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        zIndex: -1
     },
 })

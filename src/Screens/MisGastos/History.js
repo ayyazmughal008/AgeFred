@@ -10,6 +10,7 @@ import { data } from './data'
 import { getAllExpense } from '../../Redux/action'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import FastImage from 'react-native-fast-image'
+import TypeHours from '../../Component/TypeHours'
 class History extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,8 @@ class History extends React.Component {
             endDate: "",
             loading: false,
             dataSource: [],
-            totalSelected: 0
+            totalSelected: 0,
+            expense: ""
         };
         this.getDetail();
     }
@@ -40,11 +42,12 @@ class History extends React.Component {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json.data)
+                console.log("misgesto data===>", json)
                 if (json.status === "Success") {
                     this.setState({
                         loading: false,
                         dataSource: json.data,
+                        expense: json
                     });
                 } else {
                     alert(json.message)
@@ -107,7 +110,7 @@ class History extends React.Component {
     }
 
     render() {
-        const { dataSource } = this.state
+        const { dataSource, expense } = this.state
         console.log(this.state.totalSelected)
         return (
             <View style={styles.container2}>
@@ -284,6 +287,42 @@ class History extends React.Component {
 
                     </View>
                 }
+                <View style={styles.lastView}>
+                    {!expense.totalExpenses ?
+                        <View />
+                        : <View style={styles.bottomHourView}>
+                            <Text style={[styles.hoursTitle, {
+                                fontWeight: "bold",
+                                paddingLeft: 6
+                            }]}>
+                                {"Total Importe"}
+                            </Text>
+                            <Text style={styles.hoursTitle}>
+                                {expense.totalExpenses}
+                            </Text>
+                        </View>
+                    }
+                    {!expense.multiExpenses ?
+                        <View />
+                        : <View style={styles.typeOfHoursView}>
+                            <View style={styles.myText}>
+                                <Text style={styles.historyText}>
+                                    {"Motivo"}
+                                </Text>
+                            </View>
+                            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                                {expense.multiExpenses.map((item, index) => {
+                                    return (
+                                        <TypeHours
+                                            name={item.name}
+                                            value={item.amount}
+                                        />
+                                    )
+                                })}
+                            </ScrollView>
+                        </View>
+                    }
+                </View>
                 {this.state.totalSelected > 0 &&
                     <View style={styles.bottomBtnView}>
                         <TouchableOpacity

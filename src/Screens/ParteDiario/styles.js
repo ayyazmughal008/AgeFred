@@ -189,7 +189,7 @@ export const styles = StyleSheet.create({
     },
     mainView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(37),
+        height: heightPercentageToDP(34),
         //backgroundColor: "red"
     },
     historyText: {
@@ -301,7 +301,7 @@ export const styles = StyleSheet.create({
     lastView: {
         width: widthPercentageToDP(100),
         alignItems: "center",
-        marginTop: heightPercentageToDP(1)
+        marginTop: heightPercentageToDP(0.5)
     },
     bottomHourView: {
         width: widthPercentageToDP(90),

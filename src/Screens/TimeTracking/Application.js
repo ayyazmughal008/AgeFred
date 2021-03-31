@@ -263,7 +263,7 @@ class TimeTracking extends Component {
                             styles.endBtn,
                             {
                                 backgroundColor:
-                                    timerStatus === true ? "#32CD32" : "#FF0000"
+                                    timerStatus === true ? "#32CD32" : "#32CD32"
                             }
                         ]}
                         disabled={timerStatus === true ? false : true}
@@ -271,14 +271,14 @@ class TimeTracking extends Component {
                             this.checkPermission()
                         }}
                     >
-                        <Text style={styles.BtnText}>{"Empezar"}</Text>
+                        <Text style={styles.BtnText}>{"INICIO"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[
                             styles.endBtn,
                             {
                                 backgroundColor:
-                                    timerStatus === true ? "#FF0000" : "#32CD32"
+                                    timerStatus === true ? "#FF0000" : "#FF0000"
                             }
                         ]}
                         disabled={timerStatus === true ? true : false}
@@ -286,7 +286,7 @@ class TimeTracking extends Component {
                             this.toggleDialog()
                         }}
                     >
-                        <Text style={styles.BtnText}>{"Finalizar"}</Text>
+                        <Text style={styles.BtnText}>{"FIN"}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ width: widthPercentageToDP(100), alignItems: "center" }}>
