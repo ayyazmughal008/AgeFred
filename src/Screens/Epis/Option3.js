@@ -1,19 +1,20 @@
 import React from 'react'
-import { View, Text, ActivityIndicator, ScrollView, Modal, Dimensions, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView, Modal, Dimensions, TouchableWithoutFeedback, TouchableOpacity, SafeAreaView } from 'react-native'
 import { styles } from './styles'
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
-import { darkBlue } from '../../Component/ColorCode'
+import { darkBlue, lightBlue } from '../../Component/ColorCode'
 // import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
-import Table from '../../Component/EpisTable3'
+//import Table from '../../Component/EpisTable3'
 import { connect } from 'react-redux';
 import { getEpisHistory } from '../../Redux/action'
 import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImageZoom from 'react-native-image-pan-zoom';
 import FastImage from 'react-native-fast-image'
+import { Table, Row, Rows } from 'react-native-table-component';
 
 class EpisHistory extends React.Component {
     constructor(props) {
@@ -22,7 +23,12 @@ class EpisHistory extends React.Component {
             width: 0,
             height: 0,
             isOpen: false,
-            currentImage: ""
+            currentImage: "",
+            tableHead: ['Epi', 'Fecha de entrega', 'Fecha de caducidad', 'Nº Serie', 'Talla', 'Comentario'],
+            tableData:
+                [["Tool 1", "2023-02-02", "2025-03-03", "5", "10", undefined]],
+
+            myArray: []
         };
 
         this.fetchHistory();
@@ -65,6 +71,7 @@ class EpisHistory extends React.Component {
         }
     };
     componentDidMount() {
+        this.updateArray();
         Orientation.lockToLandscapeLeft()
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
@@ -77,34 +84,91 @@ class EpisHistory extends React.Component {
             isOpen: true
         })
     }
+    updateArray = () => {
+        const { episHistory } = this.props.user
+        let temArr = [];
+        episHistory.data.forEach(item => {
+            temArr.push([
+                item.tool,
+                item.delivery,
+                item.expiration,
+                item.serialNo,
+                item.size,
+                item.comment
+            ])
+        })
+        this.setState({ myArray: temArr }, () => {
+            console.log("test array =>>", this.state.myArray)
+        })
+    }
     render() {
-        const { AuthLoading, episHistory } = this.props.user;
+        const { AuthLoading, episHistory, getEpisApeal } = this.props.user;
+        const { myArray, tableData } = this.state
         return (
             <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
-                <Header
-                    leftComponent={
-                        <MenuImage
-                            leftClick={() => {
-                                this.test();
-                                this.props.navigation.goBack()
-                            }}
-                            rightIcon="chevron-thin-left"
-                        />
-                    }
-                    centerComponent={
-                        <HeaderImage
-                            isText={true}
-                            title="HISTÓRICO DE ENTREGADOS"
-                        />
-                    }
-                    containerStyle={{
-                        backgroundColor: darkBlue,
-                    }}
-                />
-                <View style={styles.tableView}>
-                    <View style={styles.itemMainView}>
+                <ScrollView
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    bounces={false}
+                >
+                    <Header
+                        leftComponent={
+                            <MenuImage
+                                leftClick={() => {
+                                    this.test();
+                                    this.props.navigation.goBack()
+                                }}
+                                rightIcon="chevron-thin-left"
+                            />
+                        }
+                        centerComponent={
+                            <HeaderImage
+                                isText={true}
+                                title="HISTÓRICO DE ENTREGADOS"
+                            />
+                        }
+                        containerStyle={{
+                            backgroundColor: darkBlue,
+                        }}
+                    />
+                    <View style={styles.tableView2}>
+
+                        <Table borderStyle={{ borderWidth: 1, borderColor: lightBlue }}>
+                            <Row
+                                data={this.state.tableHead}
+                                style={styles.head}
+                                textStyle={[styles.text, {
+                                    fontSize: heightPercentageToDP(3),
+                                    fontWeight: "bold",
+                                    color: darkBlue
+                                }]}
+                                flexArr={[1, 2, 1, 1, 1, 2]}
+                            />
+                        </Table>
+                        {!myArray || !myArray.length ?
+                            <View />
+                            : <Table
+                                borderStyle={{
+                                    borderWidth: widthPercentageToDP(0.1),
+                                    borderColor: "#cccccc"
+                                }}>
+                                <Rows
+                                    data={myArray}
+                                    style={[styles.head, {
+                                        backgroundColor: "#F8F8F8"
+                                    }]}
+                                    textStyle={[styles.text, {
+                                        fontSize: heightPercentageToDP(3),
+                                        fontWeight: "300",
+                                        color: darkBlue
+                                    }]}
+                                    flexArr={[1, 2, 1, 1, 1, 2]}
+                                />
+                            </Table>
+
+                        }
+                        {/* <View style={styles.itemMainView}>
                         <View style={[styles.component, {
-                            width: "15%",
+                            width: "20%",
                             //backgroundColor: "red"
                         }]}>
                             <Text style={styles.titleText}>{"EPI"}</Text>
@@ -157,8 +221,8 @@ class EpisHistory extends React.Component {
                         }]}>
                             <Text style={styles.titleText}>Fotografía</Text>
                         </View>
-                    </View>
-                    {!episHistory ?
+                    </View> */}
+                        {/* {!episHistory ?
                         <View />
                         : <View style={styles.tableRenderingView3}>
                             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -181,67 +245,69 @@ class EpisHistory extends React.Component {
                                 })}
                             </ScrollView>
                         </View>
-                    }
-                </View>
-                {AuthLoading &&
-                    <ActivityIndicator
-                        style={styles.loading}
-                        size="large"
-                        color="#000"
-                    />
-                }
-                {this.state.isOpen &&
-                    <Modal
-                        transparent={true}
-                        visible={this.state.isOpen}
-                        animationType = "slide"
-                        supportedOrientations={['portrait', 'landscape']}
-                        onRequestClose={() => {
-                            console.log('alert close')
-                        }}
-                    >
-                        <TouchableOpacity
-                            style={styles.modalMain}
-                            activeOpacity={1}
-                        //onPressOut={() => this.setState({ isOpen: false })}
-                        >
-                            <View style={styles.innerModal}>
-                                <TouchableWithoutFeedback>
-                                    <View>
-                                        <TouchableOpacity
-                                            style={styles.crossBtn}
-                                            onPress={() => this.setState({ isOpen: false })}
-                                        >
-                                            <Icon
-                                                name="close"
-                                                color={darkBlue}
-                                                size={25}
-                                            />
-                                        </TouchableOpacity>
-                                        <ImageZoom
-                                            cropWidth={Dimensions.get('window').width - 50}
-                                            cropHeight={Dimensions.get('window').height - 50}
-                                            imageWidth={Dimensions.get('window').width - 50}
-                                            imageHeight={Dimensions.get('window').height - 50}>
-                                            <FastImage
-                                                style={{
-                                                    width: "100%",
-                                                    height: "100%"
-                                                }}
-                                                source={{
-                                                    uri: this.state.currentImage,
-                                                    priority: FastImage.priority.normal
-                                                }}
-                                                resizeMode={FastImage.resizeMode.contain}
+                    } */}
 
-                                            />
-                                        </ImageZoom>
-                                    </View>
-                                </TouchableWithoutFeedback>
-                            </View>
-                        </TouchableOpacity>
-                    </Modal>
-                }
+                    </View>
+                    {AuthLoading &&
+                        <ActivityIndicator
+                            style={styles.loading}
+                            size="large"
+                            color="#000"
+                        />
+                    }
+                    {this.state.isOpen &&
+                        <Modal
+                            transparent={true}
+                            visible={this.state.isOpen}
+                            animationType="slide"
+                            supportedOrientations={['portrait', 'landscape']}
+                            onRequestClose={() => {
+                                console.log('alert close')
+                            }}
+                        >
+                            <TouchableOpacity
+                                style={styles.modalMain}
+                                activeOpacity={1}
+                            //onPressOut={() => this.setState({ isOpen: false })}
+                            >
+                                <View style={styles.innerModal}>
+                                    <TouchableWithoutFeedback>
+                                        <View>
+                                            <TouchableOpacity
+                                                style={styles.crossBtn}
+                                                onPress={() => this.setState({ isOpen: false })}
+                                            >
+                                                <Icon
+                                                    name="close"
+                                                    color={darkBlue}
+                                                    size={25}
+                                                />
+                                            </TouchableOpacity>
+                                            <ImageZoom
+                                                cropWidth={Dimensions.get('window').width - 50}
+                                                cropHeight={Dimensions.get('window').height - 50}
+                                                imageWidth={Dimensions.get('window').width - 50}
+                                                imageHeight={Dimensions.get('window').height - 50}>
+                                                <FastImage
+                                                    style={{
+                                                        width: "100%",
+                                                        height: "100%"
+                                                    }}
+                                                    source={{
+                                                        uri: this.state.currentImage,
+                                                        priority: FastImage.priority.normal
+                                                    }}
+                                                    resizeMode={FastImage.resizeMode.contain}
+
+                                                />
+                                            </ImageZoom>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+                                </View>
+                            </TouchableOpacity>
+                        </Modal>
+                    }
+                </ScrollView>
             </View>
         )
     }

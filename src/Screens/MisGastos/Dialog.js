@@ -11,6 +11,7 @@ export default class DialogBox extends Component {
             <Modal
                 transparent={true}
                 visible={isDialogOpen}
+                supportedOrientations={['portrait', 'landscape']}
                 onRequestClose={() => {
                     console.log('alert close')
                 }}

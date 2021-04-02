@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, PermissionsAndroid, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, PermissionsAndroid, ScrollView, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
 import Card from '../../Component/Card'
 import { styles } from './styles'
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
 import MenuImage from '../../Component/MenuImage'
-import { darkBlue } from '../../Component/ColorCode'
+import { darkBlue, lightBlue } from '../../Component/ColorCode'
 // import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import Table from '../../Component/EpisTable'
@@ -13,9 +13,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
 import Dialog from '../MisGastos/Dialog'
 import { connect } from 'react-redux';
-import { getAllTools, submitEpisData1 } from '../../Redux/action'
-import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { getAllTools, submitEpisData1, postEpis1 } from '../../Redux/action'
+import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
 import { StackActions, NavigationActions } from "react-navigation";
 
 
@@ -29,8 +28,26 @@ class Epis extends React.Component {
             dilaogStatus: false,
             index: 0,
             loading: false,
-            isBtnEnable: true
+            isBtnEnable: true,
+            firstRadio: false,
+            secondRadio: false
         };
+    }
+    toggleRadio = () => {
+        const { firstRadio, secondRadio } = this.state
+        if (!firstRadio && !secondRadio) {
+            this.setState({ secondRadio: false, firstRadio: true })
+        } else if (!firstRadio) {
+            this.setState({ secondRadio: false, firstRadio: true })
+        }
+    }
+    toggleRadio2 = () => {
+        const { firstRadio, secondRadio } = this.state
+        if (!firstRadio && !secondRadio) {
+            this.setState({ secondRadio: true, firstRadio: false })
+        } else if (!secondRadio) {
+            this.setState({ secondRadio: true, firstRadio: false })
+        }
     }
     test = () => {
         Orientation.unlockAllOrientations()
@@ -107,8 +124,8 @@ class Epis extends React.Component {
         //getInitialOrientation returns directly because its a constant set at the
         //beginning of the js code.
         var initial = Orientation.getInitialOrientation();
-        if (initial === 'PORTRAIT') {
-            Orientation.lockToLandscapeLeft()
+        if (initial === 'LANDSCAPE') {
+            Orientation.lockToPortrait();
             console.log("land")
             //do stuff
         } else {
@@ -116,13 +133,13 @@ class Epis extends React.Component {
         }
     }
     _onOrientationDidChange = (orientation) => {
-        if (orientation == 'PORTRAIT') {
-            Orientation.lockToLandscapeLeft();
+        if (orientation == 'LANDSCAPE') {
+            Orientation.lockToPortrait();
         }
     };
     componentDidMount() {
-        this.updateArray()
-        Orientation.lockToLandscapeLeft()
+        //this.updateArray()
+        Orientation.lockToPortrait()
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
     componentWillUnmount() {
@@ -237,11 +254,29 @@ class Epis extends React.Component {
             login.data.employRoleId
         )
     }
+    _submitButton = () => {
+        const { login } = this.props.user;
+        const { firstRadio, secondRadio } = this.state
+        if (!firstRadio && !secondRadio) {
+            alert("Please select any epis option")
+            return
+        }
+        if (firstRadio) {
+            this.test()
+            this.props.postEpis1('no', login.data.id)
+        } else {
+            this.test()
+            this.props.postEpis1('yes', login.data.id)
+            
+        }
+
+    }
     render() {
-        const { AuthLoading, getToolType } = this.props.user
+        const { AuthLoading, getToolType, login } = this.props.user
         const isHome = this.props.navigation.getParam('isHome', "no")
+        //console.log("===>>", getToolType)
         return (
-            <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
+            <View style={[styles.container, { alignItems: "center" }]} onLayout={(e) => { this._onLayout(e) }}>
                 <Header
                     leftComponent={
                         <MenuImage
@@ -272,10 +307,9 @@ class Epis extends React.Component {
                         backgroundColor: darkBlue,
                     }}
                 />
-                <View style={styles.tableView}>
+                {/* <View style={styles.tableView}>
                     <View style={styles.itemMainView}>
                         <View style={[styles.component, { width: "15%", }]}>
-                            {/* <Text>Sample 1</Text> */}
                         </View>
                         <View style={[styles.component, { width: "13%" }]}>
                             <Text>Buen estado</Text>
@@ -340,7 +374,7 @@ class Epis extends React.Component {
 
                         </View>
                     }
-                </View>
+                </View> 
                 {this.state.dilaogStatus &&
                     <Dialog
                         isDialogOpen={this.state.dilaogStatus}
@@ -358,6 +392,76 @@ class Epis extends React.Component {
                         cancelBox={() => this.toggleDiloge()}
                     />
                 }
+                */}
+                <View style={myStyles.centerView}>
+                    <View style={[myStyles.titleView, { backgroundColor: darkBlue }]}>
+                        <Text style={[myStyles.titleText, { color: "#fff" }]}>
+                            {"EPI Solicitado"}
+                        </Text>
+                    </View>
+                    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                        {!getToolType || !getToolType.epis.length ?
+                            <View />
+                            : getToolType.epis.map((item, index) => {
+                                return (
+                                    <View
+                                        key={"unique" + index}
+                                        style={[myStyles.titleView, {
+                                            backgroundColor: index % 2 ? "#F8F8F8" : "#E8E8E8"
+                                        }]}>
+                                        <Text style={[myStyles.titleText, { color: "#000", fontWeight: "300" }]}>
+                                            {item.name}
+                                        </Text>
+                                    </View>
+                                )
+                            })}
+                    </ScrollView>
+                </View>
+                <View style={myStyles.bottomView}>
+                    <View style={myStyles.radioView}>
+                        <View style={myStyles.left}>
+                            <Text style={[myStyles.titleText, { fontSize: widthPercentageToDP(3.5) }]}>
+                                {"Los equipos de Protección Individual se encuentran en buen estado de conservación"}
+                            </Text>
+                        </View>
+                        <View style={myStyles.right}>
+                            <TouchableOpacity
+                                onPress={() => this.toggleRadio()}
+                                style={myStyles.outerRadiou}
+                            >
+                                {this.state.firstRadio &&
+                                    <View style={myStyles.innerRadiou} />
+                                }
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={myStyles.radioView}>
+                        <View style={myStyles.left}>
+                            <Text style={[myStyles.titleText, { fontSize: widthPercentageToDP(3.5) }]}>
+                                {"Solicito el suministro / reposición de un Equipo de Protección Individual"}
+                            </Text>
+                        </View>
+                        <View style={myStyles.right}>
+                            <TouchableOpacity
+                                onPress={() => this.toggleRadio2()}
+                                style={myStyles.outerRadiou}
+                            >
+                                {this.state.secondRadio &&
+                                    <View style={myStyles.innerRadiou} />
+                                }
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <TouchableOpacity
+                        style={myStyles.btn}
+                        onPress={() => this._submitButton()}
+                    >
+                        <Text style={[myStyles.titleText, { fontSize: widthPercentageToDP(3.5), color: "#fff" }]}>
+                            {"REGISTRAR"}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
                 {AuthLoading &&
                     <ActivityIndicator
                         style={styles.loading}
@@ -365,19 +469,92 @@ class Epis extends React.Component {
                         color="#000"
                     />
                 }
-                {this.state.loading &&
+                {/* {this.state.loading &&
                     <ActivityIndicator
                         style={styles.loading}
                         size="large"
                         color="#000"
                     />
-                }
+                } */}
             </View>
         )
     }
 }
 
+const myStyles = StyleSheet.create({
+    centerView: {
+        width: widthPercentageToDP(95),
+        height: heightPercentageToDP(42),
+        //backgroundColor:"red",
+        marginTop: heightPercentageToDP(2)
+    },
+    titleView: {
+        width: widthPercentageToDP(95),
+        height: heightPercentageToDP(6),
+        justifyContent: "center",
+        backgroundColor: "#F8F8F8"
+    },
+    titleText: {
+        fontSize: widthPercentageToDP(3),
+        color: darkBlue,
+        fontWeight: "bold",
+        padding: 5
+    },
+    bottomView: {
+        width: widthPercentageToDP(95),
+        height: heightPercentageToDP(35),
+        //backgroundColor:"red",
+        marginTop: heightPercentageToDP(2)
+    },
+    radioView: {
+        width: widthPercentageToDP(95),
+        height: heightPercentageToDP(8),
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    left: {
+        width: "80%",
+        height: "100%",
+        //backgroundColor: "red",
+        justifyContent: "center",
+        //padding: 9
+    },
+    right: {
+        width: "20%",
+        height: "100%",
+        //backgroundColor: "yellow",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    outerRadiou: {
+        width: widthPercentageToDP(4),
+        height: widthPercentageToDP(4),
+        borderRadius: widthPercentageToDP(4) / 2,
+        backgroundColor: "#F8F8F8",
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: widthPercentageToDP(0.1),
+        borderColor: darkBlue
+    },
+    innerRadiou: {
+        width: widthPercentageToDP(2),
+        height: widthPercentageToDP(2),
+        borderRadius: widthPercentageToDP(2) / 2,
+        backgroundColor: darkBlue
+    },
+    btn: {
+        width: widthPercentageToDP(40),
+        height: heightPercentageToDP(6),
+        backgroundColor: darkBlue,
+        borderRadius: widthPercentageToDP(5),
+        alignSelf: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: heightPercentageToDP(3)
+    }
+})
+
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getAllTools, submitEpisData1 })(Epis);
+export default connect(mapStateToProps, { getAllTools, submitEpisData1, postEpis1 })(Epis);

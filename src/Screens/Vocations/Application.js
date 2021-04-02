@@ -307,7 +307,7 @@ class History extends React.Component {
                                             mode="date"
                                             placeholder="DD-MM-YYYY"
                                             format="DD-MM-YYYY"
-                                            minDate={myDate}
+                                            //minDate={myDate}
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {
@@ -345,7 +345,7 @@ class History extends React.Component {
                                             mode="date"
                                             placeholder="DD-MM-YYYY"
                                             format="DD-MM-YYYY"
-                                            minDate={myDate}
+                                            //minDate={myDate}
                                             // maxDate="2099-01-01"
                                             customStyles={{
                                                 datePicker: {

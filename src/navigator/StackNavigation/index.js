@@ -1,10 +1,11 @@
-import { createStackNavigator , TransitionPresets} from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 import Login from '../../Screens/Login'
 import Home from '../DrawerNavigator'
 import Profile from '../../Screens/Profile'
 import ParteDiario from '../../Screens/ParteDiario'
 import Blog from '../../Screens/Blog'
 import Documents from '../../Screens/Documents'
+import PersonalDocuments from '../../Screens/PersonalDocument'
 import DetailPage from '../../Screens/Blog/Detail'
 import MisGastos from '../../Screens/MisGastos'
 import DetailMisgasto from '../../Screens/MisGastos/Detail'
@@ -70,6 +71,9 @@ export default createStackNavigator(
     },
     Option3: {
       screen: Option3
+    },
+    PersonalDocuments: {
+      screen: PersonalDocuments
     },
     ChangePassword: {
       screen: ChangePassword

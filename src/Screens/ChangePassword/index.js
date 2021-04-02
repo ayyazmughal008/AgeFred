@@ -46,7 +46,7 @@ class Login extends Component {
     render() {
         const { AuthLoading } = this.props.user;
         const { password, confirm } = this.state
-        console.log("My loading", AuthLoading);
+        //console.log("My loading", AuthLoading);
         return (
             <View style={styles.container}>
                 <Header

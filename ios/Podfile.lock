@@ -409,6 +409,8 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
+  - RNCPicker (1.14.0):
+    - React-Core
   - RNCPushNotificationIOS (1.8.0):
     - React-Core
   - RNDateTimePicker (3.0.2):
@@ -526,6 +528,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
@@ -652,6 +655,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNCPushNotificationIOS:
     :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDateTimePicker:
@@ -748,6 +753,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: db711e29e5e0500d9bd21aa0c2e397efa45302b1
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
+  RNCPicker: 1a266981fc99330c252f5f98b3f09a377a35d88c
   RNCPushNotificationIOS: 5b1cf9ad2aaa107ecb92d5d2d7005ba521b2b97a
   RNDateTimePicker: 3a1783e63fcb6e2b162b08a4321db030d23accff
   RNFastImage: 35ae972d6727c84ee3f5c6897e07f84d0a3445e9

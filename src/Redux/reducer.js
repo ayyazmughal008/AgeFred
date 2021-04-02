@@ -25,7 +25,9 @@ import {
   PROJECT_DETAIL,
   CLEAR_CACHE,
   COUNTER,
-  FCM_TOKKEN
+  FCM_TOKKEN,
+  EPIS_APEAL,
+  PERSONAL_DOWNLOAD
 } from "./action";
 
 const initialUserState = {
@@ -53,7 +55,9 @@ const initialUserState = {
   episData2: "",
   projectDetail: "",
   counter: "",
-  fcmToken: ""
+  fcmToken: "",
+  getEpisApeal: "",
+  getPersonal: ""
 };
 
 const userReducer = (state = initialUserState, action) => {
@@ -83,7 +87,9 @@ const userReducer = (state = initialUserState, action) => {
       episHistory: "",
       episData2: "",
       projectDetail: "",
-      counter: ""
+      counter: "",
+      getEpisApeal: "",
+      getPersonal: ""
     };
   }
   if (action.type === FCM_TOKKEN) {
@@ -231,6 +237,19 @@ const userReducer = (state = initialUserState, action) => {
       counter: action.payload.counter
     };
   }
+  if (action.type === EPIS_APEAL) {
+    return {
+      ...state,
+      getEpisApeal: action.payload.getEpisApeal
+    };
+  }
+  if (action.type === PERSONAL_DOWNLOAD) {
+    return {
+      ...state,
+      getPersonal: action.payload.getPersonal
+    };
+  }
+
   return state;
 };
 

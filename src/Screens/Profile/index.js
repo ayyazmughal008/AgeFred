@@ -19,7 +19,7 @@ class Profile extends Component {
     }
     render() {
         const { AuthLoading, login } = this.props.user;
-        console.log("My loading", AuthLoading);
+        console.log("My loading", login);
         return (
             <View style={styles.container}>
                 <Header
@@ -44,7 +44,7 @@ class Profile extends Component {
                     <View style={styles.profileContainer}>
                         {!login.data.profilePicture ?
                             <FastImage
-                                source={ require('../../images/profile_img.png')}
+                                source={require('../../images/profile_img.png')}
                                 resizeMode={FastImage.resizeMode.cover}
                                 style={styles.profileImg}
                             />
@@ -102,8 +102,8 @@ class Profile extends Component {
                         </View>
                     </View>
 
-                    <View style={styles.bottomView}>
-                        <View style={styles.profileTextView}>
+                    {/* <View style={styles.bottomView}> */}
+                        {/* <View style={styles.profileTextView}>
                             <Text style={styles.boldText}>
                                 {"GDPR :"}
                             </Text>
@@ -124,8 +124,8 @@ class Profile extends Component {
                                     size={20}
                                 />
                             </TouchableOpacity>
-                        </View>
-                        <View style={styles.profileTextViewLast}>
+                        </View> */}
+                        {/* <View style={styles.profileTextViewLast}>
                             <Text style={styles.boldText}>
                                 {"Contrato :"}
                             </Text>
@@ -145,8 +145,8 @@ class Profile extends Component {
                                     size={20}
                                 />
                             </TouchableOpacity>
-                        </View>
-                    </View>
+                        </View> */}
+                    {/* </View> */}
                 </View>
             </View>
         );

@@ -158,7 +158,7 @@ class DetailMisgasto extends React.Component {
                                             />
                                         </TouchableOpacity>
                                         <ImageZoom
-                                            cropWidth={Dimensions.get('window').width - 50}
+                                            cropWidth={Dimensions.get('window').width - 20}
                                             cropHeight={Dimensions.get('window').height - 50}
                                             imageWidth={Dimensions.get('window').width - 20}
                                             imageHeight={Dimensions.get('window').height - 20}>

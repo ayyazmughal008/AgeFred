@@ -64,7 +64,8 @@ export const styles = StyleSheet.create({
         borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkBlue,
         color: darkBlue,
-        fontSize:widthPercentageToDP(3.5)
+        fontSize: widthPercentageToDP(3.5),
+        paddingLeft: widthPercentageToDP(1.5)
         //backgroundColor:"red"
     },
     dropStyle2: {
@@ -277,8 +278,10 @@ export const styles = StyleSheet.create({
         height: widthPercentageToDP(10),
         borderRadius: widthPercentageToDP(10) / 2,
         backgroundColor: "#ffff",
-        marginLeft: widthPercentageToDP(5),
-        marginTop: widthPercentageToDP(5),
+        position: "absolute",
+        left: "0%",
+        zIndex: 3,
+        top: "5%",
         alignItems: "center",
         justifyContent: "center"
     },

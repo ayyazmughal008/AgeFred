@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: lightBlue,
-        alignItems: "center",
+        //alignItems: "center",
     },
     container2: {
         flex: 1,
@@ -25,7 +25,16 @@ export const styles = StyleSheet.create({
     },
     tableView: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        // padding: 16,
+        // paddingTop: 30,
+    },
+    tableView2: {
+        flex: 1,
+        //alignItems: "center",
+        paddingLeft: widthPercentageToDP(8),
+        paddingRight: widthPercentageToDP(8),
+        paddingTop: 30,
     },
     tableRenderingView: {
         width: heightPercentageToDP(95),
@@ -51,23 +60,57 @@ export const styles = StyleSheet.create({
         borderBottomColor: darkBlue,
     },
     itemMainView2: {
-        width: '100%',
+        width: '85%',
         height: widthPercentageToDP(10),
         flexDirection: "row",
         alignItems: "center",
         marginTop: widthPercentageToDP(3),
         borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkBlue,
+        // paddingLeft:widthPercentageToDP(10),
+        // paddingRight:widthPercentageToDP(10)
         //backgroundColor:"blue"
     },
     component: {
         height: widthPercentageToDP(10),
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        // borderRightWidth: widthPercentageToDP(0.1), 
+        // borderTopWidth: widthPercentageToDP(0.1), 
+        // borderColor: darkBlue 
+    },
+    itemMainView3: {
+        width: '85%',
+        height: widthPercentageToDP(15),
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: widthPercentageToDP(3),
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue,
+        // paddingLeft:widthPercentageToDP(10),
+        // paddingRight:widthPercentageToDP(10)
+        //backgroundColor:"blue"
+    },
+    component2: {
+        height: widthPercentageToDP(22),
+        alignItems: "center",
+        justifyContent: "center",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderTopWidth: widthPercentageToDP(0.1),
+        borderColor: darkBlue,
+        //backgroundColor:"red"
+    },
+    input: {
+        width: "100%",
+        height: "100%",
+        textAlignVertical: "top",
+        fontSize: widthPercentageToDP(4),
+        color: darkBlue,
+        padding: 10
     },
     bottomView: {
         position: "absolute",
-        bottom: "2%",
+        bottom: "10%",
     },
     bottom1: {
         position: "absolute",
@@ -125,4 +168,9 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    head: {
+        height: widthPercentageToDP(14),
+        backgroundColor: lightBlue
+    },
+    text: { margin: 6 }
 })

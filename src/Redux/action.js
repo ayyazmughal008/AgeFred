@@ -5,6 +5,7 @@ export const AUTH_LOADING = "AUTH_LOADING";
 export const DATA_PART = "DATA_PART";
 export const LOG_OUT = "LOG_OUT";
 export const DOWNLOAD = "DOWNLOAD";
+export const PERSONAL_DOWNLOAD = "PERSONAL_DOWNLOAD";
 export const GET_PART = "GET_PART";
 export const BLOGS = "BLOGS";
 export const DATA_EXPENSE = "DATA_EXPENSE";
@@ -26,7 +27,8 @@ export const EPIS2_DATA = "EPIS2_DATA";
 export const PROJECT_DETAIL = "PROJECT_DETAIL";
 export const CLEAR_CACHE = "CLEAR_CACHE";
 export const COUNTER = "COUNTER";
-export const FCM_TOKKEN = "COUNTER";
+export const FCM_TOKKEN = "FCM_TOKKEN";
+export const EPIS_APEAL = "EPIS_APEAL";
 
 var baseUrl = "http://95.179.209.186/api/",
   part_store = 'part-store',
@@ -58,9 +60,14 @@ var baseUrl = "http://95.179.209.186/api/",
   changePassword = "changePassword",
   orderNumber = "order-number",
   workStore = "work-store",
-  getTools = "tools-get",
+  getTools = "epi-getAllEpis",
+  submitEpis1 = 'epi-submitCondition',
   projectAuto = "project-auto",
   partsDelete = "parts-delete",
+  episApealData = 'epi-getAppealData',
+  submitApealEpis = 'epi-submitAppeal',
+  updatePassword = 'password-submitForget',
+  getPersonalDocument = 'documents-personal-get',
   documents = "documents-get";
 
 export const getFcmToken = (value) => {
@@ -124,7 +131,11 @@ export const fetchLoginDetail = (dni, password, fcm) => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const fetchDataPart = (id) => {
@@ -153,7 +164,11 @@ export const fetchDataPart = (id) => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const postPartStoreData = (
@@ -202,9 +217,9 @@ export const postPartStoreData = (
         } else {
           alert(json.message)
         }
-      }).
-      catch(err => {
-        //console.log(err)
+      }).catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
       })
   };
 }
@@ -247,7 +262,11 @@ export const getAllParts = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getDocuments = () => {
@@ -274,7 +293,11 @@ export const getDocuments = () => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getBlogs = () => {
@@ -301,7 +324,11 @@ export const getBlogs = () => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getExpense = () => {
@@ -328,7 +355,11 @@ export const getExpense = () => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const postExpenseData = (
@@ -405,7 +436,11 @@ export const postExpenseData = (
       .catch(error => {
         dispatch({ type: AUTH_LOADING, payload: false });
         //console.log('uploadImage error:', error);
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getAllExpense = (
@@ -441,7 +476,11 @@ export const getAllExpense = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getDataHolidays = () => {
@@ -456,7 +495,7 @@ export const getDataHolidays = () => {
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        //console.log("my holiday data",json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -468,7 +507,11 @@ export const getDataHolidays = () => {
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const postHolidayData = (
@@ -507,7 +550,11 @@ export const postHolidayData = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getHolidaysdata = (
@@ -531,7 +578,7 @@ export const getHolidaysdata = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log("my holiday data", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -543,7 +590,11 @@ export const getHolidaysdata = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getOrderNumber = (
@@ -575,7 +626,11 @@ export const getOrderNumber = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const postWorkStore = (
@@ -668,13 +723,13 @@ export const getAllTools = (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        employRoleId: employRoleId,
-        id: id
+        //employRoleId: employRoleId,
+        userId: id
       }),
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -689,7 +744,51 @@ export const getAllTools = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
+  };
+}
+export const postEpis1 = (
+  option,
+  id,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + submitEpis1, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        option: option,
+        userId: id
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          if (option === 'yes') {
+            dispatch(getEpisApealData(id))
+            NavigationService.navigate('Option2')
+            //dispatch(getAllUsers(id))
+          } else {
+            dispatch(getAllUsers(id, 'no'))
+          }
+
+        } else {
+          alert(json.message)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const deleteDailyPart = (
@@ -727,7 +826,11 @@ export const deleteDailyPart = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getAllTime = (
@@ -769,7 +872,11 @@ export const getAllTime = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const startTimeTracking = (
@@ -821,7 +928,11 @@ export const startTimeTracking = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const endTimeTracking = (
@@ -864,7 +975,11 @@ export const endTimeTracking = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const submitTimeTracking = (
@@ -921,7 +1036,11 @@ export const submitTimeTracking = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getTrackingHistory = (
@@ -957,7 +1076,11 @@ export const getTrackingHistory = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getGDPRDocument = (
@@ -977,7 +1100,7 @@ export const getGDPRDocument = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log("get gdpr", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -990,7 +1113,11 @@ export const getGDPRDocument = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const submitGDPRDocument = (
@@ -1013,7 +1140,7 @@ export const submitGDPRDocument = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log("post gdpr", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1025,7 +1152,11 @@ export const submitGDPRDocument = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getEpisHistory = (
@@ -1045,7 +1176,7 @@ export const getEpisHistory = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log("epi data", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1054,10 +1185,15 @@ export const getEpisHistory = (
               episHistory: json,
             }
           })
+          NavigationService.navigate('Option3')
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getEpisData2 = (
@@ -1092,7 +1228,11 @@ export const getEpisData2 = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const submitEpisData2 = (
@@ -1122,7 +1262,11 @@ export const submitEpisData2 = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const submitEpisData1 = (
@@ -1155,7 +1299,11 @@ export const submitEpisData1 = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getAutoProjectDetail = (
@@ -1187,7 +1335,11 @@ export const getAutoProjectDetail = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getAllUsers = (
@@ -1228,7 +1380,11 @@ export const getAllUsers = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const changeUserPass = (
@@ -1265,7 +1421,11 @@ export const changeUserPass = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const getTimeCounter = (
@@ -1297,7 +1457,11 @@ export const getTimeCounter = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const postDownloadStatus = (
@@ -1326,7 +1490,11 @@ export const postDownloadStatus = (
         } else {
           alert(json.message)
         }
-      });
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }
 export const logoutNotify = (
@@ -1353,6 +1521,192 @@ export const logoutNotify = (
         } else {
           alert(json.message)
         }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
+  };
+}
+export const getEpisApealData = (
+  id
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + episApealData, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: id
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        dispatch({
+          type: EPIS_APEAL,
+          payload: {
+            getEpisApeal: json
+          }
+        });
+        dispatch(getAllUsers(id, 'yes'))
+        // if (json.status === "Success") {
+
+        // } else {
+        //   alert(json.message)
+        // }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
+  };
+}
+export const postEpisApeal = (
+  userId,
+  epiArray,
+  reason,
+  size,
+  comment,
+  imagesArray,
+  singleImage,
+) => {
+  // console.log("My epis Data ====>",
+  //   userId,
+  //   epiArray,
+  //   reason,
+  //   size,
+  //   comment,
+  //   imagesArray,
+  //   singleImage,
+  // )
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    //console.log("My array => ", imagesArray)
+    const body = new FormData();
+    body.append('userId', userId);
+    body.append('epiArray', epiArray);
+    body.append('reason', reason);
+    body.append('size', size);
+    body.append('comment', comment);
+    if (imagesArray === undefined || imagesArray.length === 0) {
+      if (singleImage) {
+        body.append('images[]', singleImage);
+      } else {
+        body.append('images[]', null);
+      }
+    } else {
+      imagesArray.forEach((item, i) => {
+        body.append("images[]", {
+          'uri': item.uri,
+          'type': item.type,
+          'name': item.name,
+        });
       });
+    }
+    fetch(baseUrl + submitApealEpis, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: body
+    })
+      .then(res => res.json())
+      .then(json => {
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          console.log(json)
+          Toast.show(json.message, Toast.LONG, [
+            'UIAlertController',
+          ]);
+        } else {
+          console.log(json)
+          alert(json.message)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
+  };
+}
+export const getPersonalDoc = (id) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + getPersonalDocument, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: id
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          dispatch({
+            type: PERSONAL_DOWNLOAD,
+            payload: {
+              getPersonal: json
+            }
+          });
+        } else {
+          alert(json.message)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
+  };
+}
+
+export const updateForgetPass = (
+  dni,
+  number,
+  newPass,
+  confirm,
+) => {
+  return dispatch => {
+    dispatch({ type: AUTH_LOADING, payload: true });
+    fetch(baseUrl + updatePassword, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dni: dni,
+        number: number,
+        new: newPass,
+        confirm: confirm
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        dispatch({ type: AUTH_LOADING, payload: false });
+        if (json.status === "Success") {
+          Toast.show(json.message, Toast.LONG, [
+            'UIAlertController',
+          ]);
+          NavigationService.navigate('Login')
+        } else {
+          alert(json.message)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        dispatch({ type: AUTH_LOADING, payload: false });
+      })
   };
 }

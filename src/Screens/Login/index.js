@@ -6,6 +6,7 @@ import { styles } from "./styles";
 import { TextInput } from 'react-native-paper';
 import FastImage from 'react-native-fast-image'
 import ForgetPassword from '../../Component/ForgetPassword'
+import { darkBlue } from "../../Component/ColorCode";
 
 class Login extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Login extends Component {
   }
 
   render() {
-    const { AuthLoading , fcmToken } = this.props.user;
+    const { AuthLoading, fcmToken } = this.props.user;
     //console.log("My Token is ===>", fcmToken);
     return (
       <View
@@ -50,7 +51,7 @@ class Login extends Component {
             <Text style={styles.forgetPass}>{"Olvidó su contraseña? "}</Text>
             <Text
               style={styles.forgetClick}
-              onPress={() => this.toggleDialog()}
+              onPress={() => this.props.navigation.navigate('ForgetPass')}
             >
               {"Haga clic aquí."} </Text>
           </View>
@@ -70,7 +71,7 @@ class Login extends Component {
         {AuthLoading &&
           <ActivityIndicator
             size="large"
-            color="pink"
+            color= {darkBlue}
             style={styles.loading}
           />
         }

@@ -74,8 +74,8 @@ class HomePage extends Component {
             }
         }
     }
-    UNSAFE_componentWillMount(){
-         //The getOrientation method is async. It happens sometimes that
+    UNSAFE_componentWillMount() {
+        //The getOrientation method is async. It happens sometimes that
         //you need the orientation at the moment the js starts running on device.
         //getInitialOrientation returns directly because its a constant set at the
         //beginning of the js code.
@@ -96,103 +96,108 @@ class HomePage extends Component {
 
     render() {
         const { AuthLoading, login, getGdpr } = this.props.user;
-        console.log("My loading", getGdpr);
-        // if (!getGdpr) {
-        //     return (
-        //         <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
-        //             <Header
-        //                 centerComponent={
-        //                     <HeaderImage
-        //                         isText={false}
-        //                     />
-        //                 }
-        //                 containerStyle={{
-        //                     backgroundColor: darkBlue,
-        //                     //height: Platform.isPad ? 80 : null
-        //                 }}
-        //             />
-        //         </View>
-        //     )
-        // } 
-        // else {
-        //     if (getGdpr.user.gdpr === null) {
-        //         return (
-        //             <View style={styles.container2} >
-        //                 <Header
-        //                     centerComponent={
-        //                         <HeaderImage
-        //                             isText={true}
-        //                             title="GDPR DOCUMENTOS"
-        //                         />
-        //                     }
-        //                     containerStyle={{
-        //                         backgroundColor: darkBlue,
-        //                         //height: Platform.isPad ? 80 : null
-        //                     }}
-        //                 />
-        //                 <View style={styles.mainView}>
-        //                     <Pdf
-        //                         source={{ uri: getGdpr.gdpr }}
-        //                         onLoadComplete={(numberOfPages, filePath) => {
-        //                             console.log(`number of pages: ${numberOfPages}`);
-        //                         }}
-        //                         onPageChanged={(page, numberOfPages) => {
-        //                             console.log(`current page: ${page}`);
-        //                         }}
-        //                         onError={(error) => {
-        //                             console.log(error);
-        //                         }}
-        //                         onPressLink={(uri) => {
-        //                             console.log(`Link presse: ${uri}`)
-        //                         }}
-        //                         style={{
-        //                             flex: 1,
-        //                         }}
-        //                     />
-        //                 </View>
-        //                 <View style={{
-        //                     position: "absolute",
-        //                     bottom: "10%",
-        //                     left: "4%",
-        //                     flexDirection: "row",
-        //                     alignItems: "center"
-        //                 }}>
-        //                     <TouchableOpacity
-        //                         onPress={() => this.toggleCheck()}
-        //                         //disabled={this.state.isChecked ? true : false}
-        //                         style={styles.checkBox}>
-        //                         {this.state.isChecked &&
-        //                             <FastImage
-        //                                 source={require('../../images/tick.png')}
-        //                                 resizeMode={FastImage.resizeMode.contain}
-        //                                 style={styles.tick2}
-        //                             />
-        //                         }
-        //                     </TouchableOpacity>
-        //                     <Text style={[styles.btntext, { color: darkBlue, marginLeft: 10 }]}>{"Marcar como leído"}</Text>
-        //                 </View>
-        //                 <TouchableOpacity
-        //                     style={[styles.submitBtn, {
-        //                         opacity: this.state.isChecked ? 1 : 0.7
-        //                     }]}
-        //                     onPress={() => { this.props.submitGDPRDocument(login.data.id, getGdpr.docId) }}
-        //                     disabled={this.state.isChecked ? false : true}
-        //                 >
-        //                     <Text style={styles.btntext}>
-        //                         {"Confirmar"}
-        //                     </Text>
-        //                 </TouchableOpacity>
-        //                 {AuthLoading &&
-        //                     <ActivityIndicator
-        //                         size="large"
-        //                         color="pink"
-        //                         style={styles.loading}
-        //                     />
-        //                 }
-        //             </View>
-        //         )
-        //     } 
-            // else {
+        //console.log("My loading", getGdpr);
+        if (!getGdpr) {
+            return (
+                <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
+                    <Header
+                        centerComponent={
+                            <HeaderImage
+                                isText={false}
+                            />
+                        }
+                        containerStyle={{
+                            backgroundColor: darkBlue,
+                            //height: Platform.isPad ? 80 : null
+                        }}
+                    />
+                </View>
+            )
+        } else {
+            if (getGdpr.user.gdpr === null) {
+                return (
+                    <View style={styles.container2} >
+                        <Header
+                            centerComponent={
+                                <HeaderImage
+                                    isText={true}
+                                    title="DOCUMENTOS"
+                                />
+                            }
+                            containerStyle={{
+                                backgroundColor: darkBlue,
+                                //height: Platform.isPad ? 80 : null
+                            }}
+                        />
+                        <View style={styles.mainView}>
+                            {getGdpr.gdprType === "PDF" ?
+                                <Pdf
+                                    source={{ uri: encodeURI(getGdpr.gdpr) }}
+                                    onLoadComplete={(numberOfPages, filePath) => {
+                                        console.log(`number of pages: ${numberOfPages}`);
+                                    }}
+                                    onPageChanged={(page, numberOfPages) => {
+                                        console.log(`current page: ${page}`);
+                                    }}
+                                    onError={(error) => {
+                                        console.log(error);
+                                    }}
+                                    onPressLink={(uri) => {
+                                        console.log(`Link presse: ${uri}`)
+                                    }}
+                                    style={{
+                                        flex: 1,
+                                    }}
+                                />
+                                : <FastImage
+                                    source={{ uri: encodeURI(getGdpr.gdpr) }}
+                                    style={{ width: "100%", height: "100%" }}
+                                    resizeMode={FastImage.resizeMode.contain}
+                                />
+                            }
+                        </View>
+                        <View style={{
+                            position: "absolute",
+                            bottom: "10%",
+                            left: "4%",
+                            flexDirection: "row",
+                            alignItems: "center"
+                        }}>
+                            <TouchableOpacity
+                                onPress={() => this.toggleCheck()}
+                                //disabled={this.state.isChecked ? true : false}
+                                style={styles.checkBox}>
+                                {this.state.isChecked &&
+                                    <FastImage
+                                        source={require('../../images/tick.png')}
+                                        resizeMode={FastImage.resizeMode.contain}
+                                        style={styles.tick2}
+                                    />
+                                }
+                            </TouchableOpacity>
+                            <Text style={[styles.btntext, { color: darkBlue, marginLeft: 10 }]}>{"Marcar como leído"}</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={[styles.submitBtn, {
+                                opacity: this.state.isChecked ? 1 : 0.7
+                            }]}
+                            onPress={() => { this.props.submitGDPRDocument(login.data.id, getGdpr.docId) }}
+                            disabled={this.state.isChecked ? false : true}
+                        >
+                            <Text style={styles.btntext}>
+                                {"Confirmar"}
+                            </Text>
+                        </TouchableOpacity>
+                        {AuthLoading &&
+                            <ActivityIndicator
+                                size="large"
+                                color={darkBlue}
+                                style={styles.loading}
+                            />
+                        }
+                    </View>
+                )
+            } else {
                 return (
                     <View style={styles.container} onLayout={(e) => { this._onLayout(e) }}>
                         <NavigationEvents onDidFocus={() => this.getData()} />
@@ -265,6 +270,11 @@ class HomePage extends Component {
                                     clickHandler={() => this.props.navigation.navigate('Orden')}
                                 /> */}
                                 <Card
+                                    iconName={require('./assets/3.png')}
+                                    title="Documentos Personales"
+                                    clickHandler={() => this.props.navigation.navigate('PersonalDocuments')}
+                                />
+                                <Card
                                     iconName={require('../../images/clock.png')}
                                     title="Registro de jornada"
                                     tinit={darkBlue}
@@ -275,7 +285,7 @@ class HomePage extends Component {
                         {AuthLoading &&
                             <ActivityIndicator
                                 size="large"
-                                color="pink"
+                                color={darkBlue}
                                 style={styles.loading}
                             />
                         }
@@ -283,8 +293,8 @@ class HomePage extends Component {
                 );
             }
         }
-    // }
-// }
+    }
+}
 
 const mapStateToProps = state => ({
     user: state.user

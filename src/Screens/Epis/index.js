@@ -9,7 +9,7 @@ import { darkBlue } from '../../Component/ColorCode'
 // import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import { connect } from 'react-redux';
-import { getAllTools, getEpisData2 } from '../../Redux/action'
+import { getAllTools, getEpisData2, getEpisHistory } from '../../Redux/action'
 import { widthPercentageToDP } from '../../Component/MakeMeResponsive'
 
 class Epis extends React.Component {
@@ -45,7 +45,7 @@ class Epis extends React.Component {
             Orientation.lockToPortrait()
             console.log("hii")
             //do stuff
-        }else{
+        } else {
             console.log("hii 2")
         }
     }
@@ -98,7 +98,8 @@ class Epis extends React.Component {
                         title="Nuevas Solicitudes"
                         clickHandler={() => {
                             this.test();
-                            this.props.getEpisData2(login.data.employRoleId, login.data.id)
+                            //this.props.getEpisData2(login.data.employRoleId, login.data.id)
+                            this.props.navigation.navigate('Option2')
                         }}
                     />
 
@@ -113,7 +114,8 @@ class Epis extends React.Component {
                         title="Histórico de entregados"
                         clickHandler={() => {
                             this.test()
-                            this.props.navigation.navigate('Option3')
+                            this.props.getEpisHistory(login.data.id)
+                            //this.props.navigation.navigate('Option3')
                         }}
                     />
                 </View>
@@ -132,4 +134,4 @@ class Epis extends React.Component {
 const mapStateToProps = state => ({
     user: state.user,
 });
-export default connect(mapStateToProps, { getAllTools, getEpisData2 })(Epis);
+export default connect(mapStateToProps, { getAllTools, getEpisData2, getEpisHistory })(Epis);

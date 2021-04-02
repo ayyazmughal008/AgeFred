@@ -93,14 +93,21 @@ class MisGastos extends React.Component {
             Alert.alert("Por favor indique la fecha que se realizo el gasto")
             return
         }
-        if (this.state.comido === "Kilometraje" || this.state.comido === "Comida - Dieta") {
-            if ((this.state.imgData === undefined ||
-                this.state.imgData.length === 0) &&
-                !this.state.singleImage
-            ) {
-                Alert.alert("Seleccione Imágenes")
-                return
-            }
+        // if (this.state.comido === "Kilometraje" || this.state.comido === "Comida - Dieta") {
+        //     if ((this.state.imgData === undefined ||
+        //         this.state.imgData.length === 0) &&
+        //         !this.state.singleImage
+        //     ) {
+        //         Alert.alert("Seleccione Imágenes")
+        //         return
+        //     }
+        // }
+        if ((this.state.imgData === undefined ||
+            this.state.imgData.length === 0) &&
+            !this.state.singleImage
+        ) {
+            Alert.alert("Seleccione Imágenes")
+            return
         }
 
 
@@ -428,7 +435,7 @@ class MisGastos extends React.Component {
                                     },
                                     placeholderText: {
                                         color: darkBlue,
-                                        fontSize: widthPercentageToDP(3.5),
+                                        fontSize: widthPercentageToDP(3),
                                         position: "absolute",
                                         left: "2%"
                                     },
