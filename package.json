@@ -38,6 +38,7 @@
     "react-native-image-crop-picker": "^0.34.1",
     "react-native-image-pan-zoom": "^2.1.12",
     "react-native-image-slider-box": "^1.0.12",
+    "react-native-keyboard-avoiding-scroll-view": "^1.0.1",
     "react-native-maps": "0.27.1",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-nested-scroll-view": "^9.0.0",

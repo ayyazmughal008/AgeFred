@@ -10,11 +10,13 @@ import DocumentPicker from 'react-native-document-picker';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image'
 import Dialog from '../MisGastos/Dialog'
+import Toast from 'react-native-simple-toast'
 import SelectMultiple from 'react-native-select-multiple'
 // import Orientation from 'react-native-orientation';
 import Orientation from 'react-native-orientation-locker';
 import Table from '../../Component/EpisTable2'
 import { connect } from 'react-redux';
+import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { submitEpisData2, getEpisApealData, postEpisApeal } from '../../Redux/action'
 import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
 
@@ -32,6 +34,7 @@ class Epis2 extends React.Component {
             dilaogStatus: false,
             imgData: [],
             singleImage: "",
+            isLoading: false
         };
         this.fetchData();
     }
@@ -111,7 +114,7 @@ class Epis2 extends React.Component {
         //beginning of the js code.
         var initial = Orientation.getInitialOrientation();
         if (initial === 'PORTRAIT') {
-            Orientation.lockToLandscapeLeft()
+            Orientation.lockToPortrait()
             console.log("land")
             //do stuff
         } else {
@@ -125,12 +128,12 @@ class Epis2 extends React.Component {
     }
     _onOrientationDidChange = (orientation) => {
         if (orientation == 'PORTRAIT') {
-            Orientation.lockToLandscapeLeft();
+            Orientation.lockToPortrait();
         }
     };
     componentDidMount() {
         //this.updateArray();
-        Orientation.lockToLandscapeLeft()
+        Orientation.lockToPortrait()
         Orientation.addOrientationListener(this._onOrientationDidChange);
     }
     componentWillUnmount() {
@@ -140,7 +143,7 @@ class Epis2 extends React.Component {
         const { login } = this.props.user;
         const { epis, motivo, size, comment, singleImage, imgData } = this.state
 
-        if (!epis.length) {
+        if (!epis) {
             Alert.alert("Primero seleccione Solicitado")
             return
         }
@@ -175,16 +178,84 @@ class Epis2 extends React.Component {
                 'name': Date.now() + '_Agefred.png',
             }
         }
-        this.props.postEpisApeal(
+        this._submitApi(
             login.data.id,
-            JSON.stringify(epis),
+            //JSON.stringify(epis),
+            epis,
             motivo,
             size,
             comment,
             imgData,
             data
-
         )
+    }
+    _submitApi = (
+        userId,
+        epiArray,
+        reason,
+        size,
+        comment,
+        imagesArray,
+        singleImage,
+    ) => {
+        this.setState({ isLoading: true })
+        const body = new FormData();
+        body.append('userId', userId);
+        body.append('epiArray', epiArray);
+        body.append('reason', reason);
+        body.append('size', size);
+        body.append('comment', comment);
+        if (imagesArray === undefined || imagesArray.length === 0) {
+            if (singleImage) {
+                body.append('images[]', singleImage);
+            } else {
+                body.append('images[]', null);
+            }
+        } else {
+            imagesArray.forEach((item, i) => {
+                body.append("images[]", {
+                    'uri': item.uri,
+                    'type': item.type,
+                    'name': item.name,
+                });
+            });
+        }
+        fetch("http://95.179.209.186/api/epi-submitAppeal", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.status === "Success") {
+                    console.log(json)
+                    this.setState({
+                        epis: "",
+                        motivo: "",
+                        size: "",
+                        comment: "",
+                        imgData: [],
+                        singleImage: "",
+                        isLoading: false
+                    }, () => {
+                        // Toast.show(json.message, Toast.LONG, [
+                        //     'UIAlertController',
+                        // ]);
+                        Alert.alert(json.message)
+                    })
+                } else {
+                    console.log(json)
+                    Alert.alert(json.message)
+                }
+            })
+            .catch(error => {
+                this.setState({ isLoading: false })
+                console.log(error)
+
+            })
     }
     // updateArray = () => {
     //     const { episData2 } = this.props.user;
@@ -222,15 +293,135 @@ class Epis2 extends React.Component {
                     centerComponent={
                         <HeaderImage
                             isText={true}
-                            title="Nuevas Solicitudes"
+                            title="NUEVAS SOLICITUDES"
                         />
                     }
                     containerStyle={{
                         backgroundColor: darkBlue,
                     }}
                 />
+                <KeyboardAvoidingScrollView
+                    stickyFooter={
+                        <View style={styles.bottomView2}>
+                            <TouchableOpacity
+                                style={styles.confirmBtn}
+                                onPress={() => {
+                                    //this.test();
+                                    this._handleSubmit()
+                                    //this.props.submitEpisData2(login.data.id, testArray)
+                                }
+                                    //console.log(testArray)
+                                }
+                            >
+                                <Text style={styles.btnText}>
+                                    {"Continuar"}
+                                </Text>
+                            </TouchableOpacity>
+                            {/* <TouchableOpacity
+                                style={styles.confirmBtn}
+                                onPress={() => {
+                                    //this.test();
+                                    //this._handleSubmit()
+                                    //this.props.submitEpisData2(login.data.id, testArray)
+                                }
+                                    //console.log(testArray)
+                                }
+                            >
+                                <Text style={styles.btnText}>
+                                    {"Registrar"}
+                                </Text>
+                            </TouchableOpacity> */}
+                        </View>
+                    }
+                >
 
-                <View style={styles.itemMainView2}>
+
+                    <View style={styles.bottomHourView}>
+                        <Text style={styles.hoursTitle}>{"Epi Solicitado"}</Text>
+                    </View>
+                    {/* <View style={styles.epiTools}> */}
+                    {/* <SelectMultiple
+                        items={getEpisApeal.epis}
+                        selectedItems={epis}
+                        style={{ backgroundColor: lightBlue }}
+                        rowStyle={{ backgroundColor: lightBlue }}
+                        onSelectionsChange={(value) => this.setState({ epis: value })} /> */}
+                    <RNPickerSelect
+                        placeholder={{
+                            label: 'Epi Solicitado',
+                            value: epis,
+                            color: "#000"
+                        }}
+                        style={pickerStyle}
+                        value={this.state.epis}
+                        onValueChange={(value) => this.setState({ epis: value })}
+                        items={getEpisApeal.epis}
+                    />
+                    {/* </View> */}
+                    <View style={styles.bottomHourView}>
+                        <Text style={styles.hoursTitle}>{"Talla"}</Text>
+                    </View>
+                    <TextInput
+                        style={styles.input}
+                        //multiline
+                        placeholder="Tala"
+                        value={this.state.size}
+                        placeholderTextColor={darkBlue}
+                        onChangeText={(value) => this.setState({ size: value })}
+                        keyboardType="decimal-pad"
+                    />
+                    <View style={styles.bottomHourView}>
+                        <Text style={styles.hoursTitle}>{"Motivo de la solicitud"}</Text>
+                    </View>
+                    {!getEpisApeal || !getEpisApeal.motives.length ?
+                        <View />
+                        : <RNPickerSelect
+                            placeholder={{
+                                label: 'Motivo de la solicitud',
+                                value: motivo,
+                                color: "#000"
+                            }}
+                            style={pickerStyle}
+                            value={this.state.motivo}
+                            onValueChange={(value) => this.setState({ motivo: value })}
+                            items={getEpisApeal.motives}
+                        />
+                    }
+                    <View style={styles.bottomHourView}>
+                        <Text style={styles.hoursTitle}>{"Foto"}</Text>
+                    </View>
+                    <View style={styles.fotoView}>
+                        <TouchableOpacity
+                            disabled={motivo == '46' ? false : true}
+                            onPress={() => this.toggleDiloge()}
+                        >
+                            <FastImage
+                                source={
+                                    (imgData.length || singleImage) ?
+                                        require('../../images/tick.png')
+                                        : require('../../images/download.png')
+                                }
+                                style={{ width: 30, height: 30 }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.bottomHourView}>
+                        <Text style={styles.hoursTitle}>{"Comentario"}</Text>
+                    </View>
+                    <TextInput
+                        style={[styles.input, {
+                            height: heightPercentageToDP(10),
+                            textAlignVertical: "top"
+                        }]}
+                        multiline
+                        value={this.state.comment}
+                        placeholder="Comentario"
+                        placeholderTextColor={darkBlue}
+                        onChangeText={(value) => this.setState({ comment: value })}
+                        keyboardType="email-address"
+                    />
+                    {/* <View style={styles.itemMainView2}>
                     <View style={[styles.component, { width: "20%" }]}>
                         <Text>Epi Solicitado</Text>
                     </View>
@@ -246,9 +437,9 @@ class Epis2 extends React.Component {
                     <View style={[styles.component, { width: "30%" }]}>
                         <Text>Comentario</Text>
                     </View>
-                </View>
-                <View style={[styles.itemMainView3, { height: widthPercentageToDP(10) }]}>
-                    <View style={[styles.component2, { width: "20%", borderLeftWidth: widthPercentageToDP(0.1) }]}>
+                </View> */}
+                    {/* <View style={[styles.itemMainView3, { height: widthPercentageToDP(10) }]}> */}
+                    {/* <View style={[styles.component2, { width: "20%", borderLeftWidth: widthPercentageToDP(0.1) }]}>
                         {!getEpisApeal || !getEpisApeal.epis.length ?
                             <View />
                             :
@@ -266,12 +457,12 @@ class Epis2 extends React.Component {
                                 items={getEpisApeal.epis}
                                 selectedItems={epis}
                                 style={{ backgroundColor: lightBlue }}
-                                rowStyle={{ backgroundColor: lightBlue }}
+                                rowStyle={{ backgroundColor: lightBlue, height: widthPercentageToDP(10.5) }}
                                 onSelectionsChange={(value) => this.setState({ epis: value })} />
                         }
 
-                    </View>
-                    <View style={[styles.component2, { width: "20%" }]}>
+                    </View> */}
+                    {/* <View style={[styles.component2, { width: "20%" }]}>
                         <TextInput
                             style={styles.input}
                             multiline
@@ -280,8 +471,8 @@ class Epis2 extends React.Component {
                             onChangeText={(value) => this.setState({ size: value })}
                             keyboardType="decimal-pad"
                         />
-                    </View>
-                    <View style={[styles.component2, { width: "20%", }]}>
+                    </View> */}
+                    {/* <View style={[styles.component2, { width: "20%", }]}>
                         {!getEpisApeal || !getEpisApeal.motives.length ?
                             <View />
                             : <RNPickerSelect
@@ -295,8 +486,8 @@ class Epis2 extends React.Component {
                                 items={getEpisApeal.motives}
                             />
                         }
-                    </View>
-                    <View style={[styles.component2, { width: "10%" }]}>
+                    </View> */}
+                    {/* <View style={[styles.component2, { width: "10%" }]}>
                         <TouchableOpacity
                             disabled={motivo == '46' ? false : true}
                             onPress={() => this.toggleDiloge()}
@@ -310,8 +501,8 @@ class Epis2 extends React.Component {
                                 style={{ width: 30, height: 30 }}
                             />
                         </TouchableOpacity>
-                    </View>
-                    <View style={[styles.component2, { width: "30%" }]}>
+                    </View> */}
+                    {/* <View style={[styles.component2, { width: "30%" }]}>
                         <TextInput
                             style={styles.input}
                             multiline
@@ -319,9 +510,9 @@ class Epis2 extends React.Component {
                             onChangeText={(value) => this.setState({ comment: value })}
                             placeholderTextColor={darkBlue}
                         />
-                    </View>
-                </View>
-                {/* {!testArray.length ?
+                    </View> */}
+                    {/* </View> */}
+                    {/* {!testArray.length ?
                         <View />
                         : <View style={styles.tableRenderingView2}>
                             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -345,24 +536,31 @@ class Epis2 extends React.Component {
                             </ScrollView>
                         </View>
                     } */}
-                <View style={styles.bottomView}>
-                    <TouchableOpacity
-                        style={styles.confirmBtn}
-                        onPress={() => {
-                            //this.test();
-                            this._handleSubmit()
-                            //this.props.submitEpisData2(login.data.id, testArray)
-                        }
-                            //console.log(testArray)
-                        }
-                    >
-                        <Text style={styles.btnText}>
-                            {"Continuar"}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
+                    {/* <View style={styles.bottomView}>
+                        <TouchableOpacity
+                            style={styles.confirmBtn}
+                            onPress={() => {
+                                //this.test();
+                                this._handleSubmit()
+                                //this.props.submitEpisData2(login.data.id, testArray)
+                            }
+                                //console.log(testArray)
+                            }
+                        >
+                            <Text style={styles.btnText}>
+                                {"Continuar"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View> */}
+                </KeyboardAvoidingScrollView>
                 {AuthLoading &&
+                    <ActivityIndicator
+                        style={styles.loading}
+                        size="large"
+                        color="#000"
+                    />
+                }
+                {this.state.isLoading &&
                     <ActivityIndicator
                         style={styles.loading}
                         size="large"
@@ -372,7 +570,7 @@ class Epis2 extends React.Component {
                 {this.state.dilaogStatus &&
                     <Dialog
                         isDialogOpen={this.state.dilaogStatus}
-                        errorMessage={"Choose image from Camera or Gallery"}
+                        errorMessage={"Elija la imagen de la cámara o la galería"}
                         cameraButton={() => Platform.OS === 'android' ?
                             this.requestCameraPermission(this.state.index)
                             : this.openCamera(this.state.index)
@@ -394,7 +592,8 @@ const pickerStyle = {
     inputIOS: {
         color: darkBlue,
         //fontSize: heightPercentageToDP(2),
-        paddingHorizontal: 10,
+        marginLeft: 5,
+        marginRight: 5,
         //backgroundColor: 'red',
         borderRadius: 5,
     },
@@ -403,7 +602,9 @@ const pickerStyle = {
     },
     inputAndroid: {
         color: darkBlue,
-        paddingHorizontal: 10,
+        //paddingHorizontal: 4,
+        marginLeft: 5,
+        marginRight: 5,
         //backgroundColor: 'red',
         borderRadius: 5,
     },

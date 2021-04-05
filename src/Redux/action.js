@@ -1,5 +1,6 @@
 import NavigationService from '../navigator/navigationService'
 import Toast from 'react-native-simple-toast';
+import { Alert } from 'react-native'
 export const LOGIN_DETAIL = "LOAD_HOMEPAGE";
 export const AUTH_LOADING = "AUTH_LOADING";
 export const DATA_PART = "DATA_PART";
@@ -1621,12 +1622,13 @@ export const postEpisApeal = (
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           console.log(json)
-          Toast.show(json.message, Toast.LONG, [
-            'UIAlertController',
-          ]);
+          // Toast.show(json.message, Toast.LONG, [
+          //   'UIAlertController',
+          // ]);
+          Alert.alert(json.message)
         } else {
           console.log(json)
-          alert(json.message)
+          Alert.alert(json.message)
         }
       })
       .catch(error => {

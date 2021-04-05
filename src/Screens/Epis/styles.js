@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
         //backgroundColor:"blue"
     },
     component2: {
-        height: widthPercentageToDP(22),
+        height: widthPercentageToDP(21),
         alignItems: "center",
         justifyContent: "center",
         borderRightWidth: widthPercentageToDP(0.1),
@@ -100,17 +100,18 @@ export const styles = StyleSheet.create({
         borderColor: darkBlue,
         //backgroundColor:"red"
     },
-    input: {
-        width: "100%",
-        height: "100%",
-        textAlignVertical: "top",
-        fontSize: widthPercentageToDP(4),
-        color: darkBlue,
-        padding: 10
-    },
     bottomView: {
         position: "absolute",
         bottom: "10%",
+    },
+    bottomView2: {
+        width: widthPercentageToDP(90),
+        height: widthPercentageToDP(10),
+        justifyContent: "space-around",
+        alignItems: "center",
+        flexDirection: "row",
+        marginBottom: heightPercentageToDP(1),
+        marginTop: heightPercentageToDP(0.5)
     },
     bottom1: {
         position: "absolute",
@@ -135,8 +136,9 @@ export const styles = StyleSheet.create({
         height: widthPercentageToDP(10),
         justifyContent: "center",
         alignItems: "center",
+        alignSelf: "center",
         backgroundColor: darkBlue,
-        borderRadius: widthPercentageToDP(2)
+        borderRadius: widthPercentageToDP(2),
     },
     loading: {
         position: 'absolute',
@@ -171,6 +173,43 @@ export const styles = StyleSheet.create({
     head: {
         height: widthPercentageToDP(14),
         backgroundColor: lightBlue
+    },
+    bottomHourView: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(5),
+        backgroundColor: darkBlue,
+        justifyContent: "center",
+        borderRadius: widthPercentageToDP(1),
+        // paddingLeft: widthPercentageToDP(1),
+        // paddingRight: widthPercentageToDP(1),
+        marginTop: heightPercentageToDP(2)
+    },
+    hoursTitle: {
+        fontSize: widthPercentageToDP(3.5),
+        fontWeight: "bold",
+        color: "#ffff",
+        padding: 5
+        //textAlign: "center"
+    },
+    epiTools: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(15),
+    },
+    input: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(6),
+        textAlignVertical: "top",
+        fontSize: widthPercentageToDP(4),
+        color: darkBlue,
+        //padding: 10,
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkBlue
+    },
+    fotoView: {
+        width: widthPercentageToDP(90),
+        height: heightPercentageToDP(6),
+        justifyContent: "center",
+        alignItems: "center"
     },
     text: { margin: 6 }
 })
