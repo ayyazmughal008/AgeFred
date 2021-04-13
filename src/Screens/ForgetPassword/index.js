@@ -4,6 +4,7 @@ import { changeUserPass, updateForgetPass } from "../../Redux/action";
 import { connect } from "react-redux";
 import { darkBlue } from '../../Component/ColorCode'
 import { styles } from "./styles";
+import Validate from 'validator'
 // import { TextInput } from 'react-native-paper';
 import { Header } from 'react-native-elements'
 import HeaderImage from '../../Component/Header'
@@ -15,7 +16,7 @@ class Login extends Component {
         super(props);
         this.state = {
             dni: "",
-            number: "",
+            email: "",
             password: "",
             confirm: "",
         };
@@ -24,34 +25,32 @@ class Login extends Component {
     onChangeConfirm = confirm => this.setState({ confirm })
 
     onSubmit = () => {
-        const { password, confirm, dni, number } = this.state;
+        const { password, confirm, dni, email } = this.state;
         if (!dni) {
             alert('Por favor proporcione su DNI')
             return;
         }
-        if (!password.length === 8) {
-            alert('Por favor proporcione su Cod. Trabajador')
+        if (!Validate.isEmail(email)) {
+            alert('Proporcione un correo electrónico válido')
             return;
         }
-        if (!confirm.length === 8) {
-            alert("Proporcione confirmación de contraseña")
-            return;
-        }
-        if (password !== confirm) {
-            alert("La contraseña y la confirmación de contraseña deben coincidir")
-            return;
-        }
+        // if (!confirm.length === 8) {
+        //     alert("Proporcione confirmación de contraseña")
+        //     return;
+        // }
+        // if (password !== confirm) {
+        //     alert("La contraseña y la confirmación de contraseña deben coincidir")
+        //     return;
+        // }
         this.props.updateForgetPass(
             dni,
-            number,
-            password,
-            confirm
+            email,
         )
     }
 
     render() {
         const { AuthLoading } = this.props.user;
-        const { password, confirm, dni, number } = this.state
+        const { password, confirm, dni, email } = this.state
         const keyboardVerticalOffset = Platform.OS === 'ios' ? 20 : 0
         //console.log("My loading", AuthLoading);
         return (
@@ -87,19 +86,21 @@ class Login extends Component {
                                     placeholderTextColor={darkBlue}
                                     value={dni}
                                     style={styles.input}
+                                    autoCapitalize = "none"
                                     //secureTextEntry={true}
                                     onChangeText={value => this.setState({ dni: value })}
                                 />
                                 <TextInput
-                                    placeholder="Cod. Trabajador"
+                                    placeholder="Email"
                                     placeholderTextColor={darkBlue}
-                                    value={number}
+                                    value={email}
                                     style={styles.input}
+                                    autoCapitalize = "none"
                                     //secureTextEntry={true}
                                     //password = {true}
-                                    onChangeText={value => this.setState({ number: value })}
+                                    onChangeText={value => this.setState({ email: value })}
                                 />
-                                <TextInput
+                                {/* <TextInput
                                     placeholder="Por favor introduzca su nueva contraseña"
                                     placeholderTextColor={darkBlue}
                                     value={password}
@@ -116,7 +117,7 @@ class Login extends Component {
                                     secureTextEntry={true}
                                     //password = {true}
                                     onChangeText={value => this.setState({ confirm: value })}
-                                />
+                                /> */}
                                 {/* <TextInput
                                     label="Por favor introduzca su nueva contraseña"
                                     style={styles.input}

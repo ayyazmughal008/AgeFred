@@ -134,26 +134,28 @@ export default class Header extends React.Component {
                 <View style={[styles.componet7, {
                     backgroundColor: bgColor
                 }]}>
-                    <TouchableOpacity
-                        disabled={isTrue === 'pending' ? true : false}
-                        onPress={boxClickHandler}>
-                        <View style={styles.box}>
-                            {isTrue === true ?
-                                <FastImage
-                                    source={require('../../images/tick.png')}
-                                    resizeMode={FastImage.resizeMode.cover}
-                                    style={styles.tick}
-                                />
-                                : isTrue === 'pending' ?
-                                    <Icon
-                                        name="close"
-                                        color="#000"
-                                        size={10}
+                    {text5 === 'Pendiente' &&
+                        <TouchableOpacity
+                            disabled={isTrue === 'pending' ? true : false}
+                            onPress={boxClickHandler}>
+                            <View style={styles.box}>
+                                {isTrue === true ?
+                                    <FastImage
+                                        source={require('../../images/tick.png')}
+                                        resizeMode={FastImage.resizeMode.cover}
+                                        style={styles.tick}
                                     />
-                                    : <View />
-                            }
-                        </View>
-                    </TouchableOpacity>
+                                    : isTrue === 'pending' ?
+                                        <Icon
+                                            name="close"
+                                            color="#000"
+                                            size={10}
+                                        />
+                                        : <View />
+                                }
+                            </View>
+                        </TouchableOpacity>
+                    }
                 </View>
             </View >
         )

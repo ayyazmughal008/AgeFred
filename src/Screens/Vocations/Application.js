@@ -295,7 +295,7 @@ class History extends React.Component {
                                     />
                                 </View>
                             }
-                            <View style={styles.dateView}>
+                            <View style={[styles.dateView,{marginTop:10}]}>
                                 <View>
                                     <Text style={styles.toDate}>{"Desde"}</Text>
                                     <View style={styles.selectDateView}>

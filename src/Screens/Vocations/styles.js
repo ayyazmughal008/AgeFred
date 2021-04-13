@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
         backgroundColor: lightBlue,
         alignItems: "center",
     },
-    mainView: {
-        // marginTop: heightPercentageToDP(4),
-        width: widthPercentageToDP(90),
-        backgroundColor: "#ffff",
-        //flex: 1,
-    },
+    // mainView: {
+    //     // marginTop: heightPercentageToDP(4),
+    //     width: widthPercentageToDP(90),
+    //     backgroundColor: "#ffff",
+    //     //flex: 1,
+    // },
     datePickerStyle: {
         width: widthPercentageToDP(85)
     },
@@ -55,11 +55,11 @@ export const styles = StyleSheet.create({
     },
     dateView: {
         width: widthPercentageToDP(90),
-        height: heightPercentageToDP(10),
+        height: heightPercentageToDP(5),
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        marginTop: heightPercentageToDP(2),
+        //marginTop: heightPercentageToDP(2),
         //backgroundColor:"red"
     },
     topView: {
@@ -87,26 +87,28 @@ export const styles = StyleSheet.create({
         backgroundColor: lightBlue,
         //alignItems:"center"
     },
-    bottomBtnView:{
-        width:widthPercentageToDP(100),
-        height:heightPercentageToDP(6),
-        marginTop:heightPercentageToDP(1),
-        justifyContent:"center",
-        alignItems:"center"
-    },
-    bottomBtn:{
-        width:widthPercentageToDP(45),
-        height:heightPercentageToDP(5),
-        borderRadius:widthPercentageToDP(10),
-        backgroundColor: orangae,
-        justifyContent:"center",
-        alignItems:"center"
-    },
-    bottomBtnText:{
-        fontSize:widthPercentageToDP(3),
-        fontWeight:"300",
-        color: "#ffff"
-    },
+    // bottomBtnView:{
+    //     width:widthPercentageToDP(100),
+    //     height:heightPercentageToDP(5),
+    //     //marginTop:heightPercentageToDP(1),
+    //     justifyContent:"center",
+    //     alignItems:"center",
+    //     backgroundColor:"yellow"
+    //     //backgroundColor:"red"
+    // },
+    // bottomBtn:{
+    //     width:widthPercentageToDP(45),
+    //     height:heightPercentageToDP(5),
+    //     borderRadius:widthPercentageToDP(10),
+    //     backgroundColor: orangae,
+    //     justifyContent:"center",
+    //     alignItems:"center"
+    // },
+    // bottomBtnText:{
+    //     fontSize:widthPercentageToDP(3),
+    //     fontWeight:"300",
+    //     color: "#ffff"
+    // },
     historyTitle: {
         width: widthPercentageToDP(100),
         height: heightPercentageToDP(5),
@@ -126,7 +128,7 @@ export const styles = StyleSheet.create({
     },
     mainView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(25),
+        height: heightPercentageToDP(34),
         //backgroundColor: "red"
     },
     historyText: {
@@ -217,10 +219,11 @@ export const styles = StyleSheet.create({
     },
     bottomBtnView:{
         width:widthPercentageToDP(100),
-        height:heightPercentageToDP(6),
+        height:heightPercentageToDP(5),
         marginTop:heightPercentageToDP(1),
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
+        //backgroundColor:"red"
     },
     bottomBtn:{
         width:widthPercentageToDP(45),

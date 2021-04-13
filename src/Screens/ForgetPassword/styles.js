@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
         backgroundColor: orangae,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: heightPercentageToDP(2)
+        marginTop: heightPercentageToDP(5)
     },
     btnText: {
         fontSize: widthPercentageToDP(5),

@@ -27,7 +27,7 @@ class Epis2 extends React.Component {
             width: 0,
             height: 0,
             testArray: [],
-            epis: [],
+            epis: "",
             motivo: "",
             size: "",
             comment: "",
@@ -278,6 +278,7 @@ class Epis2 extends React.Component {
     render() {
         const { login, AuthLoading, getEpisApeal } = this.props.user;
         const { testArray, epis, motivo, singleImage, imgData } = this.state
+        console.log("my episss===>>", getEpisApeal)
         return (
             <View style={[styles.container, { alignItems: "center" }]} onLayout={(e) => { this._onLayout(e) }}>
                 <Header
@@ -301,38 +302,9 @@ class Epis2 extends React.Component {
                     }}
                 />
                 <KeyboardAvoidingScrollView
-                    stickyFooter={
-                        <View style={styles.bottomView2}>
-                            <TouchableOpacity
-                                style={styles.confirmBtn}
-                                onPress={() => {
-                                    //this.test();
-                                    this._handleSubmit()
-                                    //this.props.submitEpisData2(login.data.id, testArray)
-                                }
-                                    //console.log(testArray)
-                                }
-                            >
-                                <Text style={styles.btnText}>
-                                    {"Continuar"}
-                                </Text>
-                            </TouchableOpacity>
-                            {/* <TouchableOpacity
-                                style={styles.confirmBtn}
-                                onPress={() => {
-                                    //this.test();
-                                    //this._handleSubmit()
-                                    //this.props.submitEpisData2(login.data.id, testArray)
-                                }
-                                    //console.log(testArray)
-                                }
-                            >
-                                <Text style={styles.btnText}>
-                                    {"Registrar"}
-                                </Text>
-                            </TouchableOpacity> */}
-                        </View>
-                    }
+                // stickyFooter={
+
+                // }
                 >
 
 
@@ -346,17 +318,26 @@ class Epis2 extends React.Component {
                         style={{ backgroundColor: lightBlue }}
                         rowStyle={{ backgroundColor: lightBlue }}
                         onSelectionsChange={(value) => this.setState({ epis: value })} /> */}
-                    <RNPickerSelect
-                        placeholder={{
-                            label: 'Epi Solicitado',
-                            value: epis,
-                            color: "#000"
-                        }}
-                        style={pickerStyle}
-                        value={this.state.epis}
-                        onValueChange={(value) => this.setState({ epis: value })}
-                        items={getEpisApeal.epis}
-                    />
+                    {!getEpisApeal || !getEpisApeal.motives.length ?
+                        <View />
+                        : <View style={{
+                            width: widthPercentageToDP(90),
+                            height: heightPercentageToDP(5),
+                            justifyContent: "center"
+                        }}>
+                            <RNPickerSelect
+                                placeholder={{
+                                    label: 'Epi Solicitado',
+                                    value: epis,
+                                    color: "#000"
+                                }}
+                                style={pickerStyle}
+                                //value={epis}
+                                onValueChange={(value) => this.setState({ epis: value })}
+                                items={getEpisApeal.epis}
+                            />
+                        </View>
+                    }
                     {/* </View> */}
                     <View style={styles.bottomHourView}>
                         <Text style={styles.hoursTitle}>{"Talla"}</Text>
@@ -368,24 +349,29 @@ class Epis2 extends React.Component {
                         value={this.state.size}
                         placeholderTextColor={darkBlue}
                         onChangeText={(value) => this.setState({ size: value })}
-                        keyboardType="decimal-pad"
+                        keyboardType="email-address"
                     />
                     <View style={styles.bottomHourView}>
                         <Text style={styles.hoursTitle}>{"Motivo de la solicitud"}</Text>
                     </View>
                     {!getEpisApeal || !getEpisApeal.motives.length ?
                         <View />
-                        : <RNPickerSelect
-                            placeholder={{
-                                label: 'Motivo de la solicitud',
-                                value: motivo,
-                                color: "#000"
-                            }}
-                            style={pickerStyle}
-                            value={this.state.motivo}
-                            onValueChange={(value) => this.setState({ motivo: value })}
-                            items={getEpisApeal.motives}
-                        />
+                        : <View style={{
+                            width: widthPercentageToDP(90),
+                            height: heightPercentageToDP(5),
+                            justifyContent: "center"
+                        }}>
+                            <RNPickerSelect
+                                placeholder={{
+                                    label: 'Motivo de la solicitud',
+                                    value: motivo,
+                                    color: "#000"
+                                }}
+                                style={pickerStyle}
+                                onValueChange={(value) => this.setState({ motivo: value })}
+                                items={getEpisApeal.motives}
+                            />
+                        </View>
                     }
                     <View style={styles.bottomHourView}>
                         <Text style={styles.hoursTitle}>{"Foto"}</Text>
@@ -421,6 +407,36 @@ class Epis2 extends React.Component {
                         onChangeText={(value) => this.setState({ comment: value })}
                         keyboardType="email-address"
                     />
+                    <View style={styles.bottomView2}>
+                        <TouchableOpacity
+                            style={styles.confirmBtn}
+                            onPress={() => {
+                                //this.test();
+                                this._handleSubmit()
+                                //this.props.submitEpisData2(login.data.id, testArray)
+                            }
+                                //console.log(testArray)
+                            }
+                        >
+                            <Text style={styles.btnText}>
+                                {"Continuar"}
+                            </Text>
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity
+                                style={styles.confirmBtn}
+                                onPress={() => {
+                                    //this.test();
+                                    //this._handleSubmit()
+                                    //this.props.submitEpisData2(login.data.id, testArray)
+                                }
+                                    //console.log(testArray)
+                                }
+                            >
+                                <Text style={styles.btnText}>
+                                    {"Registrar"}
+                                </Text>
+                            </TouchableOpacity> */}
+                    </View>
                     {/* <View style={styles.itemMainView2}>
                     <View style={[styles.component, { width: "20%" }]}>
                         <Text>Epi Solicitado</Text>
@@ -609,7 +625,7 @@ const pickerStyle = {
         borderRadius: 5,
     },
     modalViewBottom: {
-        backgroundColor: "grey"
+        backgroundColor: "#f8f8ff"
     }
     // viewContainer:{
     //     backgroundColor:"red"

@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         marginBottom: heightPercentageToDP(1),
-        marginTop: heightPercentageToDP(0.5)
+        marginTop: heightPercentageToDP(3)
     },
     bottom1: {
         position: "absolute",

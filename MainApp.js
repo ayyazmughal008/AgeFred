@@ -46,7 +46,10 @@ class MainApp extends React.Component {
             }
             else if (remoteMessage.data.type == "epi") {
                 navigationService.navigate("Epis")
-            } else {
+            } else if (remoteMessage.data.type == "personal") {
+                navigationService.navigate("PersonalDocuments")
+            }
+            else {
                 alert("No data")
             }
         });
@@ -69,7 +72,10 @@ class MainApp extends React.Component {
             }
             else if (remoteMessage.data.type == "epi") {
                 navigationService.navigate("Epis")
-            } else {
+            } else if (remoteMessage.data.type == "personal") {
+                navigationService.navigate("PersonalDocuments")
+            }
+            else {
                 alert("No data")
             }
         });
@@ -95,7 +101,10 @@ class MainApp extends React.Component {
             }
             else if (remoteMessage.data.type == "epi") {
                 navigationService.navigate("Epis")
-            } else {
+            } else if (remoteMessage.data.type == "personal") {
+                navigationService.navigate("PersonalDocuments")
+            }
+            else {
                 alert("No data")
             }
             // navigation.navigate(remoteMessage.data.type);
@@ -124,7 +133,10 @@ class MainApp extends React.Component {
                 }
                 else if (remoteMessage.data.type == "epi") {
                     navigationService.navigate("Epis")
-                } else {
+                } else if (remoteMessage.data.type == "personal") {
+                    navigationService.navigate("PersonalDocuments")
+                }
+                else {
                     alert("No data")
                 }
                 //setInitialRoute(remoteMessage.data.type); // e.g. "Settings"

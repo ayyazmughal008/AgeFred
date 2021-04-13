@@ -191,7 +191,7 @@ class History extends React.Component {
                     style={styles.submitBtn}
                     onPress={() => this.getDetail()}
                 >
-                    <Text style={styles.submitText}>
+                    <Text style={styles.bottomBtnText}>
                         {"Filtrar"}
                     </Text>
                 </TouchableOpacity>
@@ -287,6 +287,18 @@ class History extends React.Component {
 
                     </View>
                 }
+                {this.state.totalSelected > 0 &&
+                    <View style={styles.bottomBtnView}>
+                        <TouchableOpacity
+                            style={styles.bottomBtn}
+                            onPress={() => this.deleteDetail()}
+                        >
+                            <Text style={styles.bottomBtnText}>
+                                {"Eliminar"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                }
                 <View style={styles.lastView}>
                     {!expense.totalExpenses ?
                         <View />
@@ -323,18 +335,7 @@ class History extends React.Component {
                         </View>
                     }
                 </View>
-                {this.state.totalSelected > 0 &&
-                    <View style={styles.bottomBtnView}>
-                        <TouchableOpacity
-                            style={styles.bottomBtn}
-                            onPress={() => this.deleteDetail()}
-                        >
-                            <Text style={styles.bottomBtnText}>
-                                {"Eliminar"}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                }
+
                 {this.state.loading &&
                     <ActivityIndicator
                         size="large"

@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
         color: darkGrey,
     },
     submitBtn: {
-        width: widthPercentageToDP(55),
+        width: widthPercentageToDP(45),
         height: heightPercentageToDP(5),
         borderRadius: widthPercentageToDP(10),
         backgroundColor: orangae,
@@ -169,8 +169,8 @@ export const styles = StyleSheet.create({
     },
     middleView2: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(30),
-        backgroundColor: "#ffff",
+        height: heightPercentageToDP(34),
+        //backgroundColor: "#ffff",
     },
     sliderContainer: {
         width: widthPercentageToDP(100),
@@ -249,7 +249,7 @@ export const styles = StyleSheet.create({
     },
     bottomBtnView: {
         width: widthPercentageToDP(100),
-        height: heightPercentageToDP(6),
+        height: heightPercentageToDP(5),
         marginTop: heightPercentageToDP(1),
         justifyContent: "center",
         alignItems: "center"

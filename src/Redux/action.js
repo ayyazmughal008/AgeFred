@@ -1675,8 +1675,6 @@ export const getPersonalDoc = (id) => {
 export const updateForgetPass = (
   dni,
   number,
-  newPass,
-  confirm,
 ) => {
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
@@ -1688,9 +1686,7 @@ export const updateForgetPass = (
       },
       body: JSON.stringify({
         dni: dni,
-        number: number,
-        new: newPass,
-        confirm: confirm
+        email: number,
       }),
     })
       .then(res => res.json())

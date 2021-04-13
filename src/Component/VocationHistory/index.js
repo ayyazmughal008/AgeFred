@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, ScrollView, Text, Platform, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, Platform, StyleSheet, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../MakeMeResponsive'
 import { darkBlue, grey, darkGrey } from '../ColorCode'
 import FastImage from 'react-native-fast-image'
+import Icon from 'react-native-vector-icons/AntDesign'
 import NestedScrollView from 'react-native-nested-scroll-view'
 //import { ScrollView } from 'react-native-gesture-handler'
 export default class Header extends React.Component {
@@ -17,10 +18,11 @@ export default class Header extends React.Component {
             text6,
             text7,
             bgColor,
-            isTrue1,
+            isTrue,
             isTrue2,
             type,
-            date2
+            date2,
+            boxClickHandler
 
         } = this.props
         return (
@@ -63,14 +65,46 @@ export default class Header extends React.Component {
                 <View style={[styles.componet6, {
                     backgroundColor: bgColor
                 }]}>
-                    {/* <View style={styles.box}>
+                    {text5 === 'Pendiente' &&
+                        <TouchableOpacity
+                            onPress={boxClickHandler}
+                            // style={[styles.componet6, {
+                            //     backgroundColor: bgColor
+                            // }]}
+                            disabled={isTrue === 'pending' ? true
+                                : false}
+                        >
+                            <View style={styles.box}>
+                                {isTrue === true ?
+                                    <FastImage
+                                        source={require('../../images/tick.png')}
+                                        resizeMode={FastImage.resizeMode.cover}
+                                        style={styles.tick}
+                                    />
+                                    : isTrue === 'pending' ?
+                                        <Icon
+                                            name="close"
+                                            color="#000"
+                                            size={10}
+                                        />
+                                        : <View />
+                                }
+                            </View>
+                        </TouchableOpacity>
+                    }
+                </View>
+
+                {/* <View style={[styles.componet6, {
+                    backgroundColor: bgColor
+                }]}>
+                    <View style={styles.box}>
                         <FastImage
                             source={require('../../images/tick.png')}
                             resizeMode={FastImage.resizeMode.cover}
                             style={styles.tick}
                         />
-                    </View> */}
-                </View>
+                    </View>
+                </View> */}
                 {/* <View style={[styles.componet7, {
                     backgroundColor: bgColor
                 }]}>

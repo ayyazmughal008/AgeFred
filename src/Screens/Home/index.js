@@ -242,12 +242,9 @@ class HomePage extends Component {
                                     clickHandler={() => this.props.navigation.navigate('Documents')}
                                 />
                                 <Card
-                                    iconName={require('./assets/4.png')}
-                                    title="EPIS"
-                                    clickHandler={() => {
-                                        this.test()
-                                        this.props.navigation.navigate('Epis')
-                                    }}
+                                    iconName={require('./assets/3.png')}
+                                    title="Documentos Personales"
+                                    clickHandler={() => this.props.navigation.navigate('PersonalDocuments')}
                                 />
                             </View>
                             <View style={styles.menuView}>
@@ -270,9 +267,12 @@ class HomePage extends Component {
                                     clickHandler={() => this.props.navigation.navigate('Orden')}
                                 /> */}
                                 <Card
-                                    iconName={require('./assets/3.png')}
-                                    title="Documentos Personales"
-                                    clickHandler={() => this.props.navigation.navigate('PersonalDocuments')}
+                                    iconName={require('./assets/4.png')}
+                                    title="EPIS"
+                                    clickHandler={() => {
+                                        this.test()
+                                        this.props.navigation.navigate('Epis')
+                                    }}
                                 />
                                 <Card
                                     iconName={require('../../images/clock.png')}

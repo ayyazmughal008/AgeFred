@@ -55,7 +55,7 @@ export default class Header extends React.Component {
                     </TouchableOpacity>
 
                 </View>
-                {status === 'pending' &&
+                {status === 'Pendiente' &&
                     <TouchableOpacity
                         onPress={boxClickHandler}
                         style={styles.componet4}
