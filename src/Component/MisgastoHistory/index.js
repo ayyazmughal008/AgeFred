@@ -114,6 +114,8 @@ const styles = StyleSheet.create({
         height: heightPercentageToDP(5),
         justifyContent: "center",
         alignItems: "center",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: "#000"
         //backgroundColor:"red"
     },
     componet2: {
@@ -122,6 +124,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column-reverse",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: "#000"
         //backgroundColor:"yellow"
     },
     componet3: {
@@ -130,6 +134,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column-reverse",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: "#000"
         //backgroundColor:"yellow"
     },
     componet4: {
@@ -138,6 +144,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column-reverse",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: "#000"
         //backgroundColor:"yellow"
     },
     box: {

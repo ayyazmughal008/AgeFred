@@ -37,7 +37,8 @@ class Application extends React.Component {
             selectedFruits: "",
             isFirst: false,
             isSecond: false,
-            myDate: new Date()
+            myDate: new Date(),
+            isLoading: false
         };
         this.controller;
     }
@@ -85,20 +86,72 @@ class Application extends React.Component {
             value: this.state.selectedFruits
         })
         console.log(myConceptos)
-        this.props.postPartStoreData(
+        this._submitApi(
             this.state.endDate,
             this.state.task,
             this.state.hours,
             this.state.noHours,
             myConceptos,
-            // this.state.fifthCheck,
-            // this.state.secondCheck,
-            // this.state.thirdCheck,
-            // this.state.fourthCheck,
-            // this.state.fifthCheck,
             login.data.id,
             styles.list
         )
+        // this.props.postPartStoreData(
+        //     this.state.endDate,
+        //     this.state.task,
+        //     this.state.hours,
+        //     this.state.noHours,
+        //     myConceptos,
+        //     // this.state.fifthCheck,
+        //     // this.state.secondCheck,
+        //     // this.state.thirdCheck,
+        //     // this.state.fourthCheck,
+        //     // this.state.fifthCheck,
+        //     login.data.id,
+        //     styles.list
+        // )
+    }
+    _submitApi = (date, project, hourType, hours, concept, employId, list) => {
+        this.setState({ isLoading: true })
+        console.log(project)
+        const { dataPart } = this.props.user
+        fetch('http://95.179.209.186/api/part-store', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                date: date,
+                project: project,
+                hourType: hourType,
+                hours: hours,
+                concept: concept,
+                employId: employId
+            }),
+        })
+            .then(res => res.json())
+            .then(json => {
+                this.setState({ isLoading: false })
+                // //console.log(json)
+                if (json.status === "Success") {
+                    Toast.show(json.message, Toast.LONG, [
+                        'UIAlertController',
+                    ]);
+                    this.setState({
+                        endDate: "",
+                        task: '',
+                        hours: "",
+                        noHours: "",
+                        concepts: "",
+                    })
+                    // console.log(dataPart.data.projects)
+                } else {
+                    alert(json.message)
+                }
+            }).catch(error => {
+                this.setState({ isLoading: false })
+                console.log(error)
+            })
     }
     onSelectionsChange = (selectedFruits) => {
         // selectedFruits is array of { label, value }
@@ -107,7 +160,7 @@ class Application extends React.Component {
 
     render() {
         const navigation = this.props.navigation;
-        const { myDate } = this.state
+        const { myDate, isLoading } = this.state
         const { dataPart, AuthLoading, login } = this.props.user
         let date = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
         //console.log(date)
@@ -165,8 +218,8 @@ class Application extends React.Component {
                         })}
                         searchableError={() => <Text>Not Found</Text>}
                         zIndex={5000}
-                        items={dataPart.data.projects}
-                        defaultValue={this.state.task}
+                        items={!dataPart ? [] : dataPart.data.projects}
+                        //defaultValue={this.state.task}
                         containerStyle={styles.dropStyle}
                         style={{
                             backgroundColor: '#ffff',
@@ -241,6 +294,7 @@ class Application extends React.Component {
                         placeholderTextColor={darkBlue}
                         style={styles.input}
                         maxLength={2}
+                        value={this.state.noHours}
                         keyboardType="email-address"
                         onChangeText={text => this.setState({ noHours: text })}
                     />
@@ -261,8 +315,8 @@ class Application extends React.Component {
                         zIndex={3000}
                         items={dataPart.data.concepts}
                         defaultValue={this.state.concepts}
-                        containerStyle={[styles.dropStyle2,{
-                            marginTop:30
+                        containerStyle={[styles.dropStyle2, {
+                            marginTop: 30
                         }]}
                         onOpen={() => this.setState({
                             isSecond: true,
@@ -407,6 +461,13 @@ class Application extends React.Component {
                     </Text>
                 </TouchableOpacity>
                 {AuthLoading &&
+                    <ActivityIndicator
+                        size="large"
+                        color={darkBlue}
+                        style={styles.loading}
+                    />
+                }
+                {isLoading &&
                     <ActivityIndicator
                         size="large"
                         color={darkBlue}
