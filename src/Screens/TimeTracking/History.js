@@ -138,20 +138,23 @@ class History extends React.Component {
                         <MaterialIcons name="history" size={30} color="#fff" />
                     </View>
                     <View style={styles.historyLabel}>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "16%" }]}>
                             <Text style={styles.historyLabelText}>Fecha</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "16%" }]}>
                             <Text style={styles.historyLabelText}>Comienzo</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
                             <Text style={styles.historyLabelText}>Fin</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
                             <Text style={styles.historyLabelText}>Tiempo Total</Text>
                         </View>
-                        <View style={styles.textWrap}>
-                            <Text style={styles.historyLabelText}>Ubicación</Text>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
+                            <Text style={styles.historyLabelText}>Inicio Ubicación</Text>
+                        </View>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
+                            <Text style={styles.historyLabelText}>Fin Ubicación</Text>
                         </View>
                     </View>
                     {!trackingHistory ?
@@ -175,6 +178,16 @@ class History extends React.Component {
                                     }}
                                     text4={item.totalTime}
                                     text5={"Mostrar" + '\n' + "ubicación"}
+                                    text7={(!item.latitudeEnd && !item.longitudeEnd) ? "" : "Mostrar" + '\n' + "ubicación"}
+                                    mapClick2={() => {
+                                        this.setState({
+                                            lat: item.latitudeEnd,
+                                            long: item.longitudeEnd
+                                        }, () => {
+                                            this.toggleMap();
+                                        })
+
+                                    }}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}
                                 />
                             )}

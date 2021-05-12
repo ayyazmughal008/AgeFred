@@ -8,7 +8,8 @@ import {
     PermissionsAndroid,
     ActivityIndicator,
     TextInput,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 import { connect } from "react-redux";
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -73,7 +74,7 @@ class TimeTracking extends Component {
                 loading: false
             }), error => {
                 this.setState({ loading: false }, () => {
-                    alert("Please enable your location, it's required for this section and reopen the application", error)
+                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
                 }),
                 {
                     enableHighAccuracy: true,
@@ -86,7 +87,7 @@ class TimeTracking extends Component {
                 loading: false
             }), error => {
                 this.setState({ loading: false }, () => {
-                    alert("Please enable your location, it's required for this section and reopen the application", error)
+                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
                 }),
                 {
                     enableHighAccuracy: true,
@@ -114,7 +115,7 @@ class TimeTracking extends Component {
                         loading: false
                     }), error => {
                         this.setState({ loading: false }, () => {
-                            alert("Please enable your location, it's required for this section and reopen the application", error)
+                            Alert.alert("Please enable your location, it's required for this section and reopen the application", error)
                         }),
                         {
                             enableHighAccuracy: true,
@@ -127,7 +128,7 @@ class TimeTracking extends Component {
                         loading: false
                     }), error => {
                         this.setState({ loading: false }, () => {
-                            alert("Please enable your location, it's required for this section and reopen the application", error)
+                            Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
                         }),
                         {
                             enableHighAccuracy: true,
@@ -438,20 +439,23 @@ class TimeTracking extends Component {
                         <MaterialIcons name="history" size={30} color="#fff" />
                     </View>
                     <View style={styles.historyLabel}>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "16%" }]}>
                             <Text style={styles.historyLabelText}>Fecha</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "16%" }]}>
                             <Text style={styles.historyLabelText}>Comienzo</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
                             <Text style={styles.historyLabelText}>Fin</Text>
                         </View>
-                        <View style={styles.textWrap}>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
                             <Text style={styles.historyLabelText}>Tiempo Total</Text>
                         </View>
-                        <View style={styles.textWrap}>
-                            <Text style={styles.historyLabelText}>Ubicación</Text>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
+                            <Text style={styles.historyLabelText}>Inicio Ubicación</Text>
+                        </View>
+                        <View style={[styles.textWrap, { width: "17%" }]}>
+                            <Text style={styles.historyLabelText}>Fin Ubicación</Text>
                         </View>
                     </View>
                     {!timeTracking.times.length ?
@@ -475,6 +479,16 @@ class TimeTracking extends Component {
 
                                     }}
                                     text5={"Mostrar" + '\n' + "ubicación"}
+                                    text7={(!item.latitudeEnd && !item.longitudeEnd) ? "" : "Mostrar" + '\n' + "ubicación"}
+                                    mapClick2={() => {
+                                        this.setState({
+                                            lat: item.latitudeEnd,
+                                            long: item.longitudeEnd
+                                        }, () => {
+                                            this.toggleMap();
+                                        })
+
+                                    }}
                                     bgColor={index % 2 ? "#cccccc" : "#ffff"}
                                 />
                             )}
@@ -502,7 +516,11 @@ class TimeTracking extends Component {
                         cancelClick={() => this.toggleDialog()}
                         okClick={() => {
                             this.toggleDialog();
-                            this.props.endTimeTracking(login.data.id)
+                            this.props.endTimeTracking(
+                                this.state.location.coords.latitude,
+                                this.state.location.coords.longitude,
+                                login.data.id
+                            )
                         }}
                         title="¿De verdad quieres terminar tu trabajo?"
                     />

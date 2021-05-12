@@ -14,13 +14,14 @@ import { ActivityIndicator } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import Dialog from './Dialog'
 import moment from 'moment'
+import Toast from 'react-native-simple-toast'
 
 class MisGastos extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             toDate: moment().format('DD-MM-YYYY'),
-            project: "",
+            project: '',
             comido: "",
             importe: "",
             endDate: "",
@@ -121,7 +122,17 @@ class MisGastos extends React.Component {
                 'name': Date.now() + '_Agefred.png',
             }
         }
-        this.props.postExpenseData(
+        // this.props.postExpenseData(
+        //     this.state.toDate,
+        //     this.state.project,
+        //     this.state.comido,
+        //     this.state.importe,
+        //     this.state.endDate,
+        //     this.state.imgData,
+        //     data,
+        //     login.data.id
+        // )
+        this.postApi(
             this.state.toDate,
             this.state.project,
             this.state.comido,
@@ -170,11 +181,86 @@ class MisGastos extends React.Component {
         }
     }
 
+    postApi = (
+        date,
+        draft,
+        reason,
+        amount,
+        madeDate,
+        imagesArray,
+        singleImage,
+        employId
+    ) => {
+        this.setState({ isLoading: true })
+        const body = new FormData();
+        body.append('date', date);
+        body.append('draft', draft);
+        body.append('reason', reason);
+        body.append('amount', amount);
+        body.append('madeDate', madeDate);
+        body.append('employId', employId);
+        if (imagesArray === undefined || imagesArray.length === 0) {
+            if (singleImage) {
+                body.append('singleImage', singleImage);
+            } else {
+                body.append('singleImage', null);
+            }
+        } else {
+            imagesArray.forEach((item, i) => {
+                body.append("images[]", {
+                    'uri': item.uri,
+                    'type': item.type,
+                    'name': item.name,
+                });
+            });
+        }
+        fetch('http://95.179.209.186/api/expense-store', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.status === "Success") {
+                    this.setState({
+                        project: '',
+                        comido: "",
+                        importe: "",
+                        endDate: "",
+                        imgData: [],
+                        singleImage: "",
+                        isLoading: false,
+                    }, () => {
+                        Toast.show(json.message, Toast.LONG, [
+                            'UIAlertController',
+                        ]);
+                    })
+                } else {
+                    //console.log(json)
+                    Alert.alert("", json.message)
+                }
+            })
+            .catch(error => {
+                this.setState({ isLoading: false })
+                console.log(error)
+            })
+    }
+
     render() {
         const { getDataExpense, AuthLoading, dataPart } = this.props.user
         const { myDate } = this.state
         let date = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
-        console.log(date)
+        // const myPart = [{ label: "Proyecto / Tarea", value: "Proyecto / Tarea" }]
+        // dataPart.forEach((item) => {
+        //     myPart.push({
+        //         label: item.label,
+        //         value: item.value
+        //     })
+        // })
+
         return (
             <KeyboardAvoidingView
                 style={styles.keyboardView}
@@ -213,6 +299,7 @@ class MisGastos extends React.Component {
                                     searchableError={() => <Text>Not Found</Text>}
                                     zIndex={8000}
                                     items={dataPart.data.projects}
+                                    value={this.state.project}
                                     defaultValue={this.state.project}
                                     containerStyle={styles.dropStyle2}
                                     style={{
@@ -259,26 +346,27 @@ class MisGastos extends React.Component {
                                     //seachableStyle={{}}
                                     searchableError={() => <Text>Not Found</Text>}
                                     zIndex={5000}
-                                    items={dataPart.data.projects}
+                                    items={!dataPart ? [] : dataPart.data.projects}
+                                    value={this.state.project}
                                     defaultValue={this.state.project}
                                     containerStyle={styles.dropStyle2}
                                     style={{
                                         backgroundColor: '#ffff',
-                                        borderBottomWidth: 1,
-                                        borderBottomColor: grey,
-                                        borderTopWidth: 0,
-                                        borderLeftWidth: 0,
-                                        borderRightWidth: 0,
+                                        borderWidth: 0,
+                                        borderColor: "#ffff",
+                                        zIndex: 4
                                     }}
                                     itemStyle={{
                                         //justifyContent: 'flex-start'
                                         borderTopWidth: 2,
                                         borderTopColor: grey,
+                                        zIndex: 4
                                     }}
                                     dropDownStyle={{
                                         borderWidth: 0,
                                         borderColor: "#ffff",
-
+                                        zIndex: 4,
+                                        backgroundColor: lightBlue
                                     }}
                                     onChangeItem={item => this.setState({
                                         project: item.value
@@ -306,7 +394,7 @@ class MisGastos extends React.Component {
                             <View style={{ alignItems: "center", zIndex: 5000 }}>
                                 <DropDownPicker
                                     items={!getDataExpense.data ? [] : getDataExpense.data}
-                                    defaultValue={this.state.comido}
+                                    //defaultValue={this.state.comido}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
                                     style={{
@@ -350,7 +438,7 @@ class MisGastos extends React.Component {
                             : <View style={{ alignItems: "center", }}>
                                 <DropDownPicker
                                     items={!getDataExpense.data ? [] : getDataExpense.data}
-                                    defaultValue={this.state.comido}
+                                    //defaultValue={this.state.comido}
                                     containerStyle={styles.dropStyle2}
                                     zIndex={5000}
                                     style={{
@@ -400,7 +488,7 @@ class MisGastos extends React.Component {
                                 placeholder="Importe gasto"
                                 placeholderTextColor={darkBlue}
                                 style={styles.input}
-                                value={this.props.importe}
+                                value={this.state.importe}
                                 autoCapitalize="none"
                                 keyboardType="numeric"
                                 onChangeText={text =>
@@ -515,7 +603,15 @@ class MisGastos extends React.Component {
                         color="#000"
                         size="small"
                         style={styles.loading}
-                    />}
+                    />
+                }
+                {this.state.isLoading &&
+                    <ActivityIndicator
+                        color="#000"
+                        size="small"
+                        style={styles.loading}
+                    />
+                }
                 {this.state.dilaogStatus &&
                     <Dialog
                         isDialogOpen={this.state.dilaogStatus}

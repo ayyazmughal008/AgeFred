@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, PermissionsAndroid, ScrollView, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, PermissionsAndroid, ScrollView, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import Card from '../../Component/Card'
 import { styles } from './styles'
 import { Header } from 'react-native-elements'
@@ -258,7 +258,7 @@ class Epis extends React.Component {
         const { login } = this.props.user;
         const { firstRadio, secondRadio } = this.state
         if (!firstRadio && !secondRadio) {
-            alert("Please select any epis option")
+            Alert.alert("", "Seleccione cualquier opción de epis")
             return
         }
         if (firstRadio) {
@@ -267,7 +267,7 @@ class Epis extends React.Component {
         } else {
             this.test()
             this.props.postEpis1('yes', login.data.id)
-            
+
         }
 
     }

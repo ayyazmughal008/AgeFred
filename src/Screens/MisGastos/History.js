@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, ActivityIndicator, Text, TouchableOpacity, FlatList } from 'react-native'
+import { View, ScrollView, ActivityIndicator, Text, TouchableOpacity, FlatList, Alert } from 'react-native'
 import { connect } from 'react-redux';
 import { styles } from './styles';
 import { lightBlue, darkBlue, grey } from '../../Component/ColorCode'
@@ -50,7 +50,7 @@ class History extends React.Component {
                         expense: json
                     });
                 } else {
-                    alert(json.message)
+                    Alert.alert("", json.message)
                 }
             }).catch(error => { console.log(error) })
     }
@@ -88,7 +88,7 @@ class History extends React.Component {
                     this.setState({
                         loading: false
                     });
-                    alert(json.message)
+                    Alert.alert("", json.message)
                 }
             }).catch(error => { console.log(error) })
     }

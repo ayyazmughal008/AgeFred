@@ -130,7 +130,7 @@ export const fetchLoginDetail = (dni, password, fcm) => {
           // dispatch(getGDPRDocument(json.data.id))
           //NavigationService.navigate('ChangePassword')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -163,7 +163,7 @@ export const fetchDataPart = (id) => {
           dispatch(getAllTime(id));
           dispatch(getGDPRDocument(id))
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -216,7 +216,7 @@ export const postPartStoreData = (
             'UIAlertController',
           ]);
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       }).catch(error => {
         console.log(error)
@@ -261,7 +261,7 @@ export const getAllParts = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -292,7 +292,7 @@ export const getDocuments = () => {
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -323,7 +323,7 @@ export const getBlogs = () => {
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("".json.message)
         }
       })
       .catch(error => {
@@ -354,7 +354,7 @@ export const getExpense = () => {
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -431,12 +431,8 @@ export const postExpenseData = (
           });
         } else {
           //console.log(json)
-          alert(json.message)
+          Alert.alert("", json.message)
         }
-      })
-      .catch(error => {
-        dispatch({ type: AUTH_LOADING, payload: false });
-        //console.log('uploadImage error:', error);
       })
       .catch(error => {
         console.log(error)
@@ -475,7 +471,7 @@ export const getAllExpense = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -506,7 +502,7 @@ export const getDataHolidays = () => {
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -523,6 +519,14 @@ export const postHolidayData = (
   hours,
   employId
 ) => {
+  console.log("my parameters===>",
+    type,
+    reason,
+    to,
+    from,
+    hours,
+    employId
+  )
   return dispatch => {
     dispatch({ type: AUTH_LOADING, payload: true });
     fetch(baseUrl + holidayStore, {
@@ -534,22 +538,22 @@ export const postHolidayData = (
       body: JSON.stringify({
         type: type,
         reason: reason,
-        to: to,
-        from: from,
+        to: from,
+        from: to,
         hours: hours,
         employId: employId
       }),
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           Toast.show(json.message, Toast.LONG, [
             'UIAlertController',
           ]);
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -589,7 +593,7 @@ export const getHolidaysdata = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -625,7 +629,7 @@ export const getOrderNumber = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -701,7 +705,7 @@ export const postWorkStore = (
           ]);
           NavigationService.navigate('Home')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(err => {
@@ -743,7 +747,7 @@ export const getAllTools = (
             isHome: isHome
           })
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -783,7 +787,7 @@ export const postEpis1 = (
           }
 
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -825,7 +829,7 @@ export const deleteDailyPart = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -871,7 +875,7 @@ export const getAllTime = (
             //console.log("third condition")
           }
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -906,7 +910,7 @@ export const startTimeTracking = (
     })
       .then(res => res.json())
       .then(json => {
-        ////console.log(json)
+        console.log("Start time tracking data ==>>>", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -927,7 +931,7 @@ export const startTimeTracking = (
             //console.log("third condition")
           }
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -937,6 +941,8 @@ export const startTimeTracking = (
   };
 }
 export const endTimeTracking = (
+  lat,
+  long,
   employId,
 ) => {
   return dispatch => {
@@ -948,12 +954,14 @@ export const endTimeTracking = (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        lat: lat,
+        lng: long,
         id: employId,
       }),
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log("End time tracking data ==>>>", json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -974,7 +982,7 @@ export const endTimeTracking = (
             //console.log("third condition")
           }
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1035,7 +1043,7 @@ export const submitTimeTracking = (
             //console.log("third condition")
           }
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1075,7 +1083,7 @@ export const getTrackingHistory = (
             }
           })
         } else {
-          alert(json.message)
+          Alert.alert(json.message)
         }
       })
       .catch(error => {
@@ -1112,7 +1120,7 @@ export const getGDPRDocument = (
           })
           // NavigationService.navigate('Home')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1151,7 +1159,7 @@ export const submitGDPRDocument = (
             }
           })
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1188,7 +1196,7 @@ export const getEpisHistory = (
           })
           NavigationService.navigate('Option3')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1227,7 +1235,7 @@ export const getEpisData2 = (
           })
           NavigationService.navigate('Option2')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1261,7 +1269,7 @@ export const submitEpisData2 = (
           alert("Data submit successfully")
           NavigationService.navigate('Epis')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1294,11 +1302,11 @@ export const submitEpisData1 = (
         //console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
-          alert("Data submit successfully")
+          Alert.alert("", "Data submit successfully")
           dispatch(getAllUsers(employId))
           // NavigationService.navigate('Home')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1334,7 +1342,7 @@ export const getAutoProjectDetail = (
             }
           })
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1379,7 +1387,7 @@ export const getAllUsers = (
             }
           }
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1420,7 +1428,7 @@ export const changeUserPass = (
           });
           NavigationService.navigate('Home')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1446,7 +1454,7 @@ export const getTimeCounter = (
     })
       .then(res => res.json())
       .then(json => {
-        //console.log(json)
+        console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           dispatch({
@@ -1456,7 +1464,7 @@ export const getTimeCounter = (
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1489,7 +1497,7 @@ export const postDownloadStatus = (
         if (json.status === "Success") {
 
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1520,7 +1528,7 @@ export const logoutNotify = (
         if (json.status === "Success") {
 
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1662,7 +1670,7 @@ export const getPersonalDoc = (id) => {
             }
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {
@@ -1699,7 +1707,7 @@ export const updateForgetPass = (
           ]);
           NavigationService.navigate('Login')
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       })
       .catch(error => {

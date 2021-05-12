@@ -146,7 +146,7 @@ class Application extends React.Component {
                     })
                     // console.log(dataPart.data.projects)
                 } else {
-                    alert(json.message)
+                    Alert.alert("", json.message)
                 }
             }).catch(error => {
                 this.setState({ isLoading: false })
@@ -219,7 +219,7 @@ class Application extends React.Component {
                         searchableError={() => <Text>Not Found</Text>}
                         zIndex={5000}
                         items={!dataPart ? [] : dataPart.data.projects}
-                        //defaultValue={this.state.task}
+                        defaultValue={this.state.task}
                         containerStyle={styles.dropStyle}
                         style={{
                             backgroundColor: '#ffff',

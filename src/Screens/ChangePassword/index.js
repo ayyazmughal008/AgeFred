@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ActivityIndicator, TouchableOpacity } from "react-native";
+import { Text, View, ActivityIndicator, TouchableOpacity, Alert } from "react-native";
 import { changeUserPass } from "../../Redux/action";
 import { connect } from "react-redux";
 import { darkBlue } from '../../Component/ColorCode'
@@ -25,15 +25,15 @@ class Login extends Component {
         const { password, confirm } = this.state;
         const { login } = this.props.user;
         if (!password.length === 8) {
-            alert('Por favor ingrese contraseña')
+            Alert.alert('Por favor ingrese contraseña')
             return;
         }
         if (!confirm.length === 8) {
-            alert("Proporcione confirmación de contraseña")
+            Alert.alert("Proporcione confirmación de contraseña")
             return;
         }
         if (password !== confirm) {
-            alert("La contraseña y la confirmación de contraseña deben coincidir")
+            Alert.alert("La contraseña y la confirmación de contraseña deben coincidir")
             return;
         }
         this.props.changeUserPass(

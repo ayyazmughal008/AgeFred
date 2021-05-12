@@ -1,6 +1,6 @@
 {
   "name": "agefred",
-  "version": "1.0.1",
+  "version": "1.1.4",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -29,7 +29,7 @@
     "react-native": "0.62.2",
     "react-native-datepicker": "^1.7.2",
     "react-native-document-picker": "^3.5.4",
-    "react-native-dropdown-picker": "^3.1.11",
+    "react-native-dropdown-picker": "^3.8.3",
     "react-native-elements": "^2.0.4",
     "react-native-fast-image": "^8.1.5",
     "react-native-file-viewer": "^2.1.1",

@@ -62,7 +62,7 @@ class HistoryClass extends React.Component {
             vocation: json
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       }).catch(error => { console.log(error) })
   }
@@ -100,7 +100,7 @@ class HistoryClass extends React.Component {
           this.setState({
             loading: false
           });
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       }).catch(error => { console.log(error) })
   }
@@ -291,7 +291,7 @@ class HistoryClass extends React.Component {
                         text5={item.status}
                         text6={item.concept}
                         boxClickHandler={() => this.updateArray(index)}
-                        isTrue = {item.deleteStatus}
+                        isTrue={item.deleteStatus}
                         bgColor={index % 2 ? "#cccccc" : "#ffff"}
                       />
                     )

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput } from "react-native";
+import { Text, View, ActivityIndicator, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput, Alert } from "react-native";
 import { changeUserPass, updateForgetPass } from "../../Redux/action";
 import { connect } from "react-redux";
 import { darkBlue } from '../../Component/ColorCode'
@@ -27,11 +27,11 @@ class Login extends Component {
     onSubmit = () => {
         const { password, confirm, dni, email } = this.state;
         if (!dni) {
-            alert('Por favor proporcione su DNI')
+            Alert.alert("", 'Por favor proporcione su DNI')
             return;
         }
         if (!Validate.isEmail(email)) {
-            alert('Proporcione un correo electrónico válido')
+            Alert.alert("", 'Proporcione un correo electrónico válido')
             return;
         }
         // if (!confirm.length === 8) {
@@ -59,48 +59,48 @@ class Login extends Component {
             //     behavior='padding'
             // //keyboardVerticalOffset={keyboardVerticalOffset}
             // >
-                <View style={styles.container}>
-                    <Header
-                        leftComponent={
-                            <MenuImage
-                                leftClick={() => {
-                                    this.props.navigation.goBack()
-                                }}
-                                rightIcon="chevron-thin-left"
+            <View style={styles.container}>
+                <Header
+                    leftComponent={
+                        <MenuImage
+                            leftClick={() => {
+                                this.props.navigation.goBack()
+                            }}
+                            rightIcon="chevron-thin-left"
+                        />
+                    }
+                    centerComponent={
+                        <HeaderImage
+                            isText={false}
+                        />
+                    }
+                    containerStyle={{
+                        backgroundColor: darkBlue,
+                    }}
+                />
+                <View style={styles.container2}>
+                    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                        <View style={styles.mainView}>
+                            <TextInput
+                                placeholder="DNI"
+                                placeholderTextColor={darkBlue}
+                                value={dni}
+                                style={styles.input}
+                                autoCapitalize="none"
+                                //secureTextEntry={true}
+                                onChangeText={value => this.setState({ dni: value })}
                             />
-                        }
-                        centerComponent={
-                            <HeaderImage
-                                isText={false}
+                            <TextInput
+                                placeholder="Email"
+                                placeholderTextColor={darkBlue}
+                                value={email}
+                                style={styles.input}
+                                autoCapitalize="none"
+                                //secureTextEntry={true}
+                                //password = {true}
+                                onChangeText={value => this.setState({ email: value })}
                             />
-                        }
-                        containerStyle={{
-                            backgroundColor: darkBlue,
-                        }}
-                    />
-                    <View style={styles.container2}>
-                        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                            <View style={styles.mainView}>
-                                <TextInput
-                                    placeholder="DNI"
-                                    placeholderTextColor={darkBlue}
-                                    value={dni}
-                                    style={styles.input}
-                                    autoCapitalize = "none"
-                                    //secureTextEntry={true}
-                                    onChangeText={value => this.setState({ dni: value })}
-                                />
-                                <TextInput
-                                    placeholder="Email"
-                                    placeholderTextColor={darkBlue}
-                                    value={email}
-                                    style={styles.input}
-                                    autoCapitalize = "none"
-                                    //secureTextEntry={true}
-                                    //password = {true}
-                                    onChangeText={value => this.setState({ email: value })}
-                                />
-                                {/* <TextInput
+                            {/* <TextInput
                                     placeholder="Por favor introduzca su nueva contraseña"
                                     placeholderTextColor={darkBlue}
                                     value={password}
@@ -118,7 +118,7 @@ class Login extends Component {
                                     //password = {true}
                                     onChangeText={value => this.setState({ confirm: value })}
                                 /> */}
-                                {/* <TextInput
+                            {/* <TextInput
                                     label="Por favor introduzca su nueva contraseña"
                                     style={styles.input}
                                     secureTextEntry={true}
@@ -142,29 +142,29 @@ class Login extends Component {
                                 password={confirm}
                                 minLength={8}
                             /> */}
-                                <TouchableOpacity
-                                    style={styles.btnBottom}
-                                    onPress={() => this.onSubmit()
-                                        // this.props.fetchLoginDetail(
-                                        //     this.state.dni,
-                                        //     this.state.password
-                                        // )
-                                    }
-                                >
-                                    <Text style={styles.btnText}>{"Enviar"}</Text>
-                                </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.btnBottom}
+                                onPress={() => this.onSubmit()
+                                    // this.props.fetchLoginDetail(
+                                    //     this.state.dni,
+                                    //     this.state.password
+                                    // )
+                                }
+                            >
+                                <Text style={styles.btnText}>{"Enviar"}</Text>
+                            </TouchableOpacity>
 
-                            </View>
-                        </TouchableWithoutFeedback>
-                        {AuthLoading &&
-                            <ActivityIndicator
-                                size="large"
-                                color= {darkBlue}
-                                style={styles.loading}
-                            />
-                        }
-                    </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    {AuthLoading &&
+                        <ActivityIndicator
+                            size="large"
+                            color={darkBlue}
+                            style={styles.loading}
+                        />
+                    }
                 </View>
+            </View>
             // </KeyboardAvoidingView>
         );
     }

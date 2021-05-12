@@ -44,14 +44,22 @@ export default class BlogCard extends React.Component {
                         //backgroundColor: "red",
                         padding: widthPercentageToDP(2)
                     }}>
-                    <HTML
+                    {/* <HTML
                         html={title}
                         tagsStyles={{
                             p: {
                                 fontSize: widthPercentageToDP(4),
                             }
                         }}
-                    />
+                    /> */}
+                    <Text style={{
+                        fontSize: widthPercentageToDP(4),
+                        fontWeight: "bold",
+                        color: "#000",
+                        marginBottom: heightPercentageToDP(2)
+                    }}>
+                        {title}
+                    </Text>
                     <HTML
                         html={description}
                         tagsStyles={{

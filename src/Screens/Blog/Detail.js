@@ -9,7 +9,7 @@ import { styles } from './styles';
 import { darkBlue } from '../../Component/ColorCode'
 import { data } from './data'
 import HTML from 'react-native-render-html';
-import {heightPercentageToDP,widthPercentageToDP} from '../../Component/MakeMeResponsive'
+import { heightPercentageToDP, widthPercentageToDP } from '../../Component/MakeMeResponsive'
 
 class DetailPage extends React.Component {
     constructor(props) {
@@ -50,14 +50,23 @@ class DetailPage extends React.Component {
                             resizeMode={FastImage.resizeMode.cover}
                         />
                         <View style={styles.detailMainTextView}>
-                            <HTML
+                            <Text style={{
+                                fontSize: widthPercentageToDP(4),
+                                fontWeight: "bold",
+                                color: "#000",
+                                marginBottom:heightPercentageToDP(2)
+                            }}>
+                                {title}
+                            </Text>
+                            {/* <HTML
                                 html={title}
                                 tagsStyles={{
                                     p: {
                                         fontSize: widthPercentageToDP(4),
+                                        fontWeight: "bold"
                                     }
                                 }}
-                            />
+                            /> */}
                             <HTML
                                 html={description}
                                 tagsStyles={{

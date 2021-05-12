@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Modal, ScrollView, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Modal, ScrollView, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP, heightPercentageToDP } from '../../Component/MakeMeResponsive'
 import { darkBlue, lightBlue } from '../ColorCode'
 
@@ -29,18 +29,33 @@ export default class DialogBox extends Component {
                             </Text>
                         </View>
                         <View style={styles.bottomView}>
-                            <Text
-                                style={styles.btnText}
+                            <TouchableOpacity
                                 onPress={cancelClick}
+                                style={{
+                                    width: "50%",
+                                    height: "100%",
+                                    justifyContent:"center",
+                                    alignItems:"center"
+                                }}
                             >
-                                {"Cancel"}
-                            </Text>
-                            <Text
-                                style={styles.btnText}
+                                <Text style={styles.btnText}>
+                                    {"Cancel"}
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
                                 onPress={okClick}
+                                style={{
+                                    width: "50%",
+                                    height: "100%",
+                                    justifyContent:"center",
+                                    alignItems:"center"
+                                }}
                             >
-                                {"OK"}
-                            </Text>
+                                <Text style={styles.btnText}>
+                                    {"OK"}
+                                </Text>
+                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>

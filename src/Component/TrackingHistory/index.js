@@ -15,7 +15,9 @@ export default class Header extends React.Component {
             text4,
             text5,
             bgColor,
-            mapClick
+            mapClick,
+            mapClick2,
+            text7
         } = this.props
         return (
             <View style={styles.container}>
@@ -58,6 +60,17 @@ export default class Header extends React.Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                <View style={[styles.componet7, {
+                    backgroundColor: bgColor
+                }]}>
+                    <TouchableOpacity
+                        onPress={mapClick2}
+                    >
+                        <Text style={styles.componetText}>
+                            {text7}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -65,15 +78,14 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        //flex: 1,
-        justifyContent: "flex-start",
+        flex: 0,
+        width: widthPercentageToDP(100),
         flexDirection: "row",
-        flexWrap: "wrap",
         alignItems: "center",
-        overflow: 'hidden'
+        //backgroundColor:"red"
     },
     componet1: {
-        width: '20%',
+        width: '16%',
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -97,7 +109,7 @@ const styles = StyleSheet.create({
         padding: widthPercentageToDP(1.5)
     },
     componet2: {
-        width: '20%',
+        width: '16%',
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -107,7 +119,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet3: {
-        width: '20%',
+        width: '17%',
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet4: {
-        width: '20%',
+        width: '17%',
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -127,7 +139,17 @@ const styles = StyleSheet.create({
         borderBottomColor: darkGrey,
     },
     componet5: {
-        width: '19%',
+        width: '17%',
+        height: heightPercentageToDP(7),
+        justifyContent: "center",
+        alignItems: "center",
+        borderRightWidth: widthPercentageToDP(0.1),
+        borderRightColor: darkBlue,
+        borderBottomWidth: widthPercentageToDP(0.1),
+        borderBottomColor: darkGrey,
+    },
+    componet7: {
+        width: '17%',
         height: heightPercentageToDP(7),
         justifyContent: "center",
         alignItems: "center",
@@ -146,13 +168,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: widthPercentageToDP(0.1),
         borderBottomColor: darkGrey,
     },
-    componet7: {
-        width: widthPercentageToDP(8.5),
-        height: heightPercentageToDP(7),
-        justifyContent: "center",
-        alignItems: "center",
-        //backgroundColor:"purple"
-    },
+    // componet7: {
+    //     width: widthPercentageToDP(8.5),
+    //     height: heightPercentageToDP(7),
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     //backgroundColor:"purple"
+    // },
     box: {
         width: widthPercentageToDP(4),
         height: widthPercentageToDP(4),

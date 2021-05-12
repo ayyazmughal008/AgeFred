@@ -61,7 +61,7 @@ class HistoryClass extends React.Component {
             multiHours: json
           });
         } else {
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       }).catch(error => { console.log(error) })
   }
@@ -98,7 +98,7 @@ class HistoryClass extends React.Component {
           this.setState({
             loading: false
           });
-          alert(json.message)
+          Alert.alert("", json.message)
         }
       }).catch(error => { console.log(error) })
   }
