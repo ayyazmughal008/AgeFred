@@ -418,6 +418,7 @@ export const postExpenseData = (
     })
       .then(res => res.json())
       .then(json => {
+        console.log(json)
         dispatch({ type: AUTH_LOADING, payload: false });
         if (json.status === "Success") {
           Toast.show(json.message, Toast.LONG, [
