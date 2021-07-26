@@ -74,7 +74,7 @@ class TimeTracking extends Component {
                 loading: false
             }), error => {
                 this.setState({ loading: false }, () => {
-                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
+                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application")
                 }),
                 {
                     enableHighAccuracy: true,
@@ -87,7 +87,7 @@ class TimeTracking extends Component {
                 loading: false
             }), error => {
                 this.setState({ loading: false }, () => {
-                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
+                    Alert.alert("", "Please enable your location, it's required for this section and reopen the application")
                 }),
                 {
                     enableHighAccuracy: true,
@@ -115,7 +115,7 @@ class TimeTracking extends Component {
                         loading: false
                     }), error => {
                         this.setState({ loading: false }, () => {
-                            Alert.alert("Please enable your location, it's required for this section and reopen the application", error)
+                            Alert.alert("Please enable your location, it's required for this section and reopen the application")
                         }),
                         {
                             enableHighAccuracy: true,
@@ -128,7 +128,7 @@ class TimeTracking extends Component {
                         loading: false
                     }), error => {
                         this.setState({ loading: false }, () => {
-                            Alert.alert("", "Please enable your location, it's required for this section and reopen the application", error)
+                            Alert.alert("", "Please enable your location, it's required for this section and reopen the application")
                         }),
                         {
                             enableHighAccuracy: true,
