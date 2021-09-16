@@ -345,7 +345,7 @@ class Epis2 extends React.Component {
                     <TextInput
                         style={styles.input}
                         //multiline
-                        placeholder="Tala"
+                        placeholder="Talla"
                         value={this.state.size}
                         placeholderTextColor={darkBlue}
                         onChangeText={(value) => this.setState({ size: value })}
