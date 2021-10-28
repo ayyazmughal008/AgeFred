@@ -250,12 +250,11 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "agefredTests" */;
 			buildPhases = (
 				382102427EAA48E2A99C5BF3 /* [CP] Check Pods Manifest.lock */,
-				C934261D4FBF9EE6D09553A1 /* [CP] Prepare Artifacts */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C36544FB080875E7CAA8584D /* [CP] Embed Pods Frameworks */,
 				B2492D21D7F6AD9E4F978000 /* [CP] Copy Pods Resources */,
+				4AE0536F65601EAD69DBC528 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,15 +272,14 @@
 			buildPhases = (
 				9E558801555126FD7C4457D0 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
-				5475E4ADC2C19E5031203FC8 /* [CP] Prepare Artifacts */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				76873D7FA5E1057CB5FBDCE4 /* [CP] Embed Pods Frameworks */,
 				4EDDAC4B03E663FC496A4B81 /* [CP] Copy Pods Resources */,
 				31D4A99733A9CD97FC9E7A32 /* [CP-User] [NOTIFEE] Config */,
 				9F8EE073C2D4D6CB17683078 /* [CP-User] [RNFB] Core Configuration */,
+				7C8A78EF75932CD80D990BD6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -476,6 +474,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4AE0536F65601EAD69DBC528 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4EDDAC4B03E663FC496A4B81 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,35 +546,18 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred/Pods-agefred-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5475E4ADC2C19E5031203FC8 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agefred/Pods-agefred-artifacts.sh",
-				"${PODS_ROOT}/../../node_modules/@notifee/react-native/ios/NotifeeCore.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred/Pods-agefred-artifacts.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		76873D7FA5E1057CB5FBDCE4 /* [CP] Embed Pods Frameworks */ = {
+		7C8A78EF75932CD80D990BD6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-agefred/Pods-agefred-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -671,41 +670,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C36544FB080875E7CAA8584D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C934261D4FBF9EE6D09553A1 /* [CP] Prepare Artifacts */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-artifacts.sh",
-				"${PODS_ROOT}/../../node_modules/@notifee/react-native/ios/NotifeeCore.xcframework",
-			);
-			name = "[CP] Prepare Artifacts";
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-agefred-agefredTests/Pods-agefred-agefredTests-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E597D8273F7F998C9F97105F /* [CP] Check Pods Manifest.lock */ = {
