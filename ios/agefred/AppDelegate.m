@@ -9,23 +9,23 @@
 #import "Orientation.h"
 
 #if DEBUG
-#import <FlipperKit/FlipperClient.h>
-#import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
-#import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
-#import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
-#import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
-#import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+// #import <FlipperKit/FlipperClient.h>
+// #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
+// #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
+// #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
+// #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
+// #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
 
-static void InitializeFlipper(UIApplication *application) {
-  FlipperClient *client = [FlipperClient sharedClient];
-  SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
-  [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
-  [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
-  [client addPlugin:[FlipperKitReactPlugin new]];
-  [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
-  [client start];
-}
+// static void InitializeFlipper(UIApplication *application) {
+//   FlipperClient *client = [FlipperClient sharedClient];
+//   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
+//   [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
+//   [client addPlugin:[[FKUserDefaultsPlugin alloc] initWithSuiteName:nil]];
+//   [client addPlugin:[FlipperKitReactPlugin new]];
+//   [client addPlugin:[[FlipperKitNetworkPlugin alloc] initWithNetworkAdapter:[SKIOSNetworkAdapter new]]];
+//   [client start];
+// }
 
 
 #endif
@@ -64,7 +64,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   }
   [GMSServices provideAPIKey:@"AIzaSyDSdO2jorR5rhK6tF-XM6T9R-TQ1Y4xKV0"];
 #if DEBUG
-  InitializeFlipper(application);
+  //InitializeFlipper(application);
 #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
